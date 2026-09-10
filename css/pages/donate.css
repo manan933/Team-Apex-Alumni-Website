@@ -1,0 +1,118 @@
+/* ==========================================================================
+   PAGE: DONATE (donate.html)
+   Owner: Guy 3 — Donations Developer
+   READ-ONLY files you must NEVER edit: tokens.css, base.css, components.css,
+   nav.js, storage-service.js, firebase-config.js, mock-data.js, auth.js
+   ========================================================================== */
+
+/* --- Shared Handoff Guidance Box (scaffold helper — remove when live UI ships) --- */
+.handoff-box {
+  background-color: var(--color-surface);
+  border: 2px dashed var(--color-accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  margin-bottom: var(--space-12);
+  box-shadow: var(--shadow-sm);
+}
+
+.handoff-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.handoff-badge {
+  background-color: var(--color-accent);
+  color: var(--color-primary-dark);
+  font-weight: var(--font-bold);
+  font-size: var(--text-xs);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.handoff-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+}
+
+.handoff-code-snippet {
+  background: var(--color-primary-dark);
+  color: #818CF8;
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  overflow-x: auto;
+  margin: var(--space-4) 0;
+  line-height: 1.6;
+}
+
+/* --- Donate Wall Scaffold --- */
+.donation-tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.donation-tier-card {
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  text-align: center;
+  background: var(--color-surface);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.donation-tier-card:hover,
+.donation-tier-card.selected {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-light);
+  transform: translateY(-2px);
+}
+
+.tier-amount {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-1);
+}
+
+.tier-desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+.donor-wall-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-4);
+}
+
+.donor-card-placeholder {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+@media (max-width: 992px) {
+  .donation-tiers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .donation-tiers-grid {
+    grid-template-columns: 1fr;
+  }
+}
