@@ -1,0 +1,74 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && 
+        exists(/databases/$(database)/documents/alumni/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/alumni/$(request.auth.uid)).data.isAdmin == true;
+    }
+
+    // 1. Alumni Profiles
+    // Anyone can read profiles in the public directory;
+    // Users can only write/edit their own profile document.
+    match /alumni/{uid} {
+      allow read: if true;
+      allow create: if isOwner(uid);
+      allow update: if isOwner(uid) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // 2. Story Submissions (Moderated Content Layer)
+    // Public can read only if approved; author can view their own; admin can view all.
+    // Logged in alumni can submit (create) with status 'pending'.
+    // Only admins can approve, reject, or delete submissions.
+    match /submissions/{submissionId} {
+      allow read: if resource.data.status == "approved" || 
+                     (isAuthenticated() && resource.data.authorUid == request.auth.uid) || 
+                     isAdmin();
+      allow create: if isAuthenticated() && 
+                       request.resource.data.authorUid == request.auth.uid &&
+                       request.resource.data.status == "pending";
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // 3. Videos Collection
+    // Public read; only admins can curate or modify video entries.
+    match /videos/{videoId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // 4. Events Collection (Scaffold for Events Team)
+    // Public read; only admins can add/edit events.
+    match /events/{eventId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // 5. Donations Collection (Scaffold for Giving Team)
+    // Public can view public donor wall; creation authenticated or via server webhook;
+    match /donations/{donationId} {
+      allow read: if true;
+      allow create: if true; // Webhook / checkout session writes
+      allow update, delete: if isAdmin();
+    }
+
+    // 6. Newsletter Subscribers
+    // Public can submit email; only admin can export or view subscriber list.
+    match /subscribers/{subscriberId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+  }
+}

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staff Administration Portal — Apex University Alumni</title>
+  <meta name="robots" content="noindex, nofollow" />
+  
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/pages/stubs.css" />
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-crest">Ω</div>
+        <div class="brand-info">
+          <span class="brand-title">Apex University</span>
+          <span class="brand-subtitle">Alumni Network</span>
+        </div>
+      </a>
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="directory.html" class="nav-link">Alumni Directory</a>
+        <a href="videos.html" class="nav-link">Videos</a>
+        <a href="news.html" class="nav-link">News & Stories</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="donate.html" class="nav-link">Donate</a>
+      </nav>
+      <div class="header-actions">
+        <div id="nav-auth-container"></div>
+        <button class="mobile-toggle" aria-label="Toggle navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer-backdrop"></div>
+  <div class="mobile-drawer">
+    <div class="brand">
+      <div class="brand-crest">Ω</div>
+      <div class="brand-info">
+        <span class="brand-title">Apex University</span>
+        <span class="brand-subtitle">Alumni Network</span>
+      </div>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="directory.html" class="mobile-nav-link">Alumni Directory</a>
+      <a href="videos.html" class="mobile-nav-link">Videos</a>
+      <a href="news.html" class="mobile-nav-link">News & Stories</a>
+      <a href="events.html" class="mobile-nav-link">Events</a>
+      <a href="donate.html" class="mobile-nav-link">Donate</a>
+    </div>
+    <div id="mobile-auth-container"></div>
+  </div>
+
+  <main class="main-content">
+    <div class="container" style="padding-top: var(--space-8);">
+
+      <!-- Role Gate Notice (Visible when user is not admin) -->
+      <div id="admin-auth-gate" class="card text-center" style="max-width: 580px; margin: var(--space-12) auto; padding: var(--space-10);">
+        <div class="brand-crest" style="margin: 0 auto var(--space-4);">🔒</div>
+        <h2 style="font-size: var(--text-2xl); color: var(--color-primary); margin-bottom: var(--space-2);">Staff Access Restricted</h2>
+        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-6);">
+          This section requires elevated administrator permissions (<code>isAdmin: true</code>). Please sign in with an approved university staff account.
+        </p>
+        <div style="display: flex; flex-direction: column; gap: var(--space-3); align-items: center;">
+          <a href="login.html" class="btn btn-primary btn-sm">Sign In With Account</a>
+          
+          <!-- Quick test button for developer review in mock mode -->
+          <div style="margin-top: var(--space-4); padding: var(--space-4); background-color: var(--color-bg-alt); border-radius: var(--radius-sm); width: 100%;">
+            <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-bottom: var(--space-2);">
+              <strong>Developer Review Shortcut:</strong> Click below to simulate signing in as Admin (Marcus Vance):
+            </p>
+            <button id="demo-admin-login-btn" class="btn btn-accent btn-sm">
+              Simulate Admin Login (Marcus Vance) &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Dashboard Content (Visible when admin authenticated) -->
+      <div id="admin-dashboard" style="display: none;">
+        <div class="section-header text-left" style="margin-bottom: var(--space-6);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-2);">
+            <div>
+              <span class="section-tag">University Operations</span>
+              <h1 class="section-title">Moderation & Administration Console</h1>
+            </div>
+            <span class="badge badge-accent">Admin Role Verified</span>
+          </div>
+          <p class="section-subtitle">
+            Review community story submissions, publish upcoming events, and curate donor recognition walls.
+          </p>
+        </div>
+
+        <div class="admin-layout">
+          <!-- Sidebar Navigation -->
+          <aside class="admin-sidebar">
+            <button class="admin-nav-item active" data-tab="stories">
+              <span>Pending Stories</span>
+              <span class="badge badge-warning" id="pending-stories-count">0</span>
+            </button>
+            <button class="admin-nav-item" data-tab="events">
+              <span>Manage Events</span>
+              <span class="badge badge-subtle">Stub</span>
+            </button>
+            <button class="admin-nav-item" data-tab="donations">
+              <span>Manage Donations</span>
+              <span class="badge badge-subtle">Stub</span>
+            </button>
+            <button class="admin-nav-item" data-tab="directory">
+              <span>Directory Moderation</span>
+              <span class="badge badge-subtle">Stub</span>
+            </button>
+          </aside>
+
+          <!-- Main Admin Panel Content -->
+          <section class="admin-main-panel">
+            <!-- Panel 1: Pending Stories Moderation Queue -->
+            <div id="panel-stories" class="admin-tab-panel">
+              <div style="margin-bottom: var(--space-6);">
+                <h3 style="margin-bottom: var(--space-1);">Editorial Moderation Queue</h3>
+                <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: 0;">
+                  Alumni stories submitted via <code>news.html</code>. Approving a story flags <code>status: "approved"</code>, instantly publishing it to the live public magazine feed.
+                </p>
+              </div>
+
+              <div id="admin-pending-stories-list">
+                <!-- Dynamically populated from js/pages/admin.js -->
+              </div>
+            </div>
+
+            <!-- Panel 2: Events Management Stub -->
+            <div id="panel-events" class="admin-tab-panel" style="display: none;">
+              <h3>Manage Campus & Chapter Events (Stub)</h3>
+              <p style="font-size: var(--text-sm); color: var(--color-text-secondary);">
+                <!-- TEAM: build events creation form and CRUD table here -->
+                The Events team will implement event scheduling, attendee exports, and RSVP tracking here.
+              </p>
+              <div class="handoff-box" style="margin-top: var(--space-4);">
+                <span class="handoff-badge">Scaffold Note</span>
+                <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin-top: var(--space-2);">
+                  Connect this panel to the <code>events</code> Firestore collection with full write permissions granted to admin roles in <code>firestore.rules</code>.
+                </p>
+              </div>
+            </div>
+
+            <!-- Panel 3: Donations Management Stub -->
+            <div id="panel-donations" class="admin-tab-panel" style="display: none;">
+              <h3>Manage Donations & Donor Wall (Stub)</h3>
+              <p style="font-size: var(--text-sm); color: var(--color-text-secondary);">
+                <!-- TEAM: build donation ledger and donor recognition toggles here -->
+                The Giving team will link payment webhooks and reconcile recurring donations here.
+              </p>
+              <div class="handoff-box" style="margin-top: var(--space-4);">
+                <span class="handoff-badge">Scaffold Note</span>
+                <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin-top: var(--space-2);">
+                  Manage anonymization requests and generate tax receipt records for alumni benefactors.
+                </p>
+              </div>
+            </div>
+
+            <!-- Panel 4: Directory Management Stub -->
+            <div id="panel-directory" class="admin-tab-panel" style="display: none;">
+              <h3>Alumni Directory Verification (Stub)</h3>
+              <p style="font-size: var(--text-sm); color: var(--color-text-secondary);">
+                <!-- TEAM: build batch verification against official university registrar records -->
+                Staff can toggle the <code>verified: true</code> badge for registered graduates.
+              </p>
+              <div class="handoff-box" style="margin-top: var(--space-4);">
+                <span class="handoff-badge">Scaffold Note</span>
+                <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin-top: var(--space-2);">
+                  Query <code>alumni</code> collection where <code>verified == false</code> to review diplomas or student ID matching.
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Persistent Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 Apex University Alumni Association. All rights reserved.</div>
+        <div class="social-links">
+          <a href="#" class="social-link">LinkedIn</a>
+          <a href="#" class="social-link">YouTube</a>
+          <a href="#" class="social-link">X (Twitter)</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="js/nav.js"></script>
+  <script type="module" src="js/pages/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+/* ==========================================================================
+   PAGE: STUBS (events.html, donate.html, admin.html)
+   Styling for team-handoff scaffolds, instructions callouts, admin dashboard
+   ========================================================================== */
+
+/* Handoff Guidance Box for Developer Teams */
+.handoff-box {
+  background-color: var(--color-surface);
+  border: 2px dashed var(--color-accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  margin-bottom: var(--space-12);
+  box-shadow: var(--shadow-sm);
+}
+
+.handoff-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.handoff-badge {
+  background-color: var(--color-accent);
+  color: var(--color-primary-dark);
+  font-weight: var(--font-bold);
+  font-size: var(--text-xs);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.handoff-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+}
+
+.handoff-code-snippet {
+  background: var(--color-primary-dark);
+  color: #818CF8;
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  overflow-x: auto;
+  margin: var(--space-4) 0;
+  line-height: 1.6;
+}
+
+/* Events Calendar / Grid Scaffold */
+.events-scaffold-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-6);
+}
+
+.event-stub-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  opacity: 0.75;
+  border-left: 4px solid var(--color-accent);
+}
+
+/* Donate Wall Scaffold */
+.donation-tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.donation-tier-card {
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  text-align: center;
+  background: var(--color-surface);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.donation-tier-card:hover,
+.donation-tier-card.selected {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-light);
+  transform: translateY(-2px);
+}
+
+.tier-amount {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-1);
+}
+
+.tier-desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+.donor-wall-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-4);
+}
+
+.donor-card-placeholder {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* --- Admin Moderation Dashboard Layout --- */
+.admin-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-16);
+  min-height: 600px;
+}
+
+.admin-sidebar {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+  height: fit-content;
+}
+
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  text-align: left;
+}
+
+.admin-nav-item:hover {
+  background-color: var(--color-bg-alt);
+  color: var(--color-primary);
+}
+
+.admin-nav-item.active {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.admin-main-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-sm);
+}
+
+.moderation-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  margin-bottom: var(--space-4);
+  background-color: var(--color-bg-main);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.moderation-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.moderation-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+@media (max-width: 992px) {
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+  .donation-tiers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .donation-tiers-grid {
+    grid-template-columns: 1fr;
+  }
+}

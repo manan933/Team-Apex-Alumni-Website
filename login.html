@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alumni Sign In — Apex University</title>
+  <meta name="description" content="Sign in to your official Apex University alumni account to manage your directory profile and submit news stories." />
+  
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/pages/auth.css" />
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-crest">Ω</div>
+        <div class="brand-info">
+          <span class="brand-title">Apex University</span>
+          <span class="brand-subtitle">Alumni Network</span>
+        </div>
+      </a>
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="directory.html" class="nav-link">Alumni Directory</a>
+        <a href="videos.html" class="nav-link">Videos</a>
+        <a href="news.html" class="nav-link">News & Stories</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="donate.html" class="nav-link">Donate</a>
+      </nav>
+      <div class="header-actions">
+        <div id="nav-auth-container">
+          <a href="signup.html" class="btn btn-outline btn-sm">Join Network</a>
+        </div>
+        <button class="mobile-toggle" aria-label="Toggle navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer-backdrop"></div>
+  <div class="mobile-drawer">
+    <div class="brand">
+      <div class="brand-crest">Ω</div>
+      <div class="brand-info">
+        <span class="brand-title">Apex University</span>
+        <span class="brand-subtitle">Alumni Network</span>
+      </div>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="directory.html" class="mobile-nav-link">Alumni Directory</a>
+      <a href="videos.html" class="mobile-nav-link">Videos</a>
+      <a href="news.html" class="mobile-nav-link">News & Stories</a>
+      <a href="events.html" class="mobile-nav-link">Events</a>
+      <a href="donate.html" class="mobile-nav-link">Donate</a>
+    </div>
+    <div id="mobile-auth-container"></div>
+  </div>
+
+  <main class="main-content">
+    <div class="auth-wrapper">
+      <div class="auth-card">
+        <div class="auth-header">
+          <div class="brand-crest auth-brand-crest">Ω</div>
+          <h1 class="auth-title">Welcome Back</h1>
+          <p class="auth-subtitle">Sign in to update your profile or submit alumni stories</p>
+        </div>
+
+        <div class="auth-tabs">
+          <a href="login.html" class="auth-tab active">Sign In</a>
+          <a href="signup.html" class="auth-tab">New Registration</a>
+        </div>
+
+        <!-- Alert box for errors -->
+        <div id="auth-alert" class="auth-alert"></div>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-email" class="form-label">University / Personal Email <span class="required">*</span></label>
+            <input 
+              type="email" 
+              id="login-email" 
+              class="form-control" 
+              placeholder="alumna@alumni.apex.edu" 
+              required 
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2);">
+              <label for="login-password" class="form-label" style="margin-bottom: 0;">Password <span class="required">*</span></label>
+              <a href="#" id="forgot-password-trigger" class="auth-link">Forgot password?</a>
+            </div>
+            <input 
+              type="password" 
+              id="login-password" 
+              class="form-control" 
+              placeholder="••••••••" 
+              required 
+              autocomplete="current-password"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: var(--space-4);">
+            Sign In to Network
+          </button>
+        </form>
+
+        <!-- Quick-fill demo credentials for testers -->
+        <div style="margin-top: var(--space-6); padding: var(--space-3); background-color: var(--color-bg-alt); border-radius: var(--radius-sm); font-size: var(--text-xs); color: var(--color-text-secondary);">
+          <strong>Demo Tip:</strong> In Demo Mode, you can sign in with any existing email e.g. <code>elena.rostova@biotech-innovations.org</code> (or <code>marcus.vance@apexcapital.co</code> for Admin) with any password.
+        </div>
+
+        <div class="auth-footer">
+          Don't have an alumni profile yet? <a href="signup.html" class="auth-link">Join the network</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Forgot Password Modal -->
+  <div id="forgot-password-modal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Reset Password</h3>
+        <button id="close-forgot-modal" class="modal-close-btn">&times;</button>
+      </div>
+      <form id="forgot-password-form">
+        <div class="modal-body">
+          <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+            Enter the email address associated with your alumni account. We will dispatch a secure link to reset your credentials.
+          </p>
+          <div class="form-group">
+            <label for="forgot-email" class="form-label">Email Address</label>
+            <input type="email" id="forgot-email" class="form-control" placeholder="yourname@alumni.apex.edu" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary btn-sm">Send Reset Email</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="js/nav.js"></script>
+  <script type="module" src="js/pages/auth-page.js"></script>
+</body>
+</html>
