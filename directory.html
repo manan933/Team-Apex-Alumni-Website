@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alumni Directory — Apex University Global Network</title>
-  <meta name="description" content="Browse and connect with over 28,000 verified Apex University graduates across 50+ countries. Filter by batch, company, industry, or degree." />
+  <title>Alumni Directory &amp; Discovery — Apex University Global Network</title>
+  <meta name="description" content="Discover, search, and connect with 28,000+ verified Apex University graduates across 50+ countries. Switch between Editorial Cards and Dense Directory view." />
 
-  <!-- CSS Design System & Components -->
+  <!-- CSS Design System -->
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/components.css" />
@@ -14,9 +14,7 @@
 </head>
 <body>
 
-  <!-- ========================================================================
-       PERSISTENT SITE HEADER / NAVIGATION
-       ======================================================================== -->
+  <!-- Persistent Site Header -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="brand">
@@ -41,17 +39,14 @@
           <a href="login.html" class="btn btn-outline btn-sm">Alumni Login</a>
         </div>
 
-        <!-- Mobile Hamburger Toggle -->
         <button class="mobile-toggle" aria-label="Toggle navigation menu">
-          <span></span>
-          <span></span>
-          <span></span>
+          <span></span><span></span><span></span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Mobile Slide-In Navigation Drawer -->
+  <!-- Mobile Drawer -->
   <div class="mobile-drawer-backdrop"></div>
   <div class="mobile-drawer">
     <div class="brand">
@@ -74,25 +69,38 @@
     <div id="mobile-auth-container"></div>
   </div>
 
-  <!-- ========================================================================
-       MAIN DIRECTORY CONTENT
-       ======================================================================== -->
   <main class="main-content">
     
-    <!-- Clean Typographic Page Header -->
+    <!-- Editorial Page Masthead Header -->
     <section class="directory-header section-cream">
       <div class="container">
-        <span class="section-tag">Global Community</span>
-        <h1 class="directory-title">Alumni Directory</h1>
-        <p class="directory-subtitle">
-          Explore and connect with graduates pioneering research, founding ventures, and leading civic progress worldwide.
-        </p>
+        <div class="directory-header-content">
+          <span class="section-tag">Global Talent Index</span>
+          <h1 class="directory-title">Discover Leaders, Mentors &amp; Collaborators</h1>
+          <p class="directory-subtitle">
+            An interconnected ecosystem of 28,000+ verified scholars, founders, researchers, and creators. Explore by curated domain, batch year, or company.
+          </p>
+
+          <!-- Quick Discovery Preset Chips -->
+          <div class="discovery-chips-bar" aria-label="Quick Discovery Presets">
+            <span class="chips-label">Explore:</span>
+            <button class="discovery-chip" data-chip="notable">✨ Verified &amp; Notable</button>
+            <button class="discovery-chip" data-chip="ai">🤖 AI &amp; DeepTech</button>
+            <button class="discovery-chip" data-chip="biotech">🧬 Biotech &amp; Health</button>
+            <button class="discovery-chip" data-chip="climate">⚡ Clean Energy</button>
+            <button class="discovery-chip" data-chip="finance">📈 Venture Capital</button>
+            <button class="discovery-chip" data-chip="bayarea">📍 San Francisco Hub</button>
+            <button class="discovery-chip" data-chip="london">📍 London Hub</button>
+            <button class="discovery-chip" data-chip="batch2018">🎓 Class of '18</button>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Search & Multi-Filter Toolbar -->
+    <!-- Interactive Directory Toolbar & Search -->
     <section class="directory-toolbar-section">
       <div class="container">
+        
         <div class="filter-bar">
           <div class="filter-row-top">
             <div class="search-box">
@@ -100,17 +108,30 @@
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
-              <input type="text" id="search-name" class="search-input" placeholder="Search by name, role, company, or keyword..." autocomplete="off" />
+              <input type="text" id="search-name" class="search-input" placeholder="Search by name, company, role, degree, or research keyword..." autocomplete="off" />
+            </div>
+
+            <!-- View Mode Switcher (Editorial vs Dense Table) -->
+            <div class="view-mode-switcher" role="radiogroup" aria-label="Display view options">
+              <button class="view-mode-btn active" id="view-mode-grid" title="Editorial Portrait Cards">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <span>Cards</span>
+              </button>
+              <button class="view-mode-btn" id="view-mode-table" title="Dense Directory Table">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                <span>Table</span>
+              </button>
             </div>
           </div>
 
+          <!-- Filter Dropdown Controls -->
           <div class="filter-controls">
             <select id="filter-batch" class="filter-select" aria-label="Filter by graduation year">
               <option value="">Graduation Batch (All)</option>
             </select>
 
             <select id="filter-company" class="filter-select" aria-label="Filter by company">
-              <option value="">Company &amp; Institution (All)</option>
+              <option value="">Company / Institution (All)</option>
             </select>
 
             <select id="filter-industry" class="filter-select" aria-label="Filter by industry">
@@ -122,27 +143,49 @@
             </select>
 
             <button id="clear-filters-btn" class="clear-filters-btn" style="display: none;">
-              Reset Filters &times;
+              Reset All Filters &times;
             </button>
           </div>
         </div>
 
-        <!-- Filter Summary & Count -->
+        <!-- Filter Summary & Count Bar -->
         <div class="filter-summary-bar">
           <span id="results-count" class="results-count">Loading alumni records...</span>
+          <div id="active-filter-tags" class="active-filter-tags"></div>
         </div>
 
-        <!-- Directory Cards Grid -->
+        <!-- Mode 1: Editorial Cards Grid -->
         <div id="directory-grid" class="directory-grid">
-          <!-- Dynamically populated by js/pages/directory.js -->
+          <!-- Populated dynamically by js/pages/directory.js -->
         </div>
+
+        <!-- Mode 2: Dense Table View -->
+        <div id="directory-table-container" class="directory-table-container" style="display: none;">
+          <table class="dense-directory-table">
+            <thead>
+              <tr>
+                <th>Graduate</th>
+                <th>Role &amp; Organization</th>
+                <th>Academic Degree</th>
+                <th>Grad Year</th>
+                <th>Location</th>
+                <th>Domain</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="directory-table-body">
+              <!-- Dynamically populated rows -->
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </section>
 
   </main>
 
   <!-- ========================================================================
-       ALUMNI PROFILE DETAIL MODAL
+       ALUMNI PROFILE QUICK DETAIL MODAL
        ======================================================================== -->
   <div id="alumni-detail-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal-content directory-modal-content">
@@ -150,14 +193,12 @@
         <!-- Dynamically injected alumni details -->
       </div>
       <div class="modal-footer">
-        <button id="close-alumni-modal" class="btn btn-outline btn-sm">Close Profile</button>
+        <button id="close-alumni-modal" class="btn btn-outline btn-sm">Close Preview</button>
       </div>
     </div>
   </div>
 
-  <!-- ========================================================================
-       PERSISTENT SITE FOOTER
-       ======================================================================== -->
+  <!-- Persistent Site Footer -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">

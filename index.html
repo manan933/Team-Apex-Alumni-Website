@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>University Alumni Network — Official Global Community</title>
-  <meta name="description" content="Connect with over 28,000 university alumni worldwide. Explore career networks, inspiring alumni stories, chapters, events, and opportunities." />
+  <title>Apex University Alumni Network — Official Global Community</title>
+  <meta name="description" content="Official alumni network of Apex University. Connect with 28,000+ leaders, researchers, and innovators across 50+ countries. Explore the interactive alumni constellation." />
   
-  <!-- Open Graph / Meta -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="University Alumni Network" />
-  <meta property="og:description" content="Official global community for university alumni across 50+ countries." />
+  <meta property="og:title" content="Apex University Alumni Network" />
+  <meta property="og:description" content="Connecting generations of excellence across 50+ countries." />
   
-  <!-- CSS Design System & Components -->
+  <!-- CSS Design System -->
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/components.css" />
@@ -19,7 +19,9 @@
 </head>
 <body>
 
-  <!-- PERSISTENT SITE HEADER / NAVIGATION -->
+  <!-- ========================================================================
+       PERSISTENT SITE HEADER
+       ======================================================================== -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="brand">
@@ -34,27 +36,25 @@
         <a href="index.html" class="nav-link active">Home</a>
         <a href="directory.html" class="nav-link">Alumni Directory</a>
         <a href="videos.html" class="nav-link">Videos</a>
-        <a href="news.html" class="nav-link">News & Stories</a>
+        <a href="news.html" class="nav-link">News &amp; Stories</a>
         <a href="events.html" class="nav-link">Events</a>
         <a href="donate.html" class="nav-link">Donate</a>
       </nav>
 
       <div class="header-actions">
+        <!-- Search Trigger injected dynamically by nav.js or fallback -->
         <div id="nav-auth-container">
           <a href="login.html" class="btn btn-outline btn-sm">Alumni Login</a>
         </div>
 
-        <!-- Mobile Hamburger Toggle -->
         <button class="mobile-toggle" aria-label="Toggle navigation menu">
-          <span></span>
-          <span></span>
-          <span></span>
+          <span></span><span></span><span></span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Mobile Slide-In Navigation Drawer -->
+  <!-- Mobile Drawer -->
   <div class="mobile-drawer-backdrop"></div>
   <div class="mobile-drawer">
     <div class="brand">
@@ -66,10 +66,10 @@
     </div>
 
     <div class="mobile-nav-links">
-      <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="index.html" class="mobile-nav-link active">Home</a>
       <a href="directory.html" class="mobile-nav-link">Alumni Directory</a>
       <a href="videos.html" class="mobile-nav-link">Videos</a>
-      <a href="news.html" class="mobile-nav-link">News & Stories</a>
+      <a href="news.html" class="mobile-nav-link">News &amp; Stories</a>
       <a href="events.html" class="mobile-nav-link">Events</a>
       <a href="donate.html" class="mobile-nav-link">Donate</a>
     </div>
@@ -79,44 +79,125 @@
 
   <main class="main-content">
     
-    <!-- 1. Editorial Hero -->
-    <section class="section-cream hero-editorial">
-      <div class="container">
-        <h1 class="hero-statement">Where accomplished graduates shape what comes next.</h1>
-        <p class="hero-tagline">
-          Join an interconnected global network of over 28,000 alumni across 50+ countries.
-        </p>
-        <div class="hero-actions">
-          <a href="directory.html" class="btn btn-accent btn-lg">Explore the Directory &rarr;</a>
-          <a href="login.html" class="btn btn-outline btn-lg">Alumni Portal</a>
+    <!-- ======================================================================
+         1. CINEMATIC EDITORIAL HERO WITH LIVE ALUMNI COMPOSITION
+         ====================================================================== -->
+    <section class="hero-cinematic section-cream">
+      <div class="container hero-inner-grid">
+        <div class="hero-text-col">
+          <div class="hero-tag-wrap reveal">
+            <span class="section-tag">Apex University Alumni Community</span>
+          </div>
+
+          <h1 class="hero-headline reveal reveal-delay-1">
+            Where legacy shapes the <span class="accent-italic">next horizon.</span>
+          </h1>
+
+          <p class="hero-description reveal reveal-delay-2">
+            An interconnected global community of 28,000+ researchers, founders, civic counsels, and creators across 50+ countries. Reconnecting cohorts, accelerating mentorship, and shaping the future together.
+          </p>
+
+          <div class="hero-actions-wrap reveal reveal-delay-3">
+            <a href="directory.html" class="btn btn-primary btn-lg">Explore Alumni Directory &rarr;</a>
+            <button class="btn btn-outline btn-lg" onclick="document.getElementById('cmd-palette-trigger')?.click();">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              Quick Search (⌘K)
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-spatial-col reveal reveal-delay-2">
+          <!-- Live Spatial Alumni Card Layer -->
+          <div class="hero-alumni-card hero-card-main">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=500&q=80" alt="Dr. Elena Rostova" class="hero-card-img" />
+            <div class="hero-card-overlay">
+              <span class="badge badge-accent">Biomedical Engineering</span>
+              <h3 class="hero-card-name">Dr. Elena Rostova</h3>
+              <p class="hero-card-sub">VP of Molecular Therapeutics &bull; Class of '12</p>
+            </div>
+          </div>
+
+          <div class="hero-alumni-card hero-card-secondary">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80" alt="Aria Chen" class="hero-card-img" />
+            <div class="hero-card-overlay">
+              <span class="badge badge-subtle">Google DeepMind</span>
+              <h4 class="hero-card-name">Aria Chen</h4>
+              <p class="hero-card-sub">AI Research Scientist &bull; '19</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Continuous Subtle Alumni Ticker -->
+      <div class="alumni-ticker-strip">
+        <div class="ticker-track">
+          <span>Dr. Elena Rostova ('12) &bull; Genovate Therapeutics</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Marcus Vance ('08) &bull; Apex Capital Partners</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Aria Chen ('19) &bull; Google DeepMind</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>David Adebayo ('15) &bull; Lumina Energy</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Sofia Rodriguez ('11) &bull; International Justice Council</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Priya Sundaram ('21) &bull; SpaceX Propulsion</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Kenji Sato ('16) &bull; Kengo Kuma Associates</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Zainab Al-Mansoor ('18) &bull; Stripe Engineering</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Liam O'Connor ('23) &bull; McKinsey Sustainability</span>
+          <span class="ticker-dot">&bull;</span>
+          <!-- Duplicate set for seamless continuous marquee loop -->
+          <span>Dr. Elena Rostova ('12) &bull; Genovate Therapeutics</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Marcus Vance ('08) &bull; Apex Capital Partners</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Aria Chen ('19) &bull; Google DeepMind</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>David Adebayo ('15) &bull; Lumina Energy</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Sofia Rodriguez ('11) &bull; International Justice Council</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Priya Sundaram ('21) &bull; SpaceX Propulsion</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Kenji Sato ('16) &bull; Kengo Kuma Associates</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Zainab Al-Mansoor ('18) &bull; Stripe Engineering</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Liam O'Connor ('23) &bull; McKinsey Sustainability</span>
+          <span class="ticker-dot">&bull;</span>
         </div>
       </div>
     </section>
 
-    <!-- 2. Stats bar -->
+    <!-- ======================================================================
+         2. BY THE NUMBERS STAT STRIP
+         ====================================================================== -->
     <section class="stats-bar">
       <div class="container stats-grid">
-        <div class="stat-item">
+        <div class="stat-item reveal">
           <div class="stat-value">
             <span id="stat-total-alumni">0</span>
             <span class="stat-suffix">+</span>
           </div>
-          <div class="stat-label">Global Alumni</div>
+          <div class="stat-label">Global Alumni Body</div>
         </div>
-        <div class="stat-item">
+        <div class="stat-item reveal reveal-delay-1">
           <div class="stat-value">
             <span id="stat-countries">0</span>
             <span class="stat-suffix">+</span>
           </div>
           <div class="stat-label">Countries Represented</div>
         </div>
-        <div class="stat-item">
+        <div class="stat-item reveal reveal-delay-2">
           <div class="stat-value">
             <span id="stat-chapters">0</span>
           </div>
           <div class="stat-label">Regional Chapters</div>
         </div>
-        <div class="stat-item">
+        <div class="stat-item reveal reveal-delay-3">
           <div class="stat-value">
             <span id="stat-years">0</span>
             <span class="stat-suffix">yrs</span>
@@ -126,53 +207,215 @@
       </div>
     </section>
 
-    <!-- 3. Featured Alumni (Spotlight) -->
+    <!-- ======================================================================
+         3. INTERACTIVE ALUMNI CONSTELLATION & LIVING NETWORK
+         ====================================================================== -->
+    <section class="section constellation-section">
+      <div class="container">
+        <div class="constellation-header-row reveal">
+          <div>
+            <span class="section-tag">Interactive Ecosystem</span>
+            <h2 class="section-title">The Living Alumni Constellation</h2>
+            <p class="section-subtitle">
+              A dynamic visual graph of our global network. Explore cross-disciplinary relationships, discover alumni by industry clusters, and hover nodes to view live graduate profiles.
+            </p>
+          </div>
+
+          <div class="constellation-filter-pills" id="constellation-filters">
+            <button class="constellation-pill active" data-filter="all">All Disciplines</button>
+            <button class="constellation-pill" data-filter="Tech">AI &amp; Tech</button>
+            <button class="constellation-pill" data-filter="Biotech">Biotech &amp; Health</button>
+            <button class="constellation-pill" data-filter="Finance">Venture &amp; Capital</button>
+            <button class="constellation-pill" data-filter="Energy">Clean Energy</button>
+          </div>
+        </div>
+
+        <div class="constellation-canvas-wrapper reveal reveal-delay-1">
+          <canvas id="network-canvas" class="network-canvas" aria-label="Interactive Alumni Network Graph"></canvas>
+          
+          <!-- Hover Profile Tooltip Card -->
+          <div id="network-node-tooltip" class="network-node-tooltip" style="display: none;">
+            <div class="tooltip-content">
+              <img id="tooltip-avatar" src="" alt="" class="tooltip-avatar" />
+              <div>
+                <div id="tooltip-name" class="tooltip-name">Alumni Name</div>
+                <div id="tooltip-role" class="tooltip-role">Role at Company</div>
+                <div id="tooltip-meta" class="tooltip-meta">Class of '19 &bull; Location</div>
+              </div>
+            </div>
+            <a id="tooltip-link" href="#" class="tooltip-btn">View Profile &rarr;</a>
+          </div>
+
+          <div class="constellation-canvas-hint">
+            <span>&bull; Drag canvas to pan &bull; Hover nodes to reveal connections &bull; Click node to inspect</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         4. GENERATIONS OF EXCELLENCE TIMELINE EXPLORER
+         ====================================================================== -->
     <section class="section section-cream">
       <div class="container">
-        <div id="spotlight-container">
+        <div class="section-header text-left reveal">
+          <span class="section-tag">Historical Impact</span>
+          <h2 class="section-title">Generations of Excellence</h2>
+          <p class="section-subtitle">
+            From our founding cohorts to contemporary leaders in quantum computing and climate infrastructure. Explore four decades of transformative alumni work.
+          </p>
+        </div>
+
+        <div class="timeline-tabs-wrap reveal">
+          <div class="timeline-nav-tabs" role="tablist">
+            <button class="timeline-tab active" data-era="frontier" role="tab">2016 – Present: Frontier &amp; Sustainability</button>
+            <button class="timeline-tab" data-era="expansion" role="tab">2005 – 2015: Digital Innovation</button>
+            <button class="timeline-tab" data-era="foundation" role="tab">1980 – 2004: Foundation &amp; Civic Leadership</button>
+          </div>
+        </div>
+
+        <div id="timeline-content-panel" class="timeline-content-panel reveal reveal-delay-1">
+          <!-- Dynamically populated from js/pages/home.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         5. "FROM CAMPUS TO THE WORLD" GEOGRAPHIC FOOTPRINT
+         ====================================================================== -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header text-left reveal">
+          <span class="section-tag">Global Footprint</span>
+          <h2 class="section-title">From Campus to the World</h2>
+          <p class="section-subtitle">
+            Apex graduates lead critical initiatives across six continents. Discover key regional chapter concentrations and alumni leadership hubs.
+          </p>
+        </div>
+
+        <div class="geographic-grid reveal reveal-delay-1">
+          <div class="geo-card" onclick="window.location.href='directory.html?search=San%20Francisco'">
+            <div class="geo-card-header">
+              <span class="geo-hub-tag">Pacific Hub</span>
+              <span class="geo-alumni-count">6,400+ Alumni</span>
+            </div>
+            <h3 class="geo-city">San Francisco &amp; Silicon Valley</h3>
+            <p class="geo-desc">Leading foundational multimodal AI research, orbital rocketry, and autonomous mobility.</p>
+            <span class="geo-link">Explore Hub Alumni &rarr;</span>
+          </div>
+
+          <div class="geo-card" onclick="window.location.href='directory.html?search=London'">
+            <div class="geo-card-header">
+              <span class="geo-hub-tag">Europe Hub</span>
+              <span class="geo-alumni-count">4,800+ Alumni</span>
+            </div>
+            <h3 class="geo-city">London &amp; Western Europe</h3>
+            <p class="geo-desc">Pioneering climate venture funds, cross-border fintech rails, and international arbitration.</p>
+            <span class="geo-link">Explore Hub Alumni &rarr;</span>
+          </div>
+
+          <div class="geo-card" onclick="window.location.href='directory.html?search=Boston'">
+            <div class="geo-card-header">
+              <span class="geo-hub-tag">Northeast Hub</span>
+              <span class="geo-alumni-count">5,200+ Alumni</span>
+            </div>
+            <h3 class="geo-city">Boston &amp; Cambridge</h3>
+            <p class="geo-desc">Translating lab discoveries into targeted mRNA therapies and neurodegenerative clinical care.</p>
+            <span class="geo-link">Explore Hub Alumni &rarr;</span>
+          </div>
+
+          <div class="geo-card" onclick="window.location.href='directory.html?search=Tokyo'">
+            <div class="geo-card-header">
+              <span class="geo-hub-tag">Asia-Pacific Hub</span>
+              <span class="geo-alumni-count">3,100+ Alumni</span>
+            </div>
+            <h3 class="geo-city">Tokyo, Singapore &amp; Dubai</h3>
+            <p class="geo-desc">Computational generative architecture, seismic civic centers, and sovereign AI clusters.</p>
+            <span class="geo-link">Explore Hub Alumni &rarr;</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         6. DISTINGUISHED ALUMNI SPOTLIGHT
+         ====================================================================== -->
+    <section class="section section-cream">
+      <div class="container">
+        <div class="section-header text-left reveal">
+          <span class="section-tag">Distinguished Narrative</span>
+          <h2 class="section-title">Alumni Spotlight</h2>
+          <p class="section-subtitle">
+            Celebrating graduates whose visionary research and leadership transform society.
+          </p>
+        </div>
+
+        <div id="spotlight-container" class="reveal reveal-delay-1">
           <!-- Spotlight dynamically rendered from js/pages/home.js -->
         </div>
       </div>
     </section>
 
-    <!-- 4. Alumni Mosaic Section -->
+    <!-- ======================================================================
+         7. UNIVERSITY GAZETTE (STORIES & EDITORIAL VOICES)
+         ====================================================================== -->
     <section class="section">
       <div class="container">
-        <div id="alumni-mosaic" class="alumni-mosaic-grid">
+        <div class="section-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:var(--space-4);">
+          <div>
+            <span class="section-tag">University Gazette</span>
+            <h2 class="section-title" style="margin-bottom:0;">Latest Perspectives &amp; Milestones</h2>
+          </div>
+          <a href="news.html" class="btn btn-outline btn-sm">Browse Full Gazette &rarr;</a>
+        </div>
+
+        <div id="home-stories-grid" class="stories-editorial-grid reveal reveal-delay-1">
           <!-- Populated dynamically from js/pages/home.js -->
         </div>
       </div>
     </section>
 
-    <!-- 5. Latest Stories -->
-    <section class="section section-cream">
+    <!-- ======================================================================
+         8. FEATURED TALKS & MULTIMEDIA
+         ====================================================================== -->
+    <section class="section section-alt">
       <div class="container">
-        <div id="home-stories-grid" class="stories-editorial">
+        <div class="section-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:var(--space-4);">
+          <div>
+            <span class="section-tag">Multimedia Archives</span>
+            <h2 class="section-title" style="margin-bottom:0;">Featured Keynotes &amp; Reunions</h2>
+          </div>
+          <a href="videos.html" class="btn btn-outline btn-sm">Open Video Gallery &rarr;</a>
+        </div>
+
+        <div id="home-videos-grid" class="video-feature-layout reveal reveal-delay-1">
           <!-- Populated dynamically from js/pages/home.js -->
         </div>
       </div>
     </section>
 
-    <!-- 6. Video Feature -->
-    <section class="section">
-      <div class="container">
-        <div id="home-videos-grid" class="video-feature-layout">
-          <!-- Populated dynamically from js/pages/home.js -->
+    <!-- ======================================================================
+         9. GIVING & ENDOWMENT STATEMENT
+         ====================================================================== -->
+    <section class="section-dark giving-statement-section">
+      <div class="container text-center reveal">
+        <span class="section-tag" style="color:var(--color-accent); justify-content:center;">Institutional Philanthropy</span>
+        <h2 class="giving-statement-heading">Your mentorship and generosity empower the next century of scholars.</h2>
+        <p class="giving-statement-desc">
+          Every contribution directly underwrites undergraduate bursaries, doctoral climate research fellowships, and campus sustainability labs.
+        </p>
+        <div style="margin-top:var(--space-8); display:flex; justify-content:center; gap:var(--space-4); flex-wrap:wrap;">
+          <a href="donate.html" class="btn btn-accent btn-lg">Support Alumni Endowments &rarr;</a>
+          <a href="events.html" class="btn btn-outline-white btn-lg">Join Upcoming Reunions</a>
         </div>
-      </div>
-    </section>
-
-    <!-- 7. Giving Statement -->
-    <section class="section-dark giving-statement">
-      <div class="container">
-        <h2 class="giving-heading">Your generosity funds the next generation of scholars.</h2>
-        <a href="donate.html" class="giving-link">Support University Giving &rarr;</a>
       </div>
     </section>
 
   </main>
 
-  <!-- PERSISTENT SITE FOOTER -->
+  <!-- ========================================================================
+       PERSISTENT SITE FOOTER
+       ======================================================================== -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
@@ -193,7 +436,7 @@
           <h4 class="footer-heading">Explore</h4>
           <ul class="footer-links">
             <li><a href="directory.html" class="footer-link">Alumni Directory</a></li>
-            <li><a href="news.html" class="footer-link">News & Stories</a></li>
+            <li><a href="news.html" class="footer-link">News &amp; Stories</a></li>
             <li><a href="videos.html" class="footer-link">Video Highlights</a></li>
             <li><a href="events.html" class="footer-link">Upcoming Events</a></li>
             <li><a href="donate.html" class="footer-link">Ways to Give</a></li>

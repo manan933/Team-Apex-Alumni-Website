@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manage Alumni Profile — Apex University</title>
-  <meta name="description" content="Update your personal details, career milestones, location, and bio for the Apex University Alumni Directory." />
-  
+  <title>Alumni Profile — Apex University Global Network</title>
+  <meta name="description" content="View the distinguished academic and professional record, career trajectory, and research publications of Apex University alumni." />
+
+  <!-- CSS Design System -->
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/components.css" />
@@ -14,7 +15,7 @@
 </head>
 <body>
 
-  <!-- Site Header -->
+  <!-- Persistent Site Header -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="brand">
@@ -24,14 +25,16 @@
           <span class="brand-subtitle">Alumni Network</span>
         </div>
       </a>
+
       <nav class="nav-links" aria-label="Primary Navigation">
         <a href="index.html" class="nav-link">Home</a>
         <a href="directory.html" class="nav-link">Alumni Directory</a>
         <a href="videos.html" class="nav-link">Videos</a>
-        <a href="news.html" class="nav-link">News & Stories</a>
+        <a href="news.html" class="nav-link">News &amp; Stories</a>
         <a href="events.html" class="nav-link">Events</a>
         <a href="donate.html" class="nav-link">Donate</a>
       </nav>
+
       <div class="header-actions">
         <div id="nav-auth-container"></div>
         <button class="mobile-toggle" aria-label="Toggle navigation menu">
@@ -55,7 +58,7 @@
       <a href="index.html" class="mobile-nav-link">Home</a>
       <a href="directory.html" class="mobile-nav-link">Alumni Directory</a>
       <a href="videos.html" class="mobile-nav-link">Videos</a>
-      <a href="news.html" class="mobile-nav-link">News & Stories</a>
+      <a href="news.html" class="mobile-nav-link">News &amp; Stories</a>
       <a href="events.html" class="mobile-nav-link">Events</a>
       <a href="donate.html" class="mobile-nav-link">Donate</a>
     </div>
@@ -63,177 +66,404 @@
   </div>
 
   <main class="main-content">
-    <div class="container" style="padding-top: var(--space-12); padding-bottom: var(--space-20);">
-      <div class="section-header text-left" style="margin-bottom: var(--space-8);">
-        <span class="section-tag">Self-Service Portal</span>
-        <h1 class="section-title">Edit Your Alumni Profile</h1>
-        <p class="section-subtitle">
-          Keep your professional details updated so classmates, recruiters, and university departments can connect with you.
-        </p>
-      </div>
 
-      <div class="profile-layout">
-        <!-- Profile Editor Form (Left) -->
-        <div class="card">
-          <form id="profile-form">
-            <!-- Avatar Upload Area -->
-            <div class="avatar-upload-row">
-              <div class="avatar-preview-wrap">
-                <img id="avatar-preview-img" src="" alt="Profile Avatar" class="avatar-preview-img" />
+    <!-- ======================================================================
+         MODE A: PUBLIC EDITORIAL PROFILE FEATURE VIEW
+         ====================================================================== -->
+    <div id="public-profile-view" style="display: block;">
+      
+      <!-- Profile Hero Banner -->
+      <section class="profile-hero-section section-cream">
+        <div class="container">
+          
+          <!-- Back Link & Action Row -->
+          <div class="profile-top-actions">
+            <a href="directory.html" class="profile-back-link">
+              &larr; Return to Alumni Directory
+            </a>
+            <div id="owner-toggle-actions" style="display: none;">
+              <button id="switch-to-edit-btn" class="btn btn-outline btn-sm">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                Edit My Profile Record
+              </button>
+            </div>
+          </div>
+
+          <div class="profile-hero-grid">
+            <div class="profile-portrait-wrap">
+              <img id="pub-avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="Alumni Portrait" class="profile-portrait-img" />
+              <div id="pub-verified-badge" class="profile-verified-badge" title="Verified University Fellow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
               </div>
-              <div class="avatar-upload-info">
-                <h4 style="margin-bottom: 2px;">Profile Photo</h4>
-                <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-bottom: var(--space-2);">
-                  JPG, PNG or GIF. Max 5MB.
-                </p>
-                <input type="file" id="avatar-file-input" class="avatar-file-input" accept="image/*" />
-                <button type="button" id="upload-photo-btn" class="btn btn-outline btn-sm">
-                  Change Photo
+            </div>
+
+            <div class="profile-hero-info">
+              <div class="profile-badge-row">
+                <span class="badge badge-accent" id="pub-badge-industry">Biotechnology &amp; Healthcare</span>
+                <span class="badge badge-subtle" id="pub-badge-batch">Class of 2012</span>
+              </div>
+
+              <h1 class="profile-display-name" id="pub-name">Dr. Elena Rostova</h1>
+              
+              <div class="profile-display-headline" id="pub-headline">
+                VP of Molecular Therapeutics at <strong id="pub-company">Genovate Therapeutics</strong>
+              </div>
+
+              <div class="profile-meta-tags">
+                <span class="profile-meta-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span id="pub-location">Boston, MA, United States</span>
+                </span>
+                <span class="profile-meta-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                  <span id="pub-degree">Ph.D. Biomedical Engineering</span>
+                </span>
+              </div>
+
+              <div class="profile-actions-bar">
+                <a id="pub-linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                  Connect on LinkedIn &rarr;
+                </a>
+                <button class="btn btn-outline btn-sm" onclick="document.getElementById('cmd-palette-trigger')?.click();">
+                  Search Related Alumni (⌘K)
                 </button>
               </div>
             </div>
-
-            <!-- Form Fields -->
-            <div class="form-group">
-              <label for="profile-name" class="form-label">Full Name <span class="required">*</span></label>
-              <input type="text" id="profile-name" class="form-control" required />
-            </div>
-
-            <div class="form-row-2">
-              <div class="form-group">
-                <label for="profile-email" class="form-label">Email (Account ID)</label>
-                <input type="email" id="profile-email" class="form-control" disabled style="background-color: var(--color-bg-alt);" />
-                <span class="form-hint">Contact university records to modify primary email.</span>
-              </div>
-              <div class="form-group">
-                <label for="profile-gradyear" class="form-label">Graduation Year <span class="required">*</span></label>
-                <input type="number" id="profile-gradyear" class="form-control" min="1950" max="2030" required />
-              </div>
-            </div>
-
-            <div class="form-row-2">
-              <div class="form-group">
-                <label for="profile-degree" class="form-label">Degree / Program</label>
-                <input type="text" id="profile-degree" class="form-control" placeholder="e.g. M.S. Computer Science" />
-              </div>
-              <div class="form-group">
-                <label for="profile-industry" class="form-label">Primary Industry</label>
-                <select id="profile-industry" class="form-control">
-                  <option value="Technology & Engineering">Technology & Engineering</option>
-                  <option value="Biotechnology & Healthcare">Biotechnology & Healthcare</option>
-                  <option value="Venture Capital & Finance">Venture Capital & Finance</option>
-                  <option value="Energy & Sustainability">Energy & Sustainability</option>
-                  <option value="Law & Public Policy">Law & Public Policy</option>
-                  <option value="Architecture & Design">Architecture & Design</option>
-                  <option value="Media & Journalism">Media & Journalism</option>
-                  <option value="Management Consulting">Management Consulting</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-row-2">
-              <div class="form-group">
-                <label for="profile-company" class="form-label">Current Company / Organization</label>
-                <input type="text" id="profile-company" class="form-control" placeholder="e.g. Google DeepMind" />
-              </div>
-              <div class="form-group">
-                <label for="profile-jobtitle" class="form-label">Job Title</label>
-                <input type="text" id="profile-jobtitle" class="form-control" placeholder="e.g. Senior Research Scientist" />
-              </div>
-            </div>
-
-            <div class="form-row-2">
-              <div class="form-group">
-                <label for="profile-city" class="form-label">Current City</label>
-                <input type="text" id="profile-city" class="form-control" placeholder="e.g. San Francisco, CA" />
-              </div>
-              <div class="form-group">
-                <label for="profile-country" class="form-label">Country</label>
-                <input type="text" id="profile-country" class="form-control" placeholder="e.g. United States" />
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="profile-linkedin" class="form-label">LinkedIn Profile URL</label>
-              <input type="url" id="profile-linkedin" class="form-control" placeholder="https://linkedin.com/in/username" />
-            </div>
-
-            <div class="form-group">
-              <label for="profile-bio" class="form-label">Short Bio</label>
-              <textarea id="profile-bio" class="form-control" rows="4" placeholder="Brief summary of your career focus, research, or what you are excited about..."></textarea>
-              <span class="form-hint">Displayed on your public alumni directory card and modal.</span>
-            </div>
-
-            <div style="display: flex; justify-content: flex-end; gap: var(--space-3); margin-top: var(--space-6);">
-              <button type="submit" id="save-profile-btn" class="btn btn-primary btn-lg">
-                Save Profile Changes
-              </button>
-            </div>
-          </form>
-        </div>
-
-        <!-- Live Preview Sticky Column (Right) -->
-        <div class="profile-preview-sticky">
-          <div class="preview-badge-header">
-            <span>Live Directory Preview</span>
-            <span class="badge badge-accent">Public View</span>
           </div>
 
-          <!-- Alumni Card Live Simulation -->
-          <div class="alumni-card" style="cursor: default;">
-            <div class="alumni-card-photo-wrapper">
-              <img id="preview-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=400&q=80" alt="Preview Avatar" class="alumni-card-photo" />
-              <div class="alumni-badge-verified" title="Verified Alumni">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
+        </div>
+      </section>
+
+      <!-- Main Profile Editorial Sections -->
+      <section class="section">
+        <div class="container profile-columns-grid">
+          
+          <!-- Left Column: Biography, Career Journey & Gazette Stories -->
+          <div class="profile-left-col">
+            
+            <!-- Narrative Statement / Philosophy -->
+            <div class="profile-narrative-card">
+              <span class="section-tag">Narrative &amp; Philosophy</span>
+              <blockquote class="profile-quote" id="pub-bio">
+                "Pioneering novel mRNA delivery mechanisms for targeted neurodegenerative therapies. Named MIT Technology Review 35 Under 35."
+              </blockquote>
+            </div>
+
+            <!-- Visual Career Trajectory Timeline -->
+            <div class="profile-timeline-card">
+              <span class="section-tag">Career Trajectory</span>
+              <h2 class="profile-subheading">Milestones &amp; Appointments</h2>
+
+              <div class="career-timeline">
+                <div class="timeline-step">
+                  <div class="timeline-marker"></div>
+                  <div class="timeline-step-content">
+                    <span class="timeline-step-date">Current Position</span>
+                    <h3 class="timeline-step-title" id="timeline-current-title">Vice President of Molecular Therapeutics</h3>
+                    <p class="timeline-step-desc" id="timeline-current-company">Leading clinical trial pipelines and next-generation nucleic acid nanocarriers.</p>
+                  </div>
+                </div>
+
+                <div class="timeline-step">
+                  <div class="timeline-marker"></div>
+                  <div class="timeline-step-content">
+                    <span class="timeline-step-date">Apex University Legacy</span>
+                    <h3 class="timeline-step-title" id="timeline-edu-degree">Ph.D. in Biomedical Engineering</h3>
+                    <p class="timeline-step-desc">Doctoral dissertation focused on biocompatible lipid nanoparticles, published in leading Nature Bioengineering journals.</p>
+                  </div>
+                </div>
+
+                <div class="timeline-step">
+                  <div class="timeline-marker"></div>
+                  <div class="timeline-step-content">
+                    <span class="timeline-step-date">Foundational Studies</span>
+                    <h3 class="timeline-step-title">Undergraduate Research Scholar</h3>
+                    <p class="timeline-step-desc">Recipient of the Dean's Presidential Fellowship and university undergraduate symposium honors.</p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="alumni-card-body">
-              <h3 class="alumni-name" id="preview-name">Your Name</h3>
-              <div class="alumni-role" id="preview-role">
-                Job Title at <strong>Company</strong>
-              </div>
-              <div class="alumni-meta-list">
-                <span class="alumni-meta-item" id="preview-meta">Class of 2024 · Program</span>
-                <span class="alumni-meta-item" id="preview-location">City, Country</span>
+
+            <!-- Published Gazette Articles by this Alumnus -->
+            <div class="profile-gazette-card" id="pub-author-stories-wrap" style="display: none;">
+              <span class="section-tag">University Gazette</span>
+              <h2 class="profile-subheading">Articles &amp; Reflections</h2>
+              <div id="pub-author-stories-list" class="author-stories-list"></div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Institutional Credentials & Related Alumni -->
+          <div class="profile-right-col">
+            
+            <!-- Institutional Record Badge -->
+            <div class="institutional-record-card">
+              <div class="crest-seal">Ω</div>
+              <h3 class="record-title">Official Alumni Record</h3>
+              <p class="record-sub">Apex University Academic Registry</p>
+              
+              <div class="record-details-list">
+                <div class="record-detail-row">
+                  <span>Conferral Class</span>
+                  <strong id="rec-batch">Class of 2012</strong>
+                </div>
+                <div class="record-detail-row">
+                  <span>Program</span>
+                  <strong id="rec-degree">Biomedical Engineering</strong>
+                </div>
+                <div class="record-detail-row">
+                  <span>Chapter Affiliation</span>
+                  <strong id="rec-chapter">Boston Chapter</strong>
+                </div>
+                <div class="record-detail-row">
+                  <span>Verification Status</span>
+                  <strong style="color: var(--color-success);">Official Fellow ✓</strong>
+                </div>
               </div>
             </div>
-          </div>
-          <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-3); text-align: center;">
-            This card updates in real-time as you type and appears in the public alumni directory.
-          </p>
-        </div>
-      </div>
 
-      <!-- Submissions Section: "My Submissions" mini-view -->
-      <section class="submissions-section">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-6);">
-          <div>
-            <h2 style="font-size: var(--text-2xl); margin-bottom: 2px;">My Story Submissions</h2>
-            <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: 0;">
-              Track the moderation status of articles and milestones you have submitted to the university editorial feed.
-            </p>
-          </div>
-          <a href="news.html#submit" class="btn btn-outline btn-sm">Submit New Story +</a>
-        </div>
+            <!-- Same Batch & Industry Connections -->
+            <div class="related-alumni-card">
+              <h3 class="related-title">Related Alumni Network</h3>
+              <p class="related-desc">Graduates sharing overlapping academic cohorts or industry domains.</p>
+              
+              <div id="related-alumni-list" class="related-alumni-list">
+                <!-- Populated dynamically from js/pages/profile.js -->
+              </div>
 
-        <div id="my-submissions-list" class="submission-card-list">
-          <!-- Populated dynamically by js/pages/profile.js -->
+              <a href="directory.html" class="related-more-link">
+                Browse Full Alumni Directory &rarr;
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ======================================================================
+         MODE B: SELF-SERVICE PROFILE EDITOR VIEW (For Owner)
+         ====================================================================== -->
+    <div id="edit-profile-view" style="display: none;">
+      <section class="section" style="padding-top: var(--space-8);">
+        <div class="container">
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-6); border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-4);">
+            <div>
+              <span class="section-tag">Self-Service Portal</span>
+              <h1 style="font-family: var(--font-heading); font-size: var(--text-3xl); color: var(--color-primary); margin-bottom: 2px;">Manage Alumni Profile</h1>
+              <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: 0;">Update your public directory record, career role, location, and bio.</p>
+            </div>
+            <button id="switch-to-public-btn" class="btn btn-outline btn-sm">
+              &larr; Back to Editorial Profile View
+            </button>
+          </div>
+
+          <div class="profile-layout">
+            <!-- Edit Form -->
+            <div class="profile-form-card card">
+              <form id="profile-form">
+                
+                <!-- Avatar Upload Row -->
+                <div class="avatar-upload-row">
+                  <div class="avatar-preview-wrap">
+                    <img id="avatar-preview-img" src="" alt="Avatar Preview" class="avatar-preview-img" />
+                  </div>
+                  <div class="avatar-upload-info">
+                    <button type="button" id="upload-photo-btn" class="btn btn-outline btn-sm">
+                      Upload Portrait Image
+                    </button>
+                    <input type="file" id="avatar-file-input" class="avatar-file-input" accept="image/*" />
+                    <span class="form-hint">Recommended: Professional portrait photo (JPG, PNG).</span>
+                  </div>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label for="profile-name" class="form-label">Full Name <span class="required">*</span></label>
+                    <input type="text" id="profile-name" class="form-control" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="profile-email" class="form-label">Institutional Email</label>
+                    <input type="email" id="profile-email" class="form-control" disabled />
+                  </div>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label for="profile-gradyear" class="form-label">Graduation Year <span class="required">*</span></label>
+                    <input type="number" id="profile-gradyear" class="form-control" min="1950" max="2030" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="profile-degree" class="form-label">Degree &amp; Program <span class="required">*</span></label>
+                    <input type="text" id="profile-degree" class="form-control" placeholder="e.g. B.S. Computer Science" required />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="profile-industry" class="form-label">Primary Industry</label>
+                  <select id="profile-industry" class="form-control">
+                    <option value="Technology &amp; Engineering">Technology &amp; Engineering</option>
+                    <option value="Biotechnology &amp; Healthcare">Biotechnology &amp; Healthcare</option>
+                    <option value="Venture Capital &amp; Finance">Venture Capital &amp; Finance</option>
+                    <option value="Energy &amp; Sustainability">Energy &amp; Sustainability</option>
+                    <option value="Law &amp; Public Policy">Law &amp; Public Policy</option>
+                    <option value="Architecture &amp; Design">Architecture &amp; Design</option>
+                    <option value="Media &amp; Journalism">Media &amp; Journalism</option>
+                    <option value="Management Consulting">Management Consulting</option>
+                  </select>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label for="profile-company" class="form-label">Company / Institution</label>
+                    <input type="text" id="profile-company" class="form-control" placeholder="e.g. Google DeepMind" />
+                  </div>
+                  <div class="form-group">
+                    <label for="profile-jobtitle" class="form-label">Current Job Title</label>
+                    <input type="text" id="profile-jobtitle" class="form-control" placeholder="e.g. Senior Research Scientist" />
+                  </div>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label for="profile-city" class="form-label">City</label>
+                    <input type="text" id="profile-city" class="form-control" placeholder="e.g. San Francisco, CA" />
+                  </div>
+                  <div class="form-group">
+                    <label for="profile-country" class="form-label">Country</label>
+                    <input type="text" id="profile-country" class="form-control" placeholder="e.g. United States" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="profile-linkedin" class="form-label">LinkedIn Profile URL</label>
+                  <input type="url" id="profile-linkedin" class="form-control" placeholder="https://linkedin.com/in/username" />
+                </div>
+
+                <div class="form-group">
+                  <label for="profile-bio" class="form-label">Personal Narrative &amp; Bio</label>
+                  <textarea id="profile-bio" class="form-control" rows="4" placeholder="Brief statement regarding your research focus, career milestones, or alumni engagement..."></textarea>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; margin-top: var(--space-6);">
+                  <button type="submit" id="save-profile-btn" class="btn btn-primary btn-lg">
+                    Save Profile Changes
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Live Card Preview Sidebar -->
+            <div class="profile-preview-sticky">
+              <div class="preview-badge-header">
+                <span>Directory Card Preview</span>
+                <span class="badge badge-accent">Live Sync</span>
+              </div>
+
+              <div class="alumni-card" style="cursor: default;">
+                <div class="alumni-card-photo-wrapper">
+                  <img id="preview-avatar" src="" alt="Preview Avatar" class="alumni-card-photo" />
+                  <div class="alumni-badge-verified" title="Verified Alumni">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </div>
+                </div>
+                <div class="alumni-card-body">
+                  <h3 class="alumni-name" id="preview-name">Your Name</h3>
+                  <div class="alumni-role" id="preview-role">Job Title at Company</div>
+                  <div class="alumni-meta-list">
+                    <span class="alumni-meta-item" id="preview-meta">Class of 2024</span>
+                    <span class="alumni-meta-item" id="preview-location">City, Country</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- My Submissions Moderation Status -->
+          <section class="submissions-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-6);">
+              <div>
+                <h2 style="font-size: var(--text-2xl); font-family: var(--font-heading); color: var(--color-primary); margin-bottom: 2px;">My Gazette Submissions</h2>
+                <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: 0;">Track the review status of stories you have submitted to the university editorial feed.</p>
+              </div>
+              <a href="news.html#submit" class="btn btn-outline btn-sm">Submit New Article +</a>
+            </div>
+
+            <div id="my-submissions-list" class="submission-card-list">
+              <!-- Populated dynamically -->
+            </div>
+          </section>
+
         </div>
       </section>
     </div>
+
   </main>
 
-  <!-- Persistent Footer -->
+  <!-- Persistent Site Footer -->
   <footer class="site-footer">
     <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand" style="color: #fff;">
+            <div class="brand-crest">Ω</div>
+            <div class="brand-info">
+              <span class="brand-title" style="color: #fff;">Apex University</span>
+              <span class="brand-subtitle">Alumni Network</span>
+            </div>
+          </div>
+          <p class="footer-desc">
+            Empowering lifelong connections between our global alumni body and current student cohorts through mentorship, chapters, and community initiatives.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Explore</h4>
+          <ul class="footer-links">
+            <li><a href="directory.html" class="footer-link">Alumni Directory</a></li>
+            <li><a href="news.html" class="footer-link">News &amp; Stories</a></li>
+            <li><a href="videos.html" class="footer-link">Video Highlights</a></li>
+            <li><a href="events.html" class="footer-link">Upcoming Events</a></li>
+            <li><a href="donate.html" class="footer-link">Ways to Give</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Member Portal</h4>
+          <ul class="footer-links">
+            <li><a href="login.html" class="footer-link">Alumni Sign In</a></li>
+            <li><a href="signup.html" class="footer-link">Join Network</a></li>
+            <li><a href="profile.html" class="footer-link">Update My Profile</a></li>
+            <li><a href="news.html#submit" class="footer-link">Submit a Story</a></li>
+            <li><a href="admin.html" class="footer-link">Staff Administration</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Stay Connected</h4>
+          <p style="font-size: var(--text-sm); color: var(--color-text-inverse-muted); margin-bottom: var(--space-3);">
+            Receive our quarterly alumni bulletin and regional chapter invitations.
+          </p>
+          <form class="newsletter-form">
+            <div class="newsletter-input-group">
+              <input type="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email for alumni newsletter" />
+              <button type="submit" class="btn btn-accent btn-sm">Join</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
       <div class="footer-bottom">
         <div>&copy; 2026 Apex University Alumni Association. All rights reserved.</div>
         <div class="social-links">
-          <a href="#" class="social-link">LinkedIn</a>
-          <a href="#" class="social-link">YouTube</a>
-          <a href="#" class="social-link">X (Twitter)</a>
+          <a href="#" class="social-link" aria-label="LinkedIn">LinkedIn</a>
+          <a href="#" class="social-link" aria-label="YouTube">YouTube</a>
+          <a href="#" class="social-link" aria-label="X Twitter">X (Twitter)</a>
+          <a href="#" class="social-link" aria-label="Instagram">Instagram</a>
         </div>
       </div>
     </div>

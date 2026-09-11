@@ -16,6 +16,7 @@ You are helping develop the **Apex University Alumni Website** — a prestigious
 - Canvas Background: `#F8FAFC`
 - Warm Editorial Surface: `#FAF8F4` (`--color-cream`)
 - Warm Divider: `#E8E1D9` (`--color-border-warm`)
+- Constellation Discipline Tokens: `--color-node-tech` (`#3B82F6`), `--color-node-bio` (`#10B981`), `--color-node-vc` (`#F59E0B`), `--color-node-energy` (`#EC4899`)
 - Heading Font: **Newsreader** (Google Fonts, serif) — loaded in `css/base.css`
 - UI Font: **Plus Jakarta Sans** (Google Fonts, sans-serif)
 - Strict Rule: **Light mode only** — warm, prestigious, academic. NO dark mode.
@@ -39,8 +40,8 @@ You are helping develop the **Apex University Alumni Website** — a prestigious
 ## Files You May READ (Shared Foundations — Never Edit):
 - `css/tokens.css` — All CSS variables (`--color-primary`, `--color-accent`, `--color-cream`, `--space-*`, `--radius-*`, etc.)
 - `css/base.css` — Global reset, typography scale, `.reveal` scroll animations
-- `css/components.css` — Nav header, mobile drawer, buttons, badges, footer
-- `js/nav.js` — Sticky header, mobile drawer, auth dropdown, toasts
+- `css/components.css` — Nav header, mobile drawer, buttons, badges, footer, ⌘K command palette styles
+- `js/nav.js` — Sticky header, mobile drawer, auth dropdown, toasts, global ⌘K Quick Search command palette
 - `js/firebase-config.js` — Firebase init (with auto localStorage mock fallback)
 - `js/mock-data.js` — Data schemas: `INITIAL_STATS`, `INITIAL_ALUMNI`, `INITIAL_SUBMISSIONS`, `INITIAL_VIDEOS`
 - `js/storage-service.js` — Unified async data layer (`getAlumni`, `getSubmissions`, `getVideos`, `getStats`)
@@ -52,16 +53,20 @@ You are helping develop the **Apex University Alumni Website** — a prestigious
 - Header & Nav: `#nav-auth-container`, `#mobile-auth-container`, `.mobile-toggle`
 - Stats Counters: `stat-total-alumni`, `stat-countries`, `stat-chapters`, `stat-years`
 - Dynamic Sections:
+  - `constellation-canvas` — 60fps HTML5 Canvas rendering alumni nodes and real-time physics connections
+  - `constellation-tooltip` — Hover inspection badge linking directly to alumni profile
   - `spotlight-container` — Featured alumni profile card (populated by `home.js`)
   - `alumni-mosaic` — 6-alumni editorial mosaic grid (populated by `home.js`)
   - `home-stories-grid` — Latest stories lead + sidebar (populated by `home.js`)
   - `home-videos-grid` — Featured video preview layout (populated by `home.js`)
+  - `timeline-display` — Interactive Generations of Excellence timeline container
 
 ---
 
 ## Your Mission & Enhancement Goals:
-1. **Editorial Masthead Hero:** Elevate the hero with authentic academic crest details, confident editorial typography, and university mission statements.
-2. **Featured Alumni Spotlight:** Make the spotlight card feel like a profile in The New Yorker or MIT Technology Review.
-3. **Alumni Mosaic:** Ensure the 6 varied alumni showcase real global diversity (founders, researchers, artists, public servants).
-4. **Branding Details:** Add subtle collegiate motifs, refined typographic dividers (`divider-gold`), and campus history notes.
-5. **Responsiveness:** Test on mobile (375px), tablet (768px), and desktop (1200px+). All grids must collapse cleanly.
+1. **Editorial Masthead Hero:** Elevate the hero with authentic academic crest details, continuous marquee ticker of notable alumni roles, and university mission statements.
+2. **Living Network Constellation Canvas:** Maintain and polish the HTML5 Canvas visualizer that animates alumni nodes by discipline, supports category filters, and features mouse hover interactivity.
+3. **Featured Alumni Spotlight:** Make the spotlight card feel like an editorial profile in The New Yorker or MIT Technology Review.
+4. **Alumni Mosaic:** Ensure the 6 varied alumni showcase real global diversity (founders, researchers, artists, public servants).
+5. **Generations Timeline & Geographic Footprint:** Maintain the interactive era timeline (1980–2004, 2005–2015, 2016–Present) and regional hub exploration cards.
+6. **Responsiveness:** Test on mobile (375px), tablet (768px), and desktop (1200px+). All grids must collapse cleanly.

@@ -138,10 +138,14 @@ function openReaderModal(id) {
       </div>
       <h2 class="section-title" style="margin-bottom: var(--space-2);">${escapeHTML(story.title)}</h2>
       <div style="font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-4);">
-        Published by <strong>${escapeHTML(story.authorName)}</strong>
+        Published by <a href="profile.html?id=${story.authorUid}" style="color: var(--color-primary); font-weight: bold; text-decoration: underline;">${escapeHTML(story.authorName)}</a>
       </div>
       <div class="story-reader-body">
         ${escapeHTML(story.body)}
+      </div>
+      <div style="margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--color-border-subtle); display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size: var(--text-xs); color: var(--color-text-muted);">Author: ${escapeHTML(story.authorName)}</span>
+        <a href="profile.html?id=${story.authorUid}" class="btn btn-outline btn-sm">View Alumni Profile &rarr;</a>
       </div>
     </div>
   `;
