@@ -64,99 +64,367 @@
   </div>
 
   <main class="main-content">
-    <section class="section-cream" style="padding-top: var(--space-12); padding-bottom: var(--space-10); border-bottom: 1px solid var(--color-border-warm);">
+    <!-- Hero / Events Introduction -->
+    <section class="events-hero-section section-cream">
       <div class="container">
-        <span class="section-tag">Gatherings &amp; Chapters</span>
-        <h1 style="font-family: var(--font-heading); font-size: clamp(2.25rem, 5vw, var(--text-5xl)); color: var(--color-primary); margin-bottom: var(--space-2);">
-          Alumni Events &amp; Reunions
-        </h1>
-        <p style="font-size: var(--text-lg); color: var(--color-text-secondary); max-width: 640px; line-height: var(--leading-normal);">
-          From homecoming weekends and industry panels to regional chapter dinners across London, San Francisco, Dubai, and Tokyo.
-        </p>
+        <div class="events-hero-content">
+          <span class="section-tag">Gatherings &amp; Chapters</span>
+          <h1 class="events-hero-title">Alumni Events &amp; Reunions</h1>
+          <p class="events-hero-desc">
+            From homecoming weekends on campus and scholarly symposia to intimate regional chapter dinners across London, San Francisco, Tokyo, and Nairobi. Reconnect with fellow alumni wherever you are.
+          </p>
+          
+          <!-- Institutional Metadata Strip -->
+          <div class="events-stats-strip">
+            <div class="events-stat-item">
+              <span class="events-stat-number">18</span>
+              <span class="events-stat-label">Global Chapters</span>
+            </div>
+            <div class="events-stat-divider" aria-hidden="true"></div>
+            <div class="events-stat-item">
+              <span class="events-stat-number">12+</span>
+              <span class="events-stat-label">Annual Gatherings</span>
+            </div>
+            <div class="events-stat-divider" aria-hidden="true"></div>
+            <div class="events-stat-item">
+              <span class="events-stat-number">4,500+</span>
+              <span class="events-stat-label">Alumni Attendees</span>
+            </div>
+            <div class="events-stat-divider" aria-hidden="true"></div>
+            <div class="events-stat-item">
+              <span class="events-stat-number">100%</span>
+              <span class="events-stat-label">Community Driven</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="section" style="padding-top: var(--space-8);">
+    <!-- Upcoming Gatherings & Filter Section -->
+    <section class="section" id="upcoming-events-section">
       <div class="container">
-        
-        <!-- Developer Handoff Scaffold (For Guy 4) -->
-        <div class="handoff-box">
-          <div class="handoff-header">
-            <span class="handoff-badge">Module Scaffold &bull; Guy 4</span>
-            <h2 class="handoff-title">Events Engine Architecture</h2>
+        <div class="events-filter-header">
+          <div>
+            <h2 class="events-section-heading">Upcoming Gatherings</h2>
+            <p class="events-section-sub">Browse scheduled homecomings, dinners, webinars, and panels open for alumni registration.</p>
           </div>
-          <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-2);">
-            This page is pre-wired with the site's responsive navigation, typography tokens, and persistent footer. Plug your live calendar and RSVP logic into <code>js/pages/events.js</code> and style it in <code>css/pages/events.css</code>.
-          </p>
-
-          <div class="handoff-code-snippet">
-// Suggested Firestore collection schema:
-events/{id} {
-  title: string,           // "Annual Fall Homecoming 2026"
-  date: timestamp,         // ISO date or Firebase Timestamp
-  location: string,        // "University Quad / Virtual"
-  coverImage: string,      // Storage URL or CDN URL
-  description: string,     // Markdown or rich summary
-  category: string,        // "Reunion" | "Webinar" | "Chapter Meetup"
-  rsvpLink: string,        // External link or RSVP tracking
-  isFeatured: boolean
-}
+          
+          <!-- Category Filter Tabs -->
+          <div class="events-filter-bar" role="tablist" aria-label="Event categories">
+            <button type="button" role="tab" class="event-filter-tab active" data-category="all" aria-selected="true">
+              All Gatherings
+            </button>
+            <button type="button" role="tab" class="event-filter-tab" data-category="Class Reunions &amp; Homecomings" aria-selected="false">
+              Class Reunions &amp; Homecomings
+            </button>
+            <button type="button" role="tab" class="event-filter-tab" data-category="Regional Chapter Dinners" aria-selected="false">
+              Regional Chapter Dinners
+            </button>
+            <button type="button" role="tab" class="event-filter-tab" data-category="Virtual Symposia &amp; Webinars" aria-selected="false">
+              Virtual Symposia &amp; Webinars
+            </button>
+            <button type="button" role="tab" class="event-filter-tab" data-category="Career &amp; Founder Panels" aria-selected="false">
+              Career &amp; Founder Panels
+            </button>
           </div>
         </div>
 
-        <!-- Upcoming Events Showcase -->
-        <h2 style="font-family: var(--font-heading); font-size: var(--text-2xl); color: var(--color-primary); margin-bottom: var(--space-6);">Upcoming Gatherings</h2>
-        
-        <div class="events-scaffold-grid">
-          <article class="event-stub-card">
-            <div class="event-stub-date-badge">
-              <span class="event-stub-month">OCT</span>
-              <span class="event-stub-day">24</span>
+        <!-- Events Container with Pre-rendered Cards & Photographic Banners -->
+        <div id="events-list" class="events-grid" aria-live="polite">
+          <article class="event-card" data-event-id="event-homecoming-2026">
+            <div class="event-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80" alt="Annual Homecoming &amp; Innovation Gala" class="event-card-img" loading="lazy" />
+              <span class="event-card-badge-floating badge badge-accent">Class Reunions &amp; Homecomings</span>
+              <div class="event-card-date-floating event-date-badge" aria-label="Date: OCT 24, 2026">
+                <span class="event-date-month">OCT</span>
+                <span class="event-date-day">24</span>
+              </div>
             </div>
-            <div class="event-stub-body">
-              <span class="badge badge-accent" style="margin-bottom: var(--space-2); display: inline-block;">Annual Reunion</span>
-              <h3 style="font-family: var(--font-sans); font-size: var(--text-lg); font-weight: var(--font-bold); color: var(--color-primary); margin-bottom: var(--space-1);">Annual Homecoming &amp; Innovation Gala</h3>
-              <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-3);">
-                Campus Quadrangle &bull; Boston, MA
-              </p>
-              <button class="btn btn-outline btn-sm" disabled>RSVP Opening Soon</button>
+            <div class="event-card-body">
+              <h3 class="event-card-title">Annual Homecoming &amp; Innovation Gala</h3>
+              <p class="event-card-desc">Celebrate decades of academic excellence and visionary research. Reconnect with classmates under the grand pavilion with dinner, student innovation showcases, and distinguished alumni awards.</p>
+              <div class="event-meta-list">
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>5:30 PM – 10:00 PM EDT</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>Campus Quadrangle • Boston, MA</span>
+                </div>
+              </div>
             </div>
-          </article>
-
-          <article class="event-stub-card">
-            <div class="event-stub-date-badge">
-              <span class="event-stub-month">NOV</span>
-              <span class="event-stub-day">12</span>
-            </div>
-            <div class="event-stub-body">
-              <span class="badge badge-subtle" style="margin-bottom: var(--space-2); display: inline-block;">Regional Chapter</span>
-              <h3 style="font-family: var(--font-sans); font-size: var(--text-lg); font-weight: var(--font-bold); color: var(--color-primary); margin-bottom: var(--space-1);">London Regional Chapter Autumn Dinner</h3>
-              <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-3);">
-                The Royal Society &bull; London, UK
-              </p>
-              <button class="btn btn-outline btn-sm" disabled>RSVP Opening Soon</button>
+            <div class="event-card-actions">
+              <button type="button" class="btn btn-outline btn-sm view-schedule-btn" data-event-id="event-homecoming-2026">View Schedule / Speakers</button>
+              <button type="button" class="btn btn-primary btn-sm reserve-place-btn" data-event-id="event-homecoming-2026">Reserve Place &rarr;</button>
             </div>
           </article>
 
-          <article class="event-stub-card">
-            <div class="event-stub-date-badge">
-              <span class="event-stub-month">DEC</span>
-              <span class="event-stub-day">05</span>
+          <article class="event-card" data-event-id="event-london-dinner-2026">
+            <div class="event-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80" alt="London Regional Chapter Autumn Dinner" class="event-card-img" loading="lazy" />
+              <span class="event-card-badge-floating badge badge-subtle">Regional Chapter Dinners</span>
+              <div class="event-card-date-floating event-date-badge" aria-label="Date: NOV 12, 2026">
+                <span class="event-date-month">NOV</span>
+                <span class="event-date-day">12</span>
+              </div>
             </div>
-            <div class="event-stub-body">
-              <span class="badge badge-subtle" style="margin-bottom: var(--space-2); display: inline-block;">Virtual Panel</span>
-              <h3 style="font-family: var(--font-sans); font-size: var(--text-lg); font-weight: var(--font-bold); color: var(--color-primary); margin-bottom: var(--space-1);">Virtual Tech &amp; Founder Office Hours</h3>
-              <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-3);">
-                Online Global Live Stream
-              </p>
-              <button class="btn btn-outline btn-sm" disabled>RSVP Opening Soon</button>
+            <div class="event-card-body">
+              <h3 class="event-card-title">London Regional Chapter Autumn Dinner</h3>
+              <p class="event-card-desc">Gather with European-based alumni and visiting faculty in the historic library of the Royal Society for an evening of cross-border fellowship, drinks, and academic discussion.</p>
+              <div class="event-meta-list">
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>6:30 PM – 10:00 PM GMT</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>The Royal Society • London, UK</span>
+                </div>
+              </div>
+            </div>
+            <div class="event-card-actions">
+              <button type="button" class="btn btn-outline btn-sm view-schedule-btn" data-event-id="event-london-dinner-2026">View Schedule / Speakers</button>
+              <button type="button" class="btn btn-primary btn-sm reserve-place-btn" data-event-id="event-london-dinner-2026">Reserve Place &rarr;</button>
+            </div>
+          </article>
+
+          <article class="event-card" data-event-id="event-virtual-office-hours-2026">
+            <div class="event-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="Virtual Tech &amp; Founder Office Hours" class="event-card-img" loading="lazy" />
+              <span class="event-card-badge-floating badge badge-primary">Virtual Symposia &amp; Webinars</span>
+              <div class="event-card-date-floating event-date-badge" aria-label="Date: DEC 05, 2026">
+                <span class="event-date-month">DEC</span>
+                <span class="event-date-day">05</span>
+              </div>
+            </div>
+            <div class="event-card-body">
+              <h3 class="event-card-title">Virtual Tech &amp; Founder Office Hours</h3>
+              <p class="event-card-desc">An intimate digital gathering designed for alumni founders, engineers, and researchers to discuss emerging AI architectures, startup fundraising, and product engineering.</p>
+              <div class="event-meta-list">
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>11:00 AM – 1:00 PM EST (Global Live Stream)</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>Online Global Live Stream</span>
+                </div>
+              </div>
+            </div>
+            <div class="event-card-actions">
+              <button type="button" class="btn btn-outline btn-sm view-schedule-btn" data-event-id="event-virtual-office-hours-2026">View Schedule / Speakers</button>
+              <button type="button" class="btn btn-primary btn-sm reserve-place-btn" data-event-id="event-virtual-office-hours-2026">Reserve Place &rarr;</button>
             </div>
           </article>
         </div>
+      </div>
+    </section>
 
+    <!-- Chapter Section -->
+    <section class="section section-alt" id="chapters-section">
+      <div class="container">
+        <div class="chapters-header">
+          <div class="chapters-header-text">
+            <span class="section-tag">Global Presence</span>
+            <h2 class="events-section-heading">Find Your Local Chapter</h2>
+            <p class="events-section-sub">
+              Apex University maintains <strong>18 active global alumni chapters</strong> spanning North America, Europe, Asia-Pacific, Latin America, and Africa. Connect with regional chapter leadership or attend your city's next informal gathering.
+            </p>
+          </div>
+
+          <!-- Chapter Region Filter Tabs -->
+          <div class="chapter-region-tabs" role="tablist" aria-label="Chapter regions">
+            <button type="button" class="chapter-tab active" data-region="all">All Regions (18)</button>
+            <button type="button" class="chapter-tab" data-region="Americas">Americas</button>
+            <button type="button" class="chapter-tab" data-region="Europe">Europe</button>
+            <button type="button" class="chapter-tab" data-region="Asia-Pacific">Asia-Pacific</button>
+            <button type="button" class="chapter-tab" data-region="Middle East &amp; Africa">Middle East &amp; Africa</button>
+          </div>
+        </div>
+
+        <!-- 18 Chapters Grid -->
+        <div id="chapters-grid" class="chapters-grid" aria-live="polite">
+          <!-- Populated dynamically via js/pages/events.js -->
+        </div>
+
+        <div class="chapters-cta-box">
+          <div class="chapters-cta-text">
+            <h3 class="chapters-cta-title">Don't see your city listed?</h3>
+            <p class="chapters-cta-desc">Alumni in emerging regional hubs are welcome to establish an affiliated city circle or informal dinner table.</p>
+          </div>
+          <a href="mailto:chapters@apexalumni.org" class="btn btn-primary btn-sm">Inquire with Chapters Office</a>
+        </div>
       </div>
     </section>
   </main>
+
+  <!-- Event Details / Schedule Modal -->
+  <div id="schedule-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="schedule-modal-title" hidden>
+    <div class="modal-content modal-content-lg">
+      <div class="modal-header">
+        <div>
+          <span id="schedule-modal-category" class="badge badge-accent">Category</span>
+          <h3 class="modal-title" id="schedule-modal-title">Event Schedule &amp; Details</h3>
+        </div>
+        <button type="button" id="close-schedule-modal" class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body" id="schedule-modal-body">
+        <!-- Content injected dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline btn-sm" id="schedule-modal-close-btn">Close</button>
+        <button type="button" class="btn btn-primary btn-sm" id="schedule-modal-reserve-btn">Reserve Place</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RSVP Form Modal -->
+  <div id="rsvp-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="rsvp-modal-title" hidden>
+    <div class="modal-content modal-content-md">
+      <div class="modal-header">
+        <div>
+          <span class="badge badge-accent">Registration</span>
+          <h3 class="modal-title" id="rsvp-modal-title">Reserve Your Place</h3>
+        </div>
+        <button type="button" id="close-rsvp-modal" class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      </div>
+      <form id="rsvp-form" novalidate>
+        <div class="modal-body">
+          <div class="rsvp-event-summary">
+            <span id="rsvp-event-name" class="rsvp-event-name">Event Title</span>
+            <span id="rsvp-event-loc" class="rsvp-event-loc">Location • Time</span>
+          </div>
+
+          <div class="form-group">
+            <label for="rsvp-name" class="form-label">Full Name <span class="required">*</span></label>
+            <input type="text" id="rsvp-name" name="name" class="form-control" placeholder="e.g. Dr. Jane Doe" required autocomplete="name" />
+            <span class="form-error" id="rsvp-name-error" style="display: none;">Please enter your full name.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="rsvp-email" class="form-label">Email Address <span class="required">*</span></label>
+            <input type="email" id="rsvp-email" name="email" class="form-control" placeholder="you@alumni.org" required autocomplete="email" />
+            <span class="form-error" id="rsvp-email-error" style="display: none;">Please enter a valid email address.</span>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="rsvp-batch" class="form-label">Class Year</label>
+              <input type="number" id="rsvp-batch" name="gradYear" class="form-control" placeholder="e.g. 2018" min="1940" max="2030" />
+            </div>
+
+            <div class="form-group">
+              <label for="rsvp-guests" class="form-label">Total Guests <span class="required">*</span></label>
+              <select id="rsvp-guests" name="guests" class="form-control" required>
+                <option value="1">1 (Alumnus only)</option>
+                <option value="2">2 (Alumnus + 1 Guest)</option>
+                <option value="3">3 (Alumnus + 2 Guests)</option>
+                <option value="4">4 (Alumnus + 3 Guests)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline btn-sm" id="cancel-rsvp-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm" id="submit-rsvp-btn">Confirm Reservation</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Alumni Boarding Pass / Reservation Ticket Modal -->
+  <div id="ticket-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="ticket-modal-title" hidden>
+    <div class="modal-content modal-content-ticket">
+      <div class="ticket-wrapper" id="ticket-printable-area">
+        <!-- Ticket Header -->
+        <div class="ticket-header">
+          <div class="ticket-brand">
+            <div class="ticket-crest">Ω</div>
+            <div class="ticket-brand-text">
+              <span class="ticket-institution">Apex University Alumni Network</span>
+              <span class="ticket-pass-type">Official Gathering Pass &bull; Institutional Guest</span>
+            </div>
+          </div>
+          <div class="ticket-status-badge">
+            <span class="ticket-badge-pill">Confirmed</span>
+          </div>
+        </div>
+
+        <!-- Ticket Body -->
+        <div class="ticket-body">
+          <div class="ticket-event-info">
+            <span class="ticket-label">Event / Gathering</span>
+            <h3 class="ticket-event-title" id="ticket-event-title">Annual Homecoming &amp; Innovation Gala</h3>
+          </div>
+
+          <div class="ticket-grid">
+            <div class="ticket-grid-item">
+              <span class="ticket-label">Attendee Name</span>
+              <span class="ticket-val" id="ticket-attendee-name">—</span>
+            </div>
+            <div class="ticket-grid-item">
+              <span class="ticket-label">Class Year</span>
+              <span class="ticket-val" id="ticket-class-year">—</span>
+            </div>
+            <div class="ticket-grid-item">
+              <span class="ticket-label">Date &amp; Time</span>
+              <span class="ticket-val" id="ticket-date-time">—</span>
+            </div>
+            <div class="ticket-grid-item">
+              <span class="ticket-label">Venue / Location</span>
+              <span class="ticket-val" id="ticket-location">—</span>
+            </div>
+            <div class="ticket-grid-item">
+              <span class="ticket-label">Guests Admitted</span>
+              <span class="ticket-val" id="ticket-guest-count">1</span>
+            </div>
+            <div class="ticket-grid-item">
+              <span class="ticket-label">Reservation ID</span>
+              <span class="ticket-val ticket-code" id="ticket-reservation-id">APX-2026-0000</span>
+            </div>
+          </div>
+
+          <!-- Perforated Divider -->
+          <div class="ticket-perforation" aria-hidden="true">
+            <div class="perforation-notch-left"></div>
+            <div class="perforation-line"></div>
+            <div class="perforation-notch-right"></div>
+          </div>
+
+          <!-- Barcode / Stub Section -->
+          <div class="ticket-stub-section">
+            <div class="ticket-barcode-block" aria-label="Visual barcode verification placeholder">
+              <div class="ticket-barcode-lines">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <span class="ticket-barcode-num" id="ticket-barcode-num">APX-82910-2026</span>
+            </div>
+            <p class="ticket-notice">
+              Please present this official digital pass or a printed copy upon arrival at check-in. Valid university ID or government ID may be requested.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ticket Actions -->
+      <div class="ticket-actions modal-footer">
+        <button type="button" class="btn btn-outline btn-sm" id="print-ticket-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right: 4px;">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          Print / Save Pass
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" id="close-ticket-btn">Done</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Persistent Site Footer -->
   <footer class="site-footer">
