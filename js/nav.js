@@ -326,24 +326,7 @@ function initCommandPalette() {
   }
 
   // Ensure command palette trigger exists in the masthead header-actions
-  const headerActions = document.querySelector('.site-header .header-actions');
-  if (headerActions && !headerActions.querySelector('.cmd-palette-trigger')) {
-    const searchTrigger = document.createElement('button');
-    searchTrigger.className = 'cmd-palette-trigger';
-    searchTrigger.id = 'cmd-palette-trigger';
-    searchTrigger.setAttribute('aria-label', 'Search alumni network (⌘K)');
-    searchTrigger.innerHTML = `
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-      <span class="cmd-placeholder">Search directory...</span>
-      <kbd class="cmd-badge">⌘K</kbd>
-    `;
-    const navAuth = document.getElementById('nav-auth-container');
-    if (navAuth) {
-      headerActions.insertBefore(searchTrigger, navAuth);
-    } else {
-      headerActions.prepend(searchTrigger);
-    }
-  }
+  
 
   const input = document.getElementById('cmd-palette-input');
   const resultsContainer = document.getElementById('cmd-palette-results');

@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Apex University Alumni Network — Official Global Community</title>
+  <title>GIET University Alumni Network — Official Global Community</title>
   <meta name="description" content="Official alumni network of Apex University. Connect with 28,000+ leaders, researchers, and innovators across 50+ countries. Explore the interactive alumni constellation." />
   
-  <!-- Open Graph -->
+  <!-- Open Graph / Meta -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Apex University Alumni Network" />
-  <meta property="og:description" content="Connecting generations of excellence across 50+ countries." />
+  <meta property="og:title" content="Apex University Alumni Network — Ad Astra Per Aspera" />
+  <meta property="og:description" content="Connecting generations of excellence across 50+ countries. Official alumni network of Apex University." />
   
-  <!-- CSS Design System -->
+  <!-- CSS Design System (Foundation & Home Page) -->
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/components.css" />
@@ -21,13 +21,16 @@
 
   <!-- ========================================================================
        PERSISTENT SITE HEADER
+       System Contract: #nav-auth-container, .mobile-toggle, #mobile-auth-container
        ======================================================================== -->
   <header class="site-header">
     <div class="container header-inner">
-      <a href="index.html" class="brand">
-        <div class="brand-crest">Ω</div>
+      <a href="index.html" class="brand" aria-label="GIET University Alumni Network Home">
+        <div class="brand-crest">
+          <img src="giet-logo.webp?v=3" alt="GIET University Logo" class="brand-logo-img" />
+        </div>
         <div class="brand-info">
-          <span class="brand-title">Apex University</span>
+          <span class="brand-title">GIET University</span>
           <span class="brand-subtitle">Alumni Network</span>
         </div>
       </a>
@@ -42,7 +45,7 @@
       </nav>
 
       <div class="header-actions">
-        <!-- Search Trigger injected dynamically by nav.js or fallback -->
+        <!-- Search Trigger is auto-injected by js/nav.js (⌘K Quick Search) -->
         <div id="nav-auth-container">
           <a href="login.html" class="btn btn-outline btn-sm">Alumni Login</a>
         </div>
@@ -55,13 +58,15 @@
   </header>
 
   <!-- Mobile Drawer -->
-  <div class="mobile-drawer-backdrop"></div>
-  <div class="mobile-drawer">
+  <div class="mobile-drawer-backdrop" aria-hidden="true"></div>
+  <div class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
     <div class="brand">
-      <div class="brand-crest">Ω</div>
+      <div class="brand-crest">
+        <img src="giet-logo.webp?v=3" alt="GIET University Logo" class="brand-logo-img" />
+      </div>
       <div class="brand-info">
-        <span class="brand-title">Apex University</span>
-        <span class="brand-subtitle">Alumni Network</span>
+        <span class="brand-title">GIET University</span>
+        <span class="brand-subtitle">Alumni Network &bull; Est. 1881</span>
       </div>
     </div>
 
@@ -80,13 +85,38 @@
   <main class="main-content">
     
     <!-- ======================================================================
-         1. CINEMATIC EDITORIAL HERO WITH LIVE ALUMNI COMPOSITION
+         1. CINEMATIC EDITORIAL HERO WITH ACADEMIC CREST & LIVE ALUMNI COMPOSITION
          ====================================================================== -->
     <section class="hero-cinematic section-cream">
+      <!-- Subtle Collegiate Watermark Seal -->
+      <div class="heritage-watermark-seal" aria-hidden="true">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="92" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.6"/>
+          <circle cx="100" cy="100" r="82" stroke="currentColor" stroke-width="2"/>
+          <circle cx="100" cy="100" r="64" stroke="currentColor" stroke-width="1"/>
+          <!-- Greek Omega Crest Symbol -->
+          <path d="M72 136H84C88 126 92 110 92 98C84 98 76 90 76 78C76 64 88 54 100 54C112 54 124 64 124 78C124 90 116 98 108 98C108 110 112 126 116 136H128V144H106C106 136 104 124 104 114H96C96 124 94 136 94 144H72V136Z" fill="currentColor" opacity="0.85"/>
+          <path d="M100 24L103 33H112L105 39L108 48L100 42L92 48L95 39L88 33H97L100 24Z" fill="currentColor"/>
+          <!-- Latin Inscription Arc Representation -->
+          <text font-family="Newsreader, serif" font-size="8.5" font-weight="600" letter-spacing="2.8" fill="currentColor" text-anchor="middle">
+            <textPath href="#seal-text-path" startOffset="50%">
+              AD ASTRA PER ASPERA &bull; GIET UNIVERSITY 
+            </textPath>
+          </text>
+          <defs>
+            <path id="seal-text-path" d="M28,100 A72,72 0 1,1 172,100" />
+          </defs>
+        </svg>
+      </div>
+
       <div class="container hero-inner-grid">
         <div class="hero-text-col">
           <div class="hero-tag-wrap reveal">
-            <span class="section-tag">Apex University Alumni Community</span>
+            <span class="heritage-seal-badge">
+              <span class="crest-mini-glyph">★</span>
+              GIET University &bull; Founded 1997
+            </span>
+            <span class="heritage-motto-tag" title="To the stars through hardships">Ad Astra Per Aspera</span>
           </div>
 
           <h1 class="hero-headline reveal reveal-delay-1">
@@ -94,42 +124,70 @@
           </h1>
 
           <p class="hero-description reveal reveal-delay-2">
-            An interconnected global community of 28,000+ researchers, founders, civic counsels, and creators across 50+ countries. Reconnecting cohorts, accelerating mentorship, and shaping the future together.
+            An interconnected global community of GIET University researchers, engineers, founders, and creators across 50+ countries. Reconnecting cohorts, accelerating mentorship, and shaping the future together.
           </p>
 
           <div class="hero-actions-wrap reveal reveal-delay-3">
             <a href="directory.html" class="btn btn-primary btn-lg">Explore Alumni Directory &rarr;</a>
             <button class="btn btn-outline btn-lg" onclick="document.getElementById('cmd-palette-trigger')?.click();">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
               Quick Search (⌘K)
             </button>
+          </div>
+
+          <!-- Academic Seal Micro-Credential -->
+          <div class="hero-credential-footnote reveal reveal-delay-4">
+            <span class="credential-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              45 Years of Excellence
+            </span>
+            <span class="credential-bullet">&bull;</span>
+            <span class="credential-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              Verified Alumni Registry
+            </span>
+            <span class="credential-bullet">&bull;</span>
+            <span class="credential-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              38 Chapters Worldwide
+            </span>
           </div>
         </div>
 
         <div class="hero-spatial-col reveal reveal-delay-2">
-          <!-- Live Spatial Alumni Card Layer -->
-          <div class="hero-alumni-card hero-card-main">
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=500&q=80" alt="Dr. Elena Rostova" class="hero-card-img" />
+          <!-- Live Spatial Alumni Card 1: Dr. Elena Rostova ('12) -->
+          <a href="profile.html?id=alumni-001" class="hero-alumni-card hero-card-main" aria-label="View profile of Dr. Elena Rostova">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="Dr. Elena Rostova" class="hero-card-img" />
             <div class="hero-card-overlay">
-              <span class="badge badge-accent">Biomedical Engineering</span>
+              <div class="hero-card-tag-row">
+                <span class="badge badge-accent">Biomedical Engineering</span>
+                <span class="hero-card-verified-badge" title="Verified Distinguished Alumnus">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm-2 16l-4-4 1.41-1.41L10 15.17l6.59-6.59L18 10l-8 8z"/></svg>
+                </span>
+              </div>
               <h3 class="hero-card-name">Dr. Elena Rostova</h3>
               <p class="hero-card-sub">VP of Molecular Therapeutics &bull; Class of '12</p>
+              <span class="hero-card-view-btn">View Editorial Profile &rarr;</span>
             </div>
-          </div>
+          </a>
 
-          <div class="hero-alumni-card hero-card-secondary">
-            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80" alt="Aria Chen" class="hero-card-img" />
+          <!-- Live Spatial Alumni Card 2: Aria Chen ('19) -->
+          <a href="profile.html?id=alumni-003" class="hero-alumni-card hero-card-secondary" aria-label="View profile of Aria Chen">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=500&q=80" alt="Aria Chen" class="hero-card-img" />
             <div class="hero-card-overlay">
-              <span class="badge badge-subtle">Google DeepMind</span>
+              <div class="hero-card-tag-row">
+                <span class="badge badge-subtle">Google DeepMind</span>
+              </div>
               <h4 class="hero-card-name">Aria Chen</h4>
-              <p class="hero-card-sub">AI Research Scientist &bull; '19</p>
+              <p class="hero-card-sub">Senior Research Scientist &bull; '19</p>
+              <span class="hero-card-view-btn">View Profile &rarr;</span>
             </div>
-          </div>
+          </a>
         </div>
       </div>
 
       <!-- Continuous Subtle Alumni Ticker -->
-      <div class="alumni-ticker-strip">
+      <div class="alumni-ticker-strip hero-ticker-track" aria-label="Notable Alumni Ticker">
         <div class="ticker-track">
           <span>Dr. Elena Rostova ('12) &bull; Genovate Therapeutics</span>
           <span class="ticker-dot">&bull;</span>
@@ -145,9 +203,11 @@
           <span class="ticker-dot">&bull;</span>
           <span>Kenji Sato ('16) &bull; Kengo Kuma Associates</span>
           <span class="ticker-dot">&bull;</span>
-          <span>Zainab Al-Mansoor ('18) &bull; Stripe Engineering</span>
+          <span>Zainab Al-Mansoor ('18) &bull; Stripe Global Payouts</span>
           <span class="ticker-dot">&bull;</span>
           <span>Liam O'Connor ('23) &bull; McKinsey Sustainability</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Mateo Rossi ('14) &bull; The Global Chronicle</span>
           <span class="ticker-dot">&bull;</span>
           <!-- Duplicate set for seamless continuous marquee loop -->
           <span>Dr. Elena Rostova ('12) &bull; Genovate Therapeutics</span>
@@ -164,9 +224,11 @@
           <span class="ticker-dot">&bull;</span>
           <span>Kenji Sato ('16) &bull; Kengo Kuma Associates</span>
           <span class="ticker-dot">&bull;</span>
-          <span>Zainab Al-Mansoor ('18) &bull; Stripe Engineering</span>
+          <span>Zainab Al-Mansoor ('18) &bull; Stripe Global Payouts</span>
           <span class="ticker-dot">&bull;</span>
           <span>Liam O'Connor ('23) &bull; McKinsey Sustainability</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Mateo Rossi ('14) &bull; The Global Chronicle</span>
           <span class="ticker-dot">&bull;</span>
         </div>
       </div>
@@ -174,6 +236,7 @@
 
     <!-- ======================================================================
          2. BY THE NUMBERS STAT STRIP
+         System Contract: stat-total-alumni, stat-countries, stat-chapters, stat-years
          ====================================================================== -->
     <section class="stats-bar">
       <div class="container stats-grid">
@@ -183,6 +246,7 @@
             <span class="stat-suffix">+</span>
           </div>
           <div class="stat-label">Global Alumni Body</div>
+          <div class="stat-sublabel">Graduates Across 6 Continents</div>
         </div>
         <div class="stat-item reveal reveal-delay-1">
           <div class="stat-value">
@@ -190,12 +254,14 @@
             <span class="stat-suffix">+</span>
           </div>
           <div class="stat-label">Countries Represented</div>
+          <div class="stat-sublabel">Sovereign Chapters &amp; Cohorts</div>
         </div>
         <div class="stat-item reveal reveal-delay-2">
           <div class="stat-value">
             <span id="stat-chapters">0</span>
           </div>
           <div class="stat-label">Regional Chapters</div>
+          <div class="stat-sublabel">Active Metropolitan Hubs</div>
         </div>
         <div class="stat-item reveal reveal-delay-3">
           <div class="stat-value">
@@ -203,51 +269,81 @@
             <span class="stat-suffix">yrs</span>
           </div>
           <div class="stat-label">Academic Excellence</div>
+          <div class="stat-sublabel">Chartered in 1980 &bull; Est. 1881</div>
         </div>
       </div>
     </section>
 
+    <!-- Brass Accent Flourish Divider -->
+    <div class="brass-divider-wrap" aria-hidden="true">
+      <div class="brass-divider">
+        <span class="brass-glyph">✦</span>
+        <span class="brass-crest-letter">Ω</span>
+        <span class="brass-glyph">✦</span>
+      </div>
+    </div>
+
     <!-- ======================================================================
          3. INTERACTIVE ALUMNI CONSTELLATION & LIVING NETWORK
+         System Contract: #constellation-canvas, #constellation-tooltip, #constellation-filters
          ====================================================================== -->
-    <section class="section constellation-section">
+    <section class="section constellation-section" id="network-constellation">
       <div class="container">
         <div class="constellation-header-row reveal">
           <div>
-            <span class="section-tag">Interactive Ecosystem</span>
+            <span class="section-tag" style="color: var(--color-accent);">Interactive Ecosystem</span>
             <h2 class="section-title">The Living Alumni Constellation</h2>
             <p class="section-subtitle">
-              A dynamic visual graph of our global network. Explore cross-disciplinary relationships, discover alumni by industry clusters, and hover nodes to view live graduate profiles.
+              A 60fps dynamic visual graph of our global network. Explore cross-disciplinary relationships, discover alumni by industry clusters, and hover nodes to view live graduate profiles.
             </p>
           </div>
 
-          <div class="constellation-filter-pills" id="constellation-filters">
-            <button class="constellation-pill active" data-filter="all">All Disciplines</button>
-            <button class="constellation-pill" data-filter="Tech">AI &amp; Tech</button>
-            <button class="constellation-pill" data-filter="Biotech">Biotech &amp; Health</button>
-            <button class="constellation-pill" data-filter="Finance">Venture &amp; Capital</button>
-            <button class="constellation-pill" data-filter="Energy">Clean Energy</button>
+          <!-- Discipline Filter Pills -->
+          <div class="constellation-filter-pills" id="constellation-filters" role="group" aria-label="Filter network by discipline">
+            <button class="constellation-pill active" data-filter="all">
+              <span class="pill-dot dot-all"></span> All Disciplines
+            </button>
+            <button class="constellation-pill" data-filter="Tech">
+              <span class="pill-dot dot-tech"></span> AI &amp; Tech
+            </button>
+            <button class="constellation-pill" data-filter="Biotech">
+              <span class="pill-dot dot-bio"></span> Biotech &amp; Health
+            </button>
+            <button class="constellation-pill" data-filter="Finance">
+              <span class="pill-dot dot-vc"></span> Venture &amp; Capital
+            </button>
+            <button class="constellation-pill" data-filter="Energy">
+              <span class="pill-dot dot-energy"></span> Clean Energy
+            </button>
           </div>
         </div>
 
         <div class="constellation-canvas-wrapper reveal reveal-delay-1">
-          <canvas id="network-canvas" class="network-canvas" aria-label="Interactive Alumni Network Graph"></canvas>
+          <!-- Main Canvas supporting both #constellation-canvas and #network-canvas IDs -->
+          <canvas id="constellation-canvas" class="network-canvas constellation-canvas" aria-label="Interactive Alumni Network Constellation Graph"></canvas>
           
-          <!-- Hover Profile Tooltip Card -->
-          <div id="network-node-tooltip" class="network-node-tooltip" style="display: none;">
+          <!-- Hover Profile Tooltip Card supporting #constellation-tooltip -->
+          <div id="constellation-tooltip" class="network-node-tooltip constellation-tooltip" style="display: none;" role="tooltip">
+            <div class="tooltip-badge-strip">
+              <span id="tooltip-discipline-badge" class="badge badge-accent">Technology</span>
+              <span id="tooltip-verified-badge" class="tooltip-verified-pill" title="Verified Alumnus">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm-2 16l-4-4 1.41-1.41L10 15.17l6.59-6.59L18 10l-8 8z"/></svg>
+                Verified
+              </span>
+            </div>
             <div class="tooltip-content">
               <img id="tooltip-avatar" src="" alt="" class="tooltip-avatar" />
-              <div>
+              <div class="tooltip-info">
                 <div id="tooltip-name" class="tooltip-name">Alumni Name</div>
                 <div id="tooltip-role" class="tooltip-role">Role at Company</div>
                 <div id="tooltip-meta" class="tooltip-meta">Class of '19 &bull; Location</div>
               </div>
             </div>
-            <a id="tooltip-link" href="#" class="tooltip-btn">View Profile &rarr;</a>
+            <a id="tooltip-link" href="#" class="tooltip-btn">View Full Profile &rarr;</a>
           </div>
 
           <div class="constellation-canvas-hint">
-            <span>&bull; Drag canvas to pan &bull; Hover nodes to reveal connections &bull; Click node to inspect</span>
+            <span>✦ Drag canvas to pan &bull; Hover nodes to reveal live connections &bull; Click node to open profile</span>
           </div>
         </div>
       </div>
@@ -255,35 +351,49 @@
 
     <!-- ======================================================================
          4. GENERATIONS OF EXCELLENCE TIMELINE EXPLORER
+         System Contract: #timeline-display, #timeline-content-panel
          ====================================================================== -->
-    <section class="section section-cream">
+    <section class="section section-cream timeline-section" id="timeline-section">
       <div class="container">
         <div class="section-header text-left reveal">
           <span class="section-tag">Historical Impact</span>
           <h2 class="section-title">Generations of Excellence</h2>
           <p class="section-subtitle">
-            From our founding cohorts to contemporary leaders in quantum computing and climate infrastructure. Explore four decades of transformative alumni work.
+            From our founding cohorts to contemporary leaders in quantum computing and climate infrastructure. Explore four decades of transformative alumni work and societal leadership.
           </p>
         </div>
 
         <div class="timeline-tabs-wrap reveal">
-          <div class="timeline-nav-tabs" role="tablist">
-            <button class="timeline-tab active" data-era="frontier" role="tab">2016 – Present: Frontier &amp; Sustainability</button>
-            <button class="timeline-tab" data-era="expansion" role="tab">2005 – 2015: Digital Innovation</button>
-            <button class="timeline-tab" data-era="foundation" role="tab">1980 – 2004: Foundation &amp; Civic Leadership</button>
+          <div class="timeline-nav-tabs" role="tablist" aria-label="Alumni Eras">
+            <button class="timeline-tab active" data-era="frontier" role="tab" aria-selected="true">
+              <span class="tab-badge">2016 – Present</span>
+              <span class="tab-label">Frontier &amp; Sustainability</span>
+            </button>
+            <button class="timeline-tab" data-era="expansion" role="tab" aria-selected="false">
+              <span class="tab-badge">2005 – 2015</span>
+              <span class="tab-label">Digital Innovation &amp; Venture</span>
+            </button>
+            <button class="timeline-tab" data-era="foundation" role="tab" aria-selected="false">
+              <span class="tab-badge">1980 – 2004</span>
+              <span class="tab-label">Foundation &amp; Civic Leadership</span>
+            </button>
           </div>
         </div>
 
-        <div id="timeline-content-panel" class="timeline-content-panel reveal reveal-delay-1">
-          <!-- Dynamically populated from js/pages/home.js -->
+        <!-- Timeline Display & Panel (Contract Compliant) -->
+        <div id="timeline-display" class="timeline-display reveal reveal-delay-1">
+          <div id="timeline-content-panel" class="timeline-content-panel">
+            <!-- Dynamically populated by js/pages/home.js with rich milestone cards & alumni links -->
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ======================================================================
          5. "FROM CAMPUS TO THE WORLD" GEOGRAPHIC FOOTPRINT
+         System Contract: .geo-card
          ====================================================================== -->
-    <section class="section">
+    <section class="section geographic-section">
       <div class="container">
         <div class="section-header text-left reveal">
           <span class="section-tag">Global Footprint</span>
@@ -294,43 +404,63 @@
         </div>
 
         <div class="geographic-grid reveal reveal-delay-1">
-          <div class="geo-card" onclick="window.location.href='directory.html?search=San%20Francisco'">
+          <div class="geo-card" onclick="window.location.href='directory.html?search=San%20Francisco'" tabindex="0" role="link" aria-label="Explore San Francisco & Silicon Valley Alumni Hub">
             <div class="geo-card-header">
               <span class="geo-hub-tag">Pacific Hub</span>
               <span class="geo-alumni-count">6,400+ Alumni</span>
             </div>
             <h3 class="geo-city">San Francisco &amp; Silicon Valley</h3>
-            <p class="geo-desc">Leading foundational multimodal AI research, orbital rocketry, and autonomous mobility.</p>
+            <p class="geo-desc">Leading foundational multimodal AI research, orbital rocketry, and autonomous mobility architectures.</p>
+            <div class="geo-meta-highlights">
+              <span class="geo-pill">Google DeepMind</span>
+              <span class="geo-pill">SpaceX</span>
+              <span class="geo-pill">OpenAI</span>
+            </div>
             <span class="geo-link">Explore Hub Alumni &rarr;</span>
           </div>
 
-          <div class="geo-card" onclick="window.location.href='directory.html?search=London'">
+          <div class="geo-card" onclick="window.location.href='directory.html?search=London'" tabindex="0" role="link" aria-label="Explore London & Western Europe Alumni Hub">
             <div class="geo-card-header">
               <span class="geo-hub-tag">Europe Hub</span>
               <span class="geo-alumni-count">4,800+ Alumni</span>
             </div>
             <h3 class="geo-city">London &amp; Western Europe</h3>
-            <p class="geo-desc">Pioneering climate venture funds, cross-border fintech rails, and international arbitration.</p>
+            <p class="geo-desc">Pioneering climate venture funds, cross-border fintech rails, and international environmental arbitration.</p>
+            <div class="geo-meta-highlights">
+              <span class="geo-pill">Apex Capital</span>
+              <span class="geo-pill">BioSphere</span>
+              <span class="geo-pill">Stripe EU</span>
+            </div>
             <span class="geo-link">Explore Hub Alumni &rarr;</span>
           </div>
 
-          <div class="geo-card" onclick="window.location.href='directory.html?search=Boston'">
+          <div class="geo-card" onclick="window.location.href='directory.html?search=Boston'" tabindex="0" role="link" aria-label="Explore Boston & Cambridge Alumni Hub">
             <div class="geo-card-header">
               <span class="geo-hub-tag">Northeast Hub</span>
               <span class="geo-alumni-count">5,200+ Alumni</span>
             </div>
             <h3 class="geo-city">Boston &amp; Cambridge</h3>
-            <p class="geo-desc">Translating lab discoveries into targeted mRNA therapies and neurodegenerative clinical care.</p>
+            <p class="geo-desc">Translating laboratory bioengineering into targeted mRNA therapies and neurodegenerative clinical care.</p>
+            <div class="geo-meta-highlights">
+              <span class="geo-pill">Genovate</span>
+              <span class="geo-pill">Broad Institute</span>
+              <span class="geo-pill">MIT Labs</span>
+            </div>
             <span class="geo-link">Explore Hub Alumni &rarr;</span>
           </div>
 
-          <div class="geo-card" onclick="window.location.href='directory.html?search=Tokyo'">
+          <div class="geo-card" onclick="window.location.href='directory.html?search=Tokyo'" tabindex="0" role="link" aria-label="Explore Tokyo, Singapore & Dubai Alumni Hub">
             <div class="geo-card-header">
               <span class="geo-hub-tag">Asia-Pacific Hub</span>
               <span class="geo-alumni-count">3,100+ Alumni</span>
             </div>
             <h3 class="geo-city">Tokyo, Singapore &amp; Dubai</h3>
-            <p class="geo-desc">Computational generative architecture, seismic civic centers, and sovereign AI clusters.</p>
+            <p class="geo-desc">Computational generative architecture, seismic civic centers, and sovereign high-throughput payment corridors.</p>
+            <div class="geo-meta-highlights">
+              <span class="geo-pill">Kengo Kuma</span>
+              <span class="geo-pill">Fintech Gulf</span>
+              <span class="geo-pill">Lumina Asia</span>
+            </div>
             <span class="geo-link">Explore Hub Alumni &rarr;</span>
           </div>
         </div>
@@ -339,27 +469,29 @@
 
     <!-- ======================================================================
          6. DISTINGUISHED ALUMNI SPOTLIGHT
+         System Contract: #spotlight-container
          ====================================================================== -->
-    <section class="section section-cream">
+    <section class="section section-cream spotlight-section">
       <div class="container">
         <div class="section-header text-left reveal">
           <span class="section-tag">Distinguished Narrative</span>
           <h2 class="section-title">Alumni Spotlight</h2>
           <p class="section-subtitle">
-            Celebrating graduates whose visionary research and leadership transform society.
+            Celebrating graduates whose visionary research, leadership, and public scholarship transform society.
           </p>
         </div>
 
         <div id="spotlight-container" class="reveal reveal-delay-1">
-          <!-- Spotlight dynamically rendered from js/pages/home.js -->
+          <!-- Spotlight dynamically rendered by js/pages/home.js -->
         </div>
       </div>
     </section>
 
     <!-- ======================================================================
          7. UNIVERSITY GAZETTE (STORIES & EDITORIAL VOICES)
+         System Contract: #home-stories-grid (2/3 Lead + 1/3 Sidebar)
          ====================================================================== -->
-    <section class="section">
+    <section class="section gazette-section">
       <div class="container">
         <div class="section-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:var(--space-4);">
           <div>
@@ -370,39 +502,54 @@
         </div>
 
         <div id="home-stories-grid" class="stories-editorial-grid reveal reveal-delay-1">
-          <!-- Populated dynamically from js/pages/home.js -->
+          <!-- Populated dynamically by js/pages/home.js -->
         </div>
       </div>
     </section>
 
     <!-- ======================================================================
          8. FEATURED TALKS & MULTIMEDIA
+         System Contract: #home-videos-grid
          ====================================================================== -->
-    <section class="section section-alt">
+    <section class="section section-alt videos-section">
       <div class="container">
         <div class="section-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:var(--space-4);">
           <div>
             <span class="section-tag">Multimedia Archives</span>
-            <h2 class="section-title" style="margin-bottom:0;">Featured Keynotes &amp; Reunions</h2>
+            <h2 class="section-title" style="margin-bottom:0;">Featured Keynotes &amp; Masterclasses</h2>
           </div>
           <a href="videos.html" class="btn btn-outline btn-sm">Open Video Gallery &rarr;</a>
         </div>
 
         <div id="home-videos-grid" class="video-feature-layout reveal reveal-delay-1">
-          <!-- Populated dynamically from js/pages/home.js -->
+          <!-- Populated dynamically by js/pages/home.js -->
         </div>
       </div>
     </section>
 
     <!-- ======================================================================
-         9. GIVING & ENDOWMENT STATEMENT
+         9. GIVING & INSTITUTIONAL ENDOWMENT STATEMENT
          ====================================================================== -->
     <section class="section-dark giving-statement-section">
+      <!-- Watermark Seal on Dark Surface -->
+      <div class="giving-watermark-seal" aria-hidden="true">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="90" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.4"/>
+          <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+          <path d="M74 136H86C90 126 94 110 94 98C86 98 78 90 78 78C78 64 90 54 102 54C114 54 126 64 126 78C126 90 118 98 110 98C110 110 114 126 118 136H130V144H108C108 136 106 124 106 114H98C98 124 96 136 96 144H74V136Z" fill="currentColor" opacity="0.4"/>
+        </svg>
+      </div>
+
       <div class="container text-center reveal">
         <span class="section-tag" style="color:var(--color-accent); justify-content:center;">Institutional Philanthropy</span>
+        <div class="giving-motto-crest">
+          <span class="motto-latin">Ad Astra Per Aspera</span>
+          <span class="motto-divider">&bull;</span>
+          <span class="motto-translation">"To the stars through hardships"</span>
+        </div>
         <h2 class="giving-statement-heading">Your mentorship and generosity empower the next century of scholars.</h2>
         <p class="giving-statement-desc">
-          Every contribution directly underwrites undergraduate bursaries, doctoral climate research fellowships, and campus sustainability labs.
+          Every contribution directly underwrites undergraduate bursaries, doctoral climate fellowships, and campus clean energy laboratories across our global chapters.
         </p>
         <div style="margin-top:var(--space-8); display:flex; justify-content:center; gap:var(--space-4); flex-wrap:wrap;">
           <a href="donate.html" class="btn btn-accent btn-lg">Support Alumni Endowments &rarr;</a>
@@ -421,23 +568,28 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="brand" style="color: #fff;">
-            <div class="brand-crest">Ω</div>
+            <div class="brand-crest">
+              <img src="giet-logo.webp?v=3" alt="GIET University Logo" class="brand-logo-img" />
+            </div>
             <div class="brand-info">
-              <span class="brand-title" style="color: #fff;">Apex University</span>
-              <span class="brand-subtitle">Alumni Network</span>
+              <span class="brand-title" style="color: #fff;">GIET University</span>
+              <span class="brand-subtitle" style="color: var(--color-accent);">Alumni Network</span>
             </div>
           </div>
           <p class="footer-desc">
-            Empowering lifelong connections between our global alumni body and current student cohorts through mentorship, chapters, and community initiatives.
+            Empowering lifelong connections between our global alumni body and current student cohorts through mentorship, chapters, research consortiums, and community initiatives.
           </p>
+          <div class="footer-motto-tag">
+            <em>Ad Astra Per Aspera</em> &bull; Chartered 1980 &bull; Est. 1881
+          </div>
         </div>
 
         <div>
           <h4 class="footer-heading">Explore</h4>
           <ul class="footer-links">
             <li><a href="directory.html" class="footer-link">Alumni Directory</a></li>
-            <li><a href="news.html" class="footer-link">News &amp; Stories</a></li>
-            <li><a href="videos.html" class="footer-link">Video Highlights</a></li>
+            <li><a href="news.html" class="footer-link">News &amp; Gazette</a></li>
+            <li><a href="videos.html" class="footer-link">Keynote Highlights</a></li>
             <li><a href="events.html" class="footer-link">Upcoming Events</a></li>
             <li><a href="donate.html" class="footer-link">Ways to Give</a></li>
           </ul>
@@ -457,7 +609,7 @@
         <div>
           <h4 class="footer-heading">Stay Connected</h4>
           <p style="font-size: var(--text-sm); color: var(--color-text-inverse-muted); margin-bottom: var(--space-3);">
-            Receive our quarterly alumni bulletin and regional chapter invitations.
+            Receive our quarterly alumni bulletin, research summaries, and regional chapter invitations.
           </p>
           <form class="newsletter-form">
             <div class="newsletter-input-group">
@@ -469,7 +621,7 @@
       </div>
 
       <div class="footer-bottom">
-        <div>&copy; 2026 Apex University Alumni Association. All rights reserved.</div>
+        <div>&copy; 2026 Apex University Alumni Association. All rights reserved. &bull; Official Institutional Portal</div>
         <div class="social-links">
           <a href="#" class="social-link" aria-label="LinkedIn">LinkedIn</a>
           <a href="#" class="social-link" aria-label="YouTube">YouTube</a>
