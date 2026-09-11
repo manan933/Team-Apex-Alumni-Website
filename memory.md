@@ -16,10 +16,12 @@ An **official university alumni website** for Apex University — a real, produc
 |---|---|
 | Primary (Navy) | `#0B192C` — Collegiate Oxford Navy |
 | Accent (Gold) | `#D4AF37` — Polished Heritage Gold |
-| Background | `#F8FAFC` — Canvas |
+| Canvas Background | `#F8FAFC` — Canvas |
+| Warm Cream Surface | `#FAF8F4` (`--color-cream`) |
+| Warm Divider | `#E8E1D9` (`--color-border-warm`) |
 | Heading Font | **Newsreader** (Google Fonts, serif) |
 | UI Font | **Plus Jakarta Sans** (Google Fonts, sans-serif) |
-| Monospace | **JetBrains Mono** |
+| Monospace | **JetBrains Mono** / System Mono |
 
 All design tokens live in [`css/tokens.css`](css/tokens.css). Never hardcode colors or sizes — always use `var(--token-name)`.
 

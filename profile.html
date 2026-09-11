@@ -181,10 +181,12 @@
 
           <!-- Alumni Card Live Simulation -->
           <div class="alumni-card" style="cursor: default;">
-            <div class="alumni-card-cover">
-              <span class="alumni-badge-verified">✓ Verified Alum</span>
-              <div class="alumni-avatar-wrap">
-                <img id="preview-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80" alt="Preview Avatar" class="alumni-avatar" />
+            <div class="alumni-card-photo-wrapper">
+              <img id="preview-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=400&q=80" alt="Preview Avatar" class="alumni-card-photo" />
+              <div class="alumni-badge-verified" title="Verified Alumni">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
               </div>
             </div>
             <div class="alumni-card-body">
@@ -193,14 +195,8 @@
                 Job Title at <strong>Company</strong>
               </div>
               <div class="alumni-meta-list">
-                <div class="alumni-meta-item">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
-                  <span id="preview-meta">Class of 2024 · Program</span>
-                </div>
-                <div class="alumni-meta-item">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  <span id="preview-location">City, Country</span>
-                </div>
+                <span class="alumni-meta-item" id="preview-meta">Class of 2024 · Program</span>
+                <span class="alumni-meta-item" id="preview-location">City, Country</span>
               </div>
             </div>
           </div>

@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alumni Directory — Apex University</title>
-  <meta name="description" content="Search and discover Apex University graduates across companies, industries, graduating batches, and geographic regions." />
-  
+  <title>Alumni Directory — Apex University Global Network</title>
+  <meta name="description" content="Browse and connect with over 28,000 verified Apex University graduates across 50+ countries. Filter by batch, company, industry, or degree." />
+
+  <!-- CSS Design System & Components -->
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/components.css" />
@@ -13,7 +14,9 @@
 </head>
 <body>
 
-  <!-- Site Header -->
+  <!-- ========================================================================
+       PERSISTENT SITE HEADER / NAVIGATION
+       ======================================================================== -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="brand">
@@ -28,7 +31,7 @@
         <a href="index.html" class="nav-link">Home</a>
         <a href="directory.html" class="nav-link active">Alumni Directory</a>
         <a href="videos.html" class="nav-link">Videos</a>
-        <a href="news.html" class="nav-link">News & Stories</a>
+        <a href="news.html" class="nav-link">News &amp; Stories</a>
         <a href="events.html" class="nav-link">Events</a>
         <a href="donate.html" class="nav-link">Donate</a>
       </nav>
@@ -37,14 +40,18 @@
         <div id="nav-auth-container">
           <a href="login.html" class="btn btn-outline btn-sm">Alumni Login</a>
         </div>
+
+        <!-- Mobile Hamburger Toggle -->
         <button class="mobile-toggle" aria-label="Toggle navigation menu">
-          <span></span><span></span><span></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Mobile Drawer -->
+  <!-- Mobile Slide-In Navigation Drawer -->
   <div class="mobile-drawer-backdrop"></div>
   <div class="mobile-drawer">
     <div class="brand">
@@ -54,106 +61,103 @@
         <span class="brand-subtitle">Alumni Network</span>
       </div>
     </div>
+
     <div class="mobile-nav-links">
       <a href="index.html" class="mobile-nav-link">Home</a>
       <a href="directory.html" class="mobile-nav-link active">Alumni Directory</a>
       <a href="videos.html" class="mobile-nav-link">Videos</a>
-      <a href="news.html" class="mobile-nav-link">News & Stories</a>
+      <a href="news.html" class="mobile-nav-link">News &amp; Stories</a>
       <a href="events.html" class="mobile-nav-link">Events</a>
       <a href="donate.html" class="mobile-nav-link">Donate</a>
     </div>
+
     <div id="mobile-auth-container"></div>
   </div>
 
+  <!-- ========================================================================
+       MAIN DIRECTORY CONTENT
+       ======================================================================== -->
   <main class="main-content">
-    <!-- Directory Hero -->
-    <section class="directory-hero">
-      <div class="container text-center">
-        <span class="section-tag" style="color: var(--color-accent);">Global Directory</span>
-        <h1 class="section-title">The Apex Alumni Network</h1>
-        <p class="section-subtitle">
-          Discover alumni leading organizations, researching frontier technologies, and mentoring graduates across the globe.
+    
+    <!-- Clean Typographic Page Header -->
+    <section class="directory-header section-cream">
+      <div class="container">
+        <span class="section-tag">Global Community</span>
+        <h1 class="directory-title">Alumni Directory</h1>
+        <p class="directory-subtitle">
+          Explore and connect with graduates pioneering research, founding ventures, and leading civic progress worldwide.
         </p>
       </div>
     </section>
 
-    <!-- Multi-Criteria Filter Bar -->
-    <div class="container">
-      <div class="filter-card">
-        <!-- Search Input -->
-        <div class="filter-row-top">
-          <div class="search-box">
-            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input 
-              type="text" 
-              id="search-name" 
-              class="search-input" 
-              placeholder="Search by name, company, role, city, or keyword..." 
-              aria-label="Search alumni by keyword"
-            />
+    <!-- Search & Multi-Filter Toolbar -->
+    <section class="directory-toolbar-section">
+      <div class="container">
+        <div class="filter-bar">
+          <div class="filter-row-top">
+            <div class="search-box">
+              <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="search-name" class="search-input" placeholder="Search by name, role, company, or keyword..." autocomplete="off" />
+            </div>
           </div>
-        </div>
 
-        <!-- Dropdown Filters (Batch, Company, Industry, Degree) -->
-        <div class="filter-grid">
-          <div>
+          <div class="filter-controls">
             <select id="filter-batch" class="filter-select" aria-label="Filter by graduation year">
-              <option value="ALL">All Graduating Batches</option>
+              <option value="">Graduation Batch (All)</option>
             </select>
-          </div>
-          <div>
+
             <select id="filter-company" class="filter-select" aria-label="Filter by company">
-              <option value="ALL">All Companies</option>
+              <option value="">Company &amp; Institution (All)</option>
             </select>
-          </div>
-          <div>
+
             <select id="filter-industry" class="filter-select" aria-label="Filter by industry">
-              <option value="ALL">All Industries</option>
+              <option value="">Industry Domain (All)</option>
             </select>
-          </div>
-          <div>
+
             <select id="filter-degree" class="filter-select" aria-label="Filter by degree program">
-              <option value="ALL">All Degrees & Programs</option>
+              <option value="">Degree &amp; Program (All)</option>
             </select>
-          </div>
-          <div>
+
             <button id="clear-filters-btn" class="clear-filters-btn" style="display: none;">
-              Clear All Filters
+              Reset Filters &times;
             </button>
           </div>
         </div>
-      </div>
 
-      <!-- Results summary counter -->
-      <div class="filter-summary-bar">
-        <div id="results-count" class="results-count">
-          Loading alumni records...
+        <!-- Filter Summary & Count -->
+        <div class="filter-summary-bar">
+          <span id="results-count" class="results-count">Loading alumni records...</span>
+        </div>
+
+        <!-- Directory Cards Grid -->
+        <div id="directory-grid" class="directory-grid">
+          <!-- Dynamically populated by js/pages/directory.js -->
         </div>
       </div>
+    </section>
 
-      <!-- Directory Card Grid -->
-      <div id="directory-grid" class="directory-grid">
-        <!-- Rendered dynamically by js/pages/directory.js -->
-      </div>
-    </div>
   </main>
 
-  <!-- Alumni Detail Modal -->
-  <div id="alumni-detail-modal" class="modal-overlay" role="dialog" aria-modal="true">
-    <div class="modal-content" style="max-width: 620px;">
+  <!-- ========================================================================
+       ALUMNI PROFILE DETAIL MODAL
+       ======================================================================== -->
+  <div id="alumni-detail-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-content directory-modal-content">
       <div id="alumni-modal-content-body">
-        <!-- Injected dynamically on card click -->
+        <!-- Dynamically injected alumni details -->
       </div>
       <div class="modal-footer">
-        <button id="close-alumni-modal" class="btn btn-outline btn-sm">Close</button>
+        <button id="close-alumni-modal" class="btn btn-outline btn-sm">Close Profile</button>
       </div>
     </div>
   </div>
 
-  <!-- Persistent Footer -->
+  <!-- ========================================================================
+       PERSISTENT SITE FOOTER
+       ======================================================================== -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
@@ -166,19 +170,21 @@
             </div>
           </div>
           <p class="footer-desc">
-            Empowering lifelong connections between our global alumni body and current student cohorts.
+            Empowering lifelong connections between our global alumni body and current student cohorts through mentorship, chapters, and community initiatives.
           </p>
         </div>
+
         <div>
           <h4 class="footer-heading">Explore</h4>
           <ul class="footer-links">
             <li><a href="directory.html" class="footer-link">Alumni Directory</a></li>
-            <li><a href="news.html" class="footer-link">News & Stories</a></li>
+            <li><a href="news.html" class="footer-link">News &amp; Stories</a></li>
             <li><a href="videos.html" class="footer-link">Video Highlights</a></li>
             <li><a href="events.html" class="footer-link">Upcoming Events</a></li>
             <li><a href="donate.html" class="footer-link">Ways to Give</a></li>
           </ul>
         </div>
+
         <div>
           <h4 class="footer-heading">Member Portal</h4>
           <ul class="footer-links">
@@ -189,30 +195,34 @@
             <li><a href="admin.html" class="footer-link">Staff Administration</a></li>
           </ul>
         </div>
+
         <div>
           <h4 class="footer-heading">Stay Connected</h4>
           <p style="font-size: var(--text-sm); color: var(--color-text-inverse-muted); margin-bottom: var(--space-3);">
-            Receive quarterly university publications and chapter invites.
+            Receive our quarterly alumni bulletin and regional chapter invitations.
           </p>
           <form class="newsletter-form">
             <div class="newsletter-input-group">
-              <input type="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email for newsletter" />
+              <input type="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email for alumni newsletter" />
               <button type="submit" class="btn btn-accent btn-sm">Join</button>
             </div>
           </form>
         </div>
       </div>
+
       <div class="footer-bottom">
         <div>&copy; 2026 Apex University Alumni Association. All rights reserved.</div>
         <div class="social-links">
-          <a href="#" class="social-link">LinkedIn</a>
-          <a href="#" class="social-link">YouTube</a>
-          <a href="#" class="social-link">X (Twitter)</a>
+          <a href="#" class="social-link" aria-label="LinkedIn">LinkedIn</a>
+          <a href="#" class="social-link" aria-label="YouTube">YouTube</a>
+          <a href="#" class="social-link" aria-label="X Twitter">X (Twitter)</a>
+          <a href="#" class="social-link" aria-label="Instagram">Instagram</a>
         </div>
       </div>
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script type="module" src="js/nav.js"></script>
   <script type="module" src="js/pages/directory.js"></script>
 </body>

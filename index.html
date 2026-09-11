@@ -19,9 +19,7 @@
 </head>
 <body>
 
-  <!-- ========================================================================
-       PERSISTENT SITE HEADER / NAVIGATION
-       ======================================================================== -->
+  <!-- PERSISTENT SITE HEADER / NAVIGATION -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="brand">
@@ -79,58 +77,46 @@
     <div id="mobile-auth-container"></div>
   </div>
 
-  <!-- ========================================================================
-       HERO SECTION
-       ======================================================================== -->
   <main class="main-content">
-    <section class="hero-section">
-      <div class="hero-bg-overlay"></div>
-      <div class="container hero-content">
-        <div class="hero-badge reveal">Official Alumni Community</div>
-        <h1 class="hero-title reveal reveal-delay-1">
-          Where lasting legacy shapes the <span class="accent-text">next horizon.</span>
-        </h1>
-        <p class="hero-tagline reveal reveal-delay-2">
-          Join an interconnected global network of leaders, innovators, researchers, and creators across 50+ countries. Reconnect, mentor, and continue building together.
+    
+    <!-- 1. Editorial Hero -->
+    <section class="section-cream hero-editorial">
+      <div class="container">
+        <h1 class="hero-statement">Where accomplished graduates shape what comes next.</h1>
+        <p class="hero-tagline">
+          Join an interconnected global network of over 28,000 alumni across 50+ countries.
         </p>
-        <div class="hero-actions reveal reveal-delay-3">
-          <a href="directory.html" class="btn btn-accent btn-lg">Explore Alumni Directory &rarr;</a>
-          <a href="login.html" class="btn btn-outline-white btn-lg">Alumni Portal Login</a>
+        <div class="hero-actions">
+          <a href="directory.html" class="btn btn-accent btn-lg">Explore the Directory &rarr;</a>
+          <a href="login.html" class="btn btn-outline btn-lg">Alumni Portal</a>
         </div>
       </div>
-
-      <a href="#stats" class="hero-scroll-down">
-        <span>Scroll</span>
-        <div class="scroll-indicator-line"></div>
-      </a>
     </section>
 
-    <!-- ========================================================================
-         BY THE NUMBERS STAT STRIP
-         ======================================================================== -->
-    <section id="stats" class="stats-strip">
+    <!-- 2. Stats bar -->
+    <section class="stats-bar">
       <div class="container stats-grid">
-        <div class="stat-item reveal">
+        <div class="stat-item">
           <div class="stat-value">
             <span id="stat-total-alumni">0</span>
             <span class="stat-suffix">+</span>
           </div>
           <div class="stat-label">Global Alumni</div>
         </div>
-        <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-item">
           <div class="stat-value">
             <span id="stat-countries">0</span>
             <span class="stat-suffix">+</span>
           </div>
           <div class="stat-label">Countries Represented</div>
         </div>
-        <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-item">
           <div class="stat-value">
             <span id="stat-chapters">0</span>
           </div>
           <div class="stat-label">Regional Chapters</div>
         </div>
-        <div class="stat-item reveal reveal-delay-3">
+        <div class="stat-item">
           <div class="stat-value">
             <span id="stat-years">0</span>
             <span class="stat-suffix">yrs</span>
@@ -140,82 +126,53 @@
       </div>
     </section>
 
-    <!-- ========================================================================
-         ALUMNI SPOTLIGHT TEASER
-         ======================================================================== -->
-    <section class="section">
+    <!-- 3. Featured Alumni (Spotlight) -->
+    <section class="section section-cream">
       <div class="container">
-        <div class="section-header text-left reveal">
-          <span class="section-tag">Distinguished Graduates</span>
-          <h2 class="section-title">Alumni In the Spotlight</h2>
-          <p class="section-subtitle">Celebrating graduates who are pioneering research, building sustainable enterprises, and shaping communities worldwide.</p>
-        </div>
-
-        <div id="spotlight-container" class="reveal reveal-delay-1">
+        <div id="spotlight-container">
           <!-- Spotlight dynamically rendered from js/pages/home.js -->
         </div>
       </div>
     </section>
 
-    <!-- ========================================================================
-         FEATURED VIDEOS PREVIEW
-         ======================================================================== -->
-    <section class="section section-alt">
-      <div class="container">
-        <div class="section-header reveal" style="display: flex; justify-content: space-between; align-items: flex-end; text-align: left; flex-wrap: wrap; gap: var(--space-4);">
-          <div>
-            <span class="section-tag">Multimedia Showcase</span>
-            <h2 class="section-title" style="margin-bottom: 0;">Featured Talks & Reunions</h2>
-          </div>
-          <a href="videos.html" class="btn btn-outline btn-sm">View All Videos &rarr;</a>
-        </div>
-
-        <div id="home-videos-grid" class="preview-grid reveal reveal-delay-1">
-          <!-- Populated dynamically from js/pages/home.js -->
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================================================
-         LATEST STORIES & NEWS PREVIEW
-         ======================================================================== -->
+    <!-- 4. Alumni Mosaic Section -->
     <section class="section">
       <div class="container">
-        <div class="section-header reveal" style="display: flex; justify-content: space-between; align-items: flex-end; text-align: left; flex-wrap: wrap; gap: var(--space-4);">
-          <div>
-            <span class="section-tag">University Gazette</span>
-            <h2 class="section-title" style="margin-bottom: 0;">Latest Alumni News & Reflections</h2>
-          </div>
-          <a href="news.html" class="btn btn-outline btn-sm">Browse Editorial Feed &rarr;</a>
-        </div>
-
-        <div id="home-stories-grid" class="preview-grid reveal reveal-delay-1">
+        <div id="alumni-mosaic" class="alumni-mosaic-grid">
           <!-- Populated dynamically from js/pages/home.js -->
         </div>
       </div>
     </section>
 
-    <!-- ========================================================================
-         GIVING CTA BANNER
-         ======================================================================== -->
-    <section class="section" style="padding-top: 0;">
+    <!-- 5. Latest Stories -->
+    <section class="section section-cream">
       <div class="container">
-        <div class="giving-banner reveal">
-          <div class="giving-banner-content">
-            <h2 class="giving-banner-title">Empower the Next Generation of Scholars</h2>
-            <p class="giving-banner-desc">
-              Your mentorship, contributions, and chapter gifts directly fund student research fellowships, emergency bursaries, and campus sustainability labs.
-            </p>
-          </div>
-          <a href="donate.html" class="btn btn-accent btn-lg" style="flex-shrink: 0;">Support University Giving &rarr;</a>
+        <div id="home-stories-grid" class="stories-editorial">
+          <!-- Populated dynamically from js/pages/home.js -->
         </div>
       </div>
     </section>
+
+    <!-- 6. Video Feature -->
+    <section class="section">
+      <div class="container">
+        <div id="home-videos-grid" class="video-feature-layout">
+          <!-- Populated dynamically from js/pages/home.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Giving Statement -->
+    <section class="section-dark giving-statement">
+      <div class="container">
+        <h2 class="giving-heading">Your generosity funds the next generation of scholars.</h2>
+        <a href="donate.html" class="giving-link">Support University Giving &rarr;</a>
+      </div>
+    </section>
+
   </main>
 
-  <!-- ========================================================================
-       PERSISTENT SITE FOOTER
-       ======================================================================== -->
+  <!-- PERSISTENT SITE FOOTER -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">

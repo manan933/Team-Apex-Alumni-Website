@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alumni Events & Reunions — Apex University</title>
+  <title>Alumni Events &amp; Reunions — Apex University</title>
   <meta name="description" content="Discover upcoming reunions, regional chapter meetups, webinars, and homecoming events for Apex University alumni." />
   
   <link rel="stylesheet" href="css/tokens.css" />
@@ -27,7 +27,7 @@
         <a href="index.html" class="nav-link">Home</a>
         <a href="directory.html" class="nav-link">Alumni Directory</a>
         <a href="videos.html" class="nav-link">Videos</a>
-        <a href="news.html" class="nav-link">News & Stories</a>
+        <a href="news.html" class="nav-link">News &amp; Stories</a>
         <a href="events.html" class="nav-link active">Events</a>
         <a href="donate.html" class="nav-link">Donate</a>
       </nav>
@@ -56,7 +56,7 @@
       <a href="index.html" class="mobile-nav-link">Home</a>
       <a href="directory.html" class="mobile-nav-link">Alumni Directory</a>
       <a href="videos.html" class="mobile-nav-link">Videos</a>
-      <a href="news.html" class="mobile-nav-link">News & Stories</a>
+      <a href="news.html" class="mobile-nav-link">News &amp; Stories</a>
       <a href="events.html" class="mobile-nav-link active">Events</a>
       <a href="donate.html" class="mobile-nav-link">Donate</a>
     </div>
@@ -64,32 +64,33 @@
   </div>
 
   <main class="main-content">
-    <section class="section" style="padding-top: var(--space-12);">
+    <section class="section-cream" style="padding-top: var(--space-12); padding-bottom: var(--space-10); border-bottom: 1px solid var(--color-border-warm);">
       <div class="container">
-        <div class="section-header text-left">
-          <span class="section-tag">Gatherings & Chapters</span>
-          <h1 class="section-title">Alumni Events & Reunions</h1>
-          <p class="section-subtitle">
-            From homecoming weekends and industry panels to regional chapter dinners across London, San Francisco, Dubai, and Tokyo.
-          </p>
-        </div>
+        <span class="section-tag">Gatherings &amp; Chapters</span>
+        <h1 style="font-family: var(--font-heading); font-size: clamp(2.25rem, 5vw, var(--text-5xl)); color: var(--color-primary); margin-bottom: var(--space-2);">
+          Alumni Events &amp; Reunions
+        </h1>
+        <p style="font-size: var(--text-lg); color: var(--color-text-secondary); max-width: 640px; line-height: var(--leading-normal);">
+          From homecoming weekends and industry panels to regional chapter dinners across London, San Francisco, Dubai, and Tokyo.
+        </p>
+      </div>
+    </section>
 
-        <!-- ====================================================================
-             DEVELOPER HANDOFF SCAFFOLD & GUIDELINES FOR EVENTS TEAM
-             ==================================================================== -->
+    <section class="section" style="padding-top: var(--space-8);">
+      <div class="container">
+        
+        <!-- Developer Handoff Scaffold (For Guy 4) -->
         <div class="handoff-box">
           <div class="handoff-header">
-            <span class="handoff-badge">Module Scaffold</span>
-            <h2 class="handoff-title">Developer Handoff: Events Engine</h2>
+            <span class="handoff-badge">Module Scaffold &bull; Guy 4</span>
+            <h2 class="handoff-title">Events Engine Architecture</h2>
           </div>
           <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-2);">
-            This page is pre-wired with the site's responsive navigation, design tokens, and typography. The Events engineering team can plug the live calendar and RSVP system directly into this scaffold.
+            This page is pre-wired with the site's responsive navigation, typography tokens, and persistent footer. Plug your live calendar and RSVP logic into <code>js/pages/events.js</code> and style it in <code>css/pages/events.css</code>.
           </p>
 
-          <!-- TEAM: build events grid/calendar here. Suggested Firestore collection: "events" with fields {title, date, location, coverImage, description, gallery[], rsvpLink}. Reuse .card and .filter-bar styles from directory.html for consistency. -->
-
           <div class="handoff-code-snippet">
-// Suggested Firestore collection schema for events:
+// Suggested Firestore collection schema:
 events/{id} {
   title: string,           // "Annual Fall Homecoming 2026"
   date: timestamp,         // ISO date or Firebase Timestamp
@@ -97,54 +98,126 @@ events/{id} {
   coverImage: string,      // Storage URL or CDN URL
   description: string,     // Markdown or rich summary
   category: string,        // "Reunion" | "Webinar" | "Chapter Meetup"
-  rsvpLink: string,        // External Eventbrite/Luma link or internal RSVP collection
+  rsvpLink: string,        // External link or RSVP tracking
   isFeatured: boolean
 }
           </div>
         </div>
 
-        <!-- Visual placeholder cards showing future event grid layout -->
+        <!-- Upcoming Events Showcase -->
+        <h2 style="font-family: var(--font-heading); font-size: var(--text-2xl); color: var(--color-primary); margin-bottom: var(--space-6);">Upcoming Gatherings</h2>
+        
         <div class="events-scaffold-grid">
-          <div class="event-stub-card">
-            <span class="badge badge-accent" style="margin-bottom: var(--space-2);">Upcoming • October 2026</span>
-            <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-2);">Annual Homecoming & Innovation Gala</h3>
-            <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-              Campus Quadrangle • Boston, MA
-            </p>
-            <button class="btn btn-outline btn-sm" disabled>RSVP Opening Soon</button>
-          </div>
+          <article class="event-stub-card">
+            <div class="event-stub-date-badge">
+              <span class="event-stub-month">OCT</span>
+              <span class="event-stub-day">24</span>
+            </div>
+            <div class="event-stub-body">
+              <span class="badge badge-accent" style="margin-bottom: var(--space-2); display: inline-block;">Annual Reunion</span>
+              <h3 style="font-family: var(--font-sans); font-size: var(--text-lg); font-weight: var(--font-bold); color: var(--color-primary); margin-bottom: var(--space-1);">Annual Homecoming &amp; Innovation Gala</h3>
+              <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-3);">
+                Campus Quadrangle &bull; Boston, MA
+              </p>
+              <button class="btn btn-outline btn-sm" disabled>RSVP Opening Soon</button>
+            </div>
+          </article>
 
-          <div class="event-stub-card">
-            <span class="badge badge-subtle" style="margin-bottom: var(--space-2);">Upcoming • November 2026</span>
-            <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-2);">London Regional Chapter Autumn Dinner</h3>
-            <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-              The Royal Society • London, UK
-            </p>
-            <button class="btn btn-outline btn-sm" disabled>RSVP Opening Soon</button>
-          </div>
+          <article class="event-stub-card">
+            <div class="event-stub-date-badge">
+              <span class="event-stub-month">NOV</span>
+              <span class="event-stub-day">12</span>
+            </div>
+            <div class="event-stub-body">
+              <span class="badge badge-subtle" style="margin-bottom: var(--space-2); display: inline-block;">Regional Chapter</span>
+              <h3 style="font-family: var(--font-sans); font-size: var(--text-lg); font-weight: var(--font-bold); color: var(--color-primary); margin-bottom: var(--space-1);">London Regional Chapter Autumn Dinner</h3>
+              <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-3);">
+                The Royal Society &bull; London, UK
+              </p>
+              <button class="btn btn-outline btn-sm" disabled>RSVP Opening Soon</button>
+            </div>
+          </article>
 
-          <div class="event-stub-card">
-            <span class="badge badge-subtle" style="margin-bottom: var(--space-2);">Upcoming • December 2026</span>
-            <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-2);">Virtual Tech & Founder Office Hours</h3>
-            <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-              Online Global Live Stream
-            </p>
-            <button class="btn btn-outline btn-sm" disabled>RSVP Opening Soon</button>
-          </div>
+          <article class="event-stub-card">
+            <div class="event-stub-date-badge">
+              <span class="event-stub-month">DEC</span>
+              <span class="event-stub-day">05</span>
+            </div>
+            <div class="event-stub-body">
+              <span class="badge badge-subtle" style="margin-bottom: var(--space-2); display: inline-block;">Virtual Panel</span>
+              <h3 style="font-family: var(--font-sans); font-size: var(--text-lg); font-weight: var(--font-bold); color: var(--color-primary); margin-bottom: var(--space-1);">Virtual Tech &amp; Founder Office Hours</h3>
+              <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-3);">
+                Online Global Live Stream
+              </p>
+              <button class="btn btn-outline btn-sm" disabled>RSVP Opening Soon</button>
+            </div>
+          </article>
         </div>
+
       </div>
     </section>
   </main>
 
-  <!-- Persistent Footer -->
+  <!-- Persistent Site Footer -->
   <footer class="site-footer">
     <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand" style="color: #fff;">
+            <div class="brand-crest">Ω</div>
+            <div class="brand-info">
+              <span class="brand-title" style="color: #fff;">Apex University</span>
+              <span class="brand-subtitle">Alumni Network</span>
+            </div>
+          </div>
+          <p class="footer-desc">
+            Empowering lifelong connections between our global alumni body and current student cohorts through mentorship, chapters, and community initiatives.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Explore</h4>
+          <ul class="footer-links">
+            <li><a href="directory.html" class="footer-link">Alumni Directory</a></li>
+            <li><a href="news.html" class="footer-link">News &amp; Stories</a></li>
+            <li><a href="videos.html" class="footer-link">Video Highlights</a></li>
+            <li><a href="events.html" class="footer-link">Upcoming Events</a></li>
+            <li><a href="donate.html" class="footer-link">Ways to Give</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Member Portal</h4>
+          <ul class="footer-links">
+            <li><a href="login.html" class="footer-link">Alumni Sign In</a></li>
+            <li><a href="signup.html" class="footer-link">Join Network</a></li>
+            <li><a href="profile.html" class="footer-link">Update My Profile</a></li>
+            <li><a href="news.html#submit" class="footer-link">Submit a Story</a></li>
+            <li><a href="admin.html" class="footer-link">Staff Administration</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Stay Connected</h4>
+          <p style="font-size: var(--text-sm); color: var(--color-text-inverse-muted); margin-bottom: var(--space-3);">
+            Receive our quarterly alumni bulletin and regional chapter invitations.
+          </p>
+          <form class="newsletter-form">
+            <div class="newsletter-input-group">
+              <input type="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email for alumni newsletter" />
+              <button type="submit" class="btn btn-accent btn-sm">Join</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
       <div class="footer-bottom">
         <div>&copy; 2026 Apex University Alumni Association. All rights reserved.</div>
         <div class="social-links">
-          <a href="#" class="social-link">LinkedIn</a>
-          <a href="#" class="social-link">YouTube</a>
-          <a href="#" class="social-link">X (Twitter)</a>
+          <a href="#" class="social-link" aria-label="LinkedIn">LinkedIn</a>
+          <a href="#" class="social-link" aria-label="YouTube">YouTube</a>
+          <a href="#" class="social-link" aria-label="X Twitter">X (Twitter)</a>
+          <a href="#" class="social-link" aria-label="Instagram">Instagram</a>
         </div>
       </div>
     </div>

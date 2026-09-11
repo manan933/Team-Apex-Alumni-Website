@@ -6,19 +6,22 @@ Paste this entire prompt into your AI assistant at the start of each session.
 
 ## Project Context
 
-You are helping develop the **Apex University Alumni Website** — a real, production-bound university alumni platform. The live site is at **https://apexalumni.vercel.app/**. This is not a demo or a portfolio toy. It must look premium.
+You are helping develop the **Apex University Alumni Website** — a prestigious, production-bound university alumni platform. The live deployment is at **https://apexalumni.vercel.app/**. This is not a toy or template demo. It must look like an elite institutional product — confident typography, editorial polish, intentional whitespace.
 
-**Tech Stack:** Pure HTML, CSS, and Vanilla JavaScript (ES Modules). Absolutely no React, no Vue, no Tailwind, no Bootstrap, no npm packages, no build steps. Just `.html`, `.css`, and `.js` files.
+**Tech Stack:** Pure HTML, CSS, and Vanilla JavaScript (ES Modules). Absolutely no React, no Tailwind, no Bootstrap, no npm packages, no build steps. Just clean `.html`, `.css`, and `.js` files running natively in modern browsers.
 
-**Design Identity:**
-- Primary color: `#0B192C` (Collegiate Oxford Navy)
-- Accent color: `#D4AF37` (Polished Heritage Gold)
-- Background: `#F8FAFC` (Light Canvas — NO dark mode whatsoever)
-- Heading font: **Newsreader** (Google Fonts, serif) — loaded in `css/base.css`
-- UI font: **Plus Jakarta Sans** (Google Fonts, sans-serif)
-- All sizes, colors, spacing use CSS custom properties from `css/tokens.css`
+**Design System Tokens (`css/tokens.css`):**
+- Primary Color: `#0B192C` (Deep Collegiate Oxford Navy)
+- Accent Color: `#D4AF37` (Polished Heritage Gold)
+- Canvas Background: `#F8FAFC`
+- Warm Editorial Surface: `#FAF8F4` (`--color-cream`)
+- Warm Divider: `#E8E1D9` (`--color-border-warm`)
+- Heading Font: **Newsreader** (Google Fonts, serif) — loaded in `css/base.css`
+- UI Font: **Plus Jakarta Sans** (Google Fonts, sans-serif)
+- Strict Rule: **Light mode only** — warm, prestigious, academic. NO dark mode.
+- Strict Rule: **No AI-slop anti-patterns** — NO excessive glassmorphism, NO neon glow borders, NO meaningless floating gradient blobs, NO generic SaaS dashboard cards.
 
-**The project has 6 developers.** Each person works in completely isolated files. You must NEVER touch any file outside the list below. There is no merge conflict tolerance — one wrong edit to a shared file breaks everyone else.
+**The project has 6 developers.** Each person works in strictly isolated files. You must NEVER touch any file outside your assigned list.
 
 ---
 
@@ -29,82 +32,36 @@ You are helping develop the **Apex University Alumni Website** — a real, produ
 2. `css/pages/home.css` — All home page styles (ONLY this file for CSS)
 3. `js/pages/home.js` — All home page JavaScript (ONLY this file for JS)
 
-**Do NOT touch any other file.** Not `css/components.css`, not `css/base.css`, not `css/tokens.css`, not `js/nav.js`, not any other HTML file. If you think something is wrong with the shared files, flag it to the team leader — don't edit it yourself.
+**Do NOT touch any other file.** Not `css/components.css`, not `css/base.css`, not `css/tokens.css`, not `js/nav.js`, not any other page HTML.
 
 ---
 
-## Files You May READ (but never modify)
-
-These are read-only shared foundations:
-- `css/tokens.css` — All CSS variables (colors, spacing, font sizes, shadows, radii)
-- `css/base.css` — Global reset, fluid typography, scroll reveal utility
-- `css/components.css` — Sticky nav, footer, buttons, cards, modals, badges
-- `js/nav.js` — Sticky header, mobile drawer, auth pill, toasts
-- `js/firebase-config.js` — Firebase init (has auto mock fallback if no real credentials)
-- `js/mock-data.js` — Dummy alumni data, stats, stories for demo mode
-- `js/storage-service.js` — Unified async data layer (Firestore or localStorage)
+## Files You May READ (Shared Foundations — Never Edit):
+- `css/tokens.css` — All CSS variables (`--color-primary`, `--color-accent`, `--color-cream`, `--space-*`, `--radius-*`, etc.)
+- `css/base.css` — Global reset, typography scale, `.reveal` scroll animations
+- `css/components.css` — Nav header, mobile drawer, buttons, badges, footer
+- `js/nav.js` — Sticky header, mobile drawer, auth dropdown, toasts
+- `js/firebase-config.js` — Firebase init (with auto localStorage mock fallback)
+- `js/mock-data.js` — Data schemas: `INITIAL_STATS`, `INITIAL_ALUMNI`, `INITIAL_SUBMISSIONS`, `INITIAL_VIDEOS`
+- `js/storage-service.js` — Unified async data layer (`getAlumni`, `getSubmissions`, `getVideos`, `getStats`)
 - `js/auth.js` — Auth state management
 
 ---
 
-## Current State of Your Page
-
-`index.html` currently has these sections:
-1. **Hero** — Full-viewport headline with two CTAs
-2. **Stats Strip** — Animated counters (alumni count, countries, companies, giving)
-3. **Spotlight** — Featured alumni profile card
-4. **Featured Videos** — 2–3 video preview cards
-5. **News Preview** — 3 latest news cards
-6. **Giving Banner** — CTA for the donate page
-
-The page is a functional foundation but visually basic. Your job is to dramatically upgrade the visual quality, layout, motion, and branding.
+## Critical DOM Element IDs (Must Be Preserved in index.html):
+- Header & Nav: `#nav-auth-container`, `#mobile-auth-container`, `.mobile-toggle`
+- Stats Counters: `stat-total-alumni`, `stat-countries`, `stat-chapters`, `stat-years`
+- Dynamic Sections:
+  - `spotlight-container` — Featured alumni profile card (populated by `home.js`)
+  - `alumni-mosaic` — 6-alumni editorial mosaic grid (populated by `home.js`)
+  - `home-stories-grid` — Latest stories lead + sidebar (populated by `home.js`)
+  - `home-videos-grid` — Featured video preview layout (populated by `home.js`)
 
 ---
 
-## Your Goal: Make It Beautiful
-
-Transform `index.html` into the most visually stunning page on the site. Think 2026-era product website, not a university web template from 2015.
-
-**Branding task:** The site currently uses `Ω` as a placeholder crest. This is fine to keep for now — but your job also includes making the entire header identity feel more premium and collegiate. Think about wordmark treatment, color contrast, and typographic personality.
-
-**Creative mandate:**
-- Think completely outside the box. What's the most memorable way to present an alumni website's home page?
-- It must NOT look AI-generated or like a "vibe coded" template. No generic hero text on a gradient background. No 3-column card grids with identical heights. No stock-photo look-alike banners.
-- Light mode only. No dark backgrounds except for intentional high-contrast accent sections (like a dark-navy pull-quote block), and only if it genuinely improves the design.
-- You are free to completely restructure the layout of any section if you have a better idea. The current section themes are a starting point, not a constraint.
-- Use CSS animations, custom clip-paths, layered typography, editorial photo-style placeholders (CSS-only) — anything that creates visual richness without an image dependency.
-
-**Specific ideas to consider (not mandatory — use your judgment):**
-- A hero with editorial stacked type and a subtle animated background texture (CSS only)
-- Stats strip with oversized typographic numbers and animated count-up
-- A spotlight section designed like a magazine feature — one prominent alumni, full-width editorial treatment
-- A giving banner that feels more like an impact statement than a button row
-
----
-
-## Technical Rules
-
-1. Run a local server to test: `npx serve .` in the project folder, then open `http://localhost:3000`
-2. All CSS goes in `css/pages/home.css` — do not write `<style>` tags in the HTML
-3. All JS goes in `js/pages/home.js` — do not write `<script>` tags other than what's already in `index.html`
-4. Use `var(--token-name)` for everything — never hardcode `#colors` or `px` sizes that already have tokens
-5. Do not break the existing JS data flow in `home.js` — the stats counter and spotlight feed data from `mock-data.js` via `storage-service.js`. If you refactor, keep those IDs and data hooks working.
-6. The nav and footer are controlled by `components.css` and `nav.js` — do not restyle them in `home.css`
-
----
-
-## How to Run
-
-```bash
-# In the project folder (D:\Team-Apex-Alumni-Website)
-npx serve .
-# Open http://localhost:3000
-```
-
-Or use VS Code Live Server extension.
-
----
-
-## Deliverables
-
-When done, the team leader will review `index.html`, `css/pages/home.css`, and `js/pages/home.js` only. Do not commit or push changes to any other file.
+## Your Mission & Enhancement Goals:
+1. **Editorial Masthead Hero:** Elevate the hero with authentic academic crest details, confident editorial typography, and university mission statements.
+2. **Featured Alumni Spotlight:** Make the spotlight card feel like a profile in The New Yorker or MIT Technology Review.
+3. **Alumni Mosaic:** Ensure the 6 varied alumni showcase real global diversity (founders, researchers, artists, public servants).
+4. **Branding Details:** Add subtle collegiate motifs, refined typographic dividers (`divider-gold`), and campus history notes.
+5. **Responsiveness:** Test on mobile (375px), tablet (768px), and desktop (1200px+). All grids must collapse cleanly.

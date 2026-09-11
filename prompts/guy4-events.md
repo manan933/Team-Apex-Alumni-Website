@@ -1,4 +1,4 @@
-# AI Prompt — Guy 4: Events Section
+# AI Prompt — Guy 4: Alumni Events, Reunions & Chapter Gatherings
 
 Paste this entire prompt into your AI assistant at the start of each session.
 
@@ -6,125 +6,58 @@ Paste this entire prompt into your AI assistant at the start of each session.
 
 ## Project Context
 
-You are helping develop the **Apex University Alumni Website** — a real, production-bound university alumni platform. The live site is at **https://apexalumni.vercel.app/**. This is not a demo or a portfolio toy. It must look premium.
+You are helping develop the **Apex University Alumni Website** — a prestigious, production-bound university alumni platform. The live deployment is at **https://apexalumni.vercel.app/**. This is not a toy or template demo. It must look like an elite institutional product — confident typography, editorial polish, intentional whitespace.
 
-**Tech Stack:** Pure HTML, CSS, and Vanilla JavaScript (ES Modules). Absolutely no React, no Vue, no Tailwind, no Bootstrap, no npm packages, no build steps. Just `.html`, `.css`, and `.js` files.
+**Tech Stack:** Pure HTML, CSS, and Vanilla JavaScript (ES Modules). Absolutely no React, no Tailwind, no Bootstrap, no npm packages, no build steps. Just clean `.html`, `.css`, and `.js` files running natively in modern browsers.
 
-**Design Identity:**
-- Primary color: `#0B192C` (Collegiate Oxford Navy)
-- Accent color: `#D4AF37` (Polished Heritage Gold)
-- Background: `#F8FAFC` (Light Canvas — NO dark mode whatsoever)
-- Heading font: **Newsreader** (Google Fonts, serif) — loaded in `css/base.css`
-- UI font: **Plus Jakarta Sans** (Google Fonts, sans-serif)
-- All sizes, colors, spacing use CSS custom properties from `css/tokens.css`
-
-**The project has 6 developers.** Each person works in completely isolated files. You must NEVER touch any file outside the list below. There is no merge conflict tolerance — one wrong edit to a shared file breaks everyone else.
+**Design System Tokens (`css/tokens.css`):**
+- Primary Color: `#0B192C` (Deep Collegiate Oxford Navy)
+- Accent Color: `#D4AF37` (Polished Heritage Gold)
+- Canvas Background: `#F8FAFC`
+- Warm Editorial Surface: `#FAF8F4` (`--color-cream`)
+- Warm Divider: `#E8E1D9` (`--color-border-warm`)
+- Heading Font: **Newsreader** (Google Fonts, serif)
+- UI Font: **Plus Jakarta Sans** (Google Fonts, sans-serif)
+- Strict Rule: **Light mode only** — warm, prestigious, academic. NO dark mode.
+- Strict Rule: **No AI-slop anti-patterns** — NO excessive glassmorphism, NO neon glow borders, NO generic SaaS dashboard cards.
 
 ---
 
-## Your Assignment: Events Section
+## Your Assignment: Events Calendar & Chapter Meetups
 
 **You own exactly these 3 files:**
-1. `events.html` — The events page markup
-2. `css/pages/events.css` — All events page styles (ONLY this file for CSS)
-3. `js/pages/events.js` — All events page JavaScript (ONLY this file for JS)
+1. `events.html` — The alumni events and reunions page markup
+2. `css/pages/events.css` — All events styles (ONLY this file for CSS)
+3. `js/pages/events.js` — All events JavaScript (ONLY this file for JS)
 
-**Do NOT touch any other file.** Not `css/components.css`, not `css/base.css`, not `css/tokens.css`, not `js/nav.js`, not any other HTML file. If you think something is wrong with the shared files, flag it to the team leader — don't edit it yourself.
-
----
-
-## Files You May READ (but never modify)
-
-These are read-only shared foundations:
-- `css/tokens.css` — All CSS variables (colors, spacing, font sizes, shadows, radii)
-- `css/base.css` — Global reset, fluid typography, scroll reveal utility
-- `css/components.css` — Sticky nav, footer, buttons, cards, modals, badges
-- `js/nav.js` — Sticky header, mobile drawer, auth pill, toasts
-- `js/firebase-config.js` — Firebase init (has auto mock fallback if no real credentials)
-- `js/mock-data.js` — Dummy data for demo mode (you can add a `MOCK_DATA.events` array here if needed — but ask team leader first before editing this file)
-- `js/storage-service.js` — Unified async data layer (Firestore or localStorage)
-- `js/auth.js` — Auth state management
+**Do NOT touch any other file.** Not `css/components.css`, not `css/base.css`, not `css/tokens.css`, not `js/nav.js`, not any other HTML file.
 
 ---
 
-## Current State of Your Page
-
-`events.html` / `events.js` is currently a **stub scaffold**:
-- Page heading + description
-- A developer handoff box explaining what needs to be built (you should REMOVE this and replace it with the real UI)
-- 3 placeholder event cards (stub grid)
-- A Firestore schema comment showing expected data structure
-
-Your job is to build this out into a real, beautiful events page.
-
----
-
-## What Needs to Be Built
-
-This is the community heartbeat of the alumni network. Events bring people back — to campus, to each other. The page must feel like it's always alive with activity.
-
-**Core UI to build:**
-1. **Featured / upcoming event hero** — The next major event (e.g. Annual Homecoming Gala) gets a full-width editorial treatment at the top. Date, location, a brief description, and an RSVP button.
-2. **Filter system** — Category pills or a sidebar: All Events / Reunions / Webinars / Chapter Meetups / Career Panels
-3. **Events grid/list** — Display upcoming events. Each event card should show: title, date, location (city or virtual), category badge, RSVP button
-4. **Past events section** — A smaller, lower-prominence row of past events (greyed out or a "gallery" style)
-5. **Countdown timer** — For the next major event, show a live countdown (days, hours, minutes)
-6. **RSVP interaction** — Button that either links externally (Eventbrite/Luma style) or opens a simple "Register Interest" modal (name + email form, saves to localStorage in demo mode)
-
-**For event data in demo mode:** Create a `const EVENTS = [...]` array directly in `events.js` with 5–8 realistic placeholder events. This avoids needing to touch `mock-data.js`.
-
-Example event object structure:
-```js
-{
-  id: 'e1',
-  title: 'Annual Homecoming & Innovation Gala',
-  date: '2026-10-18T18:00:00',
-  location: 'University Quadrangle, Boston MA',
-  category: 'Reunion',
-  description: 'Join us for an evening of reconnection...',
-  isFeatured: true,
-  rsvpUrl: '#'  // placeholder
-}
-```
+## Files You May READ (Shared Foundations — Never Edit):
+- `css/tokens.css` — Design tokens
+- `css/base.css` — Global typography scale and reset
+- `css/components.css` — Nav header, mobile drawer, buttons, badges, modals, footer
+- `js/nav.js` — Global toast notification system (`showToast(msg, type)`)
+- `js/auth.js` — `getCurrentUser()`, `onAuthStateChange(cb)`
+- `js/storage-service.js` — Unified storage layer
+- `js/firebase-config.js` — Firebase Firestore configuration
 
 ---
 
-## Creative Mandate
-
-- Think completely outside the box. What's the most compelling way to display events for alumni who are scattered across the globe?
-- It must NOT look AI-generated. No boring table-style event list.
-- Light mode only. No dark backgrounds.
-- You are free to completely redesign the layout. Some ideas (not mandatory):
-  - A **large editorial calendar view** showing events by month — elegant, magazine-style
-  - A **world map background** (CSS-only, SVG or illustrated) showing which cities events are in, with pins
-  - A **horizontal timeline** that scrolls sideways for upcoming events
-  - Each event card with a unique visual flavor based on category (Reunion events look different from Webinars)
-  - A sticky "Next Event" countdown bar at the top of the page
+## Current Architecture in events.html:
+- Typographic Header: "Alumni Events & Reunions"
+- Handoff Guidance Box: Schema for Firestore collection `events/{id}`
+- Featured Upcoming Gatherings:
+  - Annual Homecoming & Innovation Gala (Boston, MA)
+  - London Regional Chapter Autumn Dinner (London, UK)
+  - Virtual Tech & Founder Office Hours (Online Live Stream)
+- Date Badges: Split month/day badge design with warm cream backgrounds
 
 ---
 
-## Technical Rules
-
-1. Run a local server to test: `npx serve .` in the project folder, then open `http://localhost:3000`
-2. All CSS goes in `css/pages/events.css` — do not write `<style>` tags in the HTML
-3. All JS goes in `js/pages/events.js` — do not write extra `<script>` tags
-4. Use `var(--token-name)` for all CSS values — never hardcode colors or sizes
-5. The nav and footer are controlled by `components.css` and `nav.js` — do not restyle them
-
----
-
-## How to Run
-
-```bash
-# In the project folder (D:\Team-Apex-Alumni-Website)
-npx serve .
-# Open http://localhost:3000/events.html
-```
-
-Or use VS Code Live Server extension.
-
----
-
-## Deliverables
-
-When done, the team leader will review `events.html`, `css/pages/events.css`, and `js/pages/events.js` only. Do not commit or push changes to any other file.
+## Your Mission & Enhancement Goals:
+1. **Interactive Event Calendar & Filter Tabs:** Build category filters for "All", "Reunions", "Regional Chapters", "Webinars", and "Career Panels".
+2. **Interactive RSVP Flow:** When an alumni clicks "RSVP", open a clean RSVP modal or track attendance. Show a confirmation modal and celebratory toast.
+3. **Event Detail Drawer/Modal:** Allow clicking on an event card to view full schedule, guest speakers, location map info, and dress code.
+4. **Data Seed & Persistence:** Add a clean array of seed events in `js/pages/events.js` (or store in localStorage), rendering cards dynamically so new events can easily be added.

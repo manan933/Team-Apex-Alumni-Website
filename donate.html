@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Give Back & Support — Apex University Alumni</title>
-  <meta name="description" content="Support student scholarships, innovation labs, and emergency grants through the Apex University Alumni Giving Fund." />
+  <title>Giving &amp; Philanthropy — Apex University Alumni</title>
+  <meta name="description" content="Support university endowments, student scholarships, and research grants through alumni giving programs." />
   
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
@@ -27,7 +27,7 @@
         <a href="index.html" class="nav-link">Home</a>
         <a href="directory.html" class="nav-link">Alumni Directory</a>
         <a href="videos.html" class="nav-link">Videos</a>
-        <a href="news.html" class="nav-link">News & Stories</a>
+        <a href="news.html" class="nav-link">News &amp; Stories</a>
         <a href="events.html" class="nav-link">Events</a>
         <a href="donate.html" class="nav-link active">Donate</a>
       </nav>
@@ -56,7 +56,7 @@
       <a href="index.html" class="mobile-nav-link">Home</a>
       <a href="directory.html" class="mobile-nav-link">Alumni Directory</a>
       <a href="videos.html" class="mobile-nav-link">Videos</a>
-      <a href="news.html" class="mobile-nav-link">News & Stories</a>
+      <a href="news.html" class="mobile-nav-link">News &amp; Stories</a>
       <a href="events.html" class="mobile-nav-link">Events</a>
       <a href="donate.html" class="mobile-nav-link active">Donate</a>
     </div>
@@ -64,129 +64,162 @@
   </div>
 
   <main class="main-content">
-    <section class="section" style="padding-top: var(--space-12);">
+    <section class="section-cream" style="padding-top: var(--space-12); padding-bottom: var(--space-10); border-bottom: 1px solid var(--color-border-warm);">
       <div class="container">
-        <div class="section-header text-left">
-          <span class="section-tag">Philanthropy & Impact</span>
-          <h1 class="section-title">Invest in the Scholars of Tomorrow</h1>
-          <p class="section-subtitle">
-            Every gift directly advances student financial aid, undergraduate research fellowships, and state-of-the-art campus facilities.
-          </p>
-        </div>
+        <span class="section-tag">Philanthropy &amp; Impact</span>
+        <h1 style="font-family: var(--font-heading); font-size: clamp(2.25rem, 5vw, var(--text-5xl)); color: var(--color-primary); margin-bottom: var(--space-2);">
+          Invest in the Scholars of Tomorrow
+        </h1>
+        <p style="font-size: var(--text-lg); color: var(--color-text-secondary); max-width: 640px; line-height: var(--leading-normal);">
+          Every gift directly advances student financial aid, undergraduate research fellowships, and state-of-the-art campus facilities.
+        </p>
+      </div>
+    </section>
 
-        <!-- ====================================================================
-             DEVELOPER HANDOFF SCAFFOLD FOR DONATIONS & GIVING TEAM
-             ==================================================================== -->
+    <section class="section" style="padding-top: var(--space-8);">
+      <div class="container">
+        
+        <!-- Developer Handoff Guidance Box (For Guy 3) -->
         <div class="handoff-box">
           <div class="handoff-header">
-            <span class="handoff-badge">Module Scaffold</span>
-            <h2 class="handoff-title">Developer Handoff: Donation Gateway & Donor Wall</h2>
+            <span class="handoff-badge">Module Scaffold &bull; Guy 3</span>
+            <h2 class="handoff-title">Giving &amp; Donor Portal Architecture</h2>
           </div>
           <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-2);">
-            This scaffold outlines the user interface and data structure for giving. Since payment gateways require legal KYC verification and merchant keys, payment processing is intentionally kept as an unbonded shell for the payments team to complete.
+            This page is pre-wired with the site's responsive navigation, design tokens, and components. Connect your payment gateway (Stripe/Razorpay/PayPal) and donor tracking inside <code>js/pages/donate.js</code> and style in <code>css/pages/donate.css</code>.
           </p>
 
-          <!-- TEAM: integrate a free/low-fee donation processor (e.g. Stripe test mode, Razorpay, or a payment-link based flow), and build the donor recognition wall here. Suggested Firestore collection: "donations" with fields {donorName, amount, message, isAnonymous, date}. -->
-
           <div class="handoff-code-snippet">
-// Suggested Firestore collection schema for donations:
+// Suggested Firestore collection schema:
 donations/{id} {
-  donorUid: string,        // auth UID or null if guest
-  donorName: string,       // "Marcus Vance ('08)"
-  amount: number,          // In cents or currency units (e.g. 250.00)
-  currency: string,        // "USD" | "EUR" | "GBP"
-  cause: string,           // "Scholarship Fund" | "Innovation Lab" | "Where Most Needed"
-  message: string,         // Optional note for the donor wall
-  isAnonymous: boolean,    // If true, hide name from public wall
-  date: timestamp          // Firestore server timestamp
+  donorUid: string,        // "alumni-002" or "guest"
+  donorName: string,       // "Marcus Vance"
+  amountUSD: number,       // 2500
+  tier: string,            // "Fellowship Patron"
+  fundDesignation: string, // "Climate Labs" | "Undergrad Bursary"
+  isAnonymous: boolean,    // false
+  createdAt: timestamp     // ServerTimestamp
 }
           </div>
         </div>
 
-        <!-- Tiered giving options shell -->
-        <div style="margin-bottom: var(--space-12);">
-          <h3 style="margin-bottom: var(--space-4);">Select a Contribution Tier</h3>
-          <div class="donation-tiers-grid">
-            <div class="donation-tier-card selected">
-              <div class="tier-amount">$100</div>
-              <div class="tier-desc">Supports undergraduate textbook & lab supply grants</div>
-            </div>
-            <div class="donation-tier-card">
-              <div class="tier-amount">$250</div>
-              <div class="tier-desc">Funds student travel for academic research conferences</div>
-            </div>
-            <div class="donation-tier-card">
-              <div class="tier-amount">$500</div>
-              <div class="tier-desc">Sponsors an annual technology & equipment stipend</div>
-            </div>
-            <div class="donation-tier-card">
-              <div class="tier-amount">$1,000+</div>
-              <div class="tier-desc">Dean's Leadership Circle endowment naming rights</div>
-            </div>
+        <!-- Giving Tiers Grid -->
+        <h2 style="font-family: var(--font-heading); font-size: var(--text-2xl); color: var(--color-primary); margin-bottom: var(--space-6);">Giving Circles &amp; Tiers</h2>
+
+        <div class="donation-tiers-grid">
+          <div class="tier-card">
+            <span class="tier-label">Century Club</span>
+            <div class="tier-amount">$100</div>
+            <p class="tier-desc">Supports student research travel grants and textbook subsidies for first-generation scholars.</p>
+            <button class="btn btn-outline btn-block btn-sm" disabled>Select Giving Level</button>
           </div>
 
-          <div style="display: flex; gap: var(--space-3); align-items: center; justify-content: center; margin-top: var(--space-4);">
-            <button class="btn btn-accent btn-lg" disabled>
-              Proceed with Secure Contribution (Gateway Scaffold)
-            </button>
+          <div class="tier-card tier-card-featured">
+            <span class="badge badge-accent" style="margin-bottom: var(--space-2); display: inline-block;">Most Popular</span>
+            <span class="tier-label">Dean's Circle</span>
+            <div class="tier-amount">$500</div>
+            <p class="tier-desc">Funds summer undergraduate engineering research fellowships and robotics lab hardware kits.</p>
+            <button class="btn btn-accent btn-block btn-sm" disabled>Select Giving Level</button>
+          </div>
+
+          <div class="tier-card">
+            <span class="tier-label">President's Council</span>
+            <div class="tier-amount">$2,500</div>
+            <p class="tier-desc">Endows annual named graduate student fellowships and sustainability incubator grants.</p>
+            <button class="btn btn-outline btn-block btn-sm" disabled>Select Giving Level</button>
+          </div>
+
+          <div class="tier-card">
+            <span class="tier-label">Founder's Endowment</span>
+            <div class="tier-amount">$10,000+</div>
+            <p class="tier-desc">Establishes permanent campus laboratory fixtures, endowed chairs, and institutional scholarships.</p>
+            <button class="btn btn-outline btn-block btn-sm" disabled>Select Giving Level</button>
+          </div>
+        </div>
+
+        <!-- Donor Recognition Honor Roll -->
+        <div class="donor-wall-card">
+          <h3 style="font-family: var(--font-heading); font-size: var(--text-xl); color: var(--color-primary); margin-bottom: var(--space-2);">
+            2026 Donor Honor Roll
+          </h3>
+          <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-5);">
+            We gratefully acknowledge the alumni, families, and foundations whose generous contributions empower our university mission.
+          </p>
+
+          <div class="donor-tags-cloud">
+            <span class="donor-tag">Marcus Vance ('08) &bull; Apex Capital</span>
+            <span class="donor-tag">Dr. Elena Rostova ('12) &bull; Genovate Therapeutics</span>
+            <span class="donor-tag">Aria Chen ('19) &bull; Robotics Endowment</span>
+            <span class="donor-tag">Class of 2015 Memorial Fund</span>
+            <span class="donor-tag">Liam O'Connor ('23) &bull; Clean Energy Bursary</span>
+            <span class="donor-tag">Anonymous Benefactors (14)</span>
           </div>
         </div>
 
-        <!-- Placeholder Donor Wall Grid -->
-        <div>
-          <div class="section-header text-left" style="margin-bottom: var(--space-6);">
-            <span class="section-tag">Recognition Wall</span>
-            <h2 class="section-title">Recent Alumni Benefactors</h2>
-            <p class="section-subtitle">Thank you to our graduates whose generosity empowers student success.</p>
-          </div>
-
-          <div class="donor-wall-grid">
-            <div class="donor-card-placeholder">
-              <div class="brand-crest" style="width: 36px; height: 36px; font-size: var(--text-sm);">Ω</div>
-              <div>
-                <div style="font-weight: bold; color: var(--color-primary);">Elena Rostova ('12)</div>
-                <div style="font-size: var(--text-xs); color: var(--color-text-muted);">Biomedical Engineering Fellowships</div>
-              </div>
-            </div>
-
-            <div class="donor-card-placeholder">
-              <div class="brand-crest" style="width: 36px; height: 36px; font-size: var(--text-sm);">Ω</div>
-              <div>
-                <div style="font-weight: bold; color: var(--color-primary);">Marcus Vance ('08)</div>
-                <div style="font-size: var(--text-xs); color: var(--color-text-muted);">Sustainability Lab Endowment</div>
-              </div>
-            </div>
-
-            <div class="donor-card-placeholder">
-              <div class="brand-crest" style="width: 36px; height: 36px; font-size: var(--text-sm);">Ω</div>
-              <div>
-                <div style="font-weight: bold; color: var(--color-primary);">Aria Chen ('19)</div>
-                <div style="font-size: var(--text-xs); color: var(--color-text-muted);">Women in Robotics Scholarship</div>
-              </div>
-            </div>
-
-            <div class="donor-card-placeholder">
-              <div class="brand-crest" style="width: 36px; height: 36px; font-size: var(--text-sm);">Ω</div>
-              <div>
-                <div style="font-weight: bold; color: var(--color-primary);">Anonymous Benefactor ('98)</div>
-                <div style="font-size: var(--text-xs); color: var(--color-text-muted);">Emergency Student Aid</div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   </main>
 
-  <!-- Persistent Footer -->
+  <!-- Persistent Site Footer -->
   <footer class="site-footer">
     <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand" style="color: #fff;">
+            <div class="brand-crest">Ω</div>
+            <div class="brand-info">
+              <span class="brand-title" style="color: #fff;">Apex University</span>
+              <span class="brand-subtitle">Alumni Network</span>
+            </div>
+          </div>
+          <p class="footer-desc">
+            Empowering lifelong connections between our global alumni body and current student cohorts through mentorship, chapters, and community initiatives.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Explore</h4>
+          <ul class="footer-links">
+            <li><a href="directory.html" class="footer-link">Alumni Directory</a></li>
+            <li><a href="news.html" class="footer-link">News &amp; Stories</a></li>
+            <li><a href="videos.html" class="footer-link">Video Highlights</a></li>
+            <li><a href="events.html" class="footer-link">Upcoming Events</a></li>
+            <li><a href="donate.html" class="footer-link">Ways to Give</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Member Portal</h4>
+          <ul class="footer-links">
+            <li><a href="login.html" class="footer-link">Alumni Sign In</a></li>
+            <li><a href="signup.html" class="footer-link">Join Network</a></li>
+            <li><a href="profile.html" class="footer-link">Update My Profile</a></li>
+            <li><a href="news.html#submit" class="footer-link">Submit a Story</a></li>
+            <li><a href="admin.html" class="footer-link">Staff Administration</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Stay Connected</h4>
+          <p style="font-size: var(--text-sm); color: var(--color-text-inverse-muted); margin-bottom: var(--space-3);">
+            Receive our quarterly alumni bulletin and regional chapter invitations.
+          </p>
+          <form class="newsletter-form">
+            <div class="newsletter-input-group">
+              <input type="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email for alumni newsletter" />
+              <button type="submit" class="btn btn-accent btn-sm">Join</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
       <div class="footer-bottom">
         <div>&copy; 2026 Apex University Alumni Association. All rights reserved.</div>
         <div class="social-links">
-          <a href="#" class="social-link">LinkedIn</a>
-          <a href="#" class="social-link">YouTube</a>
-          <a href="#" class="social-link">X (Twitter)</a>
+          <a href="#" class="social-link" aria-label="LinkedIn">LinkedIn</a>
+          <a href="#" class="social-link" aria-label="YouTube">YouTube</a>
+          <a href="#" class="social-link" aria-label="X Twitter">X (Twitter)</a>
+          <a href="#" class="social-link" aria-label="Instagram">Instagram</a>
         </div>
       </div>
     </div>
