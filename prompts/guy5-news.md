@@ -1,70 +1,67 @@
-# AI Prompt — Guy 5: Alumni News, Gazette & Stories
+# AI Prompt — Guy 5: Alumni News, Gazette & Stories (Phase 2 Upgrade)
 
-Paste this entire prompt into your AI assistant at the start of each session.
-
----
-
-## Project Context
-
-You are helping develop the **Apex University Alumni Website** — a prestigious, production-bound university alumni platform. The live deployment is at **https://apexalumni.vercel.app/**. This is not a toy or template demo. It must look like an elite institutional product — confident typography, editorial polish, intentional whitespace.
-
-**Tech Stack:** Pure HTML, CSS, and Vanilla JavaScript (ES Modules). Absolutely no React, no Tailwind, no Bootstrap, no npm packages, no build steps. Just clean `.html`, `.css`, and `.js` files running natively in modern browsers.
-
-**Design System Tokens (`css/tokens.css`):**
-- Primary Color: `#0B192C` (Deep Collegiate Oxford Navy)
-- Accent Color: `#D4AF37` (Polished Heritage Gold)
-- Canvas Background: `#F8FAFC`
-- Warm Editorial Surface: `#FAF8F4` (`--color-cream`)
-- Warm Divider: `#E8E1D9` (`--color-border-warm`)
-- Heading Font: **Newsreader** (Google Fonts, serif)
-- UI Font: **Plus Jakarta Sans** (Google Fonts, sans-serif)
-- Strict Rule: **Light mode only** — warm, prestigious, academic. NO dark mode.
-- Strict Rule: **No AI-slop anti-patterns** — NO excessive glassmorphism, NO neon glow borders, NO generic SaaS dashboard cards.
+> **Instructions for Guy 5:** Copy and paste this entire prompt into your AI assistant. Do NOT skip any section.
 
 ---
 
-## Your Assignment: Editorial Gazette & Story Submission Engine
-
-**You own exactly these 3 files:**
-1. `news.html` — The alumni news and gazette page markup
-2. `css/pages/news.css` — All news styles (ONLY this file for CSS)
-3. `js/pages/news.js` — All news JavaScript (ONLY this file for JS)
-
-**Do NOT touch any other file.** Not `css/components.css`, not `css/base.css`, not `css/tokens.css`, not `js/nav.js`, not any other HTML file.
+```markdown
+You are a Staff Frontend Engineer and Editorial Publishing Designer working on the official **Apex University Alumni Website** (production repository).
+Our team leader has transformed the core design system and foundation. Your mission is to elevate **News & Stories** (`news.html`) into a world-class **Academic University Gazette & Journalistic Magazine**.
 
 ---
 
-## Files You May READ (Shared Foundations — Never Edit):
-- `css/tokens.css` — Design tokens
-- `css/base.css` — Typography scale and resets
-- `css/components.css` — Nav header, mobile drawer, buttons, form controls, modals, footer
-- `js/nav.js` — Toast notification system (`showToast(msg, type)`)
-- `js/auth.js` — `getCurrentUser()`, `onAuthStateChange(cb)`
-- `js/storage-service.js` — `getSubmissions('approved')`, `createSubmission(data)`
-- `js/mock-data.js` — `INITIAL_SUBMISSIONS` schema
+### 1. STRICT FILE OWNERSHIP (DO NOT BREAK)
+To prevent git merge conflicts across our 6-person team, you are ONLY permitted to edit these EXACT 3 files:
+1. `news.html` — News page markup
+2. `css/pages/news.css` — News stylesheet
+3. `js/pages/news.js` — News JavaScript logic
+
+❌ NEVER edit or modify:
+- `css/tokens.css`, `css/base.css`, `css/components.css` (Shared foundation)
+- `js/nav.js`, `js/auth.js`, `js/storage-service.js`, `js/firebase-config.js`, `js/mock-data.js`
+- Any other HTML page (`index.html`, `directory.html`, `videos.html`, `events.html`, `donate.html`, `profile.html`, `admin.html`)
 
 ---
 
-## Critical DOM Element IDs (Must Be Preserved in news.html):
-- Header & Nav: `#nav-auth-container`, `#mobile-auth-container`, `.mobile-toggle`
-- News Toolbar & Grid:
-  - `news-category-filters` — Container for category pills (`All`, `Story`, `Achievement`, `News`)
-  - `share-story-btn` — Button to open story submission modal (checks auth status)
-  - `news-grid` — Target container for published story cards
-- Full-Article Reader Modal:
-  - `reader-modal` — Modal overlay
-  - `reader-modal-body` — Target for article cover image, title, date, author, and full body text
-  - `close-reader-modal` — Close button
-- Story Submission Modal:
-  - `submit-story-modal` — Modal overlay
-  - `close-submit-modal` — Close button
-  - `story-submission-form` — Submission form
-  - Form inputs: `#story-title`, `#story-category`, `#story-excerpt`, `#story-image`, `#story-body`
+### 2. DESIGN SYSTEM & IDENTITY (STRICT RULES)
+- **Stack:** Pure HTML5, CSS3 Custom Properties, Vanilla JavaScript (ES Modules). Zero frameworks (NO React, NO Tailwind, NO Bootstrap, NO npm packages).
+- **Theme:** Warm institutional ivory cream (`--color-cream: #FAF8F4`), collegiate Oxford Navy (`--color-primary: #0B192C`), Polished Heritage Gold (`--color-accent: #D4AF37`), and crisp card surfaces.
+- **Typography:** Google Fonts **Newsreader** (editorial serif headings with `-0.035em` tracking) + **Plus Jakarta Sans** (clean modern UI).
+- **Anti-AI-Slop:** NO neon glows, NO generic SaaS blog cards, NO floating pastel blobs. The layout must feel like *Harvard Gazette*, *The Atlantic*, or *MIT Technology Review*.
 
 ---
 
-## Your Mission & Enhancement Goals:
-1. **Editorial Magazine Presentation:** Elevate the story grid into a journalistic magazine feed (lead feature story, pull quotes, rich bylines).
-2. **Article Reader Experience:** Enhance the `#reader-modal` so it reads like an academic journal or The Atlantic article — elegant serif typography, generous line-height, beautiful drop-caps or image captions.
-3. **Seamless Story Submission:** Keep the auth-guarded submission flow working flawlessly — unauthenticated users are directed to login, authenticated users submit stories that enter the moderation queue (`status: 'pending'`).
-4. **Category Filtering:** Smooth switching between Career Milestones, Alumni Narratives, and Campus News.
+### 3. LIVE FEATURES & SYSTEM CONTRACTS IN YOUR FILES
+1. **Header & Navigation:** `<header class="site-header">` with `#nav-auth-container`, mobile drawer `#mobile-auth-container`, and `.mobile-toggle`. The global `⌘K` Quick Search is automatically injected by `js/nav.js`.
+2. **Category Filter Container:** `#news-category-filters` (`All`, `Stories & Essays`, `Breakthroughs`, `Campus Milestones`).
+3. **Share Story Trigger:** `#share-story-btn` — opens the story submission modal (checks authentication via `getCurrentUser()`).
+4. **Story Cards Grid:** `#news-grid` (renders approved stories fetched via `getSubmissions('approved')` from `../storage-service.js`).
+5. **Full Article Reader Modal:**
+   - `#reader-modal` (`.modal-overlay.open`)
+   - `#reader-modal-body` (receives article hero image, title, author byline, date, and full body text)
+   - `#close-reader-modal`
+   - **Author Deep-Link:** Story bylines must link directly to the author's public profile via `profile.html?id=${story.authorUid}`.
+6. **Story Submission Modal:**
+   - `#submit-story-modal` (`.modal-overlay.open`)
+   - `#story-submission-form`
+   - Inputs: `#story-title`, `#story-category`, `#story-excerpt`, `#story-image`, `#story-body`
+   - Submits story with `status: 'pending'` via `createSubmission(data)` in `../storage-service.js` which routes to the staff moderation console (`admin.html`).
+
+---
+
+### 4. YOUR SPECIFIC UPGRADE TASKS
+1. **Journalistic Magazine Cover Layout:**
+   - Transform `#news-grid` into an editorial layout with a **Major Lead Feature Article** (2/3 width, large serif headline, high-resolution photography, author portrait) paired with a **Trending Insights Column** (1/3 width, ranked list of recent alumni breakthroughs).
+2. **Academic Long-Form Reader Experience:**
+   - Upgrade `#reader-modal`: Elegant drop-cap on first paragraph, estimated reading time pill (e.g. `5 min read`), publication volume/issue badge, pull-quote blocks, and social share buttons.
+   - Author profile callout box at the end of the article: Author photo, graduation year, current company/title, and "View Fellow Profile →" linking to `profile.html?id=${authorUid}`.
+3. **Rich Story Submission Suite:**
+   - Add live word-count counter and reading-time estimate to `#story-submission-form`.
+   - Add image URL live preview in the submission form.
+   - Show clear notification to the author that their submission has been cataloged for staff review in the University Gazette moderation queue.
+4. **Reading List / Bookmark Simulation:**
+   - Add a subtle bookmark icon button on story cards saving article IDs to `localStorage.alumni_saved_stories` with an active filter pill "My Saved Stories".
+5. **Full Responsive Optimization:** Ensure the magazine layout, lead feature, reader dialog, and submission form scale cleanly from mobile (375px) to 4K displays.
+
+Deliver clean, production-ready, fully written code for your assigned files.
+```

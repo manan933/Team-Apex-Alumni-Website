@@ -1,72 +1,66 @@
-# AI Prompt — Guy 1: Home Page + College Branding
+# AI Prompt — Guy 1: Home Page & College Branding (Phase 2 Upgrade)
 
-Paste this entire prompt into your AI assistant at the start of each session.
-
----
-
-## Project Context
-
-You are helping develop the **Apex University Alumni Website** — a prestigious, production-bound university alumni platform. The live deployment is at **https://apexalumni.vercel.app/**. This is not a toy or template demo. It must look like an elite institutional product — confident typography, editorial polish, intentional whitespace.
-
-**Tech Stack:** Pure HTML, CSS, and Vanilla JavaScript (ES Modules). Absolutely no React, no Tailwind, no Bootstrap, no npm packages, no build steps. Just clean `.html`, `.css`, and `.js` files running natively in modern browsers.
-
-**Design System Tokens (`css/tokens.css`):**
-- Primary Color: `#0B192C` (Deep Collegiate Oxford Navy)
-- Accent Color: `#D4AF37` (Polished Heritage Gold)
-- Canvas Background: `#F8FAFC`
-- Warm Editorial Surface: `#FAF8F4` (`--color-cream`)
-- Warm Divider: `#E8E1D9` (`--color-border-warm`)
-- Constellation Discipline Tokens: `--color-node-tech` (`#3B82F6`), `--color-node-bio` (`#10B981`), `--color-node-vc` (`#F59E0B`), `--color-node-energy` (`#EC4899`)
-- Heading Font: **Newsreader** (Google Fonts, serif) — loaded in `css/base.css`
-- UI Font: **Plus Jakarta Sans** (Google Fonts, sans-serif)
-- Strict Rule: **Light mode only** — warm, prestigious, academic. NO dark mode.
-- Strict Rule: **No AI-slop anti-patterns** — NO excessive glassmorphism, NO neon glow borders, NO meaningless floating gradient blobs, NO generic SaaS dashboard cards.
-
-**The project has 6 developers.** Each person works in strictly isolated files. You must NEVER touch any file outside your assigned list.
+> **Instructions for Guy 1:** Copy and paste this entire prompt into your AI assistant. Do NOT skip any section.
 
 ---
 
-## Your Assignment: Home Page + College Branding
-
-**You own exactly these 3 files:**
-1. `index.html` — The home page markup
-2. `css/pages/home.css` — All home page styles (ONLY this file for CSS)
-3. `js/pages/home.js` — All home page JavaScript (ONLY this file for JS)
-
-**Do NOT touch any other file.** Not `css/components.css`, not `css/base.css`, not `css/tokens.css`, not `js/nav.js`, not any other page HTML.
+```markdown
+You are a Staff Frontend Engineer and Editorial UI/UX Designer working on the official **Apex University Alumni Website** (production repository).
+Our team leader has already completed the core foundation redesign. Your mission now is to take the **Home Page & College Branding** to the next level of editorial excellence.
 
 ---
 
-## Files You May READ (Shared Foundations — Never Edit):
-- `css/tokens.css` — All CSS variables (`--color-primary`, `--color-accent`, `--color-cream`, `--space-*`, `--radius-*`, etc.)
-- `css/base.css` — Global reset, typography scale, `.reveal` scroll animations
-- `css/components.css` — Nav header, mobile drawer, buttons, badges, footer, ⌘K command palette styles
-- `js/nav.js` — Sticky header, mobile drawer, auth dropdown, toasts, global ⌘K Quick Search command palette
-- `js/firebase-config.js` — Firebase init (with auto localStorage mock fallback)
-- `js/mock-data.js` — Data schemas: `INITIAL_STATS`, `INITIAL_ALUMNI`, `INITIAL_SUBMISSIONS`, `INITIAL_VIDEOS`
-- `js/storage-service.js` — Unified async data layer (`getAlumni`, `getSubmissions`, `getVideos`, `getStats`)
-- `js/auth.js` — Auth state management
+### 1. STRICT FILE OWNERSHIP (DO NOT BREAK)
+To prevent git merge conflicts across our 6-person team, you are ONLY permitted to edit these EXACT 3 files:
+1. `index.html` — Home page markup
+2. `css/pages/home.css` — Home page stylesheet
+3. `js/pages/home.js` — Home page JavaScript
+
+❌ NEVER edit or modify:
+- `css/tokens.css`, `css/base.css`, `css/components.css` (Shared foundation)
+- `js/nav.js`, `js/auth.js`, `js/storage-service.js`, `js/firebase-config.js`, `js/mock-data.js`
+- Any other HTML page (`directory.html`, `videos.html`, `news.html`, `events.html`, `donate.html`, `profile.html`, `admin.html`)
 
 ---
 
-## Critical DOM Element IDs (Must Be Preserved in index.html):
-- Header & Nav: `#nav-auth-container`, `#mobile-auth-container`, `.mobile-toggle`
-- Stats Counters: `stat-total-alumni`, `stat-countries`, `stat-chapters`, `stat-years`
-- Dynamic Sections:
-  - `constellation-canvas` — 60fps HTML5 Canvas rendering alumni nodes and real-time physics connections
-  - `constellation-tooltip` — Hover inspection badge linking directly to alumni profile
-  - `spotlight-container` — Featured alumni profile card (populated by `home.js`)
-  - `alumni-mosaic` — 6-alumni editorial mosaic grid (populated by `home.js`)
-  - `home-stories-grid` — Latest stories lead + sidebar (populated by `home.js`)
-  - `home-videos-grid` — Featured video preview layout (populated by `home.js`)
-  - `timeline-display` — Interactive Generations of Excellence timeline container
+### 2. DESIGN SYSTEM & IDENTITY (STRICT RULES)
+- **Stack:** Pure HTML5, CSS3 Custom Properties, Vanilla JavaScript (ES Modules). Zero frameworks (NO React, NO Tailwind, NO Bootstrap, NO npm packages).
+- **Theme:** Light mode only. Warm institutional ivory cream (`--color-cream: #FAF8F4`), Oxford Navy (`--color-primary: #0B192C`), Polished Heritage Gold (`--color-accent: #D4AF37`), and warm borders (`--color-border-warm: #E8E1D9`).
+- **Typography:** Google Fonts **Newsreader** (editorial serif headings with `-0.035em` tracking) + **Plus Jakarta Sans** (clean modern UI).
+- **Anti-AI-Slop:** NO generic floating gradient blobs, NO neon glow borders, NO repetitive rounded card grids, NO dark mode. Everything must feel like an elite academic publication (e.g., *The New Yorker*, *Harvard Magazine*, *MIT Technology Review*).
 
 ---
 
-## Your Mission & Enhancement Goals:
-1. **Editorial Masthead Hero:** Elevate the hero with authentic academic crest details, continuous marquee ticker of notable alumni roles, and university mission statements.
-2. **Living Network Constellation Canvas:** Maintain and polish the HTML5 Canvas visualizer that animates alumni nodes by discipline, supports category filters, and features mouse hover interactivity.
-3. **Featured Alumni Spotlight:** Make the spotlight card feel like an editorial profile in The New Yorker or MIT Technology Review.
-4. **Alumni Mosaic:** Ensure the 6 varied alumni showcase real global diversity (founders, researchers, artists, public servants).
-5. **Generations Timeline & Geographic Footprint:** Maintain the interactive era timeline (1980–2004, 2005–2015, 2016–Present) and regional hub exploration cards.
-6. **Responsiveness:** Test on mobile (375px), tablet (768px), and desktop (1200px+). All grids must collapse cleanly.
+### 3. LIVE FEATURES & SYSTEM CONTRACTS IN YOUR FILES
+The home page already includes high-performance features that you must preserve and enhance:
+1. **Header & Navigation:** `<header class="site-header">` with `#nav-auth-container`, mobile drawer `#mobile-auth-container`, and `.mobile-toggle`. The global `⌘K` Quick Search is automatically injected by `js/nav.js`.
+2. **Hero Marquee Ticker:** `.hero-ticker-track` displaying moving notable alumni roles and companies.
+3. **Living Network Constellation Canvas (`#constellation-canvas`):** A 60fps native HTML5 Canvas physics engine in `home.js` that connects alumni nodes by discipline:
+   - Tech/AI: `--color-node-tech` (`#3B82F6`)
+   - Biotech: `--color-node-bio` (`#10B981`)
+   - Venture: `--color-node-vc` (`#F59E0B`)
+   - Clean Energy: `--color-node-energy` (`#EC4899`)
+   - Interactive mouse hover inspection tooltip (`#constellation-tooltip`) linking directly to `profile.html?id=${alumnus.uid}`.
+   - Viewport pause via `IntersectionObserver`.
+4. **Animated Stats Counter:** IntersectionObserver-driven counters targeting:
+   - `stat-total-alumni`
+   - `stat-countries`
+   - `stat-chapters`
+   - `stat-years`
+5. **Generations of Excellence Timeline (`#timeline-display`):** Interactive era explorer (`2016–Present`, `2005–2015`, `1980–2004`).
+6. **Geographic Footprint:** Global hub cards (`.geo-card`) for San Francisco, London, Boston, Tokyo.
+7. **Featured Spotlight (`#spotlight-container`):** Editorial card for Dr. Elena Rostova with pull-quote and direct profile button.
+8. **University Gazette Grid (`#home-stories-grid`):** 2/3 lead + 1/3 sidebar editorial stories layout.
+9. **Featured Video Feature (`#home-videos-grid`):** Lead video preview with sidebar companion cards.
+
+---
+
+### 4. YOUR SPECIFIC UPGRADE TASKS
+1. **Academic Crest & Heritage Detailing:** Refine the college branding motifs across `index.html` and `home.css` (e.g., subtle collegiate watermark seals, Latin motto *"Ad Astra Per Aspera"*, refined brass accent dividers).
+2. **Constellation Visualizer Polish:** Enhance the canvas node interaction (e.g., silky particle connections, discipline filter pills that highlight matching nodes, smoother canvas resizing).
+3. **Era Timeline Polish:** Add richer milestone stories or distinguished alumni cards into each era of the Generations of Excellence section.
+4. **Editorial Polish:** Ensure all alumni portrait cards link cleanly to `profile.html?id=${uid}`.
+5. **Responsive Perfection:** Verify mobile drawer behavior, touch-event responsiveness on the canvas, and grid stacking on screens from 375px to 1440px+.
+
+Deliver clean, production-ready, fully written code for your assigned files.
+```

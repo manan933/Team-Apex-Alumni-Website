@@ -1,65 +1,59 @@
-# AI Prompt — Guy 2: Video Section & Multimedia Archives
+# AI Prompt — Guy 2: Video Section & Multimedia Archives (Phase 2 Upgrade)
 
-Paste this entire prompt into your AI assistant at the start of each session.
-
----
-
-## Project Context
-
-You are helping develop the **Apex University Alumni Website** — a prestigious, production-bound university alumni platform. The live deployment is at **https://apexalumni.vercel.app/**. This is not a toy or template demo. It must look like an elite institutional product — confident typography, editorial polish, intentional whitespace.
-
-**Tech Stack:** Pure HTML, CSS, and Vanilla JavaScript (ES Modules). Absolutely no React, no Tailwind, no Bootstrap, no npm packages, no build steps. Just clean `.html`, `.css`, and `.js` files running natively in modern browsers.
-
-**Design System Tokens (`css/tokens.css`):**
-- Primary Color: `#0B192C` (Deep Collegiate Oxford Navy)
-- Accent Color: `#D4AF37` (Polished Heritage Gold)
-- Canvas Background: `#F8FAFC`
-- Warm Editorial Surface: `#FAF8F4` (`--color-cream`)
-- Warm Divider: `#E8E1D9` (`--color-border-warm`)
-- Heading Font: **Newsreader** (Google Fonts, serif)
-- UI Font: **Plus Jakarta Sans** (Google Fonts, sans-serif)
-- Strict Rule: **Light mode only** — warm, prestigious, academic. NO dark mode.
-- Strict Rule: **No AI-slop anti-patterns** — NO excessive glassmorphism, NO neon glow borders, NO generic SaaS dashboard cards.
+> **Instructions for Guy 2:** Copy and paste this entire prompt into your AI assistant. Do NOT skip any section.
 
 ---
 
-## Your Assignment: Video Showcase & Theater Player
-
-**You own exactly these 3 files:**
-1. `videos.html` — The video archive page markup
-2. `css/pages/videos.css` — All video page styles (ONLY this file for CSS)
-3. `js/pages/videos.js` — All video page JavaScript (ONLY this file for JS)
-
-**Do NOT touch any other file.** Not `css/components.css`, not `css/base.css`, not `css/tokens.css`, not `js/nav.js`, not any other HTML file.
+```markdown
+You are a Staff Frontend Engineer and UI/UX Designer working on the official **Apex University Alumni Website** (production repository).
+Our team leader has transformed the core design system and foundation. Your mission is to take the **Videos & Keynotes Showcase** (`videos.html`) from a standard gallery into an elite **Academic Masterclass & Cinema Theater Experience**.
 
 ---
 
-## Files You May READ (Shared Foundations — Never Edit):
-- `css/tokens.css` — Design tokens
-- `css/base.css` — Global typography and utility classes
-- `css/components.css` — Header, mobile drawer, buttons, modal overlays, footer
-- `js/nav.js` — Global nav controller, toast notifications
-- `js/storage-service.js` — `getVideos(category)` API
-- `js/mock-data.js` — `INITIAL_VIDEOS` schema (`{ id, title, youtubeId, description, category, addedAt }`)
+### 1. STRICT FILE OWNERSHIP (DO NOT BREAK)
+To prevent git merge conflicts across our 6-person team, you are ONLY permitted to edit these EXACT 3 files:
+1. `videos.html` — Videos page markup
+2. `css/pages/videos.css` — Videos stylesheet
+3. `js/pages/videos.js` — Videos JavaScript logic
+
+❌ NEVER edit or modify:
+- `css/tokens.css`, `css/base.css`, `css/components.css` (Shared foundation)
+- `js/nav.js`, `js/auth.js`, `js/storage-service.js`, `js/firebase-config.js`, `js/mock-data.js`
+- Any other HTML page (`index.html`, `directory.html`, `news.html`, `events.html`, `donate.html`, `profile.html`, `admin.html`)
 
 ---
 
-## Critical DOM Element IDs (Must Be Preserved in videos.html):
-- Header & Nav: `#nav-auth-container`, `#mobile-auth-container`, `.mobile-toggle`
-- Video Controls:
-  - `video-category-pills` — Filter pills container (`All`, `Reunions`, `Keynotes & Interviews`, `Campus Life`)
-  - `videos-grid` — Target container for video thumbnail cards
-- Theater Modal Player:
-  - `theater-modal` — Modal overlay (`.modal-overlay.open`)
-  - `theater-iframe` — YouTube embed iframe (`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0`)
-  - `theater-video-title` — Video title display
-  - `theater-video-desc` — Video description display
-  - `close-theater-modal` — Modal close trigger
+### 2. DESIGN SYSTEM & IDENTITY (STRICT RULES)
+- **Stack:** Pure HTML5, CSS3 Custom Properties, Vanilla JavaScript (ES Modules). Zero frameworks (NO React, NO Tailwind, NO Bootstrap, NO npm packages).
+- **Theme:** Light mode only for the page, with warm institutional cream (`--color-cream: #FAF8F4`), Oxford Navy (`--color-primary: #0B192C`), Polished Heritage Gold (`--color-accent: #D4AF37`), and crisp card surfaces.
+- **Typography:** Google Fonts **Newsreader** (editorial serif headings) + **Plus Jakarta Sans** (clean modern UI).
+- **Anti-AI-Slop:** NO neon borders, NO glassmorphism gradients, NO bouncy cards. The cinema theater player should feel like Lincoln Center or an MIT symposium archive.
 
 ---
 
-## Your Mission & Enhancement Goals:
-1. **Interactive Category Filtering:** Smooth real-time filtering between Reunion galas, academic keynotes, and campus tour features.
-2. **Theater Modal Mode:** Make the video modal feel like an auditorium theater view — black background, high-definition embed, clean typography details below the player.
-3. **Card Polish:** Use 16:9 aspect-ratio covers with YouTube thumbnail fallbacks (`https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`), gold play icon badges with scale on hover, and category pills.
-4. **Search / Duration Tagging:** Optionally add duration indicators (e.g. "14 min", "45 min") or an interactive search bar within your files.
+### 3. LIVE FEATURES & SYSTEM CONTRACTS IN YOUR FILES
+1. **Header & Navigation:** `<header class="site-header">` with `#nav-auth-container`, mobile drawer `#mobile-auth-container`, and `.mobile-toggle`. The global `⌘K` Quick Search is automatically injected into the masthead by `js/nav.js`.
+2. **Category Filter Pills Container:** `#video-category-pills` (populated dynamically in `videos.js` from unique categories: `All`, `Reunions`, `Keynotes & Interviews`, `Campus Life`, etc.).
+3. **Video Cards Grid:** `#videos-grid` (dynamically rendered from `getVideos()` in `../storage-service.js`).
+4. **Theater Mode Dialog Modal:**
+   - `#theater-modal` (`.modal-overlay.open`)
+   - `#theater-iframe` — YouTube embed iframe (`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0`)
+   - `#theater-video-title` — Video title
+   - `#theater-video-desc` — Video description
+   - `#close-theater-modal` — Close button
+
+---
+
+### 4. YOUR SPECIFIC UPGRADE TASKS
+1. **Featured Masterclass Spotlight:** Add a featured "Lead Video / Keynote of the Month" hero banner at the top of the video grid (e.g., Annual Commencement Address or Nobel Laureate Alumni Lecture) with a large 16:9 thumbnail, gold play button, runtime pill, and speaker profile link (`profile.html?id=alumni-xxx`).
+2. **Cinematic Theater Player Enhancement:**
+   - Upgrade `#theater-modal`: Deep dark theater background, full 16:9 responsive embed, speaker attribution badge, and video publication date.
+   - Add a "Copy Share Link" button that copies `videos.html?v=${youtubeId}` to clipboard using `showToast('Link copied to clipboard!', 'info')` (imported from `../nav.js`).
+3. **Interactive Search & Extended Filters:**
+   - Add an instant search bar inside `videos.html` to filter videos by title, speaker, or description alongside the category pills.
+   - Add duration badges (e.g. `24 min`, `52 min`) and lecture track tags.
+4. **Rich Card Layouts:** Refine `.video-card` in `videos.css` with 16:9 aspect ratios, subtle hover elevation, high-contrast typography, and gold accent badges.
+5. **Full Responsive Optimization:** Ensure the theater player, featured video, and video grid scale seamlessly from mobile (375px) to 4K displays.
+
+Deliver clean, production-ready, fully written code for your assigned files.
+```
