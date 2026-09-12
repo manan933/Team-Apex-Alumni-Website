@@ -26,7 +26,9 @@ function formatDate(isoString) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initCampusCarousel();
   Promise.all([
+
     initStatsCounter(),
     initAlumniConstellation(),
     initGenerationsTimeline(),
@@ -594,4 +596,81 @@ async function initFeaturedVideos() {
   } catch (error) {
     console.error('Error loading featured videos:', error);
   }
+}
+/**
+ * Auto-Changing Campus Photo Carousel
+ */
+function initCampusCarousel() {
+  const track = document.getElementById('campus-slides-track');
+  if (!track) return;
+
+  const slides = track.querySelectorAll('.panoramic-slide, .campus-slide');
+  const dots = document.querySelectorAll('.panoramic-dot, .carousel-dot');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+
+  if (slides.length <= 1) return;
+
+  let current = 0;
+  let timer = null;
+  const interval = 3500; // Changes photo every 4.5 seconds
+
+  const showSlide = (index) => {
+    slides.forEach((s, i) => s.classList.toggle('active', i === index));
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    current = index;
+  };
+
+  const nextSlide = () => {
+    showSlide((current + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    showSlide((current - 1 + slides.length) % slides.length);
+  };
+
+  const startAuto = () => {
+    stopAuto();
+    timer = setInterval(nextSlide, interval);
+  };
+
+  const stopAuto = () => {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+  };
+
+  if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); startAuto(); });
+  if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); startAuto(); });
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', (e) => {
+      const idx = parseInt(e.currentTarget.getAttribute('data-index'), 10);
+      showSlide(idx);
+      startAuto();
+    });
+  });
+
+  const heroSection = track.closest('.hero-panoramic-section') || track;
+  heroSection.addEventListener('mouseenter', stopAuto);
+  heroSection.addEventListener('mouseleave', startAuto);
+
+  // Touch swipe support for mobile
+  let touchStartX = 0;
+  track.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    stopAuto();
+  }, { passive: true });
+  track.addEventListener('touchend', (e) => {
+    const touchEndX = e.changedTouches[0].screenX;
+    if (touchStartX - touchEndX > 50) {
+      nextSlide();
+    } else if (touchEndX - touchStartX > 50) {
+      prevSlide();
+    }
+    startAuto();
+  }, { passive: true });
+
+  startAuto();
 }

@@ -84,6 +84,132 @@
 
   <main class="main-content">
     
+       <!-- ======================================================================
+         1. PANORAMIC CAMPUS HERO SLIDESHOW (KIIT STYLE & LUXURY EDITORIAL)
+         ====================================================================== -->
+    <section class="hero-panoramic-section" aria-label="GIET University Campus Showcase">
+      <div class="panoramic-slides-track" id="campus-slides-track">
+        
+        <!-- Slide 1: Main Campus Panorama -->
+        <div class="panoramic-slide active">
+          <img src="campus-1.0.webp" alt="GIET University Campus" onerror="this.src='https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1920&q=85'" />
+          <div class="panoramic-overlay">
+            <div class="container panoramic-content">
+              <span class="hero-heritage-pill">★ GIET UNIVERSITY &bull; GUNUPUR, ODISHA</span>
+              <h1 class="panoramic-headline">Welcome back to where your <span class="accent-italic">journey started.</span></h1>
+              <p class="panoramic-subtext">No matter where life takes you after graduation, GIET will always be home. Catch up with old friends, share your story, and stay close to our community.</p>
+              
+              <div class="panoramic-actions">
+                <a href="directory.html" class="btn btn-accent btn-lg">Find Your Batchmates &rarr;</a>
+                <button class="btn btn-outline-white btn-lg" onclick="document.getElementById('cmd-palette-trigger')?.click();">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                  Quick Search (⌘K)
+                </button>
+              </div>
+
+              <div class="panoramic-slide-meta">
+                <span class="meta-tag">📍 Main Campus &bull; Gunupur, Odisha</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Research & Academic Blocks -->
+        <div class="panoramic-slide">
+          <img src="campus-3.webp" alt="GIET Engineering Blocks" onerror="this.src='https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1920&q=85'" />
+          <div class="panoramic-overlay">
+            <div class="container panoramic-content">
+              <span class="hero-heritage-pill">★ CLASSROOMS, LABS &amp; MEMORIES</span>
+              <h1 class="panoramic-headline">The workshops and hallways that <span class="accent-italic">built our careers.</span></h1>
+              <p class="panoramic-subtext">From late-night project deadlines and canteen tea breaks to that unforgettable placement day. Help mentor the students following in your footsteps today.</p>
+              
+              <div class="panoramic-actions">
+                <a href="directory.html" class="btn btn-accent btn-lg">Explore Alumni Directory &rarr;</a>
+                <a href="news.html" class="btn btn-outline-white btn-lg">Read Alumni Stories &rarr;</a>
+              </div>
+
+              <div class="panoramic-slide-meta">
+                <span class="meta-tag">📍 Engineering &amp; Academic Blocks</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Central Library & Academic Commons -->
+        <div class="panoramic-slide">
+          <img src="library-1.webp" alt="GIET Central Library" onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1920&q=85'" />
+          <div class="panoramic-overlay">
+            <div class="container panoramic-content">
+              <span class="hero-heritage-pill">★ KNOWLEDGE CENTER </span>
+              <h1 class="panoramic-headline">Late night study sessions, <span class="accent-italic">lifelong friends.</span></h1>
+              <p class="panoramic-subtext">Remember cramming together before semester exams and sharing notes on the library steps? That same bond still connects GIETians across the world.</p>
+              
+              <div class="panoramic-actions">
+                <a href="directory.html" class="btn btn-accent btn-lg">Find Your Friends in Directory &rarr;</a>
+                <a href="donate.html" class="btn btn-outline-white btn-lg">Support Student Scholarships &rarr;</a>
+              </div>
+
+              <div class="panoramic-slide-meta">
+                <span class="meta-tag">📍 Central Library &bull; Gunupur Campus</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Arrow Controls -->
+      <button class="panoramic-arrow prev" id="carousel-prev" aria-label="Previous Slide">&lsaquo;</button>
+      <button class="panoramic-arrow next" id="carousel-next" aria-label="Next Slide">&rsaquo;</button>
+
+      <!-- Indicator Dots -->
+      <div class="panoramic-dots" id="carousel-dots">
+        <button class="panoramic-dot active" data-index="0" aria-label="Slide 1"></button>
+        <button class="panoramic-dot" data-index="1" aria-label="Slide 2"></button>
+        <button class="panoramic-dot" data-index="2" aria-label="Slide 3"></button>
+      </div>
+
+      <!-- Moving Alumni Marquee Ticker directly under the banner -->
+      <div class="alumni-ticker-strip hero-ticker-track" aria-label="Notable Alumni Ticker">
+        <div class="ticker-track">
+          <span>Dr. Elena Rostova ('12) &bull; Genovate Therapeutics</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Marcus Vance ('08) &bull; Apex Capital Partners</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Aria Chen ('19) &bull; Google DeepMind</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>David Adebayo ('15) &bull; Lumina Energy</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Sofia Rodriguez ('11) &bull; International Justice Council</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Priya Sundaram ('21) &bull; SpaceX Propulsion</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Zainab Al-Mansoor ('18) &bull; Stripe Global Payouts</span>
+          <span class="ticker-dot">&bull;</span>
+          <!-- Duplicate set for infinite loop -->
+          <span>Dr. Elena Rostova ('12) &bull; Genovate Therapeutics</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Marcus Vance ('08) &bull; Apex Capital Partners</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Aria Chen ('19) &bull; Google DeepMind</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>David Adebayo ('15) &bull; Lumina Energy</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Sofia Rodriguez ('11) &bull; International Justice Council</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Priya Sundaram ('21) &bull; SpaceX Propulsion</span>
+          <span class="ticker-dot">&bull;</span>
+          <span>Zainab Al-Mansoor ('18) &bull; Stripe Global Payouts</span>
+          <span class="ticker-dot">&bull;</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         1. CINEMATIC EDITORIAL HERO SECTION
+         ====================================================================== -->
+    
+    
     <!-- ======================================================================
          1. CINEMATIC EDITORIAL HERO WITH ACADEMIC CREST & LIVE ALUMNI COMPOSITION
          ====================================================================== -->
@@ -116,15 +242,15 @@
               <span class="crest-mini-glyph">★</span>
               GIET University &bull; Founded 1997
             </span>
-            <span class="heritage-motto-tag" title="To the stars through hardships">Ad Astra Per Aspera</span>
+            <span class="heritage-motto-tag" title="Proud GIETian Community">Proud GIETians</span>
           </div>
 
           <h1 class="hero-headline reveal reveal-delay-1">
-            Where legacy shapes the <span class="accent-italic">next horizon.</span>
+            Stay connected with the people who <span class="accent-italic">know you best.</span>
           </h1>
 
           <p class="hero-description reveal reveal-delay-2">
-            An interconnected global community of GIET University researchers, engineers, founders, and creators across 50+ countries. Reconnecting cohorts, accelerating mentorship, and shaping the future together.
+            From our green campus in Gunupur to companies, labs, and classrooms around the world. Catch up with your batch, share career advice with students, and keep in touch with the professors who cheered you on.
           </p>
 
           <div class="hero-actions-wrap reveal reveal-delay-3">
@@ -139,7 +265,7 @@
           <div class="hero-credential-footnote reveal reveal-delay-4">
             <span class="credential-item">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              45 Years of Excellence
+              27+ Years of Legacy
             </span>
             <span class="credential-bullet">&bull;</span>
             <span class="credential-item">
@@ -149,7 +275,7 @@
             <span class="credential-bullet">&bull;</span>
             <span class="credential-item">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-              38 Chapters Worldwide
+              Global Alumni Chapters
             </span>
           </div>
         </div>
