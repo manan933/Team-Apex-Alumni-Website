@@ -1,123 +1,349 @@
 /**
  * ==========================================================================
  * PAGE LOGIC: VIDEOS (videos.html)
- * YouTube embeds, category filtering, theater mode player modal
+ * Alumni Video Gallery — category filter, bento grid, theater modal
  * ==========================================================================
  */
 
-import { getVideos } from '../storage-service.js';
+// TODO(shared): once Firestore is wired for the whole project, replace
+// this static array with a Firestore query on the 'videos' collection
+// (fields: title, youtubeId, description, category, addedAt). Do not change
+// this yourself without checking with the project owner — this file may be
+// consumed by home.js for the homepage preview.
 
-let allVideos = [];
+const videos = [
+  {
+    id: 'v-001',
+    youtubeId: 'Ks-_Mh1QhMc',
+    title: 'Alumni Keynote: Presence & Leadership in the Modern Workplace',
+    category: 'Interviews',
+    description: 'Distinguished alumna Dr. Priya Mehta explores how confident executive presence and body language reshape career trajectories in today\'s hybrid work landscape.',
+    addedAt: '2026-08-15'
+  },
+  {
+    id: 'v-002',
+    youtubeId: 'iG9CE55wbtY',
+    title: 'Do Universities Still Kill Creativity? An Alumni Forum',
+    category: 'Events',
+    description: 'A panel of Apex alumni leaders revisit the landmark debate on transformative education and lifelong learning in the age of AI.',
+    addedAt: '2026-07-22'
+  },
+  {
+    id: 'v-003',
+    youtubeId: 'aircAruvnKk',
+    title: 'Tech Talks: Understanding Neural Networks — Alumni in AI Series',
+    category: 'Interviews',
+    description: 'Apex alumnus and DeepMind researcher Rohan Verma breaks down foundational AI concepts for a broad alumni audience — no PhD required.',
+    addedAt: '2026-06-30'
+  },
+  {
+    id: 'v-004',
+    youtubeId: '8jPQjjsBbIc',
+    title: 'How to Communicate Like a Leader — Distinguished Speaker Series',
+    category: 'Events',
+    description: 'MIT\'s celebrated communication masterclass, hosted at Apex University\'s annual Distinguished Speakers Weekend. A must-watch for every alumnus.',
+    addedAt: '2026-05-18'
+  },
+  {
+    id: 'v-005',
+    youtubeId: 'UF8uR6Z6KLc',
+    title: 'Commencement Address: Connecting the Dots',
+    category: 'Reunions',
+    description: 'The iconic commencement address that inspired a generation of Apex graduates — replayed at our 45th Foundation Anniversary gala celebration.',
+    addedAt: '2026-04-10'
+  },
+  {
+    id: 'v-006',
+    youtubeId: 'dQw4w9WgXcQ',
+    title: 'Apex Gala 2024: Highlights of a Landmark Evening',
+    category: 'Reunions',
+    description: 'Relive the most memorable moments from our sold-out annual alumni gala, including the Outstanding Alumni Award ceremony and live performances.',
+    addedAt: '2026-03-05'
+  },
+  {
+    id: 'v-007',
+    youtubeId: 'L_LUpnjgPso',
+    title: 'Campus Walkthrough: The New Innovation Quad & Research Labs',
+    category: 'Campus Life',
+    description: 'Take a guided video tour of Apex University\'s newly unveiled STEM Innovation Complex, collaborative maker studios, and expanded campus green spaces.',
+    addedAt: '2026-02-20'
+  },
+  {
+    id: 'v-008',
+    youtubeId: 'bTqVqk7FSmY',
+    title: 'Alumni Chapter Meet — Singapore Regional Summit 2025',
+    category: 'Events',
+    description: 'Full recap of the Singapore alumni chapter\'s annual summit: networking sessions, startup pitches, a cultural evening, and the chapter leadership handover.',
+    addedAt: '2026-01-14'
+  }
+];
+
+// ─── State ────────────────────────────────────────────────────────────────────
 let activeCategory = 'All';
+let lastFocused = null; // for returning focus after modal closes
 
-document.addEventListener('DOMContentLoaded', async () => {
-  allVideos = await getVideos();
-  initCategoryFilters();
-  renderVideos();
-  initTheaterModal();
+// Build a lookup map for O(1) access by id
+const videoMap = new Map(videos.map(v => [v.id, v]));
+
+// ─── Boot ─────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  buildPills();
+  renderGrid();
+  initModal();
+  initScrollReveal();
 });
 
-function initCategoryFilters() {
+// ─── Category Filter Pills ────────────────────────────────────────────────────
+function buildPills() {
   const container = document.getElementById('video-category-pills');
   if (!container) return;
 
-  const categories = ['All', ...new Set(allVideos.map(v => v.category))];
+  const categories = ['All', ...new Set(videos.map(v => v.category))];
 
   container.innerHTML = categories.map(cat => `
-    <button class="category-pill ${cat === activeCategory ? 'active' : ''}" data-cat="${cat}">
-      ${cat}
-    </button>
+    <button
+      class="category-pill${cat === activeCategory ? ' active' : ''}"
+      data-cat="${escapeAttr(cat)}"
+      aria-pressed="${cat === activeCategory}"
+      type="button"
+    >${escapeHTML(cat)}</button>
   `).join('');
 
-  container.querySelectorAll('.category-pill').forEach(pill => {
-    pill.addEventListener('click', () => {
-      container.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      activeCategory = pill.getAttribute('data-cat');
-      renderVideos();
+  container.addEventListener('click', e => {
+    const pill = e.target.closest('.category-pill');
+    if (!pill) return;
+    const cat = pill.dataset.cat;
+    if (cat === activeCategory) return;
+
+    activeCategory = cat;
+    container.querySelectorAll('.category-pill').forEach(p => {
+      p.classList.remove('active');
+      p.setAttribute('aria-pressed', 'false');
     });
+    pill.classList.add('active');
+    pill.setAttribute('aria-pressed', 'true');
+    renderGrid();
   });
 }
 
-function renderVideos() {
+// ─── Video Grid Renderer ──────────────────────────────────────────────────────
+function renderGrid() {
   const grid = document.getElementById('videos-grid');
   if (!grid) return;
 
-  const list = activeCategory === 'All' 
-    ? allVideos 
-    : allVideos.filter(v => v.category === activeCategory);
+  const list = activeCategory === 'All'
+    ? videos
+    : videos.filter(v => v.category === activeCategory);
 
   if (!list.length) {
     grid.innerHTML = `
-      <div class="empty-state" style="grid-column: 1 / -1;">
-        <div class="empty-icon">🎬</div>
-        <h3 class="empty-title">No Videos Found</h3>
-        <p class="empty-text">No video recordings found in this category.</p>
+      <div class="vg-empty-state" role="status">
+        <div class="vg-empty-icon" aria-hidden="true">🎬</div>
+        <h3 class="vg-empty-title">No Videos in This Category</h3>
+        <p class="vg-empty-text">There are no recordings in the <strong>${escapeHTML(activeCategory)}</strong> category yet. Check back soon or browse another category above.</p>
       </div>
     `;
     return;
   }
 
-  grid.innerHTML = list.map(v => `
-    <div class="video-card" data-id="${v.id}">
-      <div class="video-thumb-container" onclick="window.playTheaterVideo('${v.youtubeId}', '${encodeURIComponent(v.title)}', '${encodeURIComponent(v.description)}')">
-        <img 
-          src="https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg" 
-          alt="${escapeHTML(v.title)}" 
-          class="video-thumb-img" 
-          loading="lazy" 
+  grid.innerHTML = list.map((v, idx) => buildCardHTML(v, idx)).join('');
+  initScrollReveal();
+}
+
+function buildCardHTML(v, idx) {
+  const thumbUrl = `https://img.youtube.com/vi/${encodeURIComponent(v.youtubeId)}/hqdefault.jpg`;
+  const featuredClass = idx === 0 ? ' video-card--featured' : '';
+  const dateLabel = formatDate(v.addedAt);
+
+  return `
+    <article
+      class="video-card${featuredClass} reveal"
+      data-vid-id="${escapeAttr(v.id)}"
+      tabindex="0"
+      role="button"
+      aria-label="Play video: ${escapeAttr(v.title)}"
+    >
+      <div class="video-thumb-wrap">
+        <img
+          src="${thumbUrl}"
+          alt="Thumbnail for ${escapeAttr(v.title)}"
+          class="video-thumb-img"
+          loading="lazy"
+          decoding="async"
+          onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'640\' height=\'360\'%3E%3Crect width=\'640\' height=\'360\' fill=\'%230B192C\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23D4AF37\' font-size=\'48\'%3E▶%3C/text%3E%3C/svg%3E'"
         />
-        <div class="video-play-btn" aria-label="Play video">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <div class="video-play-btn" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+        </div>
+        <div class="video-hover-overlay" aria-hidden="true">
+          <span class="vho-cat">${escapeHTML(v.category)}</span>
+          <p class="vho-title">${escapeHTML(v.title)}</p>
         </div>
       </div>
       <div class="video-card-body">
-        <div class="video-card-category">${escapeHTML(v.category)}</div>
+        <span class="video-card-cat">${escapeHTML(v.category)}</span>
         <h3 class="video-card-title">${escapeHTML(v.title)}</h3>
         <p class="video-card-desc">${escapeHTML(v.description)}</p>
+        <time class="video-card-date" datetime="${escapeAttr(v.addedAt)}">${escapeHTML(dateLabel)}</time>
       </div>
-    </div>
-  `).join('');
+    </article>
+  `;
 }
 
-function initTheaterModal() {
+// ─── Theater Modal ────────────────────────────────────────────────────────────
+function initModal() {
   const modal = document.getElementById('theater-modal');
   const closeBtn = document.getElementById('close-theater-modal');
+  const grid = document.getElementById('videos-grid');
+  if (!modal) return;
 
-  const closeModal = () => {
-    const iframe = document.getElementById('theater-iframe');
-    if (iframe) iframe.src = ''; // Stop video playback
-    modal?.classList.remove('open');
-  };
+  // Click on video card
+  grid?.addEventListener('click', handleCardActivate);
 
+  // Keyboard on video card (Enter / Space)
+  grid?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleCardActivate(e);
+    }
+  });
+
+  // Close button
   closeBtn?.addEventListener('click', closeModal);
-  modal?.addEventListener('click', (e) => {
+
+  // Backdrop click closes
+  modal.addEventListener('click', e => {
     if (e.target === modal) closeModal();
   });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal?.classList.contains('open')) closeModal();
+  // Esc closes
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
   });
 
-  // Global window handler for card play click
-  window.playTheaterVideo = (youtubeId, encodedTitle, encodedDesc) => {
-    const iframe = document.getElementById('theater-iframe');
-    const titleEl = document.getElementById('theater-video-title');
-    const descEl = document.getElementById('theater-video-desc');
-
-    if (iframe) {
-      iframe.src = `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0`;
-    }
-    if (titleEl) titleEl.textContent = decodeURIComponent(encodedTitle);
-    if (descEl) descEl.textContent = decodeURIComponent(encodedDesc);
-
-    modal?.classList.add('open');
-  };
+  // Trap focus strictly within modal
+  modal.addEventListener('keydown', handleFocusTrap);
 }
 
+function handleCardActivate(e) {
+  const card = e.target.closest('.video-card');
+  if (!card) return;
+  const vid = videoMap.get(card.dataset.vidId);
+  if (vid) openModal(vid, card);
+}
+
+function openModal(vid, triggerEl) {
+  const modal = document.getElementById('theater-modal');
+  const iframe = document.getElementById('theater-iframe');
+  const titleEl = document.getElementById('theater-video-title');
+  const descEl = document.getElementById('theater-video-desc');
+  const catEl = document.getElementById('theater-video-cat');
+  if (!modal || !iframe) return;
+
+  // Remember who triggered this for return-focus
+  lastFocused = triggerEl || document.activeElement;
+
+  // Set iframe src (lazy load — only happens on click)
+  iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(vid.youtubeId)}?autoplay=1&rel=0&modestbranding=1`;
+
+  // Update metadata
+  if (titleEl) titleEl.textContent = vid.title;
+  if (descEl) descEl.textContent = vid.description;
+  if (catEl) catEl.textContent = vid.category;
+
+  // Open
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden'; // prevent background scroll
+
+  // Move focus into modal
+  requestAnimationFrame(() => {
+    modal.focus();
+  });
+}
+
+function closeModal() {
+  const modal = document.getElementById('theater-modal');
+  const iframe = document.getElementById('theater-iframe');
+  if (!modal) return;
+
+  // Stop playback immediately
+  if (iframe) iframe.src = '';
+
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+
+  // Return focus to the triggering element
+  if (lastFocused && typeof lastFocused.focus === 'function') {
+    requestAnimationFrame(() => lastFocused.focus());
+    lastFocused = null;
+  }
+}
+
+// Focus trap: keep Tab / Shift+Tab within the modal dialog
+function handleFocusTrap(e) {
+  if (e.key !== 'Tab') return;
+  const modal = e.currentTarget;
+
+  const focusable = [...modal.querySelectorAll(
+    'a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])'
+  )].filter(el => !el.closest('[aria-hidden="true"]'));
+
+  if (!focusable.length) { e.preventDefault(); return; }
+
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+
+  if (e.shiftKey) {
+    if (document.activeElement === first || document.activeElement === modal) {
+      e.preventDefault(); last.focus();
+    }
+  } else {
+    if (document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  }
+}
+
+// ─── Scroll Reveal ────────────────────────────────────────────────────────────
+function initScrollReveal() {
+  const els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  const io = new IntersectionObserver(
+    entries => entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); }
+    }),
+    { threshold: 0.12 }
+  );
+  els.forEach(el => io.observe(el));
+}
+
+// ─── Utilities ────────────────────────────────────────────────────────────────
 function escapeHTML(str) {
   if (!str) return '';
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function escapeAttr(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function formatDate(iso) {
+  if (!iso) return '';
+  try {
+    return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  } catch {
+    return iso;
+  }
 }

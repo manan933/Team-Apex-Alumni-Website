@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Videos &amp; Keynotes — Apex University Alumni</title>
-  <meta name="description" content="Watch recorded alumni gala reunions, distinguished speaker keynotes, and campus tours from Apex University." />
-  
+  <meta name="description"
+    content="Watch recorded alumni gala reunions, distinguished speaker keynotes, and campus tours from Apex University." />
+
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/pages/videos.css" />
 </head>
+
 <body>
 
   <!-- Site Header -->
@@ -64,15 +67,12 @@
   </div>
 
   <main class="main-content">
-    <section class="section-cream" style="padding-top: var(--space-12); padding-bottom: var(--space-10); border-bottom: 1px solid var(--color-border-warm);">
+    <section class="vg-page-hero" id="videos-hero">
       <div class="container">
         <span class="section-tag">Multimedia Showcase</span>
-        <h1 style="font-family: var(--font-heading); font-size: clamp(2.25rem, 5vw, var(--text-5xl)); color: var(--color-primary); margin-bottom: var(--space-2);">
-          Keynotes, Reunions &amp; Campus Life
-        </h1>
-        <p style="font-size: var(--text-lg); color: var(--color-text-secondary); max-width: 640px; line-height: var(--leading-normal);">
-          Relive memorable alumni reunions, listen to inspirational talks by celebrated graduates, and explore campus developments.
-        </p>
+        <h1 class="vg-hero-heading">Alumni Video Gallery</h1>
+        <p class="vg-hero-subtitle">Curated moments from landmark reunions, pioneering alumni, and the campus you love —
+          all in one place.</p>
       </div>
     </section>
 
@@ -91,20 +91,33 @@
     </section>
 
     <!-- Theater Mode Dialog Modal -->
-    <div id="theater-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div id="theater-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true"
+      aria-labelledby="theater-video-title" tabindex="-1">
       <div class="modal-content theater-dialog">
+
+        <!-- Accessible close button in top-right corner -->
+        <button id="close-theater-modal" class="theater-close-btn" type="button" aria-label="Close video player">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+
+        <!-- 16:9 Video Player -->
         <div class="theater-player-wrap">
-          <iframe id="theater-iframe" class="theater-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe id="theater-iframe" class="theater-iframe" src=""
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen title="Alumni video player"></iframe>
         </div>
+
+        <!-- Video metadata below player -->
         <div class="theater-info">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-4);">
-            <div>
-              <h3 id="theater-video-title" style="margin-bottom: var(--space-1); font-family: var(--font-heading); font-size: var(--text-xl); color: var(--color-primary);">Video Title</h3>
-              <p id="theater-video-desc" style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: 0;">Video description goes here.</p>
-            </div>
-            <button id="close-theater-modal" class="btn btn-outline btn-sm" style="flex-shrink: 0;">Close Player</button>
-          </div>
+          <span id="theater-video-cat" class="theater-cat-badge"></span>
+          <h2 id="theater-video-title" class="theater-video-title">Video Title</h2>
+          <p id="theater-video-desc" class="theater-video-desc">Video description goes here.</p>
         </div>
+
       </div>
     </div>
   </main>
@@ -122,7 +135,8 @@
             </div>
           </div>
           <p class="footer-desc">
-            Empowering lifelong connections between our global alumni body and current student cohorts through mentorship, chapters, and community initiatives.
+            Empowering lifelong connections between our global alumni body and current student cohorts through
+            mentorship, chapters, and community initiatives.
           </p>
         </div>
 
@@ -155,7 +169,8 @@
           </p>
           <form class="newsletter-form">
             <div class="newsletter-input-group">
-              <input type="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email for alumni newsletter" />
+              <input type="email" class="newsletter-input" placeholder="Your email address" required
+                aria-label="Email for alumni newsletter" />
               <button type="submit" class="btn btn-accent btn-sm">Join</button>
             </div>
           </form>
@@ -177,4 +192,5 @@
   <script type="module" src="js/nav.js"></script>
   <script type="module" src="js/pages/videos.js"></script>
 </body>
+
 </html>
