@@ -3,229 +3,769 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>News &amp; Stories — Apex University Alumni Gazette</title>
-  <meta name="description" content="Discover in-depth features, milestones, and reflections from Apex University graduates around the globe." />
-  
+
+  <title>News & Stories — GIET University Alumni Gazette</title>
+
+  <meta
+    name="description"
+    content="GIET University alumni news, events, stories, achievements and campus updates."
+  />
+
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/pages/news.css" />
 </head>
+
 <body>
 
-  <!-- Site Header -->
+  <!-- =========================================================
+       HEADER
+  ========================================================== -->
+
   <header class="site-header">
     <div class="container header-inner">
+
       <a href="index.html" class="brand">
-        <div class="brand-crest">Ω</div>
+        <div class="brand-crest">G</div>
+
         <div class="brand-info">
-          <span class="brand-title">Apex University</span>
+          <span class="brand-title">GIET University</span>
           <span class="brand-subtitle">Alumni Network</span>
         </div>
       </a>
+
       <nav class="nav-links" aria-label="Primary Navigation">
         <a href="index.html" class="nav-link">Home</a>
-        <a href="directory.html" class="nav-link">Alumni Directory</a>
-        <a href="videos.html" class="nav-link">Videos</a>
-        <a href="news.html" class="nav-link active">News &amp; Stories</a>
+        <a href="directory.html" class="nav-link">Directory</a>
+        <a href="news.html" class="nav-link active">News</a>
         <a href="events.html" class="nav-link">Events</a>
+        <a href="videos.html" class="nav-link">Videos</a>
         <a href="donate.html" class="nav-link">Donate</a>
       </nav>
+
       <div class="header-actions">
         <div id="nav-auth-container">
-          <a href="login.html" class="btn btn-outline btn-sm">Alumni Login</a>
+          <a href="login.html" class="btn btn-outline btn-sm">
+            Alumni Login
+          </a>
         </div>
-        <button class="mobile-toggle" aria-label="Toggle navigation menu">
-          <span></span><span></span><span></span>
+
+        <button
+          class="mobile-toggle"
+          aria-label="Toggle navigation menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
       </div>
+
     </div>
   </header>
 
-  <!-- Mobile Drawer -->
+
+  <!-- =========================================================
+       MOBILE DRAWER
+  ========================================================== -->
+
   <div class="mobile-drawer-backdrop"></div>
+
   <div class="mobile-drawer">
+
     <div class="brand">
-      <div class="brand-crest">Ω</div>
+      <div class="brand-crest">G</div>
+
       <div class="brand-info">
-        <span class="brand-title">Apex University</span>
+        <span class="brand-title">GIET University</span>
         <span class="brand-subtitle">Alumni Network</span>
       </div>
     </div>
+
     <div class="mobile-nav-links">
       <a href="index.html" class="mobile-nav-link">Home</a>
-      <a href="directory.html" class="mobile-nav-link">Alumni Directory</a>
-      <a href="videos.html" class="mobile-nav-link">Videos</a>
-      <a href="news.html" class="mobile-nav-link active">News &amp; Stories</a>
+      <a href="directory.html" class="mobile-nav-link">Directory</a>
+      <a href="news.html" class="mobile-nav-link active">News</a>
       <a href="events.html" class="mobile-nav-link">Events</a>
+      <a href="videos.html" class="mobile-nav-link">Videos</a>
       <a href="donate.html" class="mobile-nav-link">Donate</a>
     </div>
+
     <div id="mobile-auth-container"></div>
+
   </div>
 
+
+  <!-- =========================================================
+       MAIN
+  ========================================================== -->
+
   <main class="main-content">
-    <section class="section-cream" style="padding-top: var(--space-12); padding-bottom: var(--space-10); border-bottom: 1px solid var(--color-border-warm);">
-      <div class="container">
-        <span class="section-tag">Editorial &amp; Voices</span>
-        <h1 style="font-family: var(--font-heading); font-size: clamp(2.25rem, 5vw, var(--text-5xl)); color: var(--color-primary); margin-bottom: var(--space-2);">
-          Alumni News &amp; Inspiring Stories
-        </h1>
-        <p style="font-size: var(--text-lg); color: var(--color-text-secondary); max-width: 640px; line-height: var(--leading-normal);">
-          Curated narratives on scientific discoveries, social impact initiatives, and entrepreneurial journeys authored by our global alumni.
-        </p>
+
+    <!-- =======================================================
+         HERO + SINGLE CARD CAROUSEL
+    ======================================================== -->
+
+    <section class="gazette-hero">
+
+      <div class="container gazette-hero-grid">
+
+        <!-- LEFT SIDE -->
+        <div class="gazette-intro">
+
+          <div class="gazette-kicker">
+            <span class="gazette-line"></span>
+            THE GIET GAZETTE
+          </div>
+
+          <h1>
+            Ideas, people and
+            progress worth knowing.
+          </h1>
+
+          <p>
+            Real stories. Lasting impact. The latest from our alumni,
+            our campus and the GIET University community.
+          </p>
+
+          <div class="hero-stats">
+
+            <div class="hero-stat">
+              <strong>10K+</strong>
+              <span>Alumni</span>
+            </div>
+
+            <div class="hero-stat">
+              <strong>50+</strong>
+              <span>Countries</span>
+            </div>
+
+            <div class="hero-stat">
+              <strong>100+</strong>
+              <span>Annual Events</span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+        <div class="recent-news-area">
+
+          <div class="recent-news-heading">
+
+            <div>
+              <span class="eyebrow">
+                RECENT EVENTS & NEWS
+              </span>
+
+              <h2 id="carousel-counter">
+                01 / 08
+              </h2>
+            </div>
+
+            <a href="events.html" class="view-all-link">
+              View all News & Events →
+            </a>
+
+          </div>
+
+
+          <!-- ONE CARD ONLY -->
+          <div class="recent-carousel">
+
+            <button
+              id="recent-prev"
+              class="carousel-arrow carousel-arrow-left"
+              aria-label="Previous event or news"
+            >
+              ←
+            </button>
+
+
+            <div
+              id="recent-carousel-card"
+              class="recent-carousel-card"
+            >
+              <!-- JavaScript inserts ONE card here -->
+            </div>
+
+
+            <button
+              id="recent-next"
+              class="carousel-arrow carousel-arrow-right"
+              aria-label="Next event or news"
+            >
+              →
+            </button>
+
+          </div>
+
+
+          <div
+            id="recent-carousel-dots"
+            class="carousel-dots"
+          ></div>
+
+
+          <div class="carousel-hint">
+            <span>←</span>
+            <span>Use the arrows to explore more</span>
+            <span>→</span>
+          </div>
+
+        </div>
+
       </div>
+
     </section>
 
-    <section class="section" style="padding-top: var(--space-8);">
+
+    <!-- =======================================================
+         FILTER TOOLBAR
+    ======================================================== -->
+
+    <section class="section news-section">
+
       <div class="container">
-        <!-- Toolbar: Categories + Share Story CTA -->
+
         <div class="news-toolbar">
-          <div id="news-category-filters" class="news-categories">
-            <!-- Filter pills populated by js/pages/news.js -->
+
+          <div
+            id="news-category-filters"
+            class="news-categories"
+          >
           </div>
-          <button id="share-story-btn" class="btn btn-accent btn-sm">
-            Share Your Story +
-          </button>
+
+          <div class="news-toolbar-actions">
+
+            <button
+              id="saved-stories-btn"
+              class="saved-stories-btn"
+              type="button"
+            >
+              ♡ My Saved Stories
+            </button>
+
+            <button
+              id="share-story-btn"
+              class="btn btn-accent btn-sm"
+            >
+              Share Your Story +
+            </button>
+
+          </div>
+
         </div>
 
-        <!-- News Editorial Grid -->
+
+        <!-- ===================================================
+             MAGAZINE GRID
+        ==================================================== -->
+
         <div id="news-grid" class="news-grid">
-          <!-- Populated dynamically from js/pages/news.js -->
+          <!-- Dynamic stories -->
         </div>
+
+
+        <!-- ===================================================
+             CAMPUS HIGHLIGHTS
+        ==================================================== -->
+
+        <section class="campus-highlights">
+
+          <div class="section-heading-row">
+
+            <div>
+              <span class="eyebrow">GIET UNIVERSITY</span>
+
+              <h2>
+                More from our community
+              </h2>
+            </div>
+
+            <a href="events.html" class="gold-link">
+              Explore everything →
+            </a>
+
+          </div>
+
+
+          <div class="highlight-grid">
+
+            <a href="events.html" class="highlight-card">
+
+              <div class="highlight-icon">
+                🎓
+              </div>
+
+              <div>
+                <span>ALUMNI</span>
+
+                <h3>
+                  Alumni Meet & Networking
+                </h3>
+
+                <p>
+                  Reconnect with classmates, mentors and the wider
+                  GIET University alumni community.
+                </p>
+              </div>
+
+              <strong>→</strong>
+
+            </a>
+
+
+            <a href="events.html" class="highlight-card">
+
+              <div class="highlight-icon">
+                💡
+              </div>
+
+              <div>
+                <span>INNOVATION</span>
+
+                <h3>
+                  Student Innovation Showcase
+                </h3>
+
+                <p>
+                  Discover projects, prototypes and ideas created
+                  by the next generation of GIET innovators.
+                </p>
+              </div>
+
+              <strong>→</strong>
+
+            </a>
+
+
+            <a href="news.html" class="highlight-card">
+
+              <div class="highlight-icon">
+                🏆
+              </div>
+
+              <div>
+                <span>ACHIEVEMENTS</span>
+
+                <h3>
+                  Alumni Career Stories
+                </h3>
+
+                <p>
+                  Read how GIET graduates are creating impact
+                  across technology, business and society.
+                </p>
+              </div>
+
+              <strong>→</strong>
+
+            </a>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             READER MODAL
+        ==================================================== -->
+
+        <div
+          id="reader-modal"
+          class="modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-hidden="true"
+        >
+
+          <div class="modal-content reader-modal-content">
+
+            <div id="reader-modal-body">
+              <!-- JavaScript -->
+            </div>
+
+            <div class="modal-footer">
+
+              <button
+                id="close-reader-modal"
+                class="btn btn-outline btn-sm"
+              >
+                Close Article
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ===================================================
+             SUBMISSION MODAL
+        ==================================================== -->
+
+        <div
+          id="submit-story-modal"
+          class="modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-hidden="true"
+        >
+
+          <div class="modal-content submit-modal-content">
+
+            <div class="modal-header">
+
+              <div>
+                <span class="eyebrow">
+                  GIET ALUMNI GAZETTE
+                </span>
+
+                <h3 class="modal-title">
+                  Share Your Story
+                </h3>
+              </div>
+
+              <button
+                id="close-submit-modal"
+                class="modal-close-btn"
+                aria-label="Close dialog"
+              >
+                ×
+              </button>
+
+            </div>
+
+
+            <form id="story-submission-form">
+
+              <div class="modal-body">
+
+                <div class="moderation-notice">
+                  <strong>Editorial Moderation</strong>
+
+                  <p>
+                    Your submission will be reviewed by the GIET
+                    University alumni team before publication.
+                  </p>
+                </div>
+
+
+                <div class="form-group">
+
+                  <label
+                    for="story-title"
+                    class="form-label"
+                  >
+                    Story Headline *
+                  </label>
+
+                  <input
+                    type="text"
+                    id="story-title"
+                    class="form-control"
+                    placeholder="Example: From GIET Classroom to Global Tech Leader"
+                    required
+                  />
+
+                  <div class="field-meta">
+                    <span id="title-word-count">0 words</span>
+                  </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label
+                    for="story-category"
+                    class="form-label"
+                  >
+                    Category
+                  </label>
+
+                  <select
+                    id="story-category"
+                    class="form-control"
+                  >
+
+                    <option value="Story">
+                      Stories & Essays
+                    </option>
+
+                    <option value="Achievement">
+                      Breakthroughs
+                    </option>
+
+                    <option value="News">
+                      Campus Milestones
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label
+                    for="story-excerpt"
+                    class="form-label"
+                  >
+                    Short Summary
+                  </label>
+
+                  <input
+                    type="text"
+                    id="story-excerpt"
+                    class="form-control"
+                    placeholder="Give readers a quick idea about your story"
+                  />
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label
+                    for="story-image"
+                    class="form-label"
+                  >
+                    Featured Image URL
+                  </label>
+
+                  <input
+                    type="url"
+                    id="story-image"
+                    class="form-control"
+                    placeholder="https://..."
+                  />
+
+                  <div
+                    id="story-image-preview"
+                    class="story-image-preview"
+                  ></div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label
+                    for="story-body"
+                    class="form-label"
+                  >
+                    Full Story *
+                  </label>
+
+                  <textarea
+                    id="story-body"
+                    class="form-control"
+                    rows="9"
+                    placeholder="Write your story..."
+                    required
+                  ></textarea>
+
+                  <div class="field-meta">
+
+                    <span id="body-word-count">
+                      0 words
+                    </span>
+
+                    <span id="body-reading-time">
+                      0 min read
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="modal-footer">
+
+                <button
+                  type="button"
+                  id="cancel-submit-modal"
+                  class="btn btn-outline btn-sm"
+                >
+                  Cancel
+                </button>
+
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-sm"
+                >
+                  Submit for Review
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+
       </div>
+
     </section>
 
-    <!-- Reader Modal Dialog -->
-    <div id="reader-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
-      <div class="modal-content" style="max-width: 720px;">
-        <div id="reader-modal-body">
-          <!-- Populated dynamically from js/pages/news.js -->
-        </div>
-        <div class="modal-footer">
-          <button id="close-reader-modal" class="btn btn-outline btn-sm">Close Article</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Submit Story Modal Dialog -->
-    <div id="submit-story-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
-      <div class="modal-content" style="max-width: 640px;">
-        <div class="modal-header">
-          <h3 class="modal-title">Submit an Alumni Story or Update</h3>
-          <button id="close-submit-modal" class="modal-close-btn" aria-label="Close dialog">&times;</button>
-        </div>
-
-        <form id="story-submission-form">
-          <div class="modal-body">
-            <div style="background: var(--color-info-bg); border-left: 3px solid var(--color-info); padding: var(--space-3) var(--space-4); border-radius: var(--radius-xs); margin-bottom: var(--space-5); font-size: var(--text-xs); color: var(--color-text-secondary);">
-              <strong>Editorial Moderation Notice:</strong> Submissions are reviewed by staff administrators before appearing on the public alumni gazette.
-            </div>
-
-            <div class="form-group">
-              <label for="story-title" class="form-label">Story or Article Headline <span class="required">*</span></label>
-              <input type="text" id="story-title" class="form-control" placeholder="e.g. Pioneering Clean Microgrids in Rural Kenya" required />
-            </div>
-
-            <div class="form-group">
-              <label for="story-category" class="form-label">Category</label>
-              <select id="story-category" class="form-control">
-                <option value="Story">Alumni Feature &amp; Story</option>
-                <option value="Achievement">Career Milestone &amp; Award</option>
-                <option value="News">Campus &amp; Chapter News</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="story-excerpt" class="form-label">Brief Summary / Excerpt</label>
-              <input type="text" id="story-excerpt" class="form-control" placeholder="One or two sentences summarizing your announcement" />
-            </div>
-
-            <div class="form-group">
-              <label for="story-image" class="form-label">Featured Image URL (Optional)</label>
-              <input type="url" id="story-image" class="form-control" placeholder="https://images.unsplash.com/..." />
-            </div>
-
-            <div class="form-group">
-              <label for="story-body" class="form-label">Full Narrative <span class="required">*</span></label>
-              <textarea id="story-body" class="form-control" rows="6" placeholder="Share your experience, lessons learned, or project details..." required></textarea>
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline btn-sm" onclick="document.getElementById('submit-story-modal').classList.remove('open');">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-sm">Submit for Review</button>
-          </div>
-        </form>
-      </div>
-    </div>
   </main>
 
-  <!-- Persistent Site Footer -->
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================== -->
+
   <footer class="site-footer">
+
     <div class="container">
+
       <div class="footer-grid">
+
         <div class="footer-brand">
-          <div class="brand" style="color: #fff;">
-            <div class="brand-crest">Ω</div>
+
+          <div class="brand">
+
+            <div class="brand-crest">G</div>
+
             <div class="brand-info">
-              <span class="brand-title" style="color: #fff;">Apex University</span>
-              <span class="brand-subtitle">Alumni Network</span>
+
+              <span class="brand-title">
+                GIET University
+              </span>
+
+              <span class="brand-subtitle">
+                Alumni Network
+              </span>
+
             </div>
+
           </div>
+
           <p class="footer-desc">
-            Empowering lifelong connections between our global alumni body and current student cohorts through mentorship, chapters, and community initiatives.
+            Connecting GIET University alumni, students and
+            the wider community through stories, events,
+            achievements and lifelong relationships.
           </p>
+
         </div>
 
+
         <div>
-          <h4 class="footer-heading">Explore</h4>
+
+          <h4 class="footer-heading">
+            Explore
+          </h4>
+
           <ul class="footer-links">
-            <li><a href="directory.html" class="footer-link">Alumni Directory</a></li>
-            <li><a href="news.html" class="footer-link">News &amp; Stories</a></li>
-            <li><a href="videos.html" class="footer-link">Video Highlights</a></li>
-            <li><a href="events.html" class="footer-link">Upcoming Events</a></li>
-            <li><a href="donate.html" class="footer-link">Ways to Give</a></li>
+
+            <li>
+              <a href="directory.html" class="footer-link">
+                Alumni Directory
+              </a>
+            </li>
+
+            <li>
+              <a href="news.html" class="footer-link">
+                News & Stories
+              </a>
+            </li>
+
+            <li>
+              <a href="events.html" class="footer-link">
+                Events
+              </a>
+            </li>
+
+            <li>
+              <a href="videos.html" class="footer-link">
+                Videos
+              </a>
+            </li>
+
+            <li>
+              <a href="donate.html" class="footer-link">
+                Donate
+              </a>
+            </li>
+
           </ul>
+
         </div>
 
+
         <div>
-          <h4 class="footer-heading">Member Portal</h4>
+
+          <h4 class="footer-heading">
+            Alumni
+          </h4>
+
           <ul class="footer-links">
-            <li><a href="login.html" class="footer-link">Alumni Sign In</a></li>
-            <li><a href="signup.html" class="footer-link">Join Network</a></li>
-            <li><a href="profile.html" class="footer-link">Update My Profile</a></li>
-            <li><a href="news.html#submit" class="footer-link">Submit a Story</a></li>
-            <li><a href="admin.html" class="footer-link">Staff Administration</a></li>
+
+            <li>
+              <a href="login.html" class="footer-link">
+                Alumni Sign In
+              </a>
+            </li>
+
+            <li>
+              <a href="signup.html" class="footer-link">
+                Join Network
+              </a>
+            </li>
+
+            <li>
+              <a href="profile.html" class="footer-link">
+                My Profile
+              </a>
+            </li>
+
+            <li>
+              <a href="news.html#submit" class="footer-link">
+                Share a Story
+              </a>
+            </li>
+
           </ul>
+
         </div>
 
+
         <div>
-          <h4 class="footer-heading">Stay Connected</h4>
-          <p style="font-size: var(--text-sm); color: var(--color-text-inverse-muted); margin-bottom: var(--space-3);">
-            Receive our quarterly alumni bulletin and regional chapter invitations.
+
+          <h4 class="footer-heading">
+            Stay Connected
+          </h4>
+
+          <p class="footer-desc">
+            Stay updated with GIET alumni stories,
+            campus milestones and upcoming events.
           </p>
-          <form class="newsletter-form">
-            <div class="newsletter-input-group">
-              <input type="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email for alumni newsletter" />
-              <button type="submit" class="btn btn-accent btn-sm">Join</button>
-            </div>
-          </form>
+
+          <a href="events.html" class="footer-newsletter-btn">
+            Explore Events →
+          </a>
+
         </div>
+
       </div>
 
-      <div class="footer-bottom">
-        <div>&copy; 2026 Apex University Alumni Association. All rights reserved.</div>
-        <div class="social-links">
-          <a href="#" class="social-link" aria-label="LinkedIn">LinkedIn</a>
-          <a href="#" class="social-link" aria-label="YouTube">YouTube</a>
-          <a href="#" class="social-link" aria-label="X Twitter">X (Twitter)</a>
-          <a href="#" class="social-link" aria-label="Instagram">Instagram</a>
-        </div>
-      </div>
     </div>
+
   </footer>
 
+
+  <!-- IMPORTANT:
+       Existing project navigation/auth contracts -->
   <script type="module" src="js/nav.js"></script>
   <script type="module" src="js/pages/news.js"></script>
+
 </body>
 </html>
