@@ -1,860 +1,350 @@
 /**
  * ============================================================
- * GIET UNIVERSITY — NEWS & STORIES
- * ============================================================
+ * GIET UNIVERSITY ALUMNI GAZETTE
+ * NEWS PAGE
  *
- * Responsibilities:
- * - Recent events/news single-card carousel
- * - Approved alumni stories
- * - Category filters
- * - Saved stories
- * - Long-form reader
- * - Story submission
- * - Live word count
- * - Reading time
- * - Image preview
- *
- * Only this page's JS is modified.
+ * Pure Vanilla JavaScript ES Modules
  * ============================================================
  */
 
-import { getSubmissions, createSubmission } from '../storage-service.js';
-import { getCurrentUser, onAuthStateChange } from '../auth.js';
-import { showToast } from '../nav.js';
+import {
+  getSubmissions,
+  createSubmission
+} from "../storage-service.js";
+
+import {
+  getCurrentUser,
+  onAuthStateChange
+} from "../auth.js";
+
+import {
+  showToast
+} from "../nav.js";
 
 
 /* ============================================================
-   STATE
-============================================================ */
+   GLOBAL STATE
+   ============================================================ */
 
 let approvedStories = [];
 
-let activeCategory = 'All';
+let activeCategory = "All";
 
 let currentUser = null;
-
-let currentRecentIndex = 0;
 
 let showingSavedStories = false;
 
 
 /* ============================================================
-   SAVED STORIES
-============================================================ */
+   CONSTANTS
+   ============================================================ */
 
-const SAVED_KEY = 'alumni_saved_stories';
+const SAVED_KEY =
+  "alumni_saved_stories";
 
-
-/* ============================================================
-   FALLBACK IMAGE
-============================================================ */
 
 const DEFAULT_IMAGE =
-  'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=85';
+  "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=85";
+
+
+const CATEGORY_LABELS = {
+
+  All:
+    "All",
+
+  Story:
+    "Stories & Essays",
+
+  Achievement:
+    "Breakthroughs",
+
+  News:
+    "Campus Milestones"
+
+};
 
 
 /* ============================================================
-   RECENT EVENTS & NEWS DATA
-===============================================================
-   These are sample/demo entries.
+   PAGE START
+   ============================================================ */
 
-   Change:
-   - title
-   - description
-   - image
-   - date
-   - location
-   - href
+document.addEventListener(
+  "DOMContentLoaded",
+  async () => {
 
-   when your actual GIET events/news are available.
-============================================================ */
+    /*
+     * Existing authentication contract
+     */
+    onAuthStateChange(
+      (user) => {
 
-const recentItems = [
+        currentUser = user;
 
-  {
-    type: 'EVENT',
-    title: 'GIET Alumni Innovation Summit',
-    description:
-      'A day of ideas, networking and innovation bringing together GIET alumni, students, faculty and industry leaders.',
-    date: 'Aug 15, 2026',
-    location: 'GIET University Campus',
-    image:
-      'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=85',
-    href: 'events.html'
-  },
+        updateSubmitButtonState();
 
-  {
-    type: 'NEWS',
-    title: 'GIET University Expands Alumni Industry Network',
-    description:
-      'New alumni-industry initiatives are creating more opportunities for mentorship, internships and professional collaboration.',
-    date: 'Aug 10, 2026',
-    location: 'GIET University',
-    image:
-      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85',
-    href: 'news.html'
-  },
-
-  {
-    type: 'EVENT',
-    title: 'GIET Alumni Meet & Networking Evening',
-    description:
-      'Reconnect with classmates, meet fellow graduates and celebrate the growing GIET alumni community.',
-    date: 'Aug 05, 2026',
-    location: 'GIET University',
-    image:
-      'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1200&q=85',
-    href: 'events.html'
-  },
-
-  {
-    type: 'NEWS',
-    title: 'GIET Alumni Make Their Mark in Technology',
-    description:
-      'A look at graduates working across software engineering, artificial intelligence, startups and emerging technologies.',
-    date: 'Jul 28, 2026',
-    location: 'Alumni Network',
-    image:
-      'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=85',
-    href: 'news.html'
-  },
-
-  {
-    type: 'EVENT',
-    title: 'Annual Student Project Showcase',
-    description:
-      'Students present innovative projects and prototypes while alumni mentors share industry feedback and guidance.',
-    date: 'Jul 20, 2026',
-    location: 'GIET Innovation Centre',
-    image:
-      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=85',
-    href: 'events.html'
-  },
-
-  {
-    type: 'NEWS',
-    title: 'GIET Alumni Entrepreneurship Stories',
-    description:
-      'Discover the journeys of graduates who transformed classroom ideas into businesses, products and new ventures.',
-    date: 'Jul 12, 2026',
-    location: 'GIET Alumni Gazette',
-    image:
-      'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=85',
-    href: 'news.html'
-  },
-
-  {
-    type: 'EVENT',
-    title: 'Alumni Career & Mentorship Day',
-    description:
-      'Alumni professionals return to GIET to guide students on careers, skills, interviews and industry expectations.',
-    date: 'Jul 05, 2026',
-    location: 'GIET University',
-    image:
-      'https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1200&q=85',
-    href: 'events.html'
-  },
-
-  {
-    type: 'NEWS',
-    title: 'GIET Community Celebrates Alumni Achievements',
-    description:
-      'From academic milestones to professional achievements, explore the latest accomplishments from the GIET family.',
-    date: 'Jun 28, 2026',
-    location: 'GIET University Alumni',
-    image:
-      'https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1200&q=85',
-    href: 'news.html'
-  }
-
-];
+      }
+    );
 
 
-/* ============================================================
-   TRENDING DATA
-============================================================ */
+    /*
+     * Load approved stories
+     */
+    try {
 
-const trendingItems = [
+      approvedStories =
+        await getSubmissions(
+          "approved"
+        );
 
-  {
-    title: 'GIET Alumni Building the Next Generation of AI',
-    meta: '2 days ago · Breakthroughs',
-    image:
-      'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=300&q=80'
-  },
+    } catch (error) {
 
-  {
-    title: 'Students Take Innovation Beyond the Classroom',
-    meta: '3 days ago · Campus Milestones',
-    image:
-      'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=300&q=80'
-  },
+      console.error(
+        "Unable to load stories:",
+        error
+      );
 
-  {
-    title: 'From GIET Classroom to Global Careers',
-    meta: '4 days ago · Stories & Essays',
-    image:
-      'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=300&q=80'
-  },
+      approvedStories = [];
 
-  {
-    title: 'Research, Innovation and the GIET Community',
-    meta: '5 days ago · Breakthroughs',
-    image:
-      'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=300&q=80'
-  },
+      showToast(
+        "Unable to load the latest stories.",
+        "danger"
+      );
 
-  {
-    title: 'GIET Alumni Turning Ideas Into Startups',
-    meta: '6 days ago · Breakthroughs',
-    image:
-      'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=300&q=80'
-  },
-
-  {
-    title: 'Alumni Mentors Give Back to GIET Students',
-    meta: '1 week ago · Stories & Essays',
-    image:
-      'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=300&q=80'
-  }
-
-];
+    }
 
 
-/* ============================================================
-   DOM READY
-============================================================ */
+    initCategoryFilters();
 
-document.addEventListener('DOMContentLoaded', async () => {
+    renderStories();
 
-  /*
-   * Existing authentication contract.
-   */
-  onAuthStateChange((user) => {
+    initReaderModal();
 
-    currentUser = user;
+    initSubmissionModal();
 
-    updateSubmitButtonState();
+    initSavedStories();
 
-  });
+    initNewsSlider();
 
+    initDonorPopup();
 
-  /*
-   * Load approved stories.
-   */
-  try {
+    initNewsletter();
 
-    approvedStories = await getSubmissions('approved');
-
-  } catch (error) {
-
-    console.error('Unable to load approved stories:', error);
-
-    approvedStories = [];
-
-  }
-
-
-  /*
-   * Initialize page.
-   */
-
-  initCategoryFilters();
-
-  renderStories();
-
-  initRecentCarousel();
-
-  initReaderModal();
-
-  initSubmissionModal();
-
-  initSavedStories();
-
-  renderTrendingItems();
-
-
-  /*
-   * Open submission modal when URL contains:
-   *
-   * news.html#submit
-   */
-
-  if (window.location.hash === '#submit') {
-
-    setTimeout(() => {
+    /*
+     * Footer / direct submission hash
+     */
+    if (
+      window.location.hash ===
+      "#submit"
+    ) {
 
       handleOpenSubmitModal();
 
-    }, 300);
+    }
 
   }
-
-});
-
-
-/* ============================================================
-   RECENT CAROUSEL
-============================================================ */
-
-function initRecentCarousel() {
-
-  renderRecentCarousel();
-
-
-  const previousButton =
-    document.getElementById('recent-prev');
-
-  const nextButton =
-    document.getElementById('recent-next');
-
-
-  previousButton?.addEventListener(
-    'click',
-    () => {
-
-      currentRecentIndex--;
-
-      if (currentRecentIndex < 0) {
-
-        currentRecentIndex =
-          recentItems.length - 1;
-
-      }
-
-      renderRecentCarousel();
-
-    }
-  );
-
-
-  nextButton?.addEventListener(
-    'click',
-    () => {
-
-      currentRecentIndex++;
-
-      if (
-        currentRecentIndex >=
-        recentItems.length
-      ) {
-
-        currentRecentIndex = 0;
-
-      }
-
-      renderRecentCarousel();
-
-    }
-  );
-
-
-  /*
-   * Keyboard navigation.
-   */
-
-  document.addEventListener('keydown', (event) => {
-
-    if (
-      event.key === 'ArrowLeft' &&
-      !isTypingElement(event.target)
-    ) {
-
-      currentRecentIndex--;
-
-      if (currentRecentIndex < 0) {
-
-        currentRecentIndex =
-          recentItems.length - 1;
-
-      }
-
-      renderRecentCarousel();
-
-    }
-
-
-    if (
-      event.key === 'ArrowRight' &&
-      !isTypingElement(event.target)
-    ) {
-
-      currentRecentIndex++;
-
-      if (
-        currentRecentIndex >=
-        recentItems.length
-      ) {
-
-        currentRecentIndex = 0;
-
-      }
-
-      renderRecentCarousel();
-
-    }
-
-  });
-
-
-  /*
-   * Touch swipe.
-   */
-
-  let touchStartX = 0;
-
-  const carousel =
-    document.querySelector('.recent-carousel');
-
-
-  carousel?.addEventListener(
-    'touchstart',
-    (event) => {
-
-      touchStartX =
-        event.changedTouches[0].screenX;
-
-    },
-    { passive: true }
-  );
-
-
-  carousel?.addEventListener(
-    'touchend',
-    (event) => {
-
-      const touchEndX =
-        event.changedTouches[0].screenX;
-
-      const distance =
-        touchEndX - touchStartX;
-
-
-      if (Math.abs(distance) < 45) {
-
-        return;
-
-      }
-
-
-      if (distance < 0) {
-
-        currentRecentIndex++;
-
-        if (
-          currentRecentIndex >=
-          recentItems.length
-        ) {
-
-          currentRecentIndex = 0;
-
-        }
-
-      } else {
-
-        currentRecentIndex--;
-
-        if (currentRecentIndex < 0) {
-
-          currentRecentIndex =
-            recentItems.length - 1;
-
-        }
-
-      }
-
-
-      renderRecentCarousel();
-
-    },
-    { passive: true }
-  );
-
-
-  /*
-   * Automatic rotation every 7 seconds.
-   */
-
-  let autoRotate =
-    setInterval(() => {
-
-      currentRecentIndex++;
-
-      if (
-        currentRecentIndex >=
-        recentItems.length
-      ) {
-
-        currentRecentIndex = 0;
-
-      }
-
-      renderRecentCarousel();
-
-    }, 7000);
-
-
-  /*
-   * Stop autoplay while mouse is over carousel.
-   */
-
-  carousel?.addEventListener(
-    'mouseenter',
-    () => {
-
-      clearInterval(autoRotate);
-
-    }
-  );
-
-
-  carousel?.addEventListener(
-    'mouseleave',
-    () => {
-
-      autoRotate =
-        setInterval(() => {
-
-          currentRecentIndex++;
-
-          if (
-            currentRecentIndex >=
-            recentItems.length
-          ) {
-
-            currentRecentIndex = 0;
-
-          }
-
-          renderRecentCarousel();
-
-        }, 7000);
-
-    }
-  );
-
-}
-
-
-/* ============================================================
-   RENDER ONE RECENT CARD
-============================================================ */
-
-function renderRecentCarousel() {
-
-  const card =
-    document.getElementById(
-      'recent-carousel-card'
-    );
-
-  const dots =
-    document.getElementById(
-      'recent-carousel-dots'
-    );
-
-  const counter =
-    document.getElementById(
-      'carousel-counter'
-    );
-
-
-  if (!card) return;
-
-
-  const item =
-    recentItems[currentRecentIndex];
-
-
-  /*
-   * ONLY ONE CARD IS RENDERED HERE.
-   */
-
-  card.innerHTML = `
-
-    <div class="recent-card-image">
-
-      <img
-        src="${escapeAttribute(item.image)}"
-        alt="${escapeAttribute(item.title)}"
-      />
-
-      <span class="recent-card-label">
-        ${escapeHTML(item.type)}
-      </span>
-
-    </div>
-
-
-    <div class="recent-card-content">
-
-      <span class="eyebrow">
-        ${escapeHTML(item.type)}
-      </span>
-
-      <h3>
-        ${escapeHTML(item.title)}
-      </h3>
-
-      <p>
-        ${escapeHTML(item.description)}
-      </p>
-
-
-      <div class="recent-card-meta">
-
-        <span>
-          📅
-          ${escapeHTML(item.date)}
-        </span>
-
-        <span>
-          📍
-          ${escapeHTML(item.location)}
-        </span>
-
-      </div>
-
-    </div>
-
-  `;
-
-
-  /*
-   * Clicking card redirects to Events or News page.
-   */
-
-  card.onclick = () => {
-
-    window.location.href = item.href;
-
-  };
-
-
-  /*
-   * Update counter.
-   */
-
-  if (counter) {
-
-    counter.textContent =
-      `${String(currentRecentIndex + 1).padStart(2, '0')} / ${String(recentItems.length).padStart(2, '0')}`;
-
-  }
-
-
-  /*
-   * Pagination dots.
-   */
-
-  if (dots) {
-
-    dots.innerHTML =
-      recentItems
-        .map(
-          (_, index) => `
-            <button
-              class="carousel-dot ${
-                index === currentRecentIndex
-                  ? 'active'
-                  : ''
-              }"
-              aria-label="Show item ${index + 1}"
-              data-index="${index}"
-            ></button>
-          `
-        )
-        .join('');
-
-
-    dots
-      .querySelectorAll('.carousel-dot')
-      .forEach((dot) => {
-
-        dot.addEventListener(
-          'click',
-          (event) => {
-
-            event.stopPropagation();
-
-            currentRecentIndex =
-              Number(
-                dot.dataset.index
-              );
-
-            renderRecentCarousel();
-
-          }
-        );
-
-      });
-
-  }
-
-}
+);
 
 
 /* ============================================================
    CATEGORY FILTERS
-============================================================ */
+   ============================================================ */
 
 function initCategoryFilters() {
 
   const container =
     document.getElementById(
-      'news-category-filters'
+      "news-category-filters"
     );
-
 
   if (!container) return;
 
 
   const categories = [
-
-    {
-      value: 'All',
-      label: 'All'
-    },
-
-    {
-      value: 'Story',
-      label: 'Stories & Essays'
-    },
-
-    {
-      value: 'Achievement',
-      label: 'Breakthroughs'
-    },
-
-    {
-      value: 'News',
-      label: 'Campus Milestones'
-    }
-
+    "All",
+    "Story",
+    "Achievement",
+    "News"
   ];
 
 
   container.innerHTML =
     categories
       .map(
-        (category) => `
+        (category) => {
 
-          <button
-            type="button"
-            class="category-pill ${
-              category.value === activeCategory
-                ? 'active'
-                : ''
-            }"
-            data-cat="${category.value}"
-          >
-            ${category.label}
-          </button>
+          return `
+            <button
+              type="button"
+              class="category-pill ${
+                category === activeCategory
+                  ? "active"
+                  : ""
+              }"
+              data-cat="${category}"
+            >
+              ${escapeHTML(
+                CATEGORY_LABELS[
+                  category
+                ]
+              )}
+            </button>
+          `;
 
-        `
+        }
       )
-      .join('');
+      .join("");
 
 
   container
-    .querySelectorAll('.category-pill')
-    .forEach((button) => {
+    .querySelectorAll(
+      ".category-pill"
+    )
+    .forEach(
+      (pill) => {
 
-      button.addEventListener(
-        'click',
-        () => {
+        pill.addEventListener(
+          "click",
+          () => {
 
-          showingSavedStories = false;
+            showingSavedStories =
+              false;
 
-          activeCategory =
-            button.dataset.cat;
+            const savedButton =
+              document.getElementById(
+                "saved-stories-btn"
+              );
 
-          container
-            .querySelectorAll('.category-pill')
-            .forEach((item) => {
-
-              item.classList.remove('active');
-
-            });
+            savedButton?.classList.remove(
+              "active"
+            );
 
 
-          button.classList.add('active');
+            container
+              .querySelectorAll(
+                ".category-pill"
+              )
+              .forEach(
+                (item) => {
 
-          renderStories();
+                  item.classList.remove(
+                    "active"
+                  );
 
-        }
-      );
+                }
+              );
 
-    });
+
+            pill.classList.add(
+              "active"
+            );
+
+
+            activeCategory =
+              pill.getAttribute(
+                "data-cat"
+              );
+
+
+            renderStories();
+
+          }
+        );
+
+      }
+    );
 
 }
 
 
 /* ============================================================
    RENDER STORIES
-============================================================ */
+   ============================================================ */
 
 function renderStories() {
 
   const grid =
     document.getElementById(
-      'news-grid'
+      "news-grid"
     );
-
 
   if (!grid) return;
 
 
   let list =
-    activeCategory === 'All'
-      ? [...approvedStories]
-      : approvedStories.filter(
-          (story) =>
-            story.category === activeCategory
-        );
+    [...approvedStories];
 
 
   /*
-   * Saved Stories filter.
+   * Category filter
    */
-
-  if (showingSavedStories) {
-
-    const saved =
-      getSavedStoryIds();
+  if (
+    activeCategory !==
+    "All"
+  ) {
 
     list =
       list.filter(
         (story) =>
-          saved.includes(story.id)
+          story.category ===
+          activeCategory
       );
 
   }
 
 
   /*
-   * No stories.
+   * Saved stories filter
    */
+  if (showingSavedStories) {
 
+    const savedIds =
+      getSavedStories();
+
+    list =
+      list.filter(
+        (story) =>
+          savedIds.includes(
+            story.id
+          )
+      );
+
+  }
+
+
+  /*
+   * Empty state
+   */
   if (!list.length) {
 
     grid.innerHTML = `
 
-      <div class="news-empty-state">
+      <div
+        class="empty-state"
+        style="grid-column: 1 / -1;"
+      >
 
-        <h3>
+        <div class="empty-icon">
+          📰
+        </div>
+
+        <h3 class="empty-title">
+
           ${
             showingSavedStories
-              ? 'No Saved Stories Yet'
-              : 'More Stories Coming Soon'
+              ? "No Saved Stories Yet"
+              : "No Stories in This Category"
           }
+
         </h3>
 
-        <p>
+        <p class="empty-text">
+
           ${
             showingSavedStories
-              ? 'Save stories you want to read later.'
-              : 'The GIET University alumni editorial team will publish new stories here.'
+              ? "Open a story and tap the bookmark icon to save it here."
+              : "Check back soon or submit your own GIET alumni story."
           }
+
         </p>
 
       </div>
@@ -866,169 +356,207 @@ function renderStories() {
   }
 
 
-  /*
-   * Add featured/trending/quote panels
-   * around actual approved stories.
-   */
-
-  const storyCards =
-    list.map(
-      (story, index) =>
-        renderStoryCard(
-          story,
-          index === 0
-        )
-    )
-    .join('');
-
-
-  grid.innerHTML = `
-
-    ${storyCards}
-
-    ${renderTrendingPanel()}
-
-    ${renderQuotePanel()}
-
-  `;
+  grid.innerHTML =
+    list
+      .map(
+        (story) =>
+          createStoryCard(
+            story
+          )
+      )
+      .join("");
 
 
   /*
-   * Card events.
+   * Card events
    */
 
   grid
-    .querySelectorAll('.news-card')
-    .forEach((card) => {
+    .querySelectorAll(
+      ".news-card"
+    )
+    .forEach(
+      (card) => {
 
-      card.addEventListener(
-        'click',
-        (event) => {
+        card.addEventListener(
+          "click",
+          () => {
 
-          /*
-           * Don't open reader if bookmark
-           * button was clicked.
-           */
+            const id =
+              card.getAttribute(
+                "data-id"
+              );
 
-          if (
-            event.target.closest(
-              '.story-save-button'
-            )
-          ) {
-
-            return;
+            openReaderModal(id);
 
           }
+        );
 
-
-          openReaderModal(
-            card.dataset.id
-          );
-
-        }
-      );
-
-    });
+      }
+    );
 
 
   /*
-   * Save buttons.
+   * Save buttons
    */
 
   grid
-    .querySelectorAll('.story-save-button')
-    .forEach((button) => {
+    .querySelectorAll(
+      ".news-save-btn"
+    )
+    .forEach(
+      (button) => {
 
-      button.addEventListener(
-        'click',
-        (event) => {
+        button.addEventListener(
+          "click",
+          (event) => {
 
-          event.stopPropagation();
+            event.stopPropagation();
 
-          toggleSavedStory(
-            button.dataset.id
-          );
+            const id =
+              button.getAttribute(
+                "data-id"
+              );
 
-        }
-      );
+            toggleSavedStory(id);
 
-    });
+          }
+        );
+
+      }
+    );
 
 }
 
 
 /* ============================================================
-   STORY CARD
-============================================================ */
+   CREATE STORY CARD
+   ============================================================ */
 
-function renderStoryCard(
-  story,
-  featured = false
+function createStoryCard(
+  story
 ) {
+
+  const saved =
+    isStorySaved(
+      story.id
+    );
+
 
   const image =
     story.imageURL ||
     DEFAULT_IMAGE;
 
 
-  const saved =
-    getSavedStoryIds().includes(
-      story.id
+  const title =
+    escapeHTML(
+      story.title ||
+      "Untitled Story"
     );
 
 
-  const body =
-    story.body || '';
-
-
   const excerpt =
-    story.excerpt ||
-    `${body.slice(0, 150)}${body.length > 150 ? '...' : ''}`;
+    escapeHTML(
+      story.excerpt ||
+      getExcerpt(
+        story.body || ""
+      )
+    );
+
+
+  const author =
+    escapeHTML(
+      story.authorName ||
+      "GIET Alumni"
+    );
+
+
+  const date =
+    formatDate(
+      story.createdAt
+    );
+
+
+  const category =
+    CATEGORY_LABELS[
+      story.category
+    ] ||
+    story.category ||
+    "Story";
 
 
   return `
 
     <article
-      class="news-card ${
-        featured ? 'featured' : ''
-      }"
-      data-id="${escapeAttribute(story.id)}"
+      class="news-card"
+      data-id="${escapeAttribute(
+        story.id
+      )}"
     >
 
       <div class="news-cover-wrap">
 
         <img
-          src="${escapeAttribute(image)}"
-          alt="${escapeAttribute(story.title)}"
+          src="${escapeAttribute(
+            image
+          )}"
+          alt="${escapeAttribute(
+            title
+          )}"
           class="news-cover-img"
           loading="lazy"
         />
 
+
         <span class="news-category-badge">
           ${escapeHTML(
-            getCategoryLabel(
-              story.category
-            )
+            category
           )}
         </span>
+
+
+        <button
+          type="button"
+          class="news-save-btn ${
+            saved
+              ? "saved"
+              : ""
+          }"
+          data-id="${escapeAttribute(
+            story.id
+          )}"
+          aria-label="${
+            saved
+              ? "Remove saved story"
+              : "Save story"
+          }"
+        >
+          ${
+            saved
+              ? "♥"
+              : "♡"
+          }
+        </button>
 
       </div>
 
 
       <div class="news-card-body">
 
-        <div class="news-date">
-          ${formatDate(story.createdAt)}
+        <div class="news-card-date">
+          ${escapeHTML(
+            date
+          )}
         </div>
 
 
         <h3 class="news-title">
-          ${escapeHTML(story.title)}
+          ${title}
         </h3>
 
 
         <p class="news-excerpt">
-          ${escapeHTML(excerpt)}
+          ${excerpt}
         </p>
 
 
@@ -1039,23 +567,8 @@ function renderStoryCard(
           </span>
 
           <span class="author-name">
-            ${escapeHTML(
-              story.authorName ||
-              'GIET Alumni'
-            )}
+            ${author}
           </span>
-
-
-          <button
-            type="button"
-            class="story-save-button"
-            data-id="${escapeAttribute(story.id)}"
-            aria-label="Save story"
-            title="Save story"
-            style="margin-left:auto;border:0;background:none;font-size:18px;cursor:pointer;"
-          >
-            ${saved ? '🔖' : '♡'}
-          </button>
 
         </div>
 
@@ -1069,129 +582,24 @@ function renderStoryCard(
 
 
 /* ============================================================
-   TRENDING PANEL
-============================================================ */
-
-function renderTrendingPanel() {
-
-  return `
-
-    <aside class="trending-panel">
-
-      <div class="trending-heading">
-
-        <h3>
-          TRENDING INSIGHTS
-        </h3>
-
-      </div>
-
-
-      ${trendingItems
-        .slice(0, 5)
-        .map(
-          (item, index) => `
-
-            <div class="trending-item">
-
-              <div class="trending-number">
-                ${index + 1}
-              </div>
-
-              <img
-                src="${escapeAttribute(item.image)}"
-                alt=""
-                loading="lazy"
-              />
-
-              <div>
-
-                <h4>
-                  ${escapeHTML(item.title)}
-                </h4>
-
-                <p>
-                  ${escapeHTML(item.meta)}
-                </p>
-
-              </div>
-
-            </div>
-
-          `
-        )
-        .join('')}
-
-
-      <a
-        href="news.html"
-        class="trending-footer"
-      >
-        View all stories →
-      </a>
-
-    </aside>
-
-  `;
-
-}
-
-
-/* ============================================================
-   QUOTE PANEL
-============================================================ */
-
-function renderQuotePanel() {
-
-  return `
-
-    <aside class="quote-panel">
-
-      <div class="quote-mark">
-        “
-      </div>
-
-      <blockquote>
-        GIET gave me more than a degree.
-        It gave me people, experiences and
-        memories that continue to shape my journey.
-      </blockquote>
-
-      <div class="quote-author">
-        GIET Alumni Community
-      </div>
-
-      <div class="quote-role">
-        Alumni Voices · GIET University
-      </div>
-
-    </aside>
-
-  `;
-
-}
-
-
-/* ============================================================
    READER MODAL
-============================================================ */
+   ============================================================ */
 
 function initReaderModal() {
 
   const modal =
     document.getElementById(
-      'reader-modal'
+      "reader-modal"
     );
-
 
   const closeButton =
     document.getElementById(
-      'close-reader-modal'
+      "close-reader-modal"
     );
 
 
   closeButton?.addEventListener(
-    'click',
+    "click",
     () => {
 
       closeReaderModal();
@@ -1201,11 +609,12 @@ function initReaderModal() {
 
 
   modal?.addEventListener(
-    'click',
+    "click",
     (event) => {
 
       if (
-        event.target === modal
+        event.target ===
+        modal
       ) {
 
         closeReaderModal();
@@ -1217,13 +626,14 @@ function initReaderModal() {
 
 
   document.addEventListener(
-    'keydown',
+    "keydown",
     (event) => {
 
       if (
-        event.key === 'Escape' &&
+        event.key ===
+        "Escape" &&
         modal?.classList.contains(
-          'open'
+          "open"
         )
       ) {
 
@@ -1239,14 +649,17 @@ function initReaderModal() {
 
 /* ============================================================
    OPEN READER
-============================================================ */
+   ============================================================ */
 
-function openReaderModal(id) {
+function openReaderModal(
+  id
+) {
 
   const story =
     approvedStories.find(
       (item) =>
-        String(item.id) === String(id)
+        String(item.id) ===
+        String(id)
     );
 
 
@@ -1255,17 +668,21 @@ function openReaderModal(id) {
 
   const modal =
     document.getElementById(
-      'reader-modal'
+      "reader-modal"
     );
-
 
   const body =
     document.getElementById(
-      'reader-modal-body'
+      "reader-modal-body"
     );
 
 
-  if (!modal || !body) return;
+  if (
+    !modal ||
+    !body
+  ) {
+    return;
+  }
 
 
   const image =
@@ -1273,17 +690,89 @@ function openReaderModal(id) {
     DEFAULT_IMAGE;
 
 
-  const readingTime =
-    calculateReadingTime(
-      story.body || ''
+  const title =
+    escapeHTML(
+      story.title ||
+      "Untitled Story"
     );
+
+
+  const authorName =
+    escapeHTML(
+      story.authorName ||
+      "GIET Alumni"
+    );
+
+
+  const category =
+    CATEGORY_LABELS[
+      story.category
+    ] ||
+    story.category ||
+    "Story";
+
+
+  const articleBody =
+    formatArticleBody(
+      story.body ||
+      story.excerpt ||
+      ""
+    );
+
+
+  const minutes =
+    calculateReadingTime(
+      story.body ||
+      ""
+    );
+
+
+  const authorPhoto =
+    story.authorPhotoURL ||
+    story.authorImage ||
+    story.avatarURL ||
+    DEFAULT_IMAGE;
+
+
+  const gradYear =
+    story.gradYear ||
+    story.graduationYear ||
+    "";
+
+
+  const company =
+    story.company ||
+    "";
+
+
+  const jobTitle =
+    story.jobTitle ||
+    story.titleAtCompany ||
+    "";
+
+
+  const authorUid =
+    story.authorUid ||
+    "";
+
+
+  const profileLink =
+    authorUid
+      ? `profile.html?id=${encodeURIComponent(
+          authorUid
+        )}`
+      : "directory.html";
 
 
   body.innerHTML = `
 
     <img
-      src="${escapeAttribute(image)}"
-      alt="${escapeAttribute(story.title)}"
+      src="${escapeAttribute(
+        image
+      )}"
+      alt="${escapeAttribute(
+        title
+      )}"
       class="story-reader-cover"
     />
 
@@ -1293,83 +782,107 @@ function openReaderModal(id) {
 
       <div class="reader-meta">
 
-        <span class="reader-pill">
+        <span class="reader-category">
           ${escapeHTML(
-            getCategoryLabel(
-              story.category
+            category
+          )}
+        </span>
+
+        <span class="issue-badge">
+          GIET GAZETTE · VOL. 02
+        </span>
+
+        <span class="reading-pill">
+          ${minutes} min read
+        </span>
+
+        <span class="reader-date">
+          ${escapeHTML(
+            formatDate(
+              story.createdAt
             )
           )}
         </span>
 
-        <span class="reader-pill">
-          ${readingTime} min read
-        </span>
-
-        <span class="reader-pill">
-          GIET Gazette
-        </span>
-
       </div>
 
 
-      <div
-        style="
-          color:#8993a0;
-          font-size:12px;
-          margin-bottom:10px;
-        "
-      >
-        ${formatDate(story.createdAt)}
-      </div>
-
-
-      <h2>
-        ${escapeHTML(story.title)}
+      <h2 class="reader-title">
+        ${title}
       </h2>
 
 
-      <div
-        style="
-          margin:15px 0 30px;
-          color:#788597;
-          font-size:13px;
-        "
-      >
+      <div class="reader-byline">
 
         Published by
 
-        <a
-          href="profile.html?id=${encodeURIComponent(
-            story.authorUid || ''
-          )}"
-          style="
-            color:#0b192c;
-            font-weight:700;
-          "
-        >
-          ${escapeHTML(
-            story.authorName ||
-            'GIET Alumni'
-          )}
-        </a>
+        ${
+          authorUid
+            ? `
+              <a
+                href="${profileLink}"
+              >
+                ${authorName}
+              </a>
+            `
+            : `
+              <strong>
+                ${authorName}
+              </strong>
+            `
+        }
 
       </div>
 
 
       <div class="story-reader-body">
 
-        ${escapeHTML(
-          story.body ||
-          'This story does not contain additional content yet.'
-        )}
+        ${articleBody}
 
       </div>
 
 
-      <div class="pull-quote">
+      <blockquote class="pull-quote">
 
-        “The GIET alumni community grows stronger
-        when every graduate shares a story.”
+        “The GIET community continues to grow
+        through the people, ideas and work of
+        its alumni.”
+
+      </blockquote>
+
+
+      <div class="reader-share">
+
+        <span class="reader-share-label">
+          Share
+        </span>
+
+
+        <button
+          type="button"
+          class="share-btn"
+          data-share="copy"
+        >
+          Copy Link
+        </button>
+
+
+        <button
+          type="button"
+          class="share-btn"
+          data-share="linkedin"
+        >
+          LinkedIn
+        </button>
+
+
+        <button
+          type="button"
+          class="share-btn"
+          data-share="native"
+        >
+          Share
+        </button>
 
       </div>
 
@@ -1377,56 +890,109 @@ function openReaderModal(id) {
       <div class="author-callout">
 
         <img
-          class="author-avatar"
           src="${escapeAttribute(
-            story.authorPhotoURL ||
-            DEFAULT_IMAGE
+            authorPhoto
           )}"
-          alt=""
+          alt="${escapeAttribute(
+            authorName
+          )}"
         />
 
-        <div>
 
-          <strong>
-            ${escapeHTML(
-              story.authorName ||
-              'GIET Alumni'
-            )}
-          </strong>
+        <div class="author-callout-content">
 
-          <span>
-            GIET University Alumni
-          </span>
+          <div class="author-callout-label">
+            About the Author
+          </div>
 
-          <a
-            href="profile.html?id=${encodeURIComponent(
-              story.authorUid || ''
-            )}"
-            style="
-              display:inline-block;
-              margin-top:7px;
-              color:#a67c13;
-              font-size:12px;
-              font-weight:700;
-            "
-          >
-            View Fellow Profile →
-          </a>
+
+          <h3 class="author-callout-name">
+            ${authorName}
+          </h3>
+
+
+          <div class="author-callout-meta">
+
+            ${
+              gradYear
+                ? `Class of ${escapeHTML(
+                    String(
+                      gradYear
+                    )
+                  )}`
+                : "GIET Alumni"
+            }
+
+            ${
+              company
+                ? ` · ${escapeHTML(
+                    company
+                  )}`
+                : ""
+            }
+
+            ${
+              jobTitle
+                ? ` · ${escapeHTML(
+                    jobTitle
+                  )}`
+                : ""
+            }
+
+          </div>
 
         </div>
 
+
+        <a
+          href="${profileLink}"
+          class="author-profile-link"
+        >
+          View Fellow Profile →
+        </a>
+
       </div>
+
 
     </div>
 
   `;
 
 
-  modal.classList.add('open');
+  /*
+   * Share buttons
+   */
+
+  body
+    .querySelectorAll(
+      "[data-share]"
+    )
+    .forEach(
+      (button) => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            handleShare(
+              button.dataset.share,
+              story
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+  modal.classList.add(
+    "open"
+  );
 
   modal.setAttribute(
-    'aria-hidden',
-    'false'
+    "aria-hidden",
+    "false"
   );
 
 }
@@ -1434,352 +1000,295 @@ function openReaderModal(id) {
 
 /* ============================================================
    CLOSE READER
-============================================================ */
+   ============================================================ */
 
 function closeReaderModal() {
 
   const modal =
     document.getElementById(
-      'reader-modal'
+      "reader-modal"
     );
 
+  if (!modal) return;
 
-  modal?.classList.remove(
-    'open'
+
+  modal.classList.remove(
+    "open"
   );
 
-
-  modal?.setAttribute(
-    'aria-hidden',
-    'true'
+  modal.setAttribute(
+    "aria-hidden",
+    "true"
   );
+
+}
+
+
+/* ============================================================
+   ARTICLE BODY
+   ============================================================ */
+
+function formatArticleBody(
+  text
+) {
+
+  const clean =
+    String(text || "")
+      .trim();
+
+
+  if (!clean) {
+
+    return `
+      <p>
+        This story does not have a published narrative yet.
+      </p>
+    `;
+
+  }
+
+
+  const paragraphs =
+    clean
+      .split(
+        /\n\s*\n|\r\n\s*\r\n/
+      )
+      .map(
+        (paragraph) =>
+          paragraph.trim()
+      )
+      .filter(Boolean);
+
+
+  return paragraphs
+    .map(
+      (paragraph) => `
+
+        <p>
+          ${escapeHTML(
+            paragraph
+          ).replace(
+            /\n/g,
+            "<br>"
+          )}
+        </p>
+
+      `
+    )
+    .join("");
 
 }
 
 
 /* ============================================================
    SUBMISSION MODAL
-============================================================ */
+   ============================================================ */
 
 function initSubmissionModal() {
 
   const trigger =
     document.getElementById(
-      'share-story-btn'
+      "share-story-btn"
     );
-
 
   const modal =
     document.getElementById(
-      'submit-story-modal'
+      "submit-story-modal"
     );
-
 
   const closeButton =
     document.getElementById(
-      'close-submit-modal'
+      "close-submit-modal"
     );
-
 
   const cancelButton =
     document.getElementById(
-      'cancel-submit-modal'
+      "cancel-submit-story"
     );
-
 
   const form =
     document.getElementById(
-      'story-submission-form'
+      "story-submission-form"
     );
 
 
   trigger?.addEventListener(
-    'click',
+    "click",
     handleOpenSubmitModal
   );
 
 
   closeButton?.addEventListener(
-    'click',
-    () => {
-
-      modal?.classList.remove(
-        'open'
-      );
-
-    }
+    "click",
+    closeSubmitModal
   );
 
 
   cancelButton?.addEventListener(
-    'click',
+    "click",
+    closeSubmitModal
+  );
+
+
+  modal?.addEventListener(
+    "click",
+    (event) => {
+
+      if (
+        event.target ===
+        modal
+      ) {
+
+        closeSubmitModal();
+
+      }
+
+    }
+  );
+
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (
+        event.key ===
+        "Escape" &&
+        modal?.classList.contains(
+          "open"
+        )
+      ) {
+
+        closeSubmitModal();
+
+      }
+
+    }
+  );
+
+
+  /*
+   * Live word count
+   */
+
+  const bodyInput =
+    document.getElementById(
+      "story-body"
+    );
+
+
+  bodyInput?.addEventListener(
+    "input",
+    updateSubmissionStats
+  );
+
+
+  /*
+   * Title count
+   */
+
+  const titleInput =
+    document.getElementById(
+      "story-title"
+    );
+
+
+  titleInput?.addEventListener(
+    "input",
     () => {
 
-      modal?.classList.remove(
-        'open'
+      updateCharacterCount(
+        titleInput,
+        "title-count",
+        150
       );
 
     }
   );
 
 
-  modal?.addEventListener(
-    'click',
-    (event) => {
-
-      if (
-        event.target === modal
-      ) {
-
-        modal.classList.remove(
-          'open'
-        );
-
-      }
-
-    }
-  );
-
-
   /*
-   * Live title count.
+   * Excerpt count
    */
 
-  const titleInput =
+  const excerptInput =
     document.getElementById(
-      'story-title'
+      "story-excerpt"
     );
 
 
-  titleInput?.addEventListener(
-    'input',
+  excerptInput?.addEventListener(
+    "input",
     () => {
 
-      const count =
-        countWords(
-          titleInput.value
-        );
-
-
-      const counter =
-        document.getElementById(
-          'title-word-count'
-        );
-
-
-      if (counter) {
-
-        counter.textContent =
-          `${count} words`;
-
-      }
+      updateCharacterCount(
+        excerptInput,
+        "excerpt-count",
+        250
+      );
 
     }
   );
 
 
   /*
-   * Live body count.
-   */
-
-  const bodyInput =
-    document.getElementById(
-      'story-body'
-    );
-
-
-  bodyInput?.addEventListener(
-    'input',
-    () => {
-
-      updateBodyReadingStats();
-
-    }
-  );
-
-
-  /*
-   * Image preview.
+   * Image preview
    */
 
   const imageInput =
     document.getElementById(
-      'story-image'
+      "story-image"
     );
 
 
   imageInput?.addEventListener(
-    'input',
+    "input",
     updateImagePreview
   );
 
 
   /*
-   * Submit.
+   * Form submission
    */
 
   form?.addEventListener(
-    'submit',
-    async (event) => {
-
-      event.preventDefault();
-
-
-      if (!currentUser) {
-
-        handleOpenSubmitModal();
-
-        return;
-
-      }
-
-
-      const title =
-        titleInput.value.trim();
-
-
-      const category =
-        document.getElementById(
-          'story-category'
-        ).value;
-
-
-      const excerpt =
-        document.getElementById(
-          'story-excerpt'
-        ).value.trim();
-
-
-      const body =
-        bodyInput.value.trim();
-
-
-      const imageURL =
-        imageInput.value.trim() ||
-        DEFAULT_IMAGE;
-
-
-      if (!title || !body) {
-
-        showToast(
-          'Please complete the required fields.',
-          'danger'
-        );
-
-        return;
-
-      }
-
-
-      const submitButton =
-        form.querySelector(
-          'button[type="submit"]'
-        );
-
-
-      try {
-
-        submitButton.disabled = true;
-
-        submitButton.textContent =
-          'Submitting...';
-
-
-        await createSubmission({
-
-          authorUid:
-            currentUser.uid,
-
-          authorName:
-            currentUser.name ||
-            'GIET Alumni',
-
-          title,
-
-          category,
-
-          excerpt,
-
-          body,
-
-          imageURL,
-
-          status: 'pending'
-
-        });
-
-
-        form.reset();
-
-        updateBodyReadingStats();
-
-        updateImagePreview();
-
-
-        modal.classList.remove(
-          'open'
-        );
-
-
-        showToast(
-          'Your story was submitted for editorial review.',
-          'success'
-        );
-
-
-      } catch (error) {
-
-        console.error(error);
-
-
-        showToast(
-          'Submission failed: ' +
-          error.message,
-          'danger'
-        );
-
-
-      } finally {
-
-        submitButton.disabled = false;
-
-        submitButton.textContent =
-          'Submit for Review';
-
-      }
-
-    }
+    "submit",
+    submitStory
   );
 
 }
 
 
 /* ============================================================
-   OPEN SUBMISSION
-============================================================ */
+   OPEN SUBMISSION MODAL
+   ============================================================ */
 
 function handleOpenSubmitModal() {
 
-  const modal =
-    document.getElementById(
-      'submit-story-modal'
-    );
+  /*
+   * Use existing auth contract
+   */
+  const user =
+    getCurrentUser();
 
 
-  if (!currentUser) {
+  if (!user) {
 
     showToast(
-      'Please log in to submit a GIET alumni story.',
-      'info'
+      "Please log in to submit a story to the GIET alumni editorial feed.",
+      "info"
     );
 
 
-    setTimeout(() => {
+    setTimeout(
+      () => {
 
-      window.location.href =
-        'login.html';
+        window.location.href =
+          "login.html";
 
-    }, 1000);
+      },
+      900
+    );
 
 
     return;
@@ -1787,225 +1296,296 @@ function handleOpenSubmitModal() {
   }
 
 
+  currentUser =
+    user;
+
+
+  const modal =
+    document.getElementById(
+      "submit-story-modal"
+    );
+
+
   modal?.classList.add(
-    'open'
+    "open"
   );
+
 
   modal?.setAttribute(
-    'aria-hidden',
-    'false'
+    "aria-hidden",
+    "false"
   );
 
 }
 
 
 /* ============================================================
-   AUTH BUTTON
-============================================================ */
+   CLOSE SUBMISSION MODAL
+   ============================================================ */
 
-function updateSubmitButtonState() {
+function closeSubmitModal() {
 
-  const button =
+  const modal =
     document.getElementById(
-      'share-story-btn'
+      "submit-story-modal"
     );
 
 
-  if (!button) return;
+  modal?.classList.remove(
+    "open"
+  );
 
 
-  button.textContent =
-    currentUser
-      ? 'Share Your Story +'
-      : 'Log In to Share Your Story';
-
-}
-
-
-/* ============================================================
-   SAVED STORIES
-============================================================ */
-
-function initSavedStories() {
-
-  const button =
-    document.getElementById(
-      'saved-stories-btn'
-    );
-
-
-  button?.addEventListener(
-    'click',
-    () => {
-
-      showingSavedStories =
-        !showingSavedStories;
-
-
-      button.textContent =
-        showingSavedStories
-          ? '← Show All Stories'
-          : '♡ My Saved Stories';
-
-
-      renderStories();
-
-    }
+  modal?.setAttribute(
+    "aria-hidden",
+    "true"
   );
 
 }
 
 
-function getSavedStoryIds() {
+/* ============================================================
+   SUBMIT STORY
+   ============================================================ */
+
+async function submitStory(
+  event
+) {
+
+  event.preventDefault();
+
+
+  /*
+   * Always check current user again
+   */
+  const user =
+    getCurrentUser();
+
+
+  if (!user) {
+
+    showToast(
+      "Please log in before submitting a story.",
+      "info"
+    );
+
+    return;
+
+  }
+
+
+  const form =
+    event.currentTarget;
+
+
+  const title =
+    document
+      .getElementById(
+        "story-title"
+      )
+      .value
+      .trim();
+
+
+  const category =
+    document
+      .getElementById(
+        "story-category"
+      )
+      .value;
+
+
+  const excerpt =
+    document
+      .getElementById(
+        "story-excerpt"
+      )
+      .value
+      .trim();
+
+
+  const body =
+    document
+      .getElementById(
+        "story-body"
+      )
+      .value
+      .trim();
+
+
+  const imageURL =
+    document
+      .getElementById(
+        "story-image"
+      )
+      .value
+      .trim() ||
+    DEFAULT_IMAGE;
+
+
+  const submitButton =
+    form.querySelector(
+      'button[type="submit"]'
+    );
+
+
+  if (
+    !title ||
+    !body
+  ) {
+
+    showToast(
+      "Please fill in the required story fields.",
+      "danger"
+    );
+
+    return;
+
+  }
+
+
+  const wordCount =
+    countWords(
+      body
+    );
+
+
+  if (
+    wordCount < 30
+  ) {
+
+    showToast(
+      "Please write at least 30 words in your story.",
+      "danger"
+    );
+
+    return;
+
+  }
+
 
   try {
 
-    return JSON.parse(
-      localStorage.getItem(
-        SAVED_KEY
-      ) || '[]'
+    submitButton.disabled =
+      true;
+
+    submitButton.textContent =
+      "Submitting...";
+
+
+    await createSubmission({
+
+      authorUid:
+        user.uid,
+
+      authorName:
+        user.name ||
+        "GIET Alumni",
+
+      gradYear:
+        user.gradYear ||
+        "",
+
+      company:
+        user.company ||
+        "",
+
+      jobTitle:
+        user.jobTitle ||
+        "",
+
+      title,
+
+      category,
+
+      excerpt,
+
+      body,
+
+      imageURL,
+
+      status:
+        "pending"
+
+    });
+
+
+    form.reset();
+
+
+    updateSubmissionStats();
+
+
+    updateCharacterCount(
+      document.getElementById(
+        "story-title"
+      ),
+      "title-count",
+      150
     );
 
-  } catch {
 
-    return [];
+    updateCharacterCount(
+      document.getElementById(
+        "story-excerpt"
+      ),
+      "excerpt-count",
+      250
+    );
+
+
+    updateImagePreview();
+
+
+    closeSubmitModal();
+
+
+    showToast(
+      "Your story has been submitted and is now waiting for editorial moderation.",
+      "success"
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Story submission error:",
+      error
+    );
+
+
+    showToast(
+      "Submission error: " +
+      (
+        error.message ||
+        "Please try again."
+      ),
+      "danger"
+    );
+
+
+  } finally {
+
+    submitButton.disabled =
+      false;
+
+    submitButton.textContent =
+      "Submit for Review";
 
   }
 
 }
 
 
-function toggleSavedStory(id) {
-
-  let saved =
-    getSavedStoryIds();
-
-
-  if (saved.includes(id)) {
-
-    saved =
-      saved.filter(
-        (item) =>
-          item !== id
-      );
-
-
-    showToast(
-      'Story removed from saved stories.',
-      'info'
-    );
-
-  } else {
-
-    saved.push(id);
-
-
-    showToast(
-      'Story saved for later.',
-      'success'
-    );
-
-  }
-
-
-  localStorage.setItem(
-    SAVED_KEY,
-    JSON.stringify(saved)
-  );
-
-
-  renderStories();
-
-}
-
-
 /* ============================================================
-   TRENDING PANEL
-============================================================ */
+   SUBMISSION COUNTERS
+   ============================================================ */
 
-function renderTrendingItems() {
-
-  /*
-   * Trending is rendered inside
-   * renderStories().
-   *
-   * This function exists to keep the
-   * page initialization readable.
-   */
-
-}
-
-
-/* ============================================================
-   CATEGORY LABEL
-============================================================ */
-
-function getCategoryLabel(category) {
-
-  const labels = {
-
-    News: 'Campus Milestones',
-
-    Story: 'Stories & Essays',
-
-    Achievement: 'Breakthroughs'
-
-  };
-
-
-  return (
-    labels[category] ||
-    category ||
-    'GIET News'
-  );
-
-}
-
-
-/* ============================================================
-   WORD COUNT
-============================================================ */
-
-function countWords(text) {
-
-  return text
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean)
-    .length;
-
-}
-
-
-/* ============================================================
-   READING TIME
-============================================================ */
-
-function calculateReadingTime(text) {
-
-  const words =
-    countWords(text);
-
-
-  return Math.max(
-    1,
-    Math.ceil(
-      words / 200
-    )
-  );
-
-}
-
-
-/* ============================================================
-   UPDATE BODY STATS
-============================================================ */
-
-function updateBodyReadingStats() {
+function updateSubmissionStats() {
 
   const body =
     document.getElementById(
-      'story-body'
+      "story-body"
     );
 
 
@@ -2018,33 +1598,41 @@ function updateBodyReadingStats() {
     );
 
 
-  const wordCounter =
+  const count =
     document.getElementById(
-      'body-word-count'
+      "word-count"
     );
 
 
   const readingTime =
     document.getElementById(
-      'body-reading-time'
+      "reading-time"
     );
 
 
-  if (wordCounter) {
+  if (count) {
 
-    wordCounter.textContent =
-      `${words} words`;
+    count.textContent =
+      words;
 
   }
 
 
   if (readingTime) {
 
+    const minutes =
+      Math.max(
+        1,
+        Math.ceil(
+          words / 200
+        )
+      );
+
+
     readingTime.textContent =
-      `${Math.max(
-        0,
-        Math.ceil(words / 200)
-      )} min read`;
+      words
+        ? `${minutes} min`
+        : "0 min";
 
   }
 
@@ -2052,24 +1640,57 @@ function updateBodyReadingStats() {
 
 
 /* ============================================================
+   CHARACTER COUNT
+   ============================================================ */
+
+function updateCharacterCount(
+  input,
+  outputId,
+  max
+) {
+
+  if (!input) return;
+
+
+  const output =
+    document.getElementById(
+      outputId
+    );
+
+
+  if (!output) return;
+
+
+  output.textContent =
+    `${input.value.length} / ${max}`;
+
+}
+
+
+/* ============================================================
    IMAGE PREVIEW
-============================================================ */
+   ============================================================ */
 
 function updateImagePreview() {
 
   const input =
     document.getElementById(
-      'story-image'
+      "story-image"
     );
 
 
   const preview =
     document.getElementById(
-      'story-image-preview'
+      "story-image-preview"
     );
 
 
-  if (!input || !preview) return;
+  if (
+    !input ||
+    !preview
+  ) {
+    return;
+  }
 
 
   const url =
@@ -2078,10 +1699,926 @@ function updateImagePreview() {
 
   if (!url) {
 
-    preview.innerHTML = '';
-
     preview.classList.remove(
-      'visible'
+      "has-image"
+    );
+
+    preview.innerHTML =
+      "<span>Image preview will appear here</span>";
+
+    return;
+
+  }
+
+
+  preview.classList.add(
+    "has-image"
+  );
+
+
+  preview.innerHTML = `
+
+    <img
+      src="${escapeAttribute(
+        url
+      )}"
+      alt="Featured image preview"
+      onerror="this.parentElement.classList.remove('has-image'); this.parentElement.innerHTML='<span>Unable to load this image URL</span>';"
+    />
+
+  `;
+
+}
+
+
+/* ============================================================
+   SAVED STORIES
+   ============================================================ */
+
+function initSavedStories() {
+
+  const button =
+    document.getElementById(
+      "saved-stories-btn"
+    );
+
+
+  button?.addEventListener(
+    "click",
+    () => {
+
+      showingSavedStories =
+        !showingSavedStories;
+
+
+      button.classList.toggle(
+        "active",
+        showingSavedStories
+      );
+
+
+      renderStories();
+
+    }
+  );
+
+}
+
+
+/* ============================================================
+   LOCAL STORAGE
+   ============================================================ */
+
+function getSavedStories() {
+
+  try {
+
+    const raw =
+      localStorage.getItem(
+        SAVED_KEY
+      );
+
+
+    if (!raw) return [];
+
+
+    const parsed =
+      JSON.parse(
+        raw
+      );
+
+
+    return Array.isArray(
+      parsed
+    )
+      ? parsed
+      : [];
+
+  } catch {
+
+    return [];
+
+  }
+
+}
+
+
+/* ============================================================
+   SAVE / UNSAVE
+   ============================================================ */
+
+function toggleSavedStory(
+  id
+) {
+
+  const saved =
+    getSavedStories();
+
+
+  const index =
+    saved.indexOf(
+      id
+    );
+
+
+  if (
+    index >= 0
+  ) {
+
+    saved.splice(
+      index,
+      1
+    );
+
+
+    showToast(
+      "Story removed from saved stories.",
+      "info"
+    );
+
+  } else {
+
+    saved.push(
+      id
+    );
+
+
+    showToast(
+      "Story saved.",
+      "success"
+    );
+
+  }
+
+
+  localStorage.setItem(
+    SAVED_KEY,
+    JSON.stringify(
+      saved
+    )
+  );
+
+
+  renderStories();
+
+}
+
+
+/* ============================================================
+   CHECK SAVED
+   ============================================================ */
+
+function isStorySaved(
+  id
+) {
+
+  return getSavedStories()
+    .includes(
+      id
+    );
+
+}
+
+
+/* ============================================================
+   RECENT EVENTS & NEWS SLIDER
+   ============================================================ */
+
+function initNewsSlider() {
+
+  const track =
+    document.getElementById(
+      "news-slider-track"
+    );
+
+
+  const previous =
+    document.getElementById(
+      "news-slider-prev"
+    );
+
+
+  const next =
+    document.getElementById(
+      "news-slider-next"
+    );
+
+
+  const dots =
+    document.querySelectorAll(
+      "#news-slider-dots button"
+    );
+
+
+  if (!track) return;
+
+
+  const slides =
+    track.querySelectorAll(
+      ".recent-news-slide"
+    );
+
+
+  if (!slides.length) return;
+
+
+  let currentSlide =
+    0;
+
+
+  let autoSlide;
+
+
+  let isAnimating =
+    false;
+
+
+  /*
+   * Move slider
+   */
+
+  function moveTo(
+    index
+  ) {
+
+    if (
+      isAnimating
+    ) {
+      return;
+    }
+
+
+    const total =
+      slides.length;
+
+
+    currentSlide =
+      (
+        index +
+        total
+      ) % total;
+
+
+    isAnimating =
+      true;
+
+
+    /*
+     * Fade out
+     */
+
+    track.classList.add(
+      "is-changing"
+    );
+
+
+    setTimeout(
+      () => {
+
+        track.style.transform =
+          `translateX(-${
+            currentSlide * 100
+          }%)`;
+
+
+        updateDots();
+
+
+        setTimeout(
+          () => {
+
+            track.classList.remove(
+              "is-changing"
+            );
+
+            isAnimating =
+              false;
+
+          },
+          180
+        );
+
+      },
+      150
+    );
+
+  }
+
+
+  /*
+   * Update dots
+   */
+
+  function updateDots() {
+
+    dots.forEach(
+      (dot, index) => {
+
+        dot.classList.toggle(
+          "active",
+          index ===
+            currentSlide
+        );
+
+      }
+    );
+
+  }
+
+
+  /*
+   * Next
+   */
+
+  next?.addEventListener(
+    "click",
+    () => {
+
+      moveTo(
+        currentSlide + 1
+      );
+
+      restartAutoSlide();
+
+    }
+  );
+
+
+  /*
+   * Previous
+   */
+
+  previous?.addEventListener(
+    "click",
+    () => {
+
+      moveTo(
+        currentSlide - 1
+      );
+
+      restartAutoSlide();
+
+    }
+  );
+
+
+  /*
+   * Dots
+   */
+
+  dots.forEach(
+    (dot) => {
+
+      dot.addEventListener(
+        "click",
+        () => {
+
+          const index =
+            Number(
+              dot.dataset.slide
+            );
+
+
+          moveTo(
+            index
+          );
+
+
+          restartAutoSlide();
+
+        }
+      );
+
+    }
+  );
+
+
+  /*
+   * Automatic sliding
+   *
+   * Every 5 seconds
+   */
+
+  function startAutoSlide() {
+
+    autoSlide =
+      setInterval(
+        () => {
+
+          moveTo(
+            currentSlide + 1
+          );
+
+        },
+        5000
+      );
+
+  }
+
+
+  function restartAutoSlide() {
+
+    clearInterval(
+      autoSlide
+    );
+
+    startAutoSlide();
+
+  }
+
+
+  /*
+   * Pause while hovering
+   */
+
+  const slider =
+    document.querySelector(
+      ".news-slider"
+    );
+
+
+  slider?.addEventListener(
+    "mouseenter",
+    () => {
+
+      clearInterval(
+        autoSlide
+      );
+
+    }
+  );
+
+
+  slider?.addEventListener(
+    "mouseleave",
+    () => {
+
+      restartAutoSlide();
+
+    }
+  );
+
+
+  /*
+   * Touch / swipe
+   */
+
+  let touchStartX =
+    0;
+
+
+  let touchEndX =
+    0;
+
+
+  slider?.addEventListener(
+    "touchstart",
+    (event) => {
+
+      touchStartX =
+        event.changedTouches[0].screenX;
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  slider?.addEventListener(
+    "touchend",
+    (event) => {
+
+      touchEndX =
+        event.changedTouches[0].screenX;
+
+
+      const difference =
+        touchStartX -
+        touchEndX;
+
+
+      if (
+        Math.abs(
+          difference
+        ) < 40
+      ) {
+        return;
+      }
+
+
+      if (
+        difference > 0
+      ) {
+
+        moveTo(
+          currentSlide + 1
+        );
+
+      } else {
+
+        moveTo(
+          currentSlide - 1
+        );
+
+      }
+
+
+      restartAutoSlide();
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  /*
+   * Start
+   */
+
+  moveTo(
+    0
+  );
+
+
+  startAutoSlide();
+
+}
+
+
+/* ============================================================
+   RECENT DONOR POPUP
+   ============================================================ */
+
+function initDonorPopup() {
+
+  const popup =
+    document.getElementById(
+      "recent-donor-popup"
+    );
+
+
+  const close =
+    document.getElementById(
+      "donor-close"
+    );
+
+
+  if (!popup) return;
+
+
+  /*
+   * DEMO DATA
+   *
+   * Replace these with university-approved
+   * donor information before production.
+   */
+
+  const donors = [
+
+    {
+      name:
+        "Rahul Sharma",
+
+      year:
+        "Class of 2018",
+
+      amount:
+        "₹50,000",
+
+      image:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"
+    },
+
+
+    {
+      name:
+        "Ananya Das",
+
+      year:
+        "Class of 2016",
+
+      amount:
+        "₹25,000",
+
+      image:
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80"
+    },
+
+
+    {
+      name:
+        "GIET Alumni Association",
+
+      year:
+        "Alumni Community",
+
+      amount:
+        "₹1,00,000",
+
+      image:
+        "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=300&q=80"
+    }
+
+  ];
+
+
+  let donorIndex =
+    0;
+
+
+  let donorTimer;
+
+
+  function showDonor(
+    index
+  ) {
+
+    const donor =
+      donors[index];
+
+
+    if (!donor) return;
+
+
+    const name =
+      document.getElementById(
+        "donor-name"
+      );
+
+
+    const year =
+      document.getElementById(
+        "donor-year"
+      );
+
+
+    const amount =
+      document.getElementById(
+        "donor-amount"
+      );
+
+
+    const image =
+      document.getElementById(
+        "donor-image"
+      );
+
+
+    if (name) {
+
+      name.textContent =
+        donor.name;
+
+    }
+
+
+    if (year) {
+
+      year.textContent =
+        donor.year;
+
+    }
+
+
+    if (amount) {
+
+      amount.textContent =
+        donor.amount;
+
+    }
+
+
+    if (image) {
+
+      image.src =
+        donor.image;
+
+    }
+
+
+    popup.classList.remove(
+      "hide"
+    );
+
+
+    requestAnimationFrame(
+      () => {
+
+        popup.classList.add(
+          "show"
+        );
+
+      }
+    );
+
+  }
+
+
+  function startDonorRotation() {
+
+    clearInterval(
+      donorTimer
+    );
+
+
+    donorTimer =
+      setInterval(
+        () => {
+
+          popup.classList.remove(
+            "show"
+          );
+
+
+          setTimeout(
+            () => {
+
+              donorIndex =
+                (
+                  donorIndex +
+                  1
+                ) %
+                donors.length;
+
+
+              showDonor(
+                donorIndex
+              );
+
+            },
+            500
+          );
+
+        },
+        8500
+      );
+
+  }
+
+
+  /*
+   * First popup
+   */
+
+  setTimeout(
+    () => {
+
+      showDonor(
+        donorIndex
+      );
+
+      startDonorRotation();
+
+    },
+    1800
+  );
+
+
+  /*
+   * Close
+   */
+
+  close?.addEventListener(
+    "click",
+    () => {
+
+      popup.classList.remove(
+        "show"
+      );
+
+      popup.classList.add(
+        "hide"
+      );
+
+
+      clearInterval(
+        donorTimer
+      );
+
+    }
+  );
+
+}
+
+
+/* ============================================================
+   NEWSLETTER
+   ============================================================ */
+
+function initNewsletter() {
+
+  const forms =
+    document.querySelectorAll(
+      ".newsletter-form"
+    );
+
+
+  forms.forEach(
+    (form) => {
+
+      form.addEventListener(
+        "submit",
+        (event) => {
+
+          event.preventDefault();
+
+
+          const input =
+            form.querySelector(
+              "input[type='email']"
+            );
+
+
+          const email =
+            input?.value.trim();
+
+
+          if (!email) {
+
+            return;
+
+          }
+
+
+          showToast(
+            "Thank you. You have been added to the GIET alumni newsletter.",
+            "success"
+          );
+
+
+          form.reset();
+
+        }
+      );
+
+    }
+  );
+
+}
+
+
+/* ============================================================
+   SHARE ARTICLE
+   ============================================================ */
+
+async function handleShare(
+  type,
+  story
+) {
+
+  const shareURL =
+    window.location.href;
+
+
+  if (
+    type ===
+    "copy"
+  ) {
+
+    try {
+
+      await navigator.clipboard.writeText(
+        shareURL
+      );
+
+
+      showToast(
+        "Article link copied.",
+        "success"
+      );
+
+    } catch {
+
+      showToast(
+        "Unable to copy the link.",
+        "danger"
+      );
+
+    }
+
+    return;
+
+  }
+
+
+  if (
+    type ===
+    "linkedin"
+  ) {
+
+    const url =
+      "https://www.linkedin.com/sharing/share-offsite/?url=" +
+      encodeURIComponent(
+        shareURL
+      );
+
+
+    window.open(
+      url,
+      "_blank",
+      "noopener,noreferrer"
     );
 
     return;
@@ -2089,27 +2626,186 @@ function updateImagePreview() {
   }
 
 
-  preview.innerHTML = `
+  if (
+    type ===
+    "native"
+  ) {
 
-    <img
-      src="${escapeAttribute(url)}"
-      alt="Story image preview"
-      onerror="this.parentElement.innerHTML='<p style=&quot;padding:15px;color:#9a6b00;font-size:12px;&quot;>Unable to preview this image URL.</p>'"
-    />
+    if (
+      navigator.share
+    ) {
 
-  `;
+      try {
+
+        await navigator.share({
+
+          title:
+            story.title ||
+            "GIET University Alumni Gazette",
+
+          text:
+            story.excerpt ||
+            "",
+
+          url:
+            shareURL
+
+        });
+
+      } catch {
+
+        /*
+         * User cancelled share.
+         */
+
+      }
+
+    } else {
+
+      try {
+
+        await navigator.clipboard.writeText(
+          shareURL
+        );
 
 
-  preview.classList.add(
-    'visible'
-  );
+        showToast(
+          "Article link copied.",
+          "success"
+        );
+
+      } catch {
+
+        showToast(
+          "Sharing is not supported on this browser.",
+          "info"
+        );
+
+      }
+
+    }
+
+  }
 
 }
 
 
 /* ============================================================
-   DATE
-============================================================ */
+   SUBMIT BUTTON STATE
+   ============================================================ */
+
+function updateSubmitButtonState() {
+
+  const button =
+    document.getElementById(
+      "share-story-btn"
+    );
+
+
+  if (!button) return;
+
+
+  if (currentUser) {
+
+    button.textContent =
+      "Share Your Story +";
+
+  } else {
+
+    button.textContent =
+      "Log In to Share Your Story";
+
+  }
+
+}
+
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+
+function countWords(
+  text
+) {
+
+  const clean =
+    String(
+      text || ""
+    ).trim();
+
+
+  if (!clean) {
+
+    return 0;
+
+  }
+
+
+  return clean
+    .split(
+      /\s+/
+    )
+    .filter(Boolean)
+    .length;
+
+}
+
+
+function calculateReadingTime(
+  text
+) {
+
+  const words =
+    countWords(
+      text
+    );
+
+
+  return Math.max(
+    1,
+    Math.ceil(
+      words / 200
+    )
+  );
+
+}
+
+
+function getExcerpt(
+  body
+) {
+
+  const clean =
+    String(
+      body || ""
+    )
+      .replace(
+        /\s+/g,
+        " "
+      )
+      .trim();
+
+
+  if (
+    clean.length <=
+    145
+  ) {
+
+    return clean;
+
+  }
+
+
+  return (
+    clean.slice(
+      0,
+      145
+    ) +
+    "..."
+  );
+
+}
+
 
 function formatDate(
   isoString
@@ -2117,7 +2813,7 @@ function formatDate(
 
   if (!isoString) {
 
-    return 'Recently';
+    return "";
 
   }
 
@@ -2134,49 +2830,54 @@ function formatDate(
     )
   ) {
 
-    return 'Recently';
+    return "";
 
   }
 
 
   return date.toLocaleDateString(
-    'en-US',
+    "en-US",
     {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
+      month:
+        "short",
+
+      day:
+        "numeric",
+
+      year:
+        "numeric"
     }
   );
 
 }
 
 
-/* ============================================================
-   ESCAPE HTML
-============================================================ */
-
 function escapeHTML(
   value
 ) {
 
   if (
-    value === null ||
-    value === undefined
+    value ===
+    null ||
+    value ===
+    undefined
   ) {
 
-    return '';
+    return "";
 
   }
 
 
   const div =
     document.createElement(
-      'div'
+      "div"
     );
 
 
   div.textContent =
-    String(value);
+    String(
+      value
+    );
 
 
   return div.innerHTML;
@@ -2184,43 +2885,20 @@ function escapeHTML(
 }
 
 
-/* ============================================================
-   ESCAPE ATTRIBUTE
-============================================================ */
-
 function escapeAttribute(
   value
 ) {
 
   return escapeHTML(
     value
-  ).replace(
-    /"/g,
-    '&quot;'
-  );
-
-}
-
-
-/* ============================================================
-   CHECK TYPING ELEMENT
-============================================================ */
-
-function isTypingElement(
-  element
-) {
-
-  if (!element) return false;
-
-
-  const tag =
-    element.tagName;
-
-
-  return (
-    tag === 'INPUT' ||
-    tag === 'TEXTAREA' ||
-    tag === 'SELECT'
-  );
+  )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#39;"
+    );
 
 }
