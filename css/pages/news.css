@@ -1,1453 +1,2303 @@
-/* =========================================================
+/* ============================================================
    GIET UNIVERSITY ALUMNI GAZETTE
-   NEWS PAGE ONLY
-   ========================================================= */
+   NEWS PAGE
+   ============================================================ */
 
 
-/* ================= ROOT ================= */
-
-:root {
-  --ivory: #FAF8F4;
-  --navy: #0B192C;
-  --gold: #D4AF37;
-  --ink: #17202b;
-  --muted: #6f747a;
-  --line: rgba(11, 25, 44, 0.14);
-}
-
-
-/* ================= GENERAL ================= */
-
-body {
-  background: var(--ivory);
-  color: var(--ink);
-  font-family: "Plus Jakarta Sans", sans-serif;
-}
-
-
-/* ================= HERO ================= */
+/* ============================================================
+   GAZETTE HERO
+   ============================================================ */
 
 .gazette-hero {
-  max-width: 1400px;
-  margin: auto;
-  padding: 42px 5vw 65px;
+    position: relative;
+    overflow: hidden;
+
+    padding: 44px 0 42px;
+
+    background:
+        radial-gradient(
+            circle at 85% 35%,
+            rgba(212, 175, 55, 0.08),
+            transparent 32%
+        ),
+        #faf8f4;
+
+    border-bottom: 1px solid rgba(11, 25, 44, 0.08);
 }
 
 
-.issue-line,
-.section-kicker,
-.placement-top,
-.placements-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  letter-spacing: 0.13em;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--muted);
+.gazette-hero::after {
+    content: "";
+
+    position: absolute;
+
+    right: -100px;
+    bottom: -130px;
+
+    width: 390px;
+    height: 390px;
+
+    border: 1px solid rgba(11, 25, 44, 0.04);
+
+    border-radius: 50%;
+
+    pointer-events: none;
 }
 
 
-.issue-line {
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 13px 0;
+.gazette-hero-inner {
+    position: relative;
+    z-index: 2;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(360px, 0.92fr)
+        minmax(500px, 1.08fr);
+
+    gap: 48px;
+
+    align-items: center;
 }
 
 
-.hero-copy {
-  max-width: 920px;
-  padding-top: 65px;
+/* ============================================================
+   LEFT INTRO
+   ============================================================ */
+
+.gazette-intro {
+    padding-right: 20px;
 }
 
 
-.eyebrow {
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: #7b6724;
+.gazette-label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+
+    color: #a37b16;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.17em;
 }
 
 
-.hero-copy h1,
-.placements-intro h1 {
-  font-family: "Newsreader", serif;
-  font-size: clamp(52px, 7vw, 106px);
-  line-height: 0.88;
-  font-weight: 500;
-  letter-spacing: -0.045em;
-  margin: 16px 0;
+.gazette-label-line {
+    display: inline-block;
+
+    width: 19px;
+    height: 1px;
+
+    background: #d4af37;
 }
 
 
-.hero-copy h1 em,
-.placements-intro h1 em {
-  color: #8d7420;
-  font-style: italic;
+.gazette-title {
+    margin: 0 0 20px;
+
+    color: #0b192c;
+
+    font-family:
+        "Newsreader",
+        Georgia,
+        serif;
+
+    font-size:
+        clamp(
+            42px,
+            4.2vw,
+            67px
+        );
+
+    font-weight: 500;
+
+    line-height: 0.98;
+
+    letter-spacing: -0.035em;
 }
 
 
-.hero-intro {
-  max-width: 620px;
-  font-size: 16px;
-  line-height: 1.8;
-  color: var(--muted);
+.gazette-description {
+    max-width: 590px;
+
+    margin: 0;
+
+    color: #607086;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 16px;
+
+    line-height: 1.8;
 }
 
 
-/* ================= TOOLBAR ================= */
+/* ============================================================
+   RECENT NEWS SHOWCASE
+   ============================================================ */
 
-.news-toolbar {
-  max-width: 1400px;
-  margin: auto;
-  padding: 18px 5vw;
+.recent-news-showcase {
+    position: relative;
 
-  display: flex;
-  gap: 20px;
+    min-width: 0;
 
-  justify-content: space-between;
-  align-items: center;
+    padding-left: 25px;
 
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+    border-left: 1px solid rgba(11, 25, 44, 0.10);
 }
 
 
-.filter-row {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+.recent-news-heading {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 17px;
 }
 
-
-.filter-btn,
-.back-btn {
-  border: 1px solid var(--line);
-  background: transparent;
-  padding: 10px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-  font: 600 12px inherit;
-}
-
-
-.filter-btn.active,
-.filter-btn:hover {
-  background: var(--navy);
-  color: white;
-}
-
-
-.saved-filter {
-  border-color: var(--gold);
-}
-
-
-.gold-btn {
-  border: 0;
-  background: var(--navy);
-  color: white;
-  padding: 13px 19px;
-  border-radius: 2px;
-  cursor: pointer;
-  font: 700 12px inherit;
-  letter-spacing: 0.04em;
-}
-
-
-/* ================= CAMPUS + PLACEMENT ================= */
-
-.spotlight-grid {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 44px 5vw;
-
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 22px;
-}
-
-
-.campus-spotlight,
-.placement-spotlight {
-  min-width: 0;
-}
-
-
-/* ================= SECTION KICKER ================= */
 
 .section-kicker {
-  margin-bottom: 12px;
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: #0b192c;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.19em;
 }
 
 
-/* ================= CAMPUS SLIDER ================= */
+.section-kicker::before {
+    content: "";
 
-.horizontal-slider {
-  display: flex;
-  gap: 0;
-  overflow: hidden;
+    width: 2px;
+    height: 18px;
 
-  scroll-behavior: smooth;
-
-  border-radius: 3px;
+    background: #d4af37;
 }
 
 
-.slide-card {
-  min-width: 100%;
-  height: 410px;
+.view-all-news {
+    color: #9a7417;
 
-  position: relative;
-  overflow: hidden;
+    text-decoration: none;
 
-  color: #fff;
-  text-decoration: none;
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
 }
 
 
-.slide-card img {
-  width: 100%;
-  height: 100%;
+.view-all-news:hover {
+    color: #0b192c;
 
-  object-fit: cover;
-  display: block;
-
-  transition: transform 0.8s ease;
+    transform: translateX(4px);
 }
 
 
-.slide-card:hover img {
-  transform: scale(1.04);
+/* ============================================================
+   SLIDER
+   ============================================================ */
+
+.news-slider {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    width: 100%;
 }
 
 
-.slide-card:after {
-  content: "";
+.news-slider-window {
+    width: 100%;
 
-  position: absolute;
-  inset: 35% 0 0;
+    overflow: hidden;
 
-  background:
-    linear-gradient(
-      transparent,
-      rgba(0, 0, 0, 0.88)
-    );
+    border-radius: 13px;
 }
 
 
-.slide-overlay {
-  position: absolute;
-  z-index: 2;
+.news-slider-track {
+    display: flex;
 
-  inset: auto 28px 26px;
+    width: 100%;
 
-  display: flex;
-  gap: 18px;
-  align-items: end;
+    transform: translateX(0);
+
+    transition:
+        transform 0.78s
+        cubic-bezier(
+            0.22,
+            0.61,
+            0.36,
+            1
+        ),
+        opacity 0.38s ease;
 }
 
 
-.slide-overlay > span {
-  font: 500 34px "Newsreader", serif;
-  color: var(--gold);
+.news-slider-track.is-changing {
+    opacity: 0.25;
 }
 
 
-.slide-overlay p {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin: 0 0 5px;
-}
+/* ============================================================
+   INDIVIDUAL SLIDE
+   ============================================================ */
 
+.recent-news-slide {
+    flex: 0 0 100%;
 
-.slide-overlay h2 {
-  font: 500 clamp(22px, 2.3vw, 32px) / 1.05 "Newsreader", serif;
-  margin: 0 0 10px;
-}
+    width: 100%;
 
+    min-height: 238px;
 
-.slide-overlay b {
-  font-size: 11px;
-}
+    display: grid;
 
+    grid-template-columns: 43% 57%;
 
-/* ================= SLIDER CONTROLS ================= */
+    overflow: hidden;
 
-.slider-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  margin-top: 13px;
-}
+    box-sizing: border-box;
 
+    color: inherit;
 
-.slider-controls button {
-  border: 0;
-  background: none;
-  font-size: 20px;
-  cursor: pointer;
-}
+    text-decoration: none;
 
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.72
+        );
 
-.slider-dots {
-  display: flex;
-  gap: 6px;
-}
-
-
-.slider-dot {
-  width: 22px;
-  height: 3px;
-
-  border: 0;
-  background: #bbb;
-
-  padding: 0;
-  cursor: pointer;
-}
-
-
-.slider-dot.active {
-  background: var(--navy);
-}
-
-
-/* =========================================================
-   RECENT PLACEMENTS SPOTLIGHT
-   ========================================================= */
-
-.placement-spotlight {
-  position: relative;
-
-  text-align: left;
-
-  border: 1px solid rgba(212, 175, 55, 0.65);
-
-  background:
-    linear-gradient(
-      145deg,
-      #0B192C,
-      #101f34
+    border: 1px solid rgba(
+        11,
+        25,
+        44,
+        0.09
     );
 
-  color: white;
+    border-radius: 13px;
 
-  padding: 24px;
-
-  min-height: 410px;
-
-  cursor: pointer;
-
-  overflow: hidden;
-
-  transition:
-    transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
-    box-shadow 0.45s ease;
+    transition:
+        box-shadow 0.35s ease,
+        transform 0.35s ease;
 }
 
 
-/* HOVER ZOOM */
-
-.placement-spotlight:hover {
-  transform: scale(1.025);
-
-  box-shadow:
-    0 24px 55px rgba(11, 25, 44, 0.28);
+.recent-news-slide:hover {
+    box-shadow:
+        0 18px 45px
+        rgba(
+            11,
+            25,
+            44,
+            0.12
+        );
 }
 
 
-/* GOLD GLOW */
+.recent-news-slide img {
+    width: 100%;
+    height: 238px;
 
-.placement-glow {
-  position: absolute;
+    object-fit: cover;
 
-  width: 260px;
-  height: 260px;
+    transition:
+        transform 0.8s
+        cubic-bezier(
+            0.22,
+            0.61,
+            0.36,
+            1
+        );
+}
 
-  border-radius: 50%;
 
-  right: -100px;
-  top: -100px;
+.recent-news-slide:hover img {
+    transform: scale(1.045);
+}
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(212, 175, 55, 0.30),
-      transparent 65%
+
+/* ============================================================
+   SLIDE CONTENT
+   ============================================================ */
+
+.recent-news-slide-content {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 24px 27px;
+}
+
+
+.news-type {
+    display: inline-flex;
+
+    align-items: center;
+
+    width: fit-content;
+
+    padding: 5px 9px;
+
+    margin-bottom: 12px;
+
+    border-radius: 4px;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.13em;
+}
+
+
+.news-type.event {
+    color: #0b192c;
+
+    background: #d4af37;
+}
+
+
+.news-type.news {
+    color: #fff;
+
+    background: #0b192c;
+}
+
+
+.recent-news-slide h3 {
+    margin: 0 0 9px;
+
+    color: #0b192c;
+
+    font-family:
+        "Newsreader",
+        Georgia,
+        serif;
+
+    font-size:
+        clamp(
+            22px,
+            2vw,
+            30px
+        );
+
+    font-weight: 500;
+
+    line-height: 1.08;
+
+    letter-spacing: -0.015em;
+}
+
+
+.recent-news-slide p {
+    max-width: 500px;
+
+    margin: 0 0 13px;
+
+    color: #647286;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+.news-date {
+    margin-top: auto;
+
+    color: #8993a1;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 10px;
+}
+
+
+/* ============================================================
+   SLIDER ARROWS
+   ============================================================ */
+
+.news-slider-btn {
+    position: absolute;
+
+    z-index: 10;
+
+    top: 50%;
+
+    width: 41px;
+    height: 41px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid rgba(
+        11,
+        25,
+        44,
+        0.11
     );
 
-  transition: transform 0.7s ease;
+    border-radius: 50%;
+
+    color: #0b192c;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.97
+        );
+
+    font-family: Arial, sans-serif;
+
+    font-size: 28px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 24px
+        rgba(
+            11,
+            25,
+            44,
+            0.13
+        );
+
+    transform:
+        translateY(-50%);
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 
-.placement-spotlight:hover .placement-glow {
-  transform: scale(1.35);
+.news-slider-btn:hover {
+    color: #0b192c;
+
+    background: #d4af37;
+
+    box-shadow:
+        0 12px 28px
+        rgba(
+            11,
+            25,
+            44,
+            0.18
+        );
+
+    transform:
+        translateY(-50%)
+        scale(1.08);
 }
 
 
-/* TOP */
-
-.placement-top {
-  position: relative;
-  color: #ddd;
+.news-slider-prev {
+    left: -18px;
 }
 
 
-.live-dot {
-  width: 7px;
-  height: 7px;
-
-  border-radius: 50%;
-
-  background: var(--gold);
-
-  box-shadow:
-    0 0 0 5px rgba(212, 175, 55, 0.12);
-
-  margin-right: auto;
+.news-slider-next {
+    right: -18px;
 }
 
 
-.placement-arrow {
-  font-size: 22px;
-  color: var(--gold);
+/* ============================================================
+   SLIDER DOTS
+   ============================================================ */
+
+.news-slider-dots {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-top: 13px;
 }
 
 
-/* CONTENT */
+.news-slider-dots button {
+    width: 7px;
+    height: 7px;
 
-.placement-copy {
-  position: relative;
-  padding-top: 45px;
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #d6d6d6;
+
+    cursor: pointer;
+
+    transition:
+        width 0.3s ease,
+        background 0.3s ease;
 }
 
 
-.placement-copy p {
-  color: #c9cdd2;
+.news-slider-dots button.active {
+    width: 22px;
 
-  text-transform: uppercase;
+    border-radius: 10px;
 
-  letter-spacing: 0.14em;
-
-  font-size: 11px;
+    background: #d4af37;
 }
 
 
-.placement-copy h2 {
-  font: 500 37px / 1 "Newsreader", serif;
+/* ============================================================
+   NEWS SECTION
+   ============================================================ */
 
-  margin: 12px 0 20px;
+.news-section {
+    padding-top: 34px;
 }
 
 
-.placement-copy h2 em {
-  color: var(--gold);
+/* ============================================================
+   TOOLBAR
+   ============================================================ */
+
+.news-toolbar {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 22px;
 }
 
 
-/* =========================================================
-   MULTIPLE PACKAGE HIGHLIGHTS
-   ========================================================= */
+.news-categories {
+    display: flex;
 
-.package-highlights {
-  display: grid;
+    flex-wrap: wrap;
 
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
+    gap: 9px;
 
-  gap: 8px;
-
-  margin-bottom: 12px;
+    flex: 1;
 }
 
 
-.package-highlight {
-  padding: 10px 12px;
+.category-pill {
+    min-height: 39px;
 
-  border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 8px 18px;
 
-  background:
-    rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(
+        11,
+        25,
+        44,
+        0.12
+    );
 
-  transition:
-    transform 0.3s ease,
-    border-color 0.3s ease,
-    background 0.3s ease;
+    border-radius: 30px;
+
+    color: #24344a;
+
+    background: #fff;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
 }
 
 
-.package-highlight:hover {
-  transform: translateY(-3px);
+.category-pill:hover {
+    border-color: #d4af37;
 
-  border-color:
-    rgba(212, 175, 55, 0.7);
-
-  background:
-    rgba(212, 175, 55, 0.08);
+    transform: translateY(-1px);
 }
 
 
-.package-highlight span {
-  display: block;
+.category-pill.active {
+    color: #fff;
 
-  color: #aeb5be;
+    background: #0b192c;
 
-  font-size: 8px;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.12em;
-
-  margin-bottom: 3px;
+    border-color: #0b192c;
 }
 
 
-.package-highlight strong {
-  display: block;
+.saved-stories-btn {
+    display: inline-flex;
 
-  font:
-    600 27px / 1
-    "Newsreader", serif;
+    align-items: center;
 
-  color: white;
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 39px;
+
+    padding: 8px 17px;
+
+    border: 1px solid rgba(
+        11,
+        25,
+        44,
+        0.11
+    );
+
+    border-radius: 30px;
+
+    color: #24344a;
+
+    background: #fff;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
 }
 
 
-/* HIGHEST PACKAGE */
+.saved-stories-btn:hover {
+    border-color: #d4af37;
 
-.top-package {
-  border-color:
-    rgba(212, 175, 55, 0.75);
-
-  background:
-    rgba(212, 175, 55, 0.08);
+    transform: translateY(-1px);
 }
 
 
-.top-package strong {
-  color: var(--gold);
-  font-size: 32px;
+.saved-stories-btn.active {
+    color: #0b192c;
+
+    background: #f8f0d7;
+
+    border-color: #d4af37;
 }
 
 
-.placement-caption {
-  font-size: 10px;
-  color: #c9cdd2;
+.saved-icon {
+    font-size: 17px;
+
+    line-height: 1;
 }
 
 
-/* BOTTOM */
-
-.placement-bottom {
-  position: absolute;
-
-  left: 24px;
-  right: 24px;
-  bottom: 22px;
-
-  border-top:
-    1px solid rgba(255, 255, 255, 0.18);
-
-  padding-top: 15px;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  gap: 12px;
-
-  font-size: 10px;
-
-  color: #c9cdd2;
-}
-
-
-.placement-bottom b {
-  color: var(--gold);
-  white-space: nowrap;
-}
-
-
-/* ================= MAGAZINE ================= */
-
-.magazine-layout {
-  max-width: 1400px;
-  margin: auto;
-
-  padding: 40px 5vw 80px;
-
-  display: grid;
-
-  grid-template-columns:
-    minmax(0, 2fr)
-    minmax(280px, 1fr);
-
-  gap: 55px;
-}
-
-
-.section-heading {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-
-  border-bottom:
-    1px solid var(--line);
-
-  padding-bottom: 13px;
-
-  margin-bottom: 22px;
-}
-
-
-.section-heading span {
-  font:
-    600 12px
-    "Newsreader", serif;
-
-  color: var(--gold);
-}
-
-
-.section-heading h2 {
-  font:
-    600 14px
-    inherit;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.08em;
-
-  margin: 0;
-}
-
-
-/* ================= NEWS GRID ================= */
+/* ============================================================
+   NEWS GRID
+   ============================================================ */
 
 .news-grid {
-  display: grid;
+    display: grid;
 
-  grid-template-columns:
-    repeat(2, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
 
-  gap: 22px;
+    gap: 20px;
 }
 
 
+/* ============================================================
+   NEWS CARD
+   ============================================================ */
+
 .news-card {
-  border-top:
-    1px solid var(--line);
+    position: relative;
 
-  padding-top: 12px;
+    overflow: hidden;
 
-  transition:
-    transform 0.35s ease;
+    background: #fff;
+
+    border: 1px solid rgba(
+        11,
+        25,
+        44,
+        0.09
+    );
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
 }
 
 
 .news-card:hover {
-  transform: translateY(-4px);
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 18px 45px
+        rgba(
+            11,
+            25,
+            44,
+            0.11
+        );
 }
 
 
-.news-card img {
-  width: 100%;
+.news-cover-wrap {
+    position: relative;
 
-  aspect-ratio: 16 / 10;
+    overflow: hidden;
 
-  object-fit: cover;
+    height: 210px;
 }
 
 
-.news-card h3 {
-  font:
-    600 27px / 1.08
-    "Newsreader", serif;
+.news-cover-img {
+    width: 100%;
+    height: 100%;
 
-  margin: 9px 0;
+    object-fit: cover;
+
+    transition:
+        transform 0.7s
+        cubic-bezier(
+            0.22,
+            0.61,
+            0.36,
+            1
+        );
 }
 
 
-.news-card p {
-  color: var(--muted);
-
-  line-height: 1.6;
-
-  font-size: 13px;
+.news-card:hover .news-cover-img {
+    transform: scale(1.045);
 }
 
 
-.card-meta {
-  display: flex;
+.news-category-badge {
+    position: absolute;
 
-  justify-content: space-between;
+    left: 15px;
+    top: 15px;
 
-  align-items: center;
+    padding: 6px 9px;
 
-  color: var(--muted);
+    border-radius: 4px;
 
-  font-size: 10px;
+    color: #0b192c;
 
-  text-transform: uppercase;
+    background: #d4af37;
 
-  letter-spacing: 0.08em;
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
 }
 
 
-.save-btn {
-  border: 0;
+.news-save-btn {
+    position: absolute;
 
-  background: none;
+    right: 13px;
+    top: 13px;
 
-  cursor: pointer;
+    width: 35px;
+    height: 35px;
 
-  font-size: 18px;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(
+        255,
+        255,
+        255,
+        0.7
+    );
+
+    border-radius: 50%;
+
+    color: #0b192c;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.94
+        );
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
 }
 
 
-/* ================= TRENDING ================= */
+.news-save-btn:hover {
+    transform: scale(1.1);
 
-.trending-list {
-  margin: 0;
-  padding: 0;
-
-  list-style: none;
+    background: #d4af37;
 }
 
 
-.trending-list li {
-  display: grid;
+.news-save-btn.saved {
+    color: #0b192c;
 
-  grid-template-columns: 38px 1fr;
-
-  gap: 10px;
-
-  border-bottom:
-    1px solid var(--line);
-
-  padding: 16px 0;
+    background: #d4af37;
 }
 
 
-.trending-list b {
-  font:
-    500 24px
-    "Newsreader", serif;
+/* ============================================================
+   NEWS CARD BODY
+   ============================================================ */
 
-  color: #aaa;
+.news-card-body {
+    padding: 19px 19px 20px;
 }
 
 
-.trending-list a {
-  color: var(--ink);
+.news-card-date {
+    margin-bottom: 8px;
 
-  text-decoration: none;
+    color: #929ba7;
 
-  font:
-    600 18px / 1.15
-    "Newsreader", serif;
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.07em;
 }
 
 
-/* ================= EDITOR NOTE ================= */
+.news-title {
+    margin: 0 0 9px;
 
-.editor-note {
-  margin-top: 35px;
+    color: #0b192c;
 
-  padding: 22px;
+    font-family:
+        "Newsreader",
+        Georgia,
+        serif;
 
-  background: #efe9d9;
+    font-size: 24px;
 
-  border-left:
-    3px solid var(--gold);
+    font-weight: 500;
+
+    line-height: 1.12;
+
+    letter-spacing: -0.015em;
 }
 
 
-.editor-note span {
-  font-size: 10px;
+.news-excerpt {
+    margin: 0 0 17px;
 
-  letter-spacing: 0.15em;
+    color: #647286;
 
-  font-weight: 700;
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 12px;
+
+    line-height: 1.65;
 }
 
 
-.editor-note p {
-  font:
-    500 19px / 1.35
-    "Newsreader", serif;
+.news-author {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding-top: 13px;
+
+    border-top: 1px solid rgba(
+        11,
+        25,
+        44,
+        0.08
+    );
+
+    color: #8b95a2;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 10px;
 }
 
 
-/* ================= STATS ================= */
+.news-author-avatar {
+    width: 29px;
+    height: 29px;
 
-.gazette-stats {
-  border-top:
-    1px solid var(--line);
+    flex: 0 0 29px;
 
-  border-bottom:
-    1px solid var(--line);
+    border-radius: 50%;
 
-  max-width: 1400px;
-
-  margin:
-    0 auto 80px;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(4, 1fr);
+    object-fit: cover;
 }
 
 
-.gazette-stats div {
-  padding: 25px;
+.author-name {
+    color: #0b192c;
 
-  border-right:
-    1px solid var(--line);
+    font-weight: 700;
 }
 
 
-.gazette-stats div:last-child {
-  border: 0;
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+
+.empty-state {
+    padding: 70px 20px;
+
+    text-align: center;
+
+    background: #fff;
+
+    border: 1px solid rgba(
+        11,
+        25,
+        44,
+        0.08
+    );
+
+    border-radius: 13px;
 }
 
 
-.gazette-stats strong {
-  display: block;
+.empty-icon {
+    margin-bottom: 12px;
 
-  font:
-    600 38px
-    "Newsreader", serif;
+    font-size: 35px;
 }
 
 
-.gazette-stats span {
-  font-size: 11px;
+.empty-title {
+    margin: 0 0 8px;
 
-  color: var(--muted);
+    color: #0b192c;
+
+    font-family:
+        "Newsreader",
+        Georgia,
+        serif;
+
+    font-size: 27px;
 }
 
 
-/* =========================================================
-   PLACEMENTS PAGE
-   ========================================================= */
+.empty-text {
+    margin: 0;
 
-.placements-page {
-  min-height: 100vh;
+    color: #748092;
 
-  padding:
-    25px 5vw 80px;
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
 
-  max-width: 1400px;
-
-  margin: auto;
+    font-size: 12px;
 }
 
 
-.placements-header {
-  border-bottom:
-    1px solid var(--line);
+/* ============================================================
+   READER MODAL
+   ============================================================ */
 
-  padding-bottom: 15px;
+.reader-modal-content {
+    max-width: 820px !important;
+
+    overflow: hidden;
 }
 
 
-.placements-intro {
-  max-width: 850px;
+.reader-modal-body {
+    max-height: 78vh;
 
-  padding:
-    65px 0 40px;
+    overflow-y: auto;
 }
 
 
-.placements-intro > p:last-child {
-  max-width: 600px;
+.story-reader-cover {
+    width: 100%;
+    max-height: 390px;
 
-  color: var(--muted);
+    object-fit: cover;
 
-  line-height: 1.7;
+    display: block;
 }
 
 
-/* ================= SUMMARY ================= */
-
-.placement-summary {
-  display: grid;
-
-  grid-template-columns:
-    1fr 1fr 1fr;
-
-  border-top:
-    1px solid var(--line);
-
-  border-bottom:
-    1px solid var(--line);
-
-  margin-bottom: 45px;
+.story-reader-content {
+    padding: 32px 42px 38px;
 }
 
 
-.placement-summary div {
-  padding: 22px;
+.reader-meta {
+    display: flex;
 
-  border-right:
-    1px solid var(--line);
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 15px;
 }
 
 
-.placement-summary div:last-child {
-  border: 0;
+.reader-category {
+    padding: 6px 9px;
+
+    color: #0b192c;
+
+    background: #d4af37;
+
+    border-radius: 4px;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
 }
 
 
-.placement-summary span {
-  display: block;
+.reading-pill {
+    padding: 6px 9px;
 
-  font-size: 10px;
+    color: #607086;
 
-  letter-spacing: 0.13em;
+    background: #f4f2ed;
 
-  color: var(--muted);
+    border-radius: 20px;
 
-  margin-bottom: 8px;
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
 }
 
 
-.placement-summary strong {
-  font:
-    600 24px
-    "Newsreader", serif;
+.issue-badge {
+    padding: 6px 9px;
+
+    color: #fff;
+
+    background: #0b192c;
+
+    border-radius: 4px;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.08em;
 }
 
 
-/* ================= STUDENT GRID ================= */
+.reader-date {
+    color: #8a94a0;
 
-.placement-students {
-  display: grid;
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
 
-  grid-template-columns:
-    repeat(3, 1fr);
-
-  gap: 20px;
+    font-size: 10px;
 }
 
 
-.student-placement-card {
-  background: white;
+.reader-title {
+    margin: 0 0 13px;
 
-  border:
-    1px solid var(--line);
+    color: #0b192c;
 
-  padding: 14px;
+    font-family:
+        "Newsreader",
+        Georgia,
+        serif;
 
-  transition:
-    transform 0.35s ease,
-    box-shadow 0.35s ease;
+    font-size:
+        clamp(
+            32px,
+            4vw,
+            51px
+        );
+
+    font-weight: 500;
+
+    line-height: 1.02;
+
+    letter-spacing: -0.025em;
 }
 
 
-.student-placement-card:hover {
-  transform: translateY(-7px);
+.reader-byline {
+    margin-bottom: 26px;
 
-  box-shadow:
-    0 18px 35px
-    rgba(11, 25, 44, 0.12);
+    color: #7c8795;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 11px;
 }
 
 
-.student-placement-card img {
-  width: 100%;
+.reader-byline a {
+    color: #0b192c;
 
-  aspect-ratio: 4 / 3;
+    font-weight: 700;
 
-  object-fit: cover;
-
-  filter: saturate(0.85);
+    text-decoration: underline;
 }
 
 
-.student-info {
-  padding:
-    15px 3px;
+.story-reader-body {
+    color: #38485e;
+
+    font-family:
+        "Newsreader",
+        Georgia,
+        serif;
+
+    font-size: 18px;
+
+    line-height: 1.75;
 }
 
 
-.student-info h3 {
-  font:
-    600 26px
-    "Newsreader", serif;
-
-  margin:
-    0 0 5px;
+.story-reader-body p {
+    margin: 0 0 20px;
 }
 
 
-.student-info p {
-  margin: 4px 0;
+.story-reader-body p:first-child::first-letter {
+    float: left;
 
-  color: var(--muted);
+    margin:
+        6px
+        10px
+        0
+        0;
 
-  font-size: 12px;
-}
+    color: #a37b16;
 
+    font-family:
+        "Newsreader",
+        Georgia,
+        serif;
 
-.student-company {
-  display: flex;
+    font-size: 72px;
 
-  justify-content: space-between;
+    font-weight: 600;
 
-  align-items: end;
-
-  margin-top: 16px;
-
-  border-top:
-    1px solid var(--line);
-
-  padding-top: 13px;
-}
-
-
-.student-company span {
-  font-size: 10px;
-
-  color: var(--muted);
-
-  text-transform: uppercase;
-}
-
-
-.student-company strong {
-  font-size: 16px;
-}
-
-
-.package {
-  color: #8d7420;
-}
-
-
-/* ================= MODALS ================= */
-
-.modal-overlay {
-  position: fixed;
-
-  inset: 0;
-
-  background:
-    rgba(11, 25, 44, 0.72);
-
-  z-index: 1000;
-
-  display: grid;
-
-  place-items: center;
-
-  padding: 20px;
-
-  opacity: 0;
-
-  visibility: hidden;
-
-  transition: 0.3s ease;
-}
-
-
-.modal-overlay.open {
-  opacity: 1;
-
-  visibility: visible;
-}
-
-
-.modal-card {
-  background: var(--ivory);
-
-  max-height: 92vh;
-
-  overflow: auto;
-
-  position: relative;
-
-  width: min(900px, 100%);
-
-  padding: 35px;
-}
-
-
-.modal-close {
-  position: absolute;
-
-  right: 15px;
-  top: 12px;
-
-  border: 0;
-
-  background: none;
-
-  font-size: 28px;
-
-  cursor: pointer;
-}
-
-
-.reader-card {
-  width:
-    min(920px, 100%);
-}
-
-
-/* ================= READER ================= */
-
-.reader-content h1 {
-  font:
-    600 50px / 1
-    "Newsreader", serif;
-}
-
-
-.reader-content .dropcap:first-letter {
-  float: left;
-
-  font:
-    700 75px / 55px
-    "Newsreader", serif;
-
-  padding-right: 8px;
-
-  color: #8d7420;
+    line-height: 0.72;
 }
 
 
 .pull-quote {
-  font:
-    italic 27px / 1.25
-    "Newsreader", serif;
+    margin: 30px 0;
 
-  border-left:
-    3px solid var(--gold);
+    padding: 22px 25px;
 
-  padding:
-    10px 25px;
+    border-top: 1px solid #d4af37;
 
-  margin:
-    28px 0;
+    border-bottom: 1px solid #d4af37;
+
+    color: #0b192c;
+
+    font-family:
+        "Newsreader",
+        Georgia,
+        serif;
+
+    font-size: 25px;
+
+    font-style: italic;
+
+    line-height: 1.3;
 }
 
 
-.reader-content img {
-  max-width: 100%;
+.reader-share {
+    display: flex;
 
-  width: 100%;
+    flex-wrap: wrap;
 
-  max-height: 430px;
+    align-items: center;
 
-  object-fit: cover;
+    gap: 8px;
+
+    margin-top: 28px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid rgba(
+        11,
+        25,
+        44,
+        0.08
+    );
 }
 
 
-/* ================= AUTHOR ================= */
+.reader-share-label {
+    margin-right: 5px;
+
+    color: #87919f;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.1em;
+}
+
+
+.share-btn {
+    min-height: 32px;
+
+    padding: 6px 11px;
+
+    border: 1px solid rgba(
+        11,
+        25,
+        44,
+        0.11
+    );
+
+    border-radius: 5px;
+
+    color: #24344a;
+
+    background: #fff;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.share-btn:hover {
+    border-color: #d4af37;
+
+    background: #faf8f4;
+}
+
+
+/* ============================================================
+   AUTHOR CALLOUT
+   ============================================================ */
 
 .author-callout {
-  display: flex;
+    display: flex;
 
-  gap: 16px;
+    align-items: center;
 
-  align-items: center;
+    gap: 16px;
 
-  border-top:
-    1px solid var(--line);
+    margin-top: 32px;
 
-  margin-top: 30px;
+    padding: 19px;
 
-  padding-top: 22px;
+    border: 1px solid rgba(
+        11,
+        25,
+        44,
+        0.09
+    );
+
+    border-radius: 10px;
+
+    background: #faf8f4;
 }
 
 
 .author-callout img {
-  width: 60px;
-  height: 60px;
+    width: 63px;
+    height: 63px;
 
-  border-radius: 50%;
+    flex: 0 0 63px;
 
-  object-fit: cover;
+    border-radius: 50%;
+
+    object-fit: cover;
 }
 
 
-/* ================= SUBMISSION FORM ================= */
+.author-callout-content {
+    min-width: 0;
 
-.submit-card form {
-  display: grid;
-
-  gap: 15px;
+    flex: 1;
 }
 
 
-.submit-card label {
-  font-size: 12px;
+.author-callout-label {
+    margin-bottom: 3px;
 
-  font-weight: 700;
+    color: #a37b16;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.15em;
+
+    text-transform: uppercase;
 }
 
 
-.submit-card input,
-.submit-card textarea,
-.submit-card select {
-  display: block;
+.author-callout-name {
+    margin: 0 0 4px;
 
-  width: 100%;
+    color: #0b192c;
 
-  margin-top: 6px;
+    font-family:
+        "Newsreader",
+        Georgia,
+        serif;
 
-  border:
-    1px solid var(--line);
-
-  background: white;
-
-  padding: 12px;
-
-  font: inherit;
+    font-size: 21px;
 }
 
 
-.submit-card textarea {
-  resize: vertical;
+.author-callout-meta {
+    color: #778394;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 10px;
+
+    line-height: 1.5;
 }
 
 
-.submit-card img {
-  width: 100%;
+.author-profile-link {
+    color: #9a7417;
 
-  max-height: 220px;
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
 
-  object-fit: cover;
+    font-size: 10px;
 
-  margin-top: 8px;
+    font-weight: 800;
+
+    text-decoration: none;
+
+    white-space: nowrap;
 }
 
 
-.form-meta {
-  display: flex;
-
-  gap: 18px;
-
-  color: var(--muted);
-
-  font-size: 11px;
+.author-profile-link:hover {
+    color: #0b192c;
 }
 
 
-/* ================= HIDDEN ================= */
+/* ============================================================
+   SUBMISSION MODAL
+   ============================================================ */
 
-.placements-page[hidden] {
-  display: none;
+.submit-modal-content {
+    max-width: 680px !important;
 }
 
 
-/* ================= FOOTER ================= */
-
-footer {
-  border-top:
-    1px solid var(--line);
-
-  padding:
-    35px 5vw;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  gap: 20px;
-
-  color: var(--muted);
-
-  font-size: 12px;
-}
-
-
-footer strong {
-  color: var(--ink);
-}
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-  .spotlight-grid,
-  .magazine-layout {
-    grid-template-columns: 1fr;
-  }
-
-
-  .news-grid {
-    grid-template-columns: 1fr;
-  }
-
-
-  .placement-students {
-    grid-template-columns:
-      repeat(2, 1fr);
-  }
-
-
-  .gazette-stats {
-    grid-template-columns:
-      repeat(2, 1fr);
-  }
-
-
-  .placement-summary {
-    grid-template-columns: 1fr;
-  }
-
-
-  .placement-summary div {
-    border-right: 0;
-
-    border-bottom:
-      1px solid var(--line);
-  }
-
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 600px) {
-
-  .gazette-hero {
-    padding-top: 25px;
-  }
-
-
-  .hero-copy {
-    padding-top: 42px;
-  }
-
-
-  .hero-copy h1,
-  .placements-intro h1 {
-    font-size: 54px;
-  }
-
-
-  .news-toolbar {
-    align-items: flex-start;
-
-    flex-direction: column;
-  }
-
-
-  .slide-card {
-    height: 360px;
-  }
-
-
-  .slide-overlay {
-    inset:
-      auto 18px 20px;
-  }
-
-
-  .placement-spotlight {
-    min-height: 430px;
-  }
-
-
-  .placement-copy {
-    padding-top: 40px;
-  }
-
-
-  .package-highlights {
-    gap: 6px;
-  }
-
-
-  .package-highlight {
-    padding: 9px;
-  }
-
-
-  .package-highlight strong {
-    font-size: 23px;
-  }
-
-
-  .top-package strong {
-    font-size: 28px;
-  }
-
-
-  .placement-bottom {
-    display: block;
-  }
-
-
-  .placement-bottom b {
+.modal-kicker {
     display: block;
 
-    margin-top: 8px;
-  }
+    margin-bottom: 3px;
+
+    color: #a37b16;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.16em;
+}
 
 
-  .placement-students {
-    grid-template-columns: 1fr;
-  }
+.moderation-notice {
+    display: flex;
+
+    gap: 12px;
+
+    margin-bottom: 23px;
+
+    padding: 14px;
+
+    border-left: 3px solid #d4af37;
+
+    border-radius: 5px;
+
+    background: #f7f4eb;
+}
 
 
-  .gazette-stats {
-    grid-template-columns:
-      1fr 1fr;
-  }
+.moderation-icon {
+    width: 27px;
+    height: 27px;
+
+    flex: 0 0 27px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: #0b192c;
+
+    background: #d4af37;
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
 
 
-  .gazette-stats div {
+.moderation-notice strong {
+    color: #0b192c;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 11px;
+}
+
+
+.moderation-notice p {
+    margin: 3px 0 0;
+
+    color: #687688;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+.field-meta {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-top: 5px;
+
+    color: #9099a5;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 9px;
+}
+
+
+.story-body-input {
+    min-height: 190px;
+
+    resize: vertical;
+}
+
+
+.submission-stats {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 15px;
+
+    margin-top: 7px;
+
+    color: #7f8a98;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 9px;
+}
+
+
+.submission-stats strong {
+    color: #0b192c;
+}
+
+
+.story-image-preview {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 110px;
+
+    margin-top: 9px;
+
+    overflow: hidden;
+
+    border: 1px dashed rgba(
+        11,
+        25,
+        44,
+        0.18
+    );
+
+    border-radius: 8px;
+
+    color: #9aa2ad;
+
+    background: #faf9f6;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 10px;
+}
+
+
+.story-image-preview.has-image {
+    display: block;
+}
+
+
+.story-image-preview img {
+    width: 100%;
+    height: 170px;
+
+    object-fit: cover;
+}
+
+
+.submission-queue-message {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 12px;
+
+    color: #667386;
+
+    background: #f5f6f4;
+
+    border-radius: 5px;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 9px;
+}
+
+
+.queue-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #d4af37;
+}
+
+
+/* ============================================================
+   RECENT DONOR POPUP
+   ============================================================ */
+
+.recent-donor-popup {
+    position: fixed;
+
+    right: 24px;
+    bottom: 24px;
+
+    z-index: 1000;
+
+    width: 335px;
+
     padding: 18px;
-  }
+
+    border: 1px solid rgba(
+        212,
+        175,
+        55,
+        0.45
+    );
+
+    border-radius: 13px;
+
+    background:
+        rgba(
+            250,
+            248,
+            244,
+            0.97
+        );
+
+    box-shadow:
+        0 22px 60px
+        rgba(
+            11,
+            25,
+            44,
+            0.20
+        );
+
+    backdrop-filter: blur(15px);
+
+    transform:
+        translateY(140px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        transform 0.72s
+        cubic-bezier(
+            0.22,
+            0.61,
+            0.36,
+            1
+        ),
+        opacity 0.45s ease;
+}
 
 
-  .gazette-stats strong {
-    font-size: 30px;
-  }
+.recent-donor-popup.show {
+    transform: translateY(0);
+
+    opacity: 1;
+
+    pointer-events: auto;
+}
 
 
-  .modal-card {
-    padding:
-      25px 18px;
-  }
+.recent-donor-popup.hide {
+    transform:
+        translateY(140px);
+
+    opacity: 0;
+}
 
 
-  footer {
+.donor-close {
+    position: absolute;
+
+    top: 8px;
+    right: 9px;
+
+    width: 27px;
+    height: 27px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    color: #718091;
+
+    background: transparent;
+
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+
+.donor-close:hover {
+    color: #fff;
+
+    background: #0b192c;
+}
+
+
+.donor-label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 14px;
+
+    color: #9a7417;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.16em;
+}
+
+
+.donor-gold-line {
+    width: 19px;
+    height: 1px;
+
+    background: #d4af37;
+}
+
+
+.donor-content {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+}
+
+
+.donor-avatar {
+    flex: 0 0 54px;
+}
+
+
+.donor-avatar img {
+    width: 54px;
+    height: 54px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 2px solid #d4af37;
+}
+
+
+.donor-info {
+    min-width: 0;
+}
+
+
+.donor-info h4 {
+    margin: 0 0 2px;
+
+    color: #0b192c;
+
+    font-family:
+        "Newsreader",
+        Georgia,
+        serif;
+
+    font-size: 19px;
+}
+
+
+.donor-info span {
+    color: #788495;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 9px;
+}
+
+
+.donor-info p {
+    margin: 5px 0 0;
+
+    color: #59687b;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 10px;
+
+    line-height: 1.45;
+}
+
+
+.donor-info strong {
+    color: #9a7417;
+}
+
+
+.donor-action {
     display: block;
-  }
+
+    margin-top: 14px;
+
+    padding-top: 12px;
+
+    border-top: 1px solid rgba(
+        11,
+        25,
+        44,
+        0.08
+    );
+
+    color: #0b192c;
+
+    font-family:
+        "Plus Jakarta Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+
+.donor-action:hover {
+    color: #9a7417;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.footer-newsletter-text {
+    margin-bottom: 13px;
+
+    color: var(
+        --color-text-inverse-muted,
+        #b8c0ca
+    );
+
+    font-size: var(
+        --text-sm,
+        14px
+    );
+
+    line-height: 1.55;
+}
+
+
+/* ============================================================
+   RESPONSIVE — TABLET
+   ============================================================ */
+
+@media (max-width: 1050px) {
+
+    .gazette-hero-inner {
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+    }
+
+
+    .gazette-intro {
+        padding-right: 0;
+    }
+
+
+    .recent-news-showcase {
+        padding-left: 0;
+
+        border-left: 0;
+    }
+
+
+    .news-grid {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+    }
 
 }
 
 
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
+/* ============================================================
+   RESPONSIVE — MOBILE
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+    .gazette-hero {
+        padding:
+            31px 0
+            30px;
+    }
+
+
+    .gazette-title {
+        font-size: 43px;
+
+        line-height: 0.98;
+    }
+
+
+    .gazette-description {
+        font-size: 13px;
+
+        line-height: 1.7;
+    }
+
+
+    .recent-news-heading {
+        align-items: flex-start;
+    }
+
+
+    .section-kicker {
+        font-size: 9px;
+    }
+
+
+    .view-all-news {
+        font-size: 9px;
+    }
+
+
+    .recent-news-slide {
+        grid-template-columns: 1fr;
+
+        min-height: auto;
+    }
+
+
+    .recent-news-slide img {
+        height: 175px;
+    }
+
+
+    .recent-news-slide-content {
+        padding: 18px;
+    }
+
+
+    .recent-news-slide h3 {
+        font-size: 24px;
+    }
+
+
+    .recent-news-slide p {
+        font-size: 11px;
+    }
+
+
+    .news-slider-btn {
+        width: 35px;
+        height: 35px;
+
+        font-size: 23px;
+    }
+
+
+    .news-slider-prev {
+        left: 8px;
+    }
+
+
+    .news-slider-next {
+        right: 8px;
+    }
+
+
+    .news-toolbar {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+
+    .news-categories {
+        width: 100%;
+    }
+
+
+    .saved-stories-btn,
+    #share-story-btn {
+        width: 100%;
+    }
+
+
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .news-cover-wrap {
+        height: 210px;
+    }
+
+
+    .story-reader-content {
+        padding:
+            25px
+            21px
+            30px;
+    }
+
+
+    .reader-title {
+        font-size: 36px;
+    }
+
+
+    .story-reader-body {
+        font-size: 17px;
+    }
+
+
+    .author-callout {
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+    }
+
+
+    .author-profile-link {
+        width: 100%;
+    }
+
+
+    .recent-donor-popup {
+        right: 14px;
+        bottom: 14px;
+        left: 14px;
+
+        width: auto;
+    }
+
+}
+
+
+/* ============================================================
+   VERY SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 390px) {
+
+    .gazette-title {
+        font-size: 37px;
+    }
+
+
+    .recent-news-slide img {
+        height: 155px;
+    }
+
+
+    .recent-news-slide h3 {
+        font-size: 21px;
+    }
+
+
+    .category-pill {
+        padding:
+            7px 13px;
+
+        font-size: 10px;
+    }
+
+}
+
+
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
 
-  *,
-  *::before,
-  *::after {
-
-    scroll-behavior: auto !important;
-
-    transition: none !important;
-
-  }
+    .news-slider-track,
+    .recent-news-slide img,
+    .recent-donor-popup,
+    .news-card,
+    .news-slider-btn {
+        transition: none !important;
+    }
 
 }
