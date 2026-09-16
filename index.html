@@ -85,126 +85,9 @@
   <main class="main-content">
     
        <!-- ======================================================================
-         1. PANORAMIC CAMPUS HERO SLIDESHOW (KIIT STYLE & LUXURY EDITORIAL)
+         1. PANORAMIC CAMPUS HERO SLIDESHOW ( STYLE & LUXURY EDITORIAL)
          ====================================================================== -->
-    <section class="hero-panoramic-section" aria-label="GIET University Campus Showcase">
-      <div class="panoramic-slides-track" id="campus-slides-track">
-        
-        <!-- Slide 1: Main Campus Panorama -->
-        <div class="panoramic-slide active">
-          <img src="campus-1.0.webp" alt="GIET University Campus" onerror="this.src='https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1920&q=85'" />
-          <div class="panoramic-overlay">
-            <div class="container panoramic-content">
-              <span class="hero-heritage-pill">★ GIET UNIVERSITY &bull; GUNUPUR, ODISHA</span>
-              <h1 class="panoramic-headline">Welcome back to where your <span class="accent-italic">journey started.</span></h1>
-              <p class="panoramic-subtext">No matter where life takes you after graduation, GIET will always be home. Catch up with old friends, share your story, and stay close to our community.</p>
-              
-              <div class="panoramic-actions">
-                <a href="directory.html" class="btn btn-accent btn-lg">Find Your Batchmates &rarr;</a>
-                <button class="btn btn-outline-white btn-lg" onclick="document.getElementById('cmd-palette-trigger')?.click();">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                  Quick Search (⌘K)
-                </button>
-              </div>
-
-              <div class="panoramic-slide-meta">
-                <span class="meta-tag">📍 Main Campus &bull; Gunupur, Odisha</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Slide 2: Research & Academic Blocks -->
-        <div class="panoramic-slide">
-          <img src="campus-3.webp" alt="GIET Engineering Blocks" onerror="this.src='https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1920&q=85'" />
-          <div class="panoramic-overlay">
-            <div class="container panoramic-content">
-              <span class="hero-heritage-pill">★ CLASSROOMS, LABS &amp; MEMORIES</span>
-              <h1 class="panoramic-headline">The workshops and hallways that <span class="accent-italic">built our careers.</span></h1>
-              <p class="panoramic-subtext">From late-night project deadlines and canteen tea breaks to that unforgettable placement day. Help mentor the students following in your footsteps today.</p>
-              
-              <div class="panoramic-actions">
-                <a href="directory.html" class="btn btn-accent btn-lg">Explore Alumni Directory &rarr;</a>
-                <a href="news.html" class="btn btn-outline-white btn-lg">Read Alumni Stories &rarr;</a>
-              </div>
-
-              <div class="panoramic-slide-meta">
-                <span class="meta-tag">📍 Engineering &amp; Academic Blocks</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Slide 3: Central Library & Academic Commons -->
-        <div class="panoramic-slide">
-          <img src="library-1.webp" alt="GIET Central Library" onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1920&q=85'" />
-          <div class="panoramic-overlay">
-            <div class="container panoramic-content">
-              <span class="hero-heritage-pill">★ KNOWLEDGE CENTER </span>
-              <h1 class="panoramic-headline">Late night study sessions, <span class="accent-italic">lifelong friends.</span></h1>
-              <p class="panoramic-subtext">Remember cramming together before semester exams and sharing notes on the library steps? That same bond still connects GIETians across the world.</p>
-              
-              <div class="panoramic-actions">
-                <a href="directory.html" class="btn btn-accent btn-lg">Find Your Friends in Directory &rarr;</a>
-                <a href="donate.html" class="btn btn-outline-white btn-lg">Support Student Scholarships &rarr;</a>
-              </div>
-
-              <div class="panoramic-slide-meta">
-                <span class="meta-tag">📍 Central Library &bull; Gunupur Campus</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Arrow Controls -->
-      <button class="panoramic-arrow prev" id="carousel-prev" aria-label="Previous Slide">&lsaquo;</button>
-      <button class="panoramic-arrow next" id="carousel-next" aria-label="Next Slide">&rsaquo;</button>
-
-      <!-- Indicator Dots -->
-      <div class="panoramic-dots" id="carousel-dots">
-        <button class="panoramic-dot active" data-index="0" aria-label="Slide 1"></button>
-        <button class="panoramic-dot" data-index="1" aria-label="Slide 2"></button>
-        <button class="panoramic-dot" data-index="2" aria-label="Slide 3"></button>
-      </div>
-
-      <!-- Moving Alumni Marquee Ticker directly under the banner -->
-      <div class="alumni-ticker-strip hero-ticker-track" aria-label="Notable Alumni Ticker">
-        <div class="ticker-track">
-          <span>Dr. Elena Rostova ('12) &bull; Genovate Therapeutics</span>
-          <span class="ticker-dot">&bull;</span>
-          <span>Marcus Vance ('08) &bull; Apex Capital Partners</span>
-          <span class="ticker-dot">&bull;</span>
-          <span>Aria Chen ('19) &bull; Google DeepMind</span>
-          <span class="ticker-dot">&bull;</span>
-          <span>David Adebayo ('15) &bull; Lumina Energy</span>
-          <span class="ticker-dot">&bull;</span>
-          <span>Sofia Rodriguez ('11) &bull; International Justice Council</span>
-          <span class="ticker-dot">&bull;</span>
-          <span>Priya Sundaram ('21) &bull; SpaceX Propulsion</span>
-          <span class="ticker-dot">&bull;</span>
-          <span>Zainab Al-Mansoor ('18) &bull; Stripe Global Payouts</span>
-          <span class="ticker-dot">&bull;</span>
-          <!-- Duplicate set for infinite loop -->
-          <span>Dr. Elena Rostova ('12) &bull; Genovate Therapeutics</span>
-          <span class="ticker-dot">&bull;</span>
-          <span>Marcus Vance ('08) &bull; Apex Capital Partners</span>
-          <span class="ticker-dot">&bull;</span>
-          <span>Aria Chen ('19) &bull; Google DeepMind</span>
-          <span class="ticker-dot">&bull;</span>
-          <span>David Adebayo ('15) &bull; Lumina Energy</span>
-          <span class="ticker-dot">&bull;</span>
-          <span>Sofia Rodriguez ('11) &bull; International Justice Council</span>
-          <span class="ticker-dot">&bull;</span>
-          <span>Priya Sundaram ('21) &bull; SpaceX Propulsion</span>
-          <span class="ticker-dot">&bull;</span>
-          <span>Zainab Al-Mansoor ('18) &bull; Stripe Global Payouts</span>
-          <span class="ticker-dot">&bull;</span>
-        </div>
-      </div>
-    </section>
-
+   
     <!-- ======================================================================
          1. CINEMATIC EDITORIAL HERO SECTION
          ====================================================================== -->
@@ -254,7 +137,7 @@
             <a href="directory.html" class="btn btn-primary btn-lg">Explore Alumni Directory &rarr;</a>
             <button class="btn btn-outline btn-lg" onclick="document.getElementById('cmd-palette-trigger')?.click();">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-              Quick Search (⌘K)
+              Quick Search 
             </button>
           </div>
 
@@ -401,7 +284,7 @@
     <div class="brass-divider-wrap" aria-hidden="true">
       <div class="brass-divider">
         <span class="brass-glyph">✦</span>
-        <span class="brass-crest-letter">Ω</span>
+        <span class="brass-crest-letter"></span>
         <span class="brass-glyph">✦</span>
       </div>
     </div>
@@ -410,67 +293,7 @@
          3. INTERACTIVE ALUMNI CONSTELLATION & LIVING NETWORK
          System Contract: #constellation-canvas, #constellation-tooltip, #constellation-filters
          ====================================================================== -->
-    <section class="section constellation-section" id="network-constellation">
-      <div class="container">
-        <div class="constellation-header-row reveal">
-          <div>
-            <span class="section-tag" style="color: var(--color-accent);">Interactive Ecosystem</span>
-            <h2 class="section-title">The Living Alumni Constellation</h2>
-            <p class="section-subtitle">
-              A 60fps dynamic visual graph of our global network. Explore cross-disciplinary relationships, discover alumni by industry clusters, and hover nodes to view live graduate profiles.
-            </p>
-          </div>
-
-          <!-- Discipline Filter Pills -->
-          <div class="constellation-filter-pills" id="constellation-filters" role="group" aria-label="Filter network by discipline">
-            <button class="constellation-pill active" data-filter="all">
-              <span class="pill-dot dot-all"></span> All Disciplines
-            </button>
-            <button class="constellation-pill" data-filter="Tech">
-              <span class="pill-dot dot-tech"></span> AI &amp; Tech
-            </button>
-            <button class="constellation-pill" data-filter="Biotech">
-              <span class="pill-dot dot-bio"></span> Biotech &amp; Health
-            </button>
-            <button class="constellation-pill" data-filter="Finance">
-              <span class="pill-dot dot-vc"></span> Venture &amp; Capital
-            </button>
-            <button class="constellation-pill" data-filter="Energy">
-              <span class="pill-dot dot-energy"></span> Clean Energy
-            </button>
-          </div>
-        </div>
-
-        <div class="constellation-canvas-wrapper reveal reveal-delay-1">
-          <!-- Main Canvas supporting both #constellation-canvas and #network-canvas IDs -->
-          <canvas id="constellation-canvas" class="network-canvas constellation-canvas" aria-label="Interactive Alumni Network Constellation Graph"></canvas>
-          
-          <!-- Hover Profile Tooltip Card supporting #constellation-tooltip -->
-          <div id="constellation-tooltip" class="network-node-tooltip constellation-tooltip" style="display: none;" role="tooltip">
-            <div class="tooltip-badge-strip">
-              <span id="tooltip-discipline-badge" class="badge badge-accent">Technology</span>
-              <span id="tooltip-verified-badge" class="tooltip-verified-pill" title="Verified Alumnus">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm-2 16l-4-4 1.41-1.41L10 15.17l6.59-6.59L18 10l-8 8z"/></svg>
-                Verified
-              </span>
-            </div>
-            <div class="tooltip-content">
-              <img id="tooltip-avatar" src="" alt="" class="tooltip-avatar" />
-              <div class="tooltip-info">
-                <div id="tooltip-name" class="tooltip-name">Alumni Name</div>
-                <div id="tooltip-role" class="tooltip-role">Role at Company</div>
-                <div id="tooltip-meta" class="tooltip-meta">Class of '19 &bull; Location</div>
-              </div>
-            </div>
-            <a id="tooltip-link" href="#" class="tooltip-btn">View Full Profile &rarr;</a>
-          </div>
-
-          <div class="constellation-canvas-hint">
-            <span>✦ Drag canvas to pan &bull; Hover nodes to reveal live connections &bull; Click node to open profile</span>
-          </div>
-        </div>
-      </div>
-    </section>
+    
 
     <!-- ======================================================================
          4. GENERATIONS OF EXCELLENCE TIMELINE EXPLORER
@@ -664,19 +487,19 @@
       </div>
 
       <div class="container text-center reveal">
-        <span class="section-tag" style="color:var(--color-accent); justify-content:center;">Institutional Philanthropy</span>
-        <div class="giving-motto-crest">
-          <span class="motto-latin">Ad Astra Per Aspera</span>
+        <!-- <span class="section-tag" style="color:var(--color-accent); justify-content:center;">Institutional Philanthropy</span>
+        <!-- <div class="giving-motto-crest"> -->
+          <!-- <span class="motto-latin">Ad Astra Per Aspera</span>
           <span class="motto-divider">&bull;</span>
           <span class="motto-translation">"To the stars through hardships"</span>
-        </div>
+        </div> --> 
         <h2 class="giving-statement-heading">Your mentorship and generosity empower the next century of scholars.</h2>
         <p class="giving-statement-desc">
           Every contribution directly underwrites undergraduate bursaries, doctoral climate fellowships, and campus clean energy laboratories across our global chapters.
         </p>
         <div style="margin-top:var(--space-8); display:flex; justify-content:center; gap:var(--space-4); flex-wrap:wrap;">
           <a href="donate.html" class="btn btn-accent btn-lg">Support Alumni Endowments &rarr;</a>
-          <a href="events.html" class="btn btn-outline-white btn-lg">Join Upcoming Reunions</a>
+         
         </div>
       </div>
     </section>
@@ -703,7 +526,7 @@
             Empowering lifelong connections between our global alumni body and current student cohorts through mentorship, chapters, research consortiums, and community initiatives.
           </p>
           <div class="footer-motto-tag">
-            <em>Ad Astra Per Aspera</em> &bull; Chartered 1980 &bull; Est. 1881
+            
           </div>
         </div>
 

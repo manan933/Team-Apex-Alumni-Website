@@ -27,6 +27,7 @@ function formatDate(isoString) {
 
 document.addEventListener('DOMContentLoaded', () => {
   initCampusCarousel();
+  initHeroCardLoop();
   Promise.all([
 
     initStatsCounter(),
@@ -673,4 +674,67 @@ function initCampusCarousel() {
   }, { passive: true });
 
   startAuto();
+}
+/**
+ * Auto-Looping Spatial Alumni Cards Stack
+ */
+function initHeroCardLoop() {
+  const container = document.querySelector('.hero-spatial-col');
+  if (!container) return;
+
+  const cards = container.querySelectorAll('.hero-alumni-card');
+  if (cards.length < 2) return;
+
+  let currentIndex = 0;
+  let loopTimer = null;
+  const interval = 3800; // Swaps every 3.8 seconds
+
+  function updateCards() {
+    cards.forEach((card, index) => {
+      if (index === currentIndex) {
+        card.classList.remove('is-back', 'hero-card-secondary');
+        card.classList.add('is-front', 'hero-card-main');
+      } else {
+        card.classList.remove('is-front', 'hero-card-main');
+        card.classList.add('is-back', 'hero-card-secondary');
+      }
+    });
+  }
+
+  function nextCard() {
+    currentIndex = (currentIndex + 1) % cards.length;
+    updateCards();
+  }
+
+  function startLoop() {
+    stopLoop();
+    loopTimer = setInterval(nextCard, interval);
+  }
+
+  function stopLoop() {
+    if (loopTimer) {
+      clearInterval(loopTimer);
+      loopTimer = null;
+    }
+  }
+
+  // Start the loop
+  updateCards();
+  startLoop();
+
+  // Pause on hover so the user can easily click the profile link
+  container.addEventListener('mouseenter', stopLoop);
+  container.addEventListener('mouseleave', startLoop);
+
+  // Clicking the back card immediately brings it to the front
+  cards.forEach((card, idx) => {
+    card.addEventListener('click', (e) => {
+      if (idx !== currentIndex) {
+        e.preventDefault();
+        currentIndex = idx;
+        updateCards();
+        startLoop();
+      }
+    });
+  });
 }
