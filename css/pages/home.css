@@ -1670,3 +1670,80 @@
     height: 180px;
   }
 }
+
+/* Hide ⌘K keyboard shortcut badges in search triggers */
+.header-search-btn .cmd-kbd,
+.cmd-kbd,
+.cmd-badge {
+  display: none !important;
+}
+
+
+/* Hide background watermark seals */
+.heritage-watermark-seal,
+.giving-watermark-seal {
+  display: none !important;
+}
+
+/* ==========================================================================
+   BALANCED HEADINGS (Clean, Modern & Not Awkward)
+   ========================================================================== */
+
+/* 1. Only section titles (like "OUR PROUD ALUMNI") get uppercase */
+.section-title {
+  font-family: var(--font-sans) !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: var(--color-primary, #0B192C) !important;
+}
+
+/* 2. Hero Headline: Modern, balanced size that fits in 2 clean lines */
+.hero-headline {
+  font-family: var(--font-sans) !important;
+  font-size: clamp(2rem, 3.4vw, 3rem) !important; /* Elegant size */
+  font-weight: 800 !important;
+  text-transform: none !important;                /* Natural capitalization */
+  letter-spacing: -0.02em !important;             /* Crisp modern spacing */
+  line-height: 1.15 !important;
+  color: var(--color-primary, #0B192C) !important;
+}
+
+/* 3. Ensure alumni card names on photos stay clean white */
+.hero-card-name {
+  color: #FFFFFF !important;
+}
+/* ==========================================================================
+   LOOPING ALUMNI CARDS ANIMATION
+   ========================================================================== */
+.hero-alumni-card {
+  transition: transform 0.75s cubic-bezier(0.34, 1.25, 0.64, 1),
+              opacity 0.6s ease,
+              box-shadow 0.6s ease,
+              filter 0.6s ease !important;
+}
+
+/* Front Card (Focused, Large, Top Layer) */
+.hero-alumni-card.is-front,
+.hero-card-main {
+  transform: translate(-30px, -15px) scale(1) !important;
+  z-index: 5 !important;
+  opacity: 1 !important;
+  filter: brightness(1) !important;
+  box-shadow: 0 24px 48px -10px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Back Card (Receded, Smaller, Behind) */
+.hero-alumni-card.is-back,
+.hero-card-secondary {
+  transform: translate(50px, 30px) scale(0.88) !important;
+  z-index: 2 !important;
+  opacity: 0.75 !important;
+  filter: brightness(0.85) !important;
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Hover: subtle glow */
+.hero-alumni-card:hover {
+  filter: brightness(1.04) !important;
+}
