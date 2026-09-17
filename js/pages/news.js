@@ -2,9 +2,10 @@ import { getSubmissions, createSubmission } from "../storage-service.js";
 import { getCurrentUser, onAuthStateChange } from "../auth.js";
 import { showToast } from "../nav.js";
 
+
 /* =========================================================
-   GIET ALUMNI GAZETTE
-   ========================================================= */
+   SETTINGS
+========================================================= */
 
 const SAVED_KEY = "alumni_saved_stories";
 
@@ -15,10 +16,10 @@ let currentSlide = 0;
 
 /* =========================================================
    DEMO PLACEMENT DATA
-   Replace these with approved real placement records.
-   ========================================================= */
+========================================================= */
 
 const placementStudents = [
+
   {
     name: "Aarav Das",
     department: "Computer Science",
@@ -27,8 +28,9 @@ const placementStudents = [
     company: "Microsoft",
     package: "₹13 LPA",
     image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=85"
   },
+
   {
     name: "Ananya Mohanty",
     department: "Computer Science",
@@ -37,8 +39,9 @@ const placementStudents = [
     company: "Deloitte",
     package: "₹12 LPA",
     image:
-      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=800&q=85"
   },
+
   {
     name: "Ritwik Sahu",
     department: "Computer Science",
@@ -47,8 +50,9 @@ const placementStudents = [
     company: "TCS",
     package: "₹10.5 LPA",
     image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85"
   },
+
   {
     name: "Sneha Patnaik",
     department: "Information Technology",
@@ -57,8 +61,9 @@ const placementStudents = [
     company: "Accenture",
     package: "₹9 LPA",
     image:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=85"
   },
+
   {
     name: "Aditya Rout",
     department: "Computer Science",
@@ -67,8 +72,9 @@ const placementStudents = [
     company: "Infosys",
     package: "₹8.5 LPA",
     image:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=85"
   },
+
   {
     name: "Priya Behera",
     department: "Electrical Engineering",
@@ -77,8 +83,9 @@ const placementStudents = [
     company: "Wipro",
     package: "₹7.5 LPA",
     image:
-      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=85"
   },
+
   {
     name: "Rahul Pradhan",
     department: "Electronics",
@@ -87,8 +94,9 @@ const placementStudents = [
     company: "Capgemini",
     package: "₹7.2 LPA",
     image:
-      "https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=800&q=85"
   },
+
   {
     name: "Ishita Nayak",
     department: "Computer Science",
@@ -97,41 +105,63 @@ const placementStudents = [
     company: "IBM",
     package: "₹6.8 LPA",
     image:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=85"
   }
+
 ];
 
 
 /* =========================================================
-   INITIALIZATION
-   ========================================================= */
+   INIT
+========================================================= */
 
 function init() {
+
   setupFilters();
+
   setupSlider();
-  setupInformationSections();
+
+  setupInformationNavigation();
+
   setupPlacements();
+
   setupSubmissionModal();
+
   setupReaderModal();
+
   setupStorySubmission();
+
   setupAuth();
+
   setupDonation();
+
   loadStories();
+
 }
 
+
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", init);
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    init
+  );
+
 } else {
+
   init();
+
 }
 
 
 /* =========================================================
-   STORIES
-   ========================================================= */
+   LOAD STORIES
+========================================================= */
 
 async function loadStories() {
-  const grid = document.getElementById("news-grid");
+
+  const grid =
+    document.getElementById("news-grid");
 
   if (!grid) return;
 
@@ -142,203 +172,363 @@ async function loadStories() {
   `;
 
   try {
-    const stories = await getSubmissions("approved");
 
-    allStories = Array.isArray(stories) ? stories : [];
+    const stories =
+      await getSubmissions("approved");
+
+    allStories =
+      Array.isArray(stories)
+        ? stories
+        : [];
 
     renderStories();
+
     renderTrending();
+
   } catch (error) {
-    console.error("Unable to load stories:", error);
+
+    console.error(
+      "Unable to load stories:",
+      error
+    );
 
     grid.innerHTML = `
       <div class="empty-state">
-        <h3>Stories are temporarily unavailable.</h3>
-        <p>Please try again shortly.</p>
+        <h3>
+          Stories are temporarily unavailable.
+        </h3>
+
+        <p>
+          Please try again shortly.
+        </p>
       </div>
     `;
+
   }
+
 }
 
 
 /* =========================================================
    FILTERS
-   ========================================================= */
+========================================================= */
 
 function setupFilters() {
-  const container = document.getElementById("news-category-filters");
+
+  const container =
+    document.getElementById(
+      "news-category-filters"
+    );
 
   if (!container) return;
 
-  container.addEventListener("click", (event) => {
-    const button = event.target.closest(".filter-btn");
+  container.addEventListener(
+    "click",
+    (event) => {
 
-    if (!button) return;
+      const button =
+        event.target.closest(
+          ".filter-btn"
+        );
 
-    const category = button.dataset.category;
+      if (!button) return;
 
-    currentCategory = category;
+      currentCategory =
+        button.dataset.category;
 
-    container
-      .querySelectorAll(".filter-btn")
-      .forEach((btn) => btn.classList.remove("active"));
+      container
+        .querySelectorAll(
+          ".filter-btn"
+        )
+        .forEach((btn) => {
 
-    button.classList.add("active");
+          btn.classList.remove(
+            "active"
+          );
 
-    if (category === "Story") {
-      scrollToSection("stories-essays");
+        });
+
+      button.classList.add(
+        "active"
+      );
+
+
+      if (
+        currentCategory ===
+        "Story"
+      ) {
+
+        scrollToSection(
+          "stories-essays"
+        );
+
+      }
+
+
+      if (
+        currentCategory ===
+        "Achievement"
+      ) {
+
+        scrollToSection(
+          "breakthroughs"
+        );
+
+      }
+
+
+      if (
+        currentCategory ===
+        "News"
+      ) {
+
+        scrollToSection(
+          "campus-milestones"
+        );
+
+      }
+
+
+      renderStories();
+
     }
+  );
 
-    if (category === "Achievement") {
-      scrollToSection("breakthroughs");
-    }
-
-    if (category === "News") {
-      scrollToSection("campus-milestones");
-    }
-
-    renderStories();
-  });
 }
 
 
 /* =========================================================
    RENDER STORIES
-   ========================================================= */
+========================================================= */
 
 function renderStories() {
-  const grid = document.getElementById("news-grid");
+
+  const grid =
+    document.getElementById(
+      "news-grid"
+    );
 
   if (!grid) return;
 
-  let stories = [...allStories];
+  let stories =
+    [...allStories];
 
-  if (currentCategory === "Saved") {
-    const savedIds = getSavedStories();
 
-    stories = stories.filter((story) => {
-      const id = getStoryId(story);
-      return savedIds.includes(id);
-    });
-  } else if (currentCategory !== "All") {
-    stories = stories.filter(
-      (story) => normalizeCategory(story.category) === currentCategory
-    );
+  if (
+    currentCategory ===
+    "Saved"
+  ) {
+
+    const saved =
+      getSavedStories();
+
+    stories =
+      stories.filter(
+        (story) =>
+          saved.includes(
+            getStoryId(story)
+          )
+      );
+
   }
 
+  else if (
+    currentCategory !==
+    "All"
+  ) {
+
+    stories =
+      stories.filter(
+        (story) =>
+          normalizeCategory(
+            story.category
+          ) === currentCategory
+      );
+
+  }
+
+
   if (!stories.length) {
+
     grid.innerHTML = `
       <div class="empty-state">
-        <h3>No stories found.</h3>
+
+        <h3>
+          No stories found.
+        </h3>
+
         <p>
           ${
-            currentCategory === "Saved"
+            currentCategory ===
+            "Saved"
+
               ? "You have not saved any stories yet."
+
               : "New stories will appear here as they are approved."
           }
         </p>
+
       </div>
     `;
 
     return;
+
   }
 
-  grid.innerHTML = stories
-    .map((story, index) => createStoryCard(story, index))
-    .join("");
+
+  grid.innerHTML =
+    stories
+      .map(
+        (story, index) =>
+          createStoryCard(
+            story,
+            index
+          )
+      )
+      .join("");
+
 
   attachStoryEvents();
+
 }
 
 
 /* =========================================================
    STORY CARD
-   ========================================================= */
+========================================================= */
 
-function createStoryCard(story, index) {
-  const id = getStoryId(story);
+function createStoryCard(
+  story,
+  index
+) {
 
-  const title = escapeHTML(
-    story.title || story.name || "Untitled story"
-  );
+  const id =
+    getStoryId(story);
 
-  const excerpt = escapeHTML(
-    story.excerpt ||
+  const title =
+    escapeHTML(
+      story.title ||
+      story.name ||
+      "Untitled story"
+    );
+
+  const excerpt =
+    escapeHTML(
+      story.excerpt ||
       story.description ||
       "Read the latest story from the GIET community."
-  );
+    );
 
-  const category = normalizeCategory(story.category);
+  const category =
+    normalizeCategory(
+      story.category
+    );
 
   const image =
     story.image ||
     story.imageUrl ||
-    "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80";
+    "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=85";
 
   const author =
     story.authorName ||
     story.author ||
     "GIET Alumni Community";
 
-  const readingTime = calculateReadingTime(
-    story.body || story.content || story.text || ""
-  );
+  const readingTime =
+    calculateReadingTime(
+      story.body ||
+      story.content ||
+      story.text ||
+      ""
+    );
 
-  const saved = isStorySaved(id);
+  const saved =
+    isStorySaved(id);
 
-  const isLead = index === 0;
 
-  if (isLead) {
+  if (index === 0) {
+
     return `
+
       <article
         class="news-card lead-story"
         data-story-id="${escapeAttribute(id)}"
       >
 
         <div>
+
           <img
             src="${escapeAttribute(image)}"
             alt="${title}"
             loading="lazy"
           >
+
         </div>
+
 
         <div class="lead-copy">
 
           <div class="card-meta">
-            <span class="lead-badge">${category}</span>
-            <span>${readingTime} min read</span>
+
+            <span class="lead-badge">
+              ${category}
+            </span>
+
+            <span>
+              ${readingTime} min read
+            </span>
+
           </div>
 
+
           <h3>
-            <a href="#" class="story-open">
+
+            <a
+              href="#"
+              class="story-open"
+            >
               ${title}
             </a>
+
           </h3>
 
-          <p>${excerpt}</p>
+
+          <p>
+            ${excerpt}
+          </p>
+
 
           <div class="author-line">
-            <span>${escapeHTML(author)}</span>
+
+            <span>
+              ${escapeHTML(author)}
+            </span>
+
 
             <button
-              class="save-btn ${saved ? "saved" : ""}"
+              class="save-btn ${
+                saved ? "saved" : ""
+              }"
               type="button"
               data-save-id="${escapeAttribute(id)}"
               aria-label="Save story"
-              title="Save story"
             >
               ${saved ? "★" : "☆"}
             </button>
+
           </div>
 
         </div>
 
       </article>
+
     `;
+
   }
 
+
   return `
+
     <article
       class="news-card"
       data-story-id="${escapeAttribute(id)}"
@@ -350,308 +540,532 @@ function createStoryCard(story, index) {
         loading="lazy"
       >
 
+
       <div class="card-meta">
-        <span>${category}</span>
-        <span>${readingTime} min read</span>
+
+        <span>
+          ${category}
+        </span>
+
+        <span>
+          ${readingTime} min read
+        </span>
+
       </div>
 
+
       <h3>
-        <a href="#" class="story-open">
+
+        <a
+          href="#"
+          class="story-open"
+        >
           ${title}
         </a>
+
       </h3>
 
-      <p>${excerpt}</p>
+
+      <p>
+        ${excerpt}
+      </p>
+
 
       <div class="author-line">
-        <span>${escapeHTML(author)}</span>
+
+        <span>
+          ${escapeHTML(author)}
+        </span>
+
 
         <button
-          class="save-btn ${saved ? "saved" : ""}"
+          class="save-btn ${
+            saved ? "saved" : ""
+          }"
           type="button"
           data-save-id="${escapeAttribute(id)}"
           aria-label="Save story"
-          title="Save story"
         >
           ${saved ? "★" : "☆"}
         </button>
+
       </div>
 
     </article>
+
   `;
+
 }
 
 
 /* =========================================================
    STORY EVENTS
-   ========================================================= */
+========================================================= */
 
 function attachStoryEvents() {
-  const grid = document.getElementById("news-grid");
+
+  const grid =
+    document.getElementById(
+      "news-grid"
+    );
 
   if (!grid) return;
 
-  grid.querySelectorAll(".story-open").forEach((link) => {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
 
-      const card = link.closest(".news-card");
+  grid
+    .querySelectorAll(
+      ".story-open"
+    )
+    .forEach((link) => {
 
-      if (!card) return;
+      link.addEventListener(
+        "click",
+        (event) => {
 
-      const id = card.dataset.storyId;
+          event.preventDefault();
 
-      const story = allStories.find(
-        (item) => getStoryId(item) === id
+          const card =
+            link.closest(
+              ".news-card"
+            );
+
+          if (!card) return;
+
+          const story =
+            allStories.find(
+              (item) =>
+                getStoryId(item) ===
+                card.dataset.storyId
+            );
+
+          if (story) {
+
+            openReader(story);
+
+          }
+
+        }
       );
 
-      if (story) {
-        openReader(story);
-      }
     });
-  });
 
-  grid.querySelectorAll(".save-btn").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
 
-      toggleSavedStory(button.dataset.saveId);
+  grid
+    .querySelectorAll(
+      ".save-btn"
+    )
+    .forEach((button) => {
+
+      button.addEventListener(
+        "click",
+        (event) => {
+
+          event.preventDefault();
+
+          event.stopPropagation();
+
+          toggleSavedStory(
+            button.dataset.saveId
+          );
+
+        }
+      );
+
     });
-  });
+
 }
 
 
 /* =========================================================
-   CATEGORY NORMALIZATION
-   ========================================================= */
+   CATEGORY
+========================================================= */
 
-function normalizeCategory(category) {
-  const value = String(category || "").toLowerCase();
+function normalizeCategory(
+  category
+) {
+
+  const value =
+    String(category || "")
+      .toLowerCase();
+
 
   if (
     value.includes("story") ||
     value.includes("essay")
   ) {
+
     return "Story";
+
   }
+
 
   if (
     value.includes("achievement") ||
     value.includes("breakthrough")
   ) {
+
     return "Achievement";
+
   }
 
-  if (
-    value.includes("news") ||
-    value.includes("milestone")
-  ) {
-    return "News";
-  }
 
   return "News";
+
 }
 
 
 /* =========================================================
    STORY ID
-   ========================================================= */
+========================================================= */
 
-function getStoryId(story) {
+function getStoryId(
+  story
+) {
+
   return String(
     story.id ||
-      story.uid ||
-      story.submissionId ||
-      `${story.title || "story"}-${story.createdAt || ""}`
+    story.uid ||
+    story.submissionId ||
+    `${story.title || "story"}-${story.createdAt || ""}`
   );
+
 }
 
 
 /* =========================================================
    SAVED STORIES
-   ========================================================= */
+========================================================= */
 
 function getSavedStories() {
+
   try {
+
     return JSON.parse(
-      localStorage.getItem(SAVED_KEY) || "[]"
+      localStorage.getItem(
+        SAVED_KEY
+      ) || "[]"
     );
+
   } catch {
+
     return [];
+
   }
+
 }
 
 
-function saveStories(ids) {
+function saveStories(
+  ids
+) {
+
   localStorage.setItem(
     SAVED_KEY,
     JSON.stringify(ids)
   );
+
 }
 
 
-function isStorySaved(id) {
-  return getSavedStories().includes(String(id));
+function isStorySaved(
+  id
+) {
+
+  return getSavedStories()
+    .includes(
+      String(id)
+    );
+
 }
 
 
-function toggleSavedStory(id) {
-  const storyId = String(id);
+function toggleSavedStory(
+  id
+) {
 
-  let saved = getSavedStories();
+  const storyId =
+    String(id);
 
-  if (saved.includes(storyId)) {
-    saved = saved.filter((item) => item !== storyId);
+  let saved =
+    getSavedStories();
 
-    showToast?.("Story removed from saved stories.");
-  } else {
-    saved.push(storyId);
 
-    showToast?.("Story saved.");
+  if (
+    saved.includes(storyId)
+  ) {
+
+    saved =
+      saved.filter(
+        (item) =>
+          item !== storyId
+      );
+
+    showToast?.(
+      "Story removed from saved stories."
+    );
+
   }
+
+  else {
+
+    saved.push(
+      storyId
+    );
+
+    showToast?.(
+      "Story saved."
+    );
+
+  }
+
 
   saveStories(saved);
 
   renderStories();
+
   renderTrending();
+
 }
 
 
 /* =========================================================
    TRENDING
-   ========================================================= */
+========================================================= */
 
 function renderTrending() {
-  const list = document.getElementById("trending-list");
+
+  const list =
+    document.getElementById(
+      "trending-list"
+    );
 
   if (!list) return;
 
-  const stories = [...allStories];
 
-  if (!stories.length) {
+  if (!allStories.length) {
+
     list.innerHTML = `
       <li>
+
+        <b>01</b>
+
         <div>
-          <span class="trending-meta">
-            Latest
-          </span>
+
           <a href="#stories-essays">
             New GIET stories will appear here.
           </a>
+
         </div>
+
       </li>
     `;
 
     return;
+
   }
 
-  const trending = stories
-    .sort((a, b) => {
-      const aDate = new Date(
-        a.createdAt || a.updatedAt || 0
-      ).getTime();
 
-      const bDate = new Date(
-        b.createdAt || b.updatedAt || 0
-      ).getTime();
+  const trending =
+    [...allStories]
+      .sort(
+        (a, b) => {
 
-      return bDate - aDate;
-    })
-    .slice(0, 5);
+          const aDate =
+            new Date(
+              a.createdAt ||
+              a.updatedAt ||
+              0
+            ).getTime();
 
-  list.innerHTML = trending
-    .map((story, index) => {
-      const id = getStoryId(story);
-      const title = escapeHTML(
-        story.title || "GIET story"
+          const bDate =
+            new Date(
+              b.createdAt ||
+              b.updatedAt ||
+              0
+            ).getTime();
+
+          return bDate - aDate;
+
+        }
+      )
+      .slice(0, 5);
+
+
+  list.innerHTML =
+    trending
+      .map(
+        (story, index) => {
+
+          const id =
+            getStoryId(story);
+
+          const title =
+            escapeHTML(
+              story.title ||
+              "GIET story"
+            );
+
+          return `
+
+            <li>
+
+              <b>
+                ${String(
+                  index + 1
+                ).padStart(
+                  2,
+                  "0"
+                )}
+              </b>
+
+
+              <div>
+
+                <a
+                  href="#"
+                  data-trending-id="${escapeAttribute(id)}"
+                >
+                  ${title}
+                </a>
+
+
+                <span class="trending-meta">
+                  ${normalizeCategory(
+                    story.category
+                  )}
+                </span>
+
+              </div>
+
+            </li>
+
+          `;
+
+        }
+      )
+      .join("");
+
+
+  list
+    .querySelectorAll(
+      "[data-trending-id]"
+    )
+    .forEach((link) => {
+
+      link.addEventListener(
+        "click",
+        (event) => {
+
+          event.preventDefault();
+
+          const story =
+            allStories.find(
+              (item) =>
+                getStoryId(item) ===
+                link.dataset.trendingId
+            );
+
+          if (story) {
+
+            openReader(story);
+
+          }
+
+        }
       );
 
-      return `
-        <li>
-          <b>${String(index + 1).padStart(2, "0")}</b>
-
-          <div>
-            <a href="#" data-trending-id="${escapeAttribute(id)}">
-              ${title}
-            </a>
-
-            <span class="trending-meta">
-              ${normalizeCategory(story.category)}
-            </span>
-          </div>
-        </li>
-      `;
-    })
-    .join("");
-
-  list.querySelectorAll("[data-trending-id]").forEach((link) => {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-
-      const story = allStories.find(
-        (item) =>
-          getStoryId(item) === link.dataset.trendingId
-      );
-
-      if (story) {
-        openReader(story);
-      }
     });
-  });
+
 }
 
 
 /* =========================================================
-   READER MODAL
-   ========================================================= */
+   READER
+========================================================= */
 
 function setupReaderModal() {
-  const closeButton =
-    document.getElementById("close-reader-modal");
+
+  const close =
+    document.getElementById(
+      "close-reader-modal"
+    );
 
   const modal =
-    document.getElementById("reader-modal");
-
-  if (closeButton) {
-    closeButton.addEventListener(
-      "click",
-      closeReader
+    document.getElementById(
+      "reader-modal"
     );
-  }
 
-  if (modal) {
-    modal.addEventListener("click", (event) => {
-      if (event.target === modal) {
+
+  close?.addEventListener(
+    "click",
+    closeReader
+  );
+
+
+  modal?.addEventListener(
+    "click",
+    (event) => {
+
+      if (
+        event.target === modal
+      ) {
+
         closeReader();
-      }
-    });
-  }
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeReader();
+      }
+
     }
-  });
+  );
+
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (
+        event.key ===
+        "Escape"
+      ) {
+
+        closeReader();
+
+      }
+
+    }
+  );
+
 }
 
 
-function openReader(story) {
+function openReader(
+  story
+) {
+
   const modal =
-    document.getElementById("reader-modal");
+    document.getElementById(
+      "reader-modal"
+    );
 
   const body =
-    document.getElementById("reader-modal-body");
+    document.getElementById(
+      "reader-modal-body"
+    );
 
-  if (!modal || !body) return;
+  if (!modal || !body)
+    return;
 
-  const title = escapeHTML(
-    story.title || "GIET Alumni Story"
-  );
 
-  const excerpt = escapeHTML(
-    story.excerpt || ""
-  );
+  const title =
+    escapeHTML(
+      story.title ||
+      "GIET Alumni Story"
+    );
+
+  const excerpt =
+    escapeHTML(
+      story.excerpt ||
+      ""
+    );
 
   const author =
     story.authorName ||
@@ -667,13 +1081,17 @@ function openReader(story) {
   const image =
     story.image ||
     story.imageUrl ||
-    "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=80";
+    "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=85";
 
   const category =
-    normalizeCategory(story.category);
+    normalizeCategory(
+      story.category
+    );
 
   const readingTime =
-    calculateReadingTime(bodyText);
+    calculateReadingTime(
+      bodyText
+    );
 
   const authorImage =
     story.authorPhoto ||
@@ -685,11 +1103,17 @@ function openReader(story) {
     story.uid ||
     "";
 
-  const profileLink = authorUid
-    ? `profile.html?id=${encodeURIComponent(authorUid)}`
-    : "#";
+
+  const profileLink =
+    authorUid
+      ? `profile.html?id=${encodeURIComponent(
+          authorUid
+        )}`
+      : "#";
+
 
   body.innerHTML = `
+
     <div class="reader-content">
 
       <img
@@ -698,9 +1122,11 @@ function openReader(story) {
         alt="${title}"
       >
 
+
       <div class="reader-inner">
 
         <div class="reader-kicker">
+
           <span class="lead-badge">
             ${category}
           </span>
@@ -708,13 +1134,19 @@ function openReader(story) {
           <span class="read-pill">
             ${readingTime} min read
           </span>
+
         </div>
 
-        <h1>${title}</h1>
+
+        <h1>
+          ${title}
+        </h1>
+
 
         <p class="reader-deck">
           ${excerpt}
         </p>
+
 
         <div class="reader-byline">
 
@@ -723,28 +1155,42 @@ function openReader(story) {
             alt="${escapeAttribute(author)}"
           >
 
+
           <div>
+
             <strong>
               ${escapeHTML(author)}
             </strong>
 
             ${
               authorUid
-                ? `<br>
-                   <a href="${escapeAttribute(profileLink)}">
-                     View Fellow Profile →
-                   </a>`
+                ? `
+                  <br>
+
+                  <a
+                    href="${escapeAttribute(
+                      profileLink
+                    )}"
+                  >
+                    View Fellow Profile →
+                  </a>
+                `
                 : ""
             }
+
           </div>
 
         </div>
 
+
         <div class="reader-body">
 
-          ${formatArticleBody(bodyText)}
+          ${formatArticleBody(
+            bodyText
+          )}
 
         </div>
+
 
         <div class="reader-share">
 
@@ -778,12 +1224,14 @@ function openReader(story) {
 
         </div>
 
+
         <div class="author-callout">
 
           <img
             src="${escapeAttribute(authorImage)}"
             alt="${escapeAttribute(author)}"
           >
+
 
           <div>
 
@@ -797,9 +1245,15 @@ function openReader(story) {
 
             ${
               authorUid
-                ? `<a href="${escapeAttribute(profileLink)}">
+                ? `
+                  <a
+                    href="${escapeAttribute(
+                      profileLink
+                    )}"
+                  >
                     View Fellow Profile →
-                  </a>`
+                  </a>
+                `
                 : ""
             }
 
@@ -810,332 +1264,540 @@ function openReader(story) {
       </div>
 
     </div>
+
   `;
 
-  modal.classList.add("open");
-  modal.setAttribute("aria-hidden", "false");
 
-  document.body.style.overflow = "hidden";
+  modal.classList.add(
+    "open"
+  );
 
-  setupShareButtons(title);
+  modal.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+  document.body.style.overflow =
+    "hidden";
+
+
+  setupShareButtons(
+    title
+  );
+
 }
 
 
 function closeReader() {
+
   const modal =
-    document.getElementById("reader-modal");
+    document.getElementById(
+      "reader-modal"
+    );
 
   if (!modal) return;
 
-  modal.classList.remove("open");
-  modal.setAttribute("aria-hidden", "true");
+  modal.classList.remove(
+    "open"
+  );
 
-  document.body.style.overflow = "";
+  modal.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  document.body.style.overflow =
+    "";
+
 }
 
 
 /* =========================================================
    ARTICLE BODY
-   ========================================================= */
+========================================================= */
 
-function formatArticleBody(text) {
+function formatArticleBody(
+  text
+) {
+
   if (!text) {
-    return "<p class='dropcap'>This story does not have additional content yet.</p>";
+
+    return `
+      <p class="dropcap">
+        This story does not have
+        additional content yet.
+      </p>
+    `;
+
   }
 
-  const paragraphs = String(text)
-    .split(/\n\s*\n/)
-    .map((paragraph) => paragraph.trim())
-    .filter(Boolean);
+
+  const paragraphs =
+    String(text)
+      .split(/\n\s*\n/)
+      .map(
+        (p) =>
+          p.trim()
+      )
+      .filter(Boolean);
+
 
   return paragraphs
-    .map((paragraph, index) => {
-      const safe = escapeHTML(paragraph);
+    .map(
+      (paragraph, index) => {
 
-      if (index === 0) {
-        return `<p class="dropcap">${safe}</p>`;
-      }
+        const safe =
+          escapeHTML(
+            paragraph
+          );
 
-      if (index === 2 && paragraphs.length > 4) {
+
+        if (
+          index === 0
+        ) {
+
+          return `
+            <p class="dropcap">
+              ${safe}
+            </p>
+          `;
+
+        }
+
+
+        if (
+          index === 2 &&
+          paragraphs.length > 4
+        ) {
+
+          return `
+
+            <blockquote class="pull-quote">
+              “Every journey begins with
+              a moment worth remembering.”
+            </blockquote>
+
+            <p>
+              ${safe}
+            </p>
+
+          `;
+
+        }
+
+
         return `
-          <blockquote class="pull-quote">
-            “Every journey begins with a moment worth remembering.”
-          </blockquote>
-          <p>${safe}</p>
+          <p>
+            ${safe}
+          </p>
         `;
-      }
 
-      return `<p>${safe}</p>`;
-    })
+      }
+    )
     .join("");
+
 }
 
 
 /* =========================================================
-   SHARE BUTTONS
-   ========================================================= */
+   SHARE
+========================================================= */
 
-function setupShareButtons(title) {
+function setupShareButtons(
+  title
+) {
+
   document
-    .querySelectorAll("[data-share]")
+    .querySelectorAll(
+      "[data-share]"
+    )
     .forEach((button) => {
-      button.addEventListener("click", async () => {
-        const type = button.dataset.share;
-        const url = window.location.href;
 
-        if (type === "copy") {
-          try {
-            await navigator.clipboard.writeText(url);
-            showToast?.("Story link copied.");
-          } catch {
-            showToast?.("Unable to copy link.");
+      button.addEventListener(
+        "click",
+        async () => {
+
+          const type =
+            button.dataset.share;
+
+          const url =
+            window.location.href;
+
+
+          if (
+            type === "copy"
+          ) {
+
+            try {
+
+              await navigator
+                .clipboard
+                .writeText(
+                  url
+                );
+
+              showToast?.(
+                "Story link copied."
+              );
+
+            } catch {
+
+              showToast?.(
+                "Unable to copy link."
+              );
+
+            }
+
+            return;
+
           }
 
-          return;
-        }
 
-        if (type === "whatsapp") {
-          const shareUrl =
-            `https://wa.me/?text=${encodeURIComponent(
-              `${title} ${url}`
-            )}`;
+          if (
+            type ===
+            "whatsapp"
+          ) {
 
-          window.open(
-            shareUrl,
-            "_blank",
-            "noopener,noreferrer"
-          );
+            const shareUrl =
+              `https://wa.me/?text=${encodeURIComponent(
+                `${title} ${url}`
+              )}`;
 
-          return;
-        }
+            window.open(
+              shareUrl,
+              "_blank",
+              "noopener,noreferrer"
+            );
 
-        if (type === "linkedin") {
-          const shareUrl =
-            `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-              url
-            )}`;
+            return;
 
-          window.open(
-            shareUrl,
-            "_blank",
-            "noopener,noreferrer"
-          );
-
-          return;
-        }
-
-        if (
-          type === "native" &&
-          navigator.share
-        ) {
-          try {
-            await navigator.share({
-              title,
-              url
-            });
-          } catch {
-            // User closed the share dialog.
           }
 
-          return;
-        }
 
-        showToast?.("Sharing is not available on this browser.");
-      });
+          if (
+            type ===
+            "linkedin"
+          ) {
+
+            const shareUrl =
+              `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                url
+              )}`;
+
+            window.open(
+              shareUrl,
+              "_blank",
+              "noopener,noreferrer"
+            );
+
+            return;
+
+          }
+
+
+          if (
+            type ===
+              "native" &&
+            navigator.share
+          ) {
+
+            try {
+
+              await navigator.share({
+                title,
+                url
+              });
+
+            } catch {
+
+              // User closed share window.
+
+            }
+
+            return;
+
+          }
+
+
+          showToast?.(
+            "Sharing is not available on this browser."
+          );
+
+        }
+      );
+
     });
+
 }
 
 
 /* =========================================================
    SLIDER
-   ========================================================= */
+========================================================= */
 
 function setupSlider() {
+
   const slider =
-    document.getElementById("featured-slider");
+    document.getElementById(
+      "featured-slider"
+    );
 
   const prev =
-    document.getElementById("slider-prev");
+    document.getElementById(
+      "slider-prev"
+    );
 
   const next =
-    document.getElementById("slider-next");
+    document.getElementById(
+      "slider-next"
+    );
 
   const dots =
-    document.getElementById("slider-dots");
+    document.getElementById(
+      "slider-dots"
+    );
+
 
   if (!slider) return;
 
-  const slides =
-    slider.querySelectorAll(".slide-card");
 
-  if (!slides.length) return;
+  const slides =
+    slider.querySelectorAll(
+      ".slide-card"
+    );
+
+
+  if (!slides.length)
+    return;
+
 
   if (dots) {
-    dots.innerHTML = "";
 
-    slides.forEach((_, index) => {
-      const dot =
-        document.createElement("button");
+    slides.forEach(
+      (_, index) => {
 
-      dot.className =
-        `slider-dot ${index === 0 ? "active" : ""}`;
+        const dot =
+          document.createElement(
+            "button"
+          );
 
-      dot.setAttribute(
-        "aria-label",
-        `Go to slide ${index + 1}`
-      );
+        dot.className =
+          `slider-dot ${
+            index === 0
+              ? "active"
+              : ""
+          }`;
 
-      dot.addEventListener("click", () => {
-        currentSlide = index;
-        updateSlider();
-      });
-
-      dots.appendChild(dot);
-    });
-  }
-
-  prev?.addEventListener("click", () => {
-    currentSlide =
-      (currentSlide - 1 + slides.length) %
-      slides.length;
-
-    updateSlider();
-  });
-
-  next?.addEventListener("click", () => {
-    currentSlide =
-      (currentSlide + 1) %
-      slides.length;
-
-    updateSlider();
-  });
-
-  function updateSlider() {
-    const width =
-      slider.clientWidth;
-
-    slider.scrollTo({
-      left: width * currentSlide,
-      behavior: "smooth"
-    });
-
-    dots
-      ?.querySelectorAll(".slider-dot")
-      .forEach((dot, index) => {
-        dot.classList.toggle(
-          "active",
-          index === currentSlide
+        dot.setAttribute(
+          "aria-label",
+          `Go to slide ${
+            index + 1
+          }`
         );
-      });
+
+
+        dot.addEventListener(
+          "click",
+          () => {
+
+            currentSlide =
+              index;
+
+            updateSlider();
+
+          }
+        );
+
+
+        dots.appendChild(
+          dot
+        );
+
+      }
+    );
+
   }
 
-  let autoSlide = setInterval(() => {
-    currentSlide =
-      (currentSlide + 1) %
-      slides.length;
 
-    updateSlider();
-  }, 6500);
+  prev?.addEventListener(
+    "click",
+    () => {
 
-  slider.addEventListener("mouseenter", () => {
-    clearInterval(autoSlide);
-  });
-
-  slider.addEventListener("mouseleave", () => {
-    autoSlide = setInterval(() => {
       currentSlide =
-        (currentSlide + 1) %
+        (
+          currentSlide -
+          1 +
+          slides.length
+        ) %
         slides.length;
 
       updateSlider();
-    }, 6500);
-  });
-}
+
+    }
+  );
 
 
-/* =========================================================
-   INFORMATION SECTIONS
-   ========================================================= */
+  next?.addEventListener(
+    "click",
+    () => {
 
-function setupInformationSections() {
+      currentSlide =
+        (
+          currentSlide +
+          1
+        ) %
+        slides.length;
 
-  document
-    .querySelectorAll(".info-toggle")
-    .forEach((button) => {
+      updateSlider();
 
-      button.addEventListener("click", () => {
+    }
+  );
 
-        const item =
-          button.closest(".info-item");
 
-        const content =
-          item?.querySelector(".info-content");
+  function updateSlider() {
 
-        if (!item || !content) return;
+    slider.scrollTo({
 
-        const alreadyOpen =
-          item.classList.contains("open");
+      left:
+        slider.clientWidth *
+        currentSlide,
 
-        document
-          .querySelectorAll(".info-item.open")
-          .forEach((openItem) => {
-
-            openItem.classList.remove("open");
-
-            const openContent =
-              openItem.querySelector(".info-content");
-
-            if (openContent) {
-              openContent.style.maxHeight = null;
-            }
-
-          });
-
-        if (!alreadyOpen) {
-          item.classList.add("open");
-
-          content.style.maxHeight =
-            `${content.scrollHeight}px`;
-        }
-
-      });
+      behavior:
+        "smooth"
 
     });
 
 
-  /*
-   * Breakthrough buttons
-   */
+    dots
+      ?.querySelectorAll(
+        ".slider-dot"
+      )
+      .forEach(
+        (dot, index) => {
 
-  document
-    .querySelectorAll(".info-card-button")
-    .forEach((button) => {
+          dot.classList.toggle(
+            "active",
+            index ===
+              currentSlide
+          );
 
-      button.addEventListener("click", () => {
+        }
+      );
 
-        const section =
-          document.getElementById("breakthroughs");
+  }
 
-        if (!section) return;
 
-        section.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
+  let autoSlide =
+    setInterval(
+      () => {
 
-        showToast?.(
-          "Explore more GIET breakthrough stories as they are published."
+        currentSlide =
+          (
+            currentSlide +
+            1
+          ) %
+          slides.length;
+
+        updateSlider();
+
+      },
+      6500
+    );
+
+
+  slider.addEventListener(
+    "mouseenter",
+    () => {
+
+      clearInterval(
+        autoSlide
+      );
+
+    }
+  );
+
+
+  slider.addEventListener(
+    "mouseleave",
+    () => {
+
+      autoSlide =
+        setInterval(
+          () => {
+
+            currentSlide =
+              (
+                currentSlide +
+                1
+              ) %
+              slides.length;
+
+            updateSlider();
+
+          },
+          6500
         );
 
-      });
+    }
+  );
 
-    });
 }
 
 
 /* =========================================================
-   PLACEMENT DIRECTORY
-   ========================================================= */
+   INFORMATION NAVIGATION
+========================================================= */
+
+function setupInformationNavigation() {
+
+  document
+    .querySelectorAll(
+      "[data-scroll]"
+    )
+    .forEach((button) => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const target =
+            button.dataset.scroll;
+
+          scrollToSection(
+            target
+          );
+
+        }
+      );
+
+    });
+
+
+  document
+    .querySelectorAll(
+      ".info-card-button"
+    )
+    .forEach((button) => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          showToast?.(
+            "More GIET breakthrough stories will appear here."
+          );
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   PLACEMENTS
+========================================================= */
 
 function setupPlacements() {
 
@@ -1145,76 +1807,99 @@ function setupPlacements() {
     );
 
   const page =
-    document.getElementById("placements");
+    document.getElementById(
+      "placements"
+    );
 
   const close =
     document.getElementById(
       "close-placements"
     );
 
-  const students =
-    document.getElementById(
-      "placement-students"
-    );
 
-  if (!spotlight || !page || !students) {
+  if (
+    !spotlight ||
+    !page
+  ) {
+
     return;
+
   }
+
 
   renderPlacements();
 
-  spotlight.addEventListener("click", () => {
-    openPlacements();
-  });
 
-  close?.addEventListener("click", () => {
-    closePlacements();
-  });
+  spotlight.addEventListener(
+    "click",
+    openPlacements
+  );
+
+
+  close?.addEventListener(
+    "click",
+    closePlacements
+  );
+
 }
 
 
 function openPlacements() {
 
   const page =
-    document.getElementById("placements");
+    document.getElementById(
+      "placements"
+    );
 
   if (!page) return;
 
-  page.hidden = false;
+
+  page.hidden =
+    false;
+
 
   page.scrollIntoView({
     behavior: "smooth",
     block: "start"
   });
 
+
   history.replaceState(
     null,
     "",
     "#placements"
   );
+
 }
 
 
 function closePlacements() {
 
   const page =
-    document.getElementById("placements");
+    document.getElementById(
+      "placements"
+    );
 
   if (!page) return;
 
-  page.hidden = true;
+
+  page.hidden =
+    true;
+
 
   history.replaceState(
     null,
     "",
     window.location.pathname +
-      window.location.search
+    window.location.search
   );
+
 
   window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
+
 }
 
 
@@ -1225,51 +1910,88 @@ function renderPlacements() {
       "placement-students"
     );
 
-  if (!container) return;
+  if (!container)
+    return;
+
 
   container.innerHTML =
     placementStudents
-      .map((student) => {
+      .map(
+        (student) => `
 
-        return `
-          <article class="student-placement-card">
+          <article
+            class="student-placement-card"
+          >
 
             <img
-              src="${escapeAttribute(student.image)}"
-              alt="${escapeAttribute(student.name)}"
+              src="${escapeAttribute(
+                student.image
+              )}"
+              alt="${escapeAttribute(
+                student.name
+              )}"
               loading="lazy"
             >
+
 
             <div class="student-info">
 
               <h3>
-                ${escapeHTML(student.name)}
+                ${escapeHTML(
+                  student.name
+                )}
               </h3>
 
-              <p>
-                ${escapeHTML(student.department)}
-              </p>
 
               <p>
-                ${escapeHTML(student.branch)}
-                ·
-                ${escapeHTML(student.year)}
+                ${escapeHTML(
+                  student.department
+                )}
               </p>
+
+
+              <p>
+                ${escapeHTML(
+                  student.branch
+                )}
+
+                ·
+
+                ${escapeHTML(
+                  student.year
+                )}
+              </p>
+
 
               <div class="student-company">
 
                 <div>
-                  <span>Company</span>
+
+                  <span>
+                    Company
+                  </span>
+
                   <strong>
-                    ${escapeHTML(student.company)}
+                    ${escapeHTML(
+                      student.company
+                    )}
                   </strong>
+
                 </div>
 
+
                 <div>
-                  <span>Package</span>
+
+                  <span>
+                    Package
+                  </span>
+
                   <strong class="package">
-                    ${escapeHTML(student.package)}
+                    ${escapeHTML(
+                      student.package
+                    )}
                   </strong>
+
                 </div>
 
               </div>
@@ -1277,16 +1999,17 @@ function renderPlacements() {
             </div>
 
           </article>
-        `;
 
-      })
+        `
+      )
       .join("");
+
 }
 
 
 /* =========================================================
-   STORY SUBMISSION MODAL
-   ========================================================= */
+   SUBMISSION MODAL
+========================================================= */
 
 function setupSubmissionModal() {
 
@@ -1305,41 +2028,69 @@ function setupSubmissionModal() {
       "close-submit-modal"
     );
 
-  if (!open || !modal) return;
 
-  open.addEventListener("click", () => {
+  if (
+    !open ||
+    !modal
+  ) return;
 
-    const user = getCurrentUser();
 
-    if (!user) {
-      showToast?.(
-        "Please sign in before sharing your story."
+  open.addEventListener(
+    "click",
+    () => {
+
+      const user =
+        getCurrentUser();
+
+
+      if (!user) {
+
+        showToast?.(
+          "Please sign in before sharing your story."
+        );
+
+        return;
+
+      }
+
+
+      modal.classList.add(
+        "open"
       );
 
-      return;
+      modal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.style.overflow =
+        "hidden";
+
     }
+  );
 
-    modal.classList.add("open");
-    modal.setAttribute(
-      "aria-hidden",
-      "false"
-    );
-
-    document.body.style.overflow = "hidden";
-  });
 
   close?.addEventListener(
     "click",
     closeSubmissionModal
   );
 
-  modal.addEventListener("click", (event) => {
 
-    if (event.target === modal) {
-      closeSubmissionModal();
+  modal.addEventListener(
+    "click",
+    (event) => {
+
+      if (
+        event.target === modal
+      ) {
+
+        closeSubmissionModal();
+
+      }
+
     }
+  );
 
-  });
 }
 
 
@@ -1350,22 +2101,28 @@ function closeSubmissionModal() {
       "submit-story-modal"
     );
 
-  if (!modal) return;
+  if (!modal)
+    return;
 
-  modal.classList.remove("open");
+
+  modal.classList.remove(
+    "open"
+  );
 
   modal.setAttribute(
     "aria-hidden",
     "true"
   );
 
-  document.body.style.overflow = "";
+  document.body.style.overflow =
+    "";
+
 }
 
 
 /* =========================================================
-   STORY FORM
-   ========================================================= */
+   STORY SUBMISSION
+========================================================= */
 
 function setupStorySubmission() {
 
@@ -1375,6 +2132,7 @@ function setupStorySubmission() {
     );
 
   if (!form) return;
+
 
   const body =
     document.getElementById(
@@ -1401,27 +2159,39 @@ function setupStorySubmission() {
       "story-image-preview"
     );
 
+
   body?.addEventListener(
     "input",
     () => {
 
-      const text =
-        body.value.trim();
-
       const words =
-        countWords(text);
+        countWords(
+          body.value.trim()
+        );
 
       const minutes =
-        calculateReadingTime(text);
+        calculateReadingTime(
+          body.value
+        );
+
 
       if (wordCount) {
+
         wordCount.textContent =
-          `${words} ${words === 1 ? "word" : "words"}`;
+          `${words} ${
+            words === 1
+              ? "word"
+              : "words"
+          }`;
+
       }
 
+
       if (readingTime) {
+
         readingTime.textContent =
           `${minutes} min read`;
+
       }
 
     }
@@ -1435,18 +2205,35 @@ function setupStorySubmission() {
       const url =
         imageInput.value.trim();
 
+
       if (!url) {
-        imagePreview.hidden = true;
-        imagePreview.removeAttribute("src");
+
+        imagePreview.hidden =
+          true;
+
+        imagePreview.removeAttribute(
+          "src"
+        );
+
         return;
+
       }
 
-      imagePreview.src = url;
-      imagePreview.hidden = false;
 
-      imagePreview.onerror = () => {
-        imagePreview.hidden = true;
-      };
+      imagePreview.src =
+        url;
+
+      imagePreview.hidden =
+        false;
+
+
+      imagePreview.onerror =
+        () => {
+
+          imagePreview.hidden =
+            true;
+
+        };
 
     }
   );
@@ -1458,41 +2245,51 @@ function setupStorySubmission() {
 
       event.preventDefault();
 
+
       const user =
         getCurrentUser();
 
+
       if (!user) {
+
         showToast?.(
           "Please sign in first."
         );
 
         return;
+
       }
+
 
       const title =
         document.getElementById(
           "story-title"
         )?.value.trim();
 
+
       const category =
         document.getElementById(
           "story-category"
         )?.value;
+
 
       const excerpt =
         document.getElementById(
           "story-excerpt"
         )?.value.trim();
 
+
       const image =
         document.getElementById(
           "story-image"
         )?.value.trim();
 
+
       const storyBody =
         document.getElementById(
           "story-body"
         )?.value.trim();
+
 
       if (
         !title ||
@@ -1500,23 +2297,32 @@ function setupStorySubmission() {
         !excerpt ||
         !storyBody
       ) {
+
         showToast?.(
           "Please complete all required fields."
         );
 
         return;
+
       }
+
 
       const submitButton =
         form.querySelector(
           'button[type="submit"]'
         );
 
+
       if (submitButton) {
-        submitButton.disabled = true;
+
+        submitButton.disabled =
+          true;
+
         submitButton.textContent =
           "Submitting...";
+
       }
+
 
       try {
 
@@ -1530,7 +2336,8 @@ function setupStorySubmission() {
 
           image,
 
-          body: storyBody,
+          body:
+            storyBody,
 
           authorUid:
             user.uid ||
@@ -1545,28 +2352,45 @@ function setupStorySubmission() {
 
         });
 
+
         form.reset();
 
+
         if (imagePreview) {
-          imagePreview.hidden = true;
-          imagePreview.removeAttribute("src");
+
+          imagePreview.hidden =
+            true;
+
+          imagePreview.removeAttribute(
+            "src"
+          );
+
         }
+
 
         if (wordCount) {
+
           wordCount.textContent =
             "0 words";
+
         }
+
 
         if (readingTime) {
+
           readingTime.textContent =
             "0 min read";
+
         }
 
+
         closeSubmissionModal();
+
 
         showToast?.(
           "Story submitted to the moderation queue."
         );
+
 
       } catch (error) {
 
@@ -1575,37 +2399,43 @@ function setupStorySubmission() {
           error
         );
 
+
         showToast?.(
           "Unable to submit your story. Please try again."
         );
 
+
       } finally {
 
         if (submitButton) {
-          submitButton.disabled = false;
+
+          submitButton.disabled =
+            false;
+
           submitButton.textContent =
             "Submit Story";
+
         }
 
       }
 
     }
   );
+
 }
 
 
 /* =========================================================
    AUTH
-   ========================================================= */
+========================================================= */
 
 function setupAuth() {
 
   try {
 
-    onAuthStateChange(() => {
-      // Re-rendering the page is not necessary here.
-      // The auth component handles the global header.
-    });
+    onAuthStateChange(
+      () => {}
+    );
 
   } catch (error) {
 
@@ -1615,12 +2445,13 @@ function setupAuth() {
     );
 
   }
+
 }
 
 
 /* =========================================================
-   DONATION / SUPPORT
-   ========================================================= */
+   DONATION
+========================================================= */
 
 function setupDonation() {
 
@@ -1629,138 +2460,191 @@ function setupDonation() {
       ".support-button"
     );
 
-  if (!button) return;
+  if (!button)
+    return;
 
-  button.addEventListener("click", () => {
 
-    showToast?.(
-      "Opening GIET support and donation page."
-    );
+  button.addEventListener(
+    "click",
+    () => {
 
-  });
+      showToast?.(
+        "Opening GIET support and donation page."
+      );
+
+    }
+  );
+
 }
 
 
 /* =========================================================
-   SCROLLING
-   ========================================================= */
+   SCROLL
+========================================================= */
 
-function scrollToSection(id) {
+function scrollToSection(
+  id
+) {
 
   const section =
-    document.getElementById(id);
+    document.getElementById(
+      id
+    );
 
-  if (!section) return;
+  if (!section)
+    return;
+
 
   section.scrollIntoView({
     behavior: "smooth",
     block: "start"
   });
 
-  /*
-   * Small offset for sticky headers.
-   */
-
-  setTimeout(() => {
-
-    window.scrollBy({
-      top: -20,
-      behavior: "smooth"
-    });
-
-  }, 300);
 }
 
 
 /* =========================================================
    WORD COUNT
-   ========================================================= */
+========================================================= */
 
-function countWords(text) {
+function countWords(
+  text
+) {
 
-  if (!text) return 0;
+  if (!text)
+    return 0;
+
 
   return text
     .trim()
     .split(/\s+/)
     .filter(Boolean)
     .length;
+
 }
 
 
 /* =========================================================
    READING TIME
-   ========================================================= */
+========================================================= */
 
-function calculateReadingTime(text) {
+function calculateReadingTime(
+  text
+) {
 
   const words =
     countWords(text);
 
-  if (!words) return 0;
 
-  /*
-   * Approx. 200 words per minute.
-   */
+  if (!words)
+    return 0;
+
 
   return Math.max(
     1,
-    Math.ceil(words / 200)
+    Math.ceil(
+      words / 200
+    )
   );
+
 }
 
 
 /* =========================================================
-   HTML SAFETY
-   ========================================================= */
+   SECURITY
+========================================================= */
 
-function escapeHTML(value) {
+function escapeHTML(
+  value
+) {
 
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+  return String(
+    value ?? ""
+  )
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
 }
 
 
-function escapeAttribute(value) {
-  return escapeHTML(value);
+function escapeAttribute(
+  value
+) {
+
+  return escapeHTML(
+    value
+  );
+
 }
 
 
 /* =========================================================
-   HASH SUPPORT
-   ========================================================= */
+   PLACEMENT HASH
+========================================================= */
 
-if (window.location.hash === "#placements") {
+if (
+  window.location.hash ===
+  "#placements"
+) {
 
-  setTimeout(() => {
+  setTimeout(
+    () => {
 
-    const page =
-      document.getElementById(
-        "placements"
-      );
+      const page =
+        document.getElementById(
+          "placements"
+        );
 
-    if (page) {
-      page.hidden = false;
-    }
+      if (page) {
 
-  }, 300);
+        page.hidden =
+          false;
+
+      }
+
+    },
+    300
+  );
 
 }
 
 
 /* =========================================================
    STORAGE SYNC
-   ========================================================= */
+========================================================= */
 
-window.addEventListener("storage", (event) => {
+window.addEventListener(
+  "storage",
+  (event) => {
 
-  if (event.key === SAVED_KEY) {
-    renderStories();
-    renderTrending();
+    if (
+      event.key ===
+      SAVED_KEY
+    ) {
+
+      renderStories();
+
+      renderTrending();
+
+    }
+
   }
-
-});
+);
