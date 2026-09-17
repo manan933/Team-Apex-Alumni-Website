@@ -1,155 +1,201 @@
-import { getSubmissions, createSubmission } from "../storage-service.js";
-import { getCurrentUser, onAuthStateChange } from "../auth.js";
-import { showToast } from "../nav.js";
+import {
+  getSubmissions,
+  createSubmission
+} from "../storage-service.js";
+
+import {
+  getCurrentUser,
+  onAuthStateChange
+} from "../auth.js";
+
+import {
+  showToast
+} from "../nav.js";
 
 
 /* =========================================================
-   SETTINGS
+   CONFIG
 ========================================================= */
 
 const SAVED_KEY = "alumni_saved_stories";
 
 let allStories = [];
 let currentCategory = "All";
-let currentSlide = 0;
 
 
 /* =========================================================
-   DEMO PLACEMENT DATA
+   DEMO PLACEMENTS
 ========================================================= */
 
 const placementStudents = [
-
   {
     name: "Aarav Das",
-    department: "Computer Science",
+    department: "Engineering",
     branch: "CSE-AIML",
     year: "2023–2027",
     company: "Microsoft",
     package: "₹13 LPA",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=85"
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=80"
   },
 
   {
     name: "Ananya Mohanty",
-    department: "Computer Science",
+    department: "Engineering",
     branch: "CSE",
     year: "2023–2027",
     company: "Deloitte",
     package: "₹12 LPA",
-    image:
-      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=800&q=85"
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=700&q=80"
   },
 
   {
     name: "Ritwik Sahu",
-    department: "Computer Science",
+    department: "Engineering",
     branch: "CSE-AIML",
     year: "2022–2026",
     company: "TCS",
     package: "₹10.5 LPA",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85"
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80"
   },
 
   {
     name: "Sneha Patnaik",
-    department: "Information Technology",
+    department: "Engineering",
     branch: "IT",
     year: "2023–2027",
     company: "Accenture",
     package: "₹9 LPA",
-    image:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=85"
+    image: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=700&q=80"
   },
 
   {
     name: "Aditya Rout",
-    department: "Computer Science",
+    department: "Engineering",
     branch: "CSE",
     year: "2022–2026",
     company: "Infosys",
     package: "₹8.5 LPA",
-    image:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=85"
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=700&q=80"
   },
 
   {
     name: "Priya Behera",
-    department: "Electrical Engineering",
+    department: "Engineering",
     branch: "EE",
     year: "2023–2027",
     company: "Wipro",
     package: "₹7.5 LPA",
-    image:
-      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=85"
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=700&q=80"
   },
 
   {
     name: "Rahul Pradhan",
-    department: "Electronics",
+    department: "Engineering",
     branch: "ECE",
     year: "2022–2026",
     company: "Capgemini",
     package: "₹7.2 LPA",
-    image:
-      "https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=800&q=85"
+    image: "https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=700&q=80"
   },
 
   {
     name: "Ishita Nayak",
-    department: "Computer Science",
+    department: "Engineering",
     branch: "CSE",
     year: "2023–2027",
     company: "IBM",
     package: "₹6.8 LPA",
-    image:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=85"
+    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=700&q=80"
   }
-
 ];
 
 
 /* =========================================================
-   INIT
+   DOM HELPERS
 ========================================================= */
 
-function init() {
+const $ = (selector, parent = document) =>
+  parent.querySelector(selector);
 
-  setupFilters();
+const $$ = (selector, parent = document) =>
+  [...parent.querySelectorAll(selector)];
 
-  setupSlider();
 
-  setupInformationNavigation();
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
-  setupPlacements();
-
-  setupSubmissionModal();
-
-  setupReaderModal();
-
-  setupStorySubmission();
-
-  setupAuth();
-
-  setupDonation();
-
-  loadStories();
-
+function escapeHTML(value = "") {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 
-if (document.readyState === "loading") {
+/* =========================================================
+   SAVED STORIES
+========================================================= */
 
-  document.addEventListener(
-    "DOMContentLoaded",
-    init
+function getSavedStories() {
+  try {
+    return JSON.parse(
+      localStorage.getItem(SAVED_KEY) || "[]"
+    );
+  } catch {
+    return [];
+  }
+}
+
+function setSavedStories(stories) {
+  localStorage.setItem(
+    SAVED_KEY,
+    JSON.stringify(stories)
   );
+}
 
-} else {
+function isSaved(id) {
+  return getSavedStories().includes(id);
+}
 
-  init();
+function toggleSaved(id) {
+
+  const saved = getSavedStories();
+
+  const index = saved.indexOf(id);
+
+  if (index >= 0) {
+    saved.splice(index, 1);
+    showToast?.("Story removed from saved stories.");
+  } else {
+    saved.push(id);
+    showToast?.("Story saved.");
+  }
+
+  setSavedStories(saved);
+
+  renderStories(currentCategory);
+}
+
+
+/* =========================================================
+   READING TIME
+========================================================= */
+
+function getReadingTime(text = "") {
+
+  const words = text
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .length;
+
+  return Math.max(
+    1,
+    Math.ceil(words / 200)
+  );
 
 }
 
@@ -160,49 +206,28 @@ if (document.readyState === "loading") {
 
 async function loadStories() {
 
-  const grid =
-    document.getElementById("news-grid");
-
-  if (!grid) return;
-
-  grid.innerHTML = `
-    <div class="empty-state">
-      Loading the latest GIET stories...
-    </div>
-  `;
-
   try {
 
-    const stories =
-      await getSubmissions("approved");
+    allStories = await getSubmissions("approved");
 
-    allStories =
-      Array.isArray(stories)
-        ? stories
-        : [];
+    if (!Array.isArray(allStories)) {
+      allStories = [];
+    }
 
-    renderStories();
-
+    renderStories("All");
     renderTrending();
 
   } catch (error) {
 
     console.error(
-      "Unable to load stories:",
+      "Could not load alumni stories:",
       error
     );
 
-    grid.innerHTML = `
-      <div class="empty-state">
-        <h3>
-          Stories are temporarily unavailable.
-        </h3>
+    allStories = [];
 
-        <p>
-          Please try again shortly.
-        </p>
-      </div>
-    `;
+    renderStories("All");
+    renderTrending();
 
   }
 
@@ -210,88 +235,27 @@ async function loadStories() {
 
 
 /* =========================================================
-   FILTERS
+   FILTER STORIES
 ========================================================= */
 
-function setupFilters() {
+function getFilteredStories(category) {
 
-  const container =
-    document.getElementById(
-      "news-category-filters"
+  if (category === "Saved") {
+
+    const saved = getSavedStories();
+
+    return allStories.filter(
+      story => saved.includes(story.id)
     );
 
-  if (!container) return;
+  }
 
-  container.addEventListener(
-    "click",
-    (event) => {
+  if (category === "All") {
+    return allStories;
+  }
 
-      const button =
-        event.target.closest(
-          ".filter-btn"
-        );
-
-      if (!button) return;
-
-      currentCategory =
-        button.dataset.category;
-
-      container
-        .querySelectorAll(
-          ".filter-btn"
-        )
-        .forEach((btn) => {
-
-          btn.classList.remove(
-            "active"
-          );
-
-        });
-
-      button.classList.add(
-        "active"
-      );
-
-
-      if (
-        currentCategory ===
-        "Story"
-      ) {
-
-        scrollToSection(
-          "stories-essays"
-        );
-
-      }
-
-
-      if (
-        currentCategory ===
-        "Achievement"
-      ) {
-
-        scrollToSection(
-          "breakthroughs"
-        );
-
-      }
-
-
-      if (
-        currentCategory ===
-        "News"
-      ) {
-
-        scrollToSection(
-          "campus-milestones"
-        );
-
-      }
-
-
-      renderStories();
-
-    }
+  return allStories.filter(
+    story => story.category === category
   );
 
 }
@@ -301,219 +265,105 @@ function setupFilters() {
    RENDER STORIES
 ========================================================= */
 
-function renderStories() {
+function renderStories(category = "All") {
 
-  const grid =
-    document.getElementById(
-      "news-grid"
-    );
+  currentCategory = category;
+
+  const grid = $("#news-grid");
 
   if (!grid) return;
 
-  let stories =
-    [...allStories];
-
-
-  if (
-    currentCategory ===
-    "Saved"
-  ) {
-
-    const saved =
-      getSavedStories();
-
-    stories =
-      stories.filter(
-        (story) =>
-          saved.includes(
-            getStoryId(story)
-          )
-      );
-
-  }
-
-  else if (
-    currentCategory !==
-    "All"
-  ) {
-
-    stories =
-      stories.filter(
-        (story) =>
-          normalizeCategory(
-            story.category
-          ) === currentCategory
-      );
-
-  }
-
+  const stories = getFilteredStories(category);
 
   if (!stories.length) {
 
     grid.innerHTML = `
-      <div class="empty-state">
-
-        <h3>
-          No stories found.
-        </h3>
-
+      <div class="empty-news-state">
+        <h3>No stories here yet.</h3>
         <p>
-          ${
-            currentCategory ===
-            "Saved"
-
-              ? "You have not saved any stories yet."
-
-              : "New stories will appear here as they are approved."
-          }
+          New stories and achievements will appear
+          here after moderation.
         </p>
-
       </div>
     `;
 
     return;
-
   }
 
 
-  grid.innerHTML =
-    stories
-      .map(
-        (story, index) =>
-          createStoryCard(
-            story,
-            index
-          )
-      )
-      .join("");
+  grid.innerHTML = stories.map((story, index) => {
 
+    const id =
+      story.id ||
+      `story-${index}`;
 
-  attachStoryEvents();
+    const title =
+      escapeHTML(
+        story.title ||
+        "Untitled story"
+      );
 
-}
+    const excerpt =
+      escapeHTML(
+        story.excerpt ||
+        story.body ||
+        ""
+      );
 
+    const categoryLabel =
+      escapeHTML(
+        story.category ||
+        "Story"
+      );
 
-/* =========================================================
-   STORY CARD
-========================================================= */
+    const image =
+      story.image ||
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80";
 
-function createStoryCard(
-  story,
-  index
-) {
-
-  const id =
-    getStoryId(story);
-
-  const title =
-    escapeHTML(
-      story.title ||
-      story.name ||
-      "Untitled story"
-    );
-
-  const excerpt =
-    escapeHTML(
-      story.excerpt ||
-      story.description ||
-      "Read the latest story from the GIET community."
-    );
-
-  const category =
-    normalizeCategory(
-      story.category
-    );
-
-  const image =
-    story.image ||
-    story.imageUrl ||
-    "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=85";
-
-  const author =
-    story.authorName ||
-    story.author ||
-    "GIET Alumni Community";
-
-  const readingTime =
-    calculateReadingTime(
-      story.body ||
-      story.content ||
-      story.text ||
-      ""
-    );
-
-  const saved =
-    isStorySaved(id);
-
-
-  if (index === 0) {
+    const saved =
+      isSaved(id);
 
     return `
-
       <article
-        class="news-card lead-story"
-        data-story-id="${escapeAttribute(id)}"
+        class="news-card"
+        data-story-id="${escapeHTML(id)}"
       >
 
-        <div>
+        <img
+          src="${escapeHTML(image)}"
+          alt="${title}"
+          loading="lazy"
+        >
 
-          <img
-            src="${escapeAttribute(image)}"
-            alt="${title}"
-            loading="lazy"
-          >
+        <div class="news-card-body">
 
-        </div>
-
-
-        <div class="lead-copy">
-
-          <div class="card-meta">
-
-            <span class="lead-badge">
-              ${category}
-            </span>
-
-            <span>
-              ${readingTime} min read
-            </span>
-
+          <div class="news-card-category">
+            ${categoryLabel}
           </div>
 
-
           <h3>
-
-            <a
-              href="#"
-              class="story-open"
-            >
-              ${title}
-            </a>
-
+            ${title}
           </h3>
 
-
           <p>
-            ${excerpt}
+            ${excerpt.slice(0, 180)}
+            ${excerpt.length > 180 ? "…" : ""}
           </p>
 
-
-          <div class="author-line">
-
-            <span>
-              ${escapeHTML(author)}
-            </span>
-
+          <div class="news-card-footer">
 
             <button
-              class="save-btn ${
-                saved ? "saved" : ""
-              }"
-              type="button"
-              data-save-id="${escapeAttribute(id)}"
-              aria-label="Save story"
+              class="read-story-btn"
+              data-read-story="${escapeHTML(id)}"
             >
-              ${saved ? "★" : "☆"}
+              READ STORY →
+            </button>
+
+            <button
+              class="save-story-btn"
+              data-save-story="${escapeHTML(id)}"
+            >
+              ${saved ? "★ SAVED" : "☆ SAVE"}
             </button>
 
           </div>
@@ -521,309 +371,203 @@ function createStoryCard(
         </div>
 
       </article>
-
     `;
 
-  }
+  }).join("");
 
 
-  return `
+  bindStoryButtons();
 
-    <article
-      class="news-card"
-      data-story-id="${escapeAttribute(id)}"
-    >
+}
+
+
+/* =========================================================
+   STORY BUTTONS
+========================================================= */
+
+function bindStoryButtons() {
+
+  $$("[data-read-story]").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const id =
+        button.dataset.readStory;
+
+      openReader(id);
+
+    });
+
+  });
+
+
+  $$("[data-save-story]").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const id =
+        button.dataset.saveStory;
+
+      toggleSaved(id);
+
+    });
+
+  });
+
+}
+
+
+/* =========================================================
+   READER
+========================================================= */
+
+function openReader(id) {
+
+  const story =
+    allStories.find(
+      item => item.id === id
+    );
+
+  if (!story) return;
+
+  const modal =
+    $("#reader-modal");
+
+  const body =
+    $("#reader-modal-body");
+
+  if (!modal || !body) return;
+
+
+  const title =
+    escapeHTML(
+      story.title ||
+      "Untitled story"
+    );
+
+  const category =
+    escapeHTML(
+      story.category ||
+      "Story"
+    );
+
+  const author =
+    escapeHTML(
+      story.authorName ||
+      story.author ||
+      "GIET Alumni"
+    );
+
+  const storyBody =
+    story.body ||
+    story.content ||
+    story.excerpt ||
+    "";
+
+  const readingTime =
+    getReadingTime(storyBody);
+
+
+  const authorImage =
+    story.authorPhoto ||
+    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80";
+
+
+  body.innerHTML = `
+
+    <div class="reader-meta">
+
+      <span>
+        ${category}
+      </span>
+
+      <span>
+        ${readingTime} MIN READ
+      </span>
+
+      <span>
+        GIET ALUMNI GAZETTE
+      </span>
+
+    </div>
+
+
+    <h1>
+      ${title}
+    </h1>
+
+
+    <div class="reader-body">
+
+      ${escapeHTML(storyBody)
+        .split(/\n+/)
+        .filter(Boolean)
+        .map(paragraph => `<p>${paragraph}</p>`)
+        .join("")}
+
+    </div>
+
+
+    <div class="pull-quote">
+      Stories, experiences and ideas
+      that continue beyond the campus.
+    </div>
+
+
+    <div class="author-callout">
 
       <img
-        src="${escapeAttribute(image)}"
-        alt="${title}"
-        loading="lazy"
+        src="${escapeHTML(authorImage)}"
+        alt="${author}"
       >
 
+      <div>
 
-      <div class="card-meta">
+        <strong>
+          ${author}
+        </strong>
 
         <span>
-          ${category}
-        </span>
-
-        <span>
-          ${readingTime} min read
+          GIET Alumni Community
         </span>
 
       </div>
 
-
-      <h3>
-
-        <a
-          href="#"
-          class="story-open"
-        >
-          ${title}
-        </a>
-
-      </h3>
-
-
-      <p>
-        ${excerpt}
-      </p>
-
-
-      <div class="author-line">
-
-        <span>
-          ${escapeHTML(author)}
-        </span>
-
-
-        <button
-          class="save-btn ${
-            saved ? "saved" : ""
-          }"
-          type="button"
-          data-save-id="${escapeAttribute(id)}"
-          aria-label="Save story"
-        >
-          ${saved ? "★" : "☆"}
-        </button>
-
-      </div>
-
-    </article>
+    </div>
 
   `;
 
-}
 
-
-/* =========================================================
-   STORY EVENTS
-========================================================= */
-
-function attachStoryEvents() {
-
-  const grid =
-    document.getElementById(
-      "news-grid"
-    );
-
-  if (!grid) return;
-
-
-  grid
-    .querySelectorAll(
-      ".story-open"
-    )
-    .forEach((link) => {
-
-      link.addEventListener(
-        "click",
-        (event) => {
-
-          event.preventDefault();
-
-          const card =
-            link.closest(
-              ".news-card"
-            );
-
-          if (!card) return;
-
-          const story =
-            allStories.find(
-              (item) =>
-                getStoryId(item) ===
-                card.dataset.storyId
-            );
-
-          if (story) {
-
-            openReader(story);
-
-          }
-
-        }
-      );
-
-    });
-
-
-  grid
-    .querySelectorAll(
-      ".save-btn"
-    )
-    .forEach((button) => {
-
-      button.addEventListener(
-        "click",
-        (event) => {
-
-          event.preventDefault();
-
-          event.stopPropagation();
-
-          toggleSavedStory(
-            button.dataset.saveId
-          );
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =========================================================
-   CATEGORY
-========================================================= */
-
-function normalizeCategory(
-  category
-) {
-
-  const value =
-    String(category || "")
-      .toLowerCase();
-
-
-  if (
-    value.includes("story") ||
-    value.includes("essay")
-  ) {
-
-    return "Story";
-
-  }
-
-
-  if (
-    value.includes("achievement") ||
-    value.includes("breakthrough")
-  ) {
-
-    return "Achievement";
-
-  }
-
-
-  return "News";
-
-}
-
-
-/* =========================================================
-   STORY ID
-========================================================= */
-
-function getStoryId(
-  story
-) {
-
-  return String(
-    story.id ||
-    story.uid ||
-    story.submissionId ||
-    `${story.title || "story"}-${story.createdAt || ""}`
+  modal.classList.add("open");
+  modal.setAttribute(
+    "aria-hidden",
+    "false"
   );
 
+  document.body.style.overflow = "hidden";
+
 }
 
 
 /* =========================================================
-   SAVED STORIES
+   CLOSE READER
 ========================================================= */
 
-function getSavedStories() {
+function closeReader() {
 
-  try {
+  const modal =
+    $("#reader-modal");
 
-    return JSON.parse(
-      localStorage.getItem(
-        SAVED_KEY
-      ) || "[]"
-    );
+  if (!modal) return;
 
-  } catch {
+  modal.classList.remove("open");
 
-    return [];
-
-  }
-
-}
-
-
-function saveStories(
-  ids
-) {
-
-  localStorage.setItem(
-    SAVED_KEY,
-    JSON.stringify(ids)
+  modal.setAttribute(
+    "aria-hidden",
+    "true"
   );
 
-}
-
-
-function isStorySaved(
-  id
-) {
-
-  return getSavedStories()
-    .includes(
-      String(id)
-    );
-
-}
-
-
-function toggleSavedStory(
-  id
-) {
-
-  const storyId =
-    String(id);
-
-  let saved =
-    getSavedStories();
-
-
-  if (
-    saved.includes(storyId)
-  ) {
-
-    saved =
-      saved.filter(
-        (item) =>
-          item !== storyId
-      );
-
-    showToast?.(
-      "Story removed from saved stories."
-    );
-
-  }
-
-  else {
-
-    saved.push(
-      storyId
-    );
-
-    showToast?.(
-      "Story saved."
-    );
-
-  }
-
-
-  saveStories(saved);
-
-  renderStories();
-
-  renderTrending();
+  document.body.style.overflow = "";
 
 }
 
@@ -835,782 +579,318 @@ function toggleSavedStory(
 function renderTrending() {
 
   const list =
-    document.getElementById(
-      "trending-list"
-    );
+    $("#trending-list");
 
   if (!list) return;
 
-
-  if (!allStories.length) {
-
-    list.innerHTML = `
-      <li>
-
-        <b>01</b>
-
-        <div>
-
-          <a href="#stories-essays">
-            New GIET stories will appear here.
-          </a>
-
-        </div>
-
-      </li>
-    `;
-
-    return;
-
-  }
-
-
-  const trending =
+  const stories =
     [...allStories]
       .sort(
-        (a, b) => {
-
-          const aDate =
-            new Date(
-              a.createdAt ||
-              a.updatedAt ||
-              0
-            ).getTime();
-
-          const bDate =
-            new Date(
-              b.createdAt ||
-              b.updatedAt ||
-              0
-            ).getTime();
-
-          return bDate - aDate;
-
-        }
+        (a, b) =>
+          new Date(b.createdAt || 0) -
+          new Date(a.createdAt || 0)
       )
       .slice(0, 5);
 
 
-  list.innerHTML =
-    trending
-      .map(
-        (story, index) => {
-
-          const id =
-            getStoryId(story);
-
-          const title =
-            escapeHTML(
-              story.title ||
-              "GIET story"
-            );
-
-          return `
-
-            <li>
-
-              <b>
-                ${String(
-                  index + 1
-                ).padStart(
-                  2,
-                  "0"
-                )}
-              </b>
-
-
-              <div>
-
-                <a
-                  href="#"
-                  data-trending-id="${escapeAttribute(id)}"
-                >
-                  ${title}
-                </a>
-
-
-                <span class="trending-meta">
-                  ${normalizeCategory(
-                    story.category
-                  )}
-                </span>
-
-              </div>
-
-            </li>
-
-          `;
-
-        }
-      )
-      .join("");
-
-
-  list
-    .querySelectorAll(
-      "[data-trending-id]"
-    )
-    .forEach((link) => {
-
-      link.addEventListener(
-        "click",
-        (event) => {
-
-          event.preventDefault();
-
-          const story =
-            allStories.find(
-              (item) =>
-                getStoryId(item) ===
-                link.dataset.trendingId
-            );
-
-          if (story) {
-
-            openReader(story);
-
-          }
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =========================================================
-   READER
-========================================================= */
-
-function setupReaderModal() {
-
-  const close =
-    document.getElementById(
-      "close-reader-modal"
-    );
-
-  const modal =
-    document.getElementById(
-      "reader-modal"
-    );
-
-
-  close?.addEventListener(
-    "click",
-    closeReader
-  );
-
-
-  modal?.addEventListener(
-    "click",
-    (event) => {
-
-      if (
-        event.target === modal
-      ) {
-
-        closeReader();
-
-      }
-
-    }
-  );
-
-
-  document.addEventListener(
-    "keydown",
-    (event) => {
-
-      if (
-        event.key ===
-        "Escape"
-      ) {
-
-        closeReader();
-
-      }
-
-    }
-  );
-
-}
-
-
-function openReader(
-  story
-) {
-
-  const modal =
-    document.getElementById(
-      "reader-modal"
-    );
-
-  const body =
-    document.getElementById(
-      "reader-modal-body"
-    );
-
-  if (!modal || !body)
-    return;
-
-
-  const title =
-    escapeHTML(
-      story.title ||
-      "GIET Alumni Story"
-    );
-
-  const excerpt =
-    escapeHTML(
-      story.excerpt ||
-      ""
-    );
-
-  const author =
-    story.authorName ||
-    story.author ||
-    "GIET Alumni Community";
-
-  const bodyText =
-    story.body ||
-    story.content ||
-    story.text ||
-    excerpt;
-
-  const image =
-    story.image ||
-    story.imageUrl ||
-    "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=85";
-
-  const category =
-    normalizeCategory(
-      story.category
-    );
-
-  const readingTime =
-    calculateReadingTime(
-      bodyText
-    );
-
-  const authorImage =
-    story.authorPhoto ||
-    story.authorImage ||
-    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80";
-
-  const authorUid =
-    story.authorUid ||
-    story.uid ||
-    "";
-
-
-  const profileLink =
-    authorUid
-      ? `profile.html?id=${encodeURIComponent(
-          authorUid
-        )}`
-      : "#";
-
-
-  body.innerHTML = `
-
-    <div class="reader-content">
-
-      <img
-        class="reader-hero"
-        src="${escapeAttribute(image)}"
-        alt="${title}"
-      >
-
-
-      <div class="reader-inner">
-
-        <div class="reader-kicker">
-
-          <span class="lead-badge">
-            ${category}
-          </span>
-
-          <span class="read-pill">
-            ${readingTime} min read
-          </span>
-
-        </div>
-
-
-        <h1>
-          ${title}
-        </h1>
-
-
-        <p class="reader-deck">
-          ${excerpt}
-        </p>
-
-
-        <div class="reader-byline">
-
-          <img
-            src="${escapeAttribute(authorImage)}"
-            alt="${escapeAttribute(author)}"
-          >
-
-
-          <div>
-
-            <strong>
-              ${escapeHTML(author)}
-            </strong>
-
-            ${
-              authorUid
-                ? `
-                  <br>
-
-                  <a
-                    href="${escapeAttribute(
-                      profileLink
-                    )}"
-                  >
-                    View Fellow Profile →
-                  </a>
-                `
-                : ""
-            }
-
-          </div>
-
-        </div>
-
-
-        <div class="reader-body">
-
-          ${formatArticleBody(
-            bodyText
-          )}
-
-        </div>
-
-
-        <div class="reader-share">
-
-          <button
-            class="share-btn"
-            data-share="copy"
-          >
-            Copy link
-          </button>
-
-          <button
-            class="share-btn"
-            data-share="whatsapp"
-          >
-            WhatsApp
-          </button>
-
-          <button
-            class="share-btn"
-            data-share="linkedin"
-          >
-            LinkedIn
-          </button>
-
-          <button
-            class="share-btn"
-            data-share="native"
-          >
-            Share
-          </button>
-
-        </div>
-
-
-        <div class="author-callout">
-
-          <img
-            src="${escapeAttribute(authorImage)}"
-            alt="${escapeAttribute(author)}"
-          >
-
-
-          <div>
-
-            <h3>
-              ${escapeHTML(author)}
-            </h3>
-
-            <p>
-              GIET Alumni Community
-            </p>
-
-            ${
-              authorUid
-                ? `
-                  <a
-                    href="${escapeAttribute(
-                      profileLink
-                    )}"
-                  >
-                    View Fellow Profile →
-                  </a>
-                `
-                : ""
-            }
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  `;
-
-
-  modal.classList.add(
-    "open"
-  );
-
-  modal.setAttribute(
-    "aria-hidden",
-    "false"
-  );
-
-  document.body.style.overflow =
-    "hidden";
-
-
-  setupShareButtons(
-    title
-  );
-
-}
-
-
-function closeReader() {
-
-  const modal =
-    document.getElementById(
-      "reader-modal"
-    );
-
-  if (!modal) return;
-
-  modal.classList.remove(
-    "open"
-  );
-
-  modal.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-
-  document.body.style.overflow =
-    "";
-
-}
-
-
-/* =========================================================
-   ARTICLE BODY
-========================================================= */
-
-function formatArticleBody(
-  text
-) {
-
-  if (!text) {
-
-    return `
-      <p class="dropcap">
-        This story does not have
-        additional content yet.
-      </p>
+  if (!stories.length) {
+
+    list.innerHTML = `
+      <li>
+        <button type="button">
+          New alumni stories arriving soon
+        </button>
+      </li>
+
+      <li>
+        <button type="button">
+          Explore GIET achievements
+        </button>
+      </li>
+
+      <li>
+        <button type="button">
+          Discover campus milestones
+        </button>
+      </li>
     `;
 
+    return;
   }
 
 
-  const paragraphs =
-    String(text)
-      .split(/\n\s*\n/)
-      .map(
-        (p) =>
-          p.trim()
+  list.innerHTML =
+    stories.map(story => {
+
+      const id =
+        escapeHTML(story.id);
+
+      return `
+        <li>
+          <button
+            type="button"
+            data-trending-story="${id}"
+          >
+            ${escapeHTML(
+              story.title ||
+              "Untitled story"
+            )}
+          </button>
+        </li>
+      `;
+
+    }).join("");
+
+
+  $$("[data-trending-story]").forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => openReader(
+        button.dataset.trendingStory
       )
-      .filter(Boolean);
+    );
 
-
-  return paragraphs
-    .map(
-      (paragraph, index) => {
-
-        const safe =
-          escapeHTML(
-            paragraph
-          );
-
-
-        if (
-          index === 0
-        ) {
-
-          return `
-            <p class="dropcap">
-              ${safe}
-            </p>
-          `;
-
-        }
-
-
-        if (
-          index === 2 &&
-          paragraphs.length > 4
-        ) {
-
-          return `
-
-            <blockquote class="pull-quote">
-              “Every journey begins with
-              a moment worth remembering.”
-            </blockquote>
-
-            <p>
-              ${safe}
-            </p>
-
-          `;
-
-        }
-
-
-        return `
-          <p>
-            ${safe}
-          </p>
-        `;
-
-      }
-    )
-    .join("");
+  });
 
 }
 
 
 /* =========================================================
-   SHARE
+   FILTER NAVIGATION
 ========================================================= */
 
-function setupShareButtons(
-  title
-) {
+function setupFilters() {
 
-  document
-    .querySelectorAll(
-      "[data-share]"
-    )
-    .forEach((button) => {
+  const filters =
+    $$("#news-category-filters .filter-btn");
 
-      button.addEventListener(
-        "click",
-        async () => {
+  filters.forEach(button => {
 
-          const type =
-            button.dataset.share;
+    button.addEventListener(
+      "click",
+      () => {
 
-          const url =
-            window.location.href;
+        filters.forEach(
+          item =>
+            item.classList.remove("active")
+        );
 
+        button.classList.add("active");
 
-          if (
-            type === "copy"
-          ) {
+        const category =
+          button.dataset.category;
 
-            try {
-
-              await navigator
-                .clipboard
-                .writeText(
-                  url
-                );
-
-              showToast?.(
-                "Story link copied."
-              );
-
-            } catch {
-
-              showToast?.(
-                "Unable to copy link."
-              );
-
-            }
-
-            return;
-
-          }
+        renderStories(category);
 
 
-          if (
-            type ===
-            "whatsapp"
-          ) {
+        if (category === "Story") {
 
-            const shareUrl =
-              `https://wa.me/?text=${encodeURIComponent(
-                `${title} ${url}`
-              )}`;
+          scrollToSection(
+            "stories-essays"
+          );
 
-            window.open(
-              shareUrl,
-              "_blank",
-              "noopener,noreferrer"
-            );
+        } else if (
+          category === "Achievement"
+        ) {
 
-            return;
+          scrollToSection(
+            "breakthroughs"
+          );
 
-          }
+        } else if (
+          category === "News"
+        ) {
 
+          scrollToSection(
+            "campus-milestones"
+          );
 
-          if (
-            type ===
-            "linkedin"
-          ) {
+        } else if (
+          category === "Saved"
+        ) {
 
-            const shareUrl =
-              `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-                url
-              )}`;
-
-            window.open(
-              shareUrl,
-              "_blank",
-              "noopener,noreferrer"
-            );
-
-            return;
-
-          }
-
-
-          if (
-            type ===
-              "native" &&
-            navigator.share
-          ) {
-
-            try {
-
-              await navigator.share({
-                title,
-                url
-              });
-
-            } catch {
-
-              // User closed share window.
-
-            }
-
-            return;
-
-          }
-
-
-          showToast?.(
-            "Sharing is not available on this browser."
+          scrollToSection(
+            "news-grid"
           );
 
         }
-      );
 
-    });
+      }
+    );
+
+  });
 
 }
 
 
 /* =========================================================
-   SLIDER
+   SCROLL HELPERS
+========================================================= */
+
+function scrollToSection(id) {
+
+  const target =
+    document.getElementById(id);
+
+  if (!target) return;
+
+  const offset = 95;
+
+  const top =
+    target.getBoundingClientRect().top +
+    window.scrollY -
+    offset;
+
+  window.scrollTo({
+    top,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =========================================================
+   HERO BUTTON
+========================================================= */
+
+function setupHeroScroll() {
+
+  $$("[data-scroll-target]").forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        scrollToSection(
+          button.dataset.scrollTarget
+        );
+
+      }
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   INFO ACCORDION
+========================================================= */
+
+function setupInformationAccordion() {
+
+  $$(".info-toggle").forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        const item =
+          button.closest(".info-item");
+
+        if (!item) return;
+
+        item.classList.toggle("open");
+
+      }
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   FEATURE SLIDER
 ========================================================= */
 
 function setupSlider() {
 
   const slider =
-    document.getElementById(
-      "featured-slider"
-    );
+    $("#featured-slider");
 
-  const prev =
-    document.getElementById(
-      "slider-prev"
-    );
+  const previous =
+    $("#slider-prev");
 
   const next =
-    document.getElementById(
-      "slider-next"
-    );
+    $("#slider-next");
 
   const dots =
-    document.getElementById(
-      "slider-dots"
-    );
+    $("#slider-dots");
 
 
   if (!slider) return;
 
 
   const slides =
-    slider.querySelectorAll(
-      ".slide-card"
-    );
+    $$(".slide-card", slider);
 
 
-  if (!slides.length)
-    return;
+  if (!slides.length) return;
 
 
-  if (dots) {
-
-    slides.forEach(
-      (_, index) => {
-
-        const dot =
-          document.createElement(
-            "button"
-          );
-
-        dot.className =
-          `slider-dot ${
-            index === 0
-              ? "active"
-              : ""
-          }`;
-
-        dot.setAttribute(
-          "aria-label",
-          `Go to slide ${
-            index + 1
-          }`
-        );
+  let current = 0;
 
 
-        dot.addEventListener(
-          "click",
-          () => {
+  function createDots() {
 
-            currentSlide =
-              index;
+    if (!dots) return;
 
-            updateSlider();
+    dots.innerHTML =
+      slides.map(
+        (_, index) => `
+          <button
+            class="slider-dot ${
+              index === 0 ? "active" : ""
+            }"
+            data-slide="${index}"
+            aria-label="Go to slide ${index + 1}"
+          ></button>
+        `
+      ).join("");
 
-          }
-        );
+
+    $$(".slider-dot").forEach(dot => {
+
+      dot.addEventListener(
+        "click",
+        () => {
+
+          current =
+            Number(
+              dot.dataset.slide
+            );
+
+          moveToSlide();
+
+        }
+      );
+
+    });
+
+  }
 
 
-        dots.appendChild(
-          dot
+  function moveToSlide() {
+
+    const slide =
+      slides[current];
+
+    if (!slide) return;
+
+    slider.scrollTo({
+      left: slide.offsetLeft,
+      behavior: "smooth"
+    });
+
+
+    $$(".slider-dot").forEach(
+      (dot, index) => {
+
+        dot.classList.toggle(
+          "active",
+          index === current
         );
 
       }
@@ -1619,19 +899,16 @@ function setupSlider() {
   }
 
 
-  prev?.addEventListener(
+  previous?.addEventListener(
     "click",
     () => {
 
-      currentSlide =
-        (
-          currentSlide -
-          1 +
-          slides.length
-        ) %
-        slides.length;
+      current =
+        current <= 0
+          ? slides.length - 1
+          : current - 1;
 
-      updateSlider();
+      moveToSlide();
 
     }
   );
@@ -1641,368 +918,141 @@ function setupSlider() {
     "click",
     () => {
 
-      currentSlide =
-        (
-          currentSlide +
-          1
-        ) %
-        slides.length;
+      current =
+        current >= slides.length - 1
+          ? 0
+          : current + 1;
 
-      updateSlider();
+      moveToSlide();
 
     }
   );
 
 
-  function updateSlider() {
-
-    slider.scrollTo({
-
-      left:
-        slider.clientWidth *
-        currentSlide,
-
-      behavior:
-        "smooth"
-
-    });
-
-
-    dots
-      ?.querySelectorAll(
-        ".slider-dot"
-      )
-      .forEach(
-        (dot, index) => {
-
-          dot.classList.toggle(
-            "active",
-            index ===
-              currentSlide
-          );
-
-        }
-      );
-
-  }
-
-
-  let autoSlide =
-    setInterval(
-      () => {
-
-        currentSlide =
-          (
-            currentSlide +
-            1
-          ) %
-          slides.length;
-
-        updateSlider();
-
-      },
-      6500
-    );
-
-
-  slider.addEventListener(
-    "mouseenter",
-    () => {
-
-      clearInterval(
-        autoSlide
-      );
-
-    }
-  );
-
-
-  slider.addEventListener(
-    "mouseleave",
-    () => {
-
-      autoSlide =
-        setInterval(
-          () => {
-
-            currentSlide =
-              (
-                currentSlide +
-                1
-              ) %
-              slides.length;
-
-            updateSlider();
-
-          },
-          6500
-        );
-
-    }
-  );
+  createDots();
 
 }
 
 
 /* =========================================================
-   INFORMATION NAVIGATION
+   PLACEMENT DIRECTORY
 ========================================================= */
-
-function setupInformationNavigation() {
-
-  document
-    .querySelectorAll(
-      "[data-scroll]"
-    )
-    .forEach((button) => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          const target =
-            button.dataset.scroll;
-
-          scrollToSection(
-            target
-          );
-
-        }
-      );
-
-    });
-
-
-  document
-    .querySelectorAll(
-      ".info-card-button"
-    )
-    .forEach((button) => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          showToast?.(
-            "More GIET breakthrough stories will appear here."
-          );
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =========================================================
-   PLACEMENTS
-========================================================= */
-
-function setupPlacements() {
-
-  const spotlight =
-    document.getElementById(
-      "placements-spotlight"
-    );
-
-  const page =
-    document.getElementById(
-      "placements"
-    );
-
-  const close =
-    document.getElementById(
-      "close-placements"
-    );
-
-
-  if (
-    !spotlight ||
-    !page
-  ) {
-
-    return;
-
-  }
-
-
-  renderPlacements();
-
-
-  spotlight.addEventListener(
-    "click",
-    openPlacements
-  );
-
-
-  close?.addEventListener(
-    "click",
-    closePlacements
-  );
-
-}
-
-
-function openPlacements() {
-
-  const page =
-    document.getElementById(
-      "placements"
-    );
-
-  if (!page) return;
-
-
-  page.hidden =
-    false;
-
-
-  page.scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
-
-
-  history.replaceState(
-    null,
-    "",
-    "#placements"
-  );
-
-}
-
-
-function closePlacements() {
-
-  const page =
-    document.getElementById(
-      "placements"
-    );
-
-  if (!page) return;
-
-
-  page.hidden =
-    true;
-
-
-  history.replaceState(
-    null,
-    "",
-    window.location.pathname +
-    window.location.search
-  );
-
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-}
-
 
 function renderPlacements() {
 
   const container =
-    document.getElementById(
-      "placement-students"
-    );
+    $("#placement-students");
 
-  if (!container)
-    return;
+  if (!container) return;
 
 
   container.innerHTML =
-    placementStudents
-      .map(
-        (student) => `
+    placementStudents.map(student => `
 
-          <article
-            class="student-placement-card"
-          >
+      <article class="placement-student">
 
-            <img
-              src="${escapeAttribute(
-                student.image
-              )}"
-              alt="${escapeAttribute(
-                student.name
-              )}"
-              loading="lazy"
-            >
+        <img
+          src="${student.image}"
+          alt="${escapeHTML(student.name)}"
+          loading="lazy"
+        >
 
+        <div class="placement-student-body">
 
-            <div class="student-info">
+          <span>
+            ${escapeHTML(student.branch)}
+          </span>
 
-              <h3>
-                ${escapeHTML(
-                  student.name
-                )}
-              </h3>
+          <h3>
+            ${escapeHTML(student.name)}
+          </h3>
 
+          <p>
+            Department:
+            ${escapeHTML(student.department)}
+          </p>
 
-              <p>
-                ${escapeHTML(
-                  student.department
-                )}
-              </p>
+          <p>
+            Batch:
+            ${escapeHTML(student.year)}
+          </p>
 
+          <p>
+            Company:
+            ${escapeHTML(student.company)}
+          </p>
 
-              <p>
-                ${escapeHTML(
-                  student.branch
-                )}
+          <div class="placement-package">
+            ${escapeHTML(student.package)}
+          </div>
 
-                ·
+        </div>
 
-                ${escapeHTML(
-                  student.year
-                )}
-              </p>
+      </article>
 
+    `).join("");
 
-              <div class="student-company">
-
-                <div>
-
-                  <span>
-                    Company
-                  </span>
-
-                  <strong>
-                    ${escapeHTML(
-                      student.company
-                    )}
-                  </strong>
-
-                </div>
+}
 
 
-                <div>
+/* =========================================================
+   OPEN / CLOSE PLACEMENTS
+========================================================= */
 
-                  <span>
-                    Package
-                  </span>
+function setupPlacements() {
 
-                  <strong class="package">
-                    ${escapeHTML(
-                      student.package
-                    )}
-                  </strong>
+  const openButton =
+    $("#placements-spotlight");
 
-                </div>
+  const closeButton =
+    $("#close-placements");
 
-              </div>
+  const placements =
+    $("#placements");
 
-            </div>
 
-          </article>
+  if (!openButton || !placements) return;
 
-        `
-      )
-      .join("");
+
+  openButton.addEventListener(
+    "click",
+    () => {
+
+      placements.hidden = false;
+
+      document
+        .querySelector("main")
+        ?.scrollIntoView({
+          behavior: "smooth"
+        });
+
+      setTimeout(() => {
+
+        placements.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+      }, 50);
+
+      document.body.style.overflow = "";
+
+    }
+  );
+
+
+  closeButton?.addEventListener(
+    "click",
+    () => {
+
+      placements.hidden = true;
+
+      scrollToSection(
+        "featured-slider"
+      );
+
+    }
+  );
 
 }
 
@@ -2013,34 +1063,28 @@ function renderPlacements() {
 
 function setupSubmissionModal() {
 
-  const open =
-    document.getElementById(
-      "share-story-btn"
-    );
+  const openButton =
+    $("#share-story-btn");
 
   const modal =
-    document.getElementById(
-      "submit-story-modal"
-    );
+    $("#submit-story-modal");
 
-  const close =
-    document.getElementById(
-      "close-submit-modal"
-    );
+  const closeButton =
+    $("#close-submit-modal");
 
-
-  if (
-    !open ||
-    !modal
-  ) return;
+  const form =
+    $("#story-submission-form");
 
 
-  open.addEventListener(
+  if (!openButton || !modal) return;
+
+
+  openButton.addEventListener(
     "click",
     () => {
 
       const user =
-        getCurrentUser();
+        getCurrentUser?.();
 
 
       if (!user) {
@@ -2054,9 +1098,7 @@ function setupSubmissionModal() {
       }
 
 
-      modal.classList.add(
-        "open"
-      );
+      modal.classList.add("open");
 
       modal.setAttribute(
         "aria-hidden",
@@ -2070,184 +1112,49 @@ function setupSubmissionModal() {
   );
 
 
-  close?.addEventListener(
+  function closeModal() {
+
+    modal.classList.remove("open");
+
+    modal.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.style.overflow = "";
+
+  }
+
+
+  closeButton?.addEventListener(
     "click",
-    closeSubmissionModal
+    closeModal
   );
 
 
   modal.addEventListener(
     "click",
-    (event) => {
+    event => {
 
       if (
         event.target === modal
       ) {
-
-        closeSubmissionModal();
-
-      }
-
-    }
-  );
-
-}
-
-
-function closeSubmissionModal() {
-
-  const modal =
-    document.getElementById(
-      "submit-story-modal"
-    );
-
-  if (!modal)
-    return;
-
-
-  modal.classList.remove(
-    "open"
-  );
-
-  modal.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-
-  document.body.style.overflow =
-    "";
-
-}
-
-
-/* =========================================================
-   STORY SUBMISSION
-========================================================= */
-
-function setupStorySubmission() {
-
-  const form =
-    document.getElementById(
-      "story-submission-form"
-    );
-
-  if (!form) return;
-
-
-  const body =
-    document.getElementById(
-      "story-body"
-    );
-
-  const wordCount =
-    document.getElementById(
-      "story-word-count"
-    );
-
-  const readingTime =
-    document.getElementById(
-      "story-reading-time"
-    );
-
-  const imageInput =
-    document.getElementById(
-      "story-image"
-    );
-
-  const imagePreview =
-    document.getElementById(
-      "story-image-preview"
-    );
-
-
-  body?.addEventListener(
-    "input",
-    () => {
-
-      const words =
-        countWords(
-          body.value.trim()
-        );
-
-      const minutes =
-        calculateReadingTime(
-          body.value
-        );
-
-
-      if (wordCount) {
-
-        wordCount.textContent =
-          `${words} ${
-            words === 1
-              ? "word"
-              : "words"
-          }`;
-
-      }
-
-
-      if (readingTime) {
-
-        readingTime.textContent =
-          `${minutes} min read`;
-
+        closeModal();
       }
 
     }
   );
 
 
-  imageInput?.addEventListener(
-    "input",
-    () => {
-
-      const url =
-        imageInput.value.trim();
-
-
-      if (!url) {
-
-        imagePreview.hidden =
-          true;
-
-        imagePreview.removeAttribute(
-          "src"
-        );
-
-        return;
-
-      }
-
-
-      imagePreview.src =
-        url;
-
-      imagePreview.hidden =
-        false;
-
-
-      imagePreview.onerror =
-        () => {
-
-          imagePreview.hidden =
-            true;
-
-        };
-
-    }
-  );
-
-
-  form.addEventListener(
+  form?.addEventListener(
     "submit",
-    async (event) => {
+    async event => {
 
       event.preventDefault();
 
 
       const user =
-        getCurrentUser();
+        getCurrentUser?.();
 
 
       if (!user) {
@@ -2262,40 +1169,26 @@ function setupStorySubmission() {
 
 
       const title =
-        document.getElementById(
-          "story-title"
-        )?.value.trim();
-
+        $("#story-title")?.value.trim();
 
       const category =
-        document.getElementById(
-          "story-category"
-        )?.value;
-
+        $("#story-category")?.value;
 
       const excerpt =
-        document.getElementById(
-          "story-excerpt"
-        )?.value.trim();
-
+        $("#story-excerpt")?.value.trim();
 
       const image =
-        document.getElementById(
-          "story-image"
-        )?.value.trim();
+        $("#story-image")?.value.trim();
 
-
-      const storyBody =
-        document.getElementById(
-          "story-body"
-        )?.value.trim();
+      const body =
+        $("#story-body")?.value.trim();
 
 
       if (
         !title ||
         !category ||
         !excerpt ||
-        !storyBody
+        !body
       ) {
 
         showToast?.(
@@ -2303,23 +1196,6 @@ function setupStorySubmission() {
         );
 
         return;
-
-      }
-
-
-      const submitButton =
-        form.querySelector(
-          'button[type="submit"]'
-        );
-
-
-      if (submitButton) {
-
-        submitButton.disabled =
-          true;
-
-        submitButton.textContent =
-          "Submitting...";
 
       }
 
@@ -2336,86 +1212,41 @@ function setupStorySubmission() {
 
           image,
 
-          body:
-            storyBody,
+          body,
 
           authorUid:
-            user.uid ||
-            user.id ||
-            null,
+            user.uid,
 
           authorName:
             user.displayName ||
             user.name ||
-            user.email ||
             "GIET Alumni"
 
         });
 
 
+        showToast?.(
+          "Story submitted for moderation."
+        );
+
+
         form.reset();
 
+        updateSubmissionStats();
 
-        if (imagePreview) {
-
-          imagePreview.hidden =
-            true;
-
-          imagePreview.removeAttribute(
-            "src"
-          );
-
-        }
-
-
-        if (wordCount) {
-
-          wordCount.textContent =
-            "0 words";
-
-        }
-
-
-        if (readingTime) {
-
-          readingTime.textContent =
-            "0 min read";
-
-        }
-
-
-        closeSubmissionModal();
-
-
-        showToast?.(
-          "Story submitted to the moderation queue."
-        );
+        closeModal();
 
 
       } catch (error) {
 
         console.error(
-          "Submission failed:",
+          "Submission error:",
           error
         );
 
-
         showToast?.(
-          "Unable to submit your story. Please try again."
+          "Could not submit your story. Please try again."
         );
-
-
-      } finally {
-
-        if (submitButton) {
-
-          submitButton.disabled =
-            false;
-
-          submitButton.textContent =
-            "Submit Story";
-
-        }
 
       }
 
@@ -2426,15 +1257,156 @@ function setupStorySubmission() {
 
 
 /* =========================================================
-   AUTH
+   SUBMISSION WORD COUNT
 ========================================================= */
 
-function setupAuth() {
+function updateSubmissionStats() {
+
+  const textarea =
+    $("#story-body");
+
+  const count =
+    $("#story-word-count");
+
+  const time =
+    $("#story-reading-time");
+
+
+  if (!textarea) return;
+
+
+  const words =
+    textarea.value
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean);
+
+
+  const wordCount =
+    textarea.value.trim()
+      ? words.length
+      : 0;
+
+
+  const readingTime =
+    Math.max(
+      0,
+      Math.ceil(wordCount / 200)
+    );
+
+
+  if (count) {
+
+    count.textContent =
+      `${wordCount} words`;
+
+  }
+
+
+  if (time) {
+
+    time.textContent =
+      `${readingTime} min read`;
+
+  }
+
+}
+
+
+/* =========================================================
+   IMAGE PREVIEW
+========================================================= */
+
+function setupImagePreview() {
+
+  const input =
+    $("#story-image");
+
+  const preview =
+    $("#story-image-preview");
+
+
+  if (!input || !preview) return;
+
+
+  input.addEventListener(
+    "input",
+    () => {
+
+      const url =
+        input.value.trim();
+
+
+      if (!url) {
+
+        preview.hidden = true;
+        preview.removeAttribute("src");
+
+        return;
+
+      }
+
+
+      preview.src = url;
+      preview.hidden = false;
+
+
+      preview.onerror = () => {
+
+        preview.hidden = true;
+
+      };
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   KEYBOARD
+========================================================= */
+
+function setupKeyboard() {
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Escape"
+      ) {
+
+        closeReader();
+
+        $("#submit-story-modal")
+          ?.classList.remove("open");
+
+        document.body.style.overflow = "";
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   AUTH LISTENER
+========================================================= */
+
+function setupAuthListener() {
 
   try {
 
-    onAuthStateChange(
-      () => {}
+    onAuthStateChange?.(
+      () => {
+
+        /* Header/auth UI is handled
+           by shared components. */
+
+      }
     );
 
   } catch (error) {
@@ -2450,201 +1422,77 @@ function setupAuth() {
 
 
 /* =========================================================
-   DONATION
+   CLOSE READER BUTTON
 ========================================================= */
 
-function setupDonation() {
+function setupReaderModal() {
 
-  const button =
-    document.querySelector(
-      ".support-button"
+  $("#close-reader-modal")
+    ?.addEventListener(
+      "click",
+      closeReader
     );
 
-  if (!button)
-    return;
 
+  $("#reader-modal")
+    ?.addEventListener(
+      "click",
+      event => {
 
-  button.addEventListener(
-    "click",
-    () => {
+        if (
+          event.target.id ===
+          "reader-modal"
+        ) {
 
-      showToast?.(
-        "Opening GIET support and donation page."
-      );
+          closeReader();
 
-    }
-  );
-
-}
-
-
-/* =========================================================
-   SCROLL
-========================================================= */
-
-function scrollToSection(
-  id
-) {
-
-  const section =
-    document.getElementById(
-      id
-    );
-
-  if (!section)
-    return;
-
-
-  section.scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
-
-}
-
-
-/* =========================================================
-   WORD COUNT
-========================================================= */
-
-function countWords(
-  text
-) {
-
-  if (!text)
-    return 0;
-
-
-  return text
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean)
-    .length;
-
-}
-
-
-/* =========================================================
-   READING TIME
-========================================================= */
-
-function calculateReadingTime(
-  text
-) {
-
-  const words =
-    countWords(text);
-
-
-  if (!words)
-    return 0;
-
-
-  return Math.max(
-    1,
-    Math.ceil(
-      words / 200
-    )
-  );
-
-}
-
-
-/* =========================================================
-   SECURITY
-========================================================= */
-
-function escapeHTML(
-  value
-) {
-
-  return String(
-    value ?? ""
-  )
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
-
-}
-
-
-function escapeAttribute(
-  value
-) {
-
-  return escapeHTML(
-    value
-  );
-
-}
-
-
-/* =========================================================
-   PLACEMENT HASH
-========================================================= */
-
-if (
-  window.location.hash ===
-  "#placements"
-) {
-
-  setTimeout(
-    () => {
-
-      const page =
-        document.getElementById(
-          "placements"
-        );
-
-      if (page) {
-
-        page.hidden =
-          false;
+        }
 
       }
-
-    },
-    300
-  );
+    );
 
 }
 
 
 /* =========================================================
-   STORAGE SYNC
+   INITIALIZE
 ========================================================= */
 
-window.addEventListener(
-  "storage",
-  (event) => {
+document.addEventListener(
+  "DOMContentLoaded",
+  async () => {
 
-    if (
-      event.key ===
-      SAVED_KEY
-    ) {
+    setupFilters();
 
-      renderStories();
+    setupHeroScroll();
 
-      renderTrending();
+    setupInformationAccordion();
 
-    }
+    setupSlider();
+
+    setupPlacements();
+
+    renderPlacements();
+
+    setupSubmissionModal();
+
+    setupImagePreview();
+
+    setupKeyboard();
+
+    setupReaderModal();
+
+    setupAuthListener();
+
+
+    $("#story-body")
+      ?.addEventListener(
+        "input",
+        updateSubmissionStats
+      );
+
+
+    await loadStories();
 
   }
 );
