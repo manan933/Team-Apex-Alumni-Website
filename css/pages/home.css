@@ -1748,25 +1748,31 @@
   filter: brightness(1.04) !important;
 }
 /* ==========================================================================
-   SUPERVISOR UPDATE: Campus Photo Background & Centered Hero
+   OPEN CINEMATIC HERO (No Box / Full Natural Photo)
    ========================================================================== */
 .hero-cinematic {
   position: relative;
-  /* Dark overlay so the text is 100% readable over the campus photo */
+  /* Crystal-clear top (0.12) so all faces shine through, darkens smoothly towards the bottom */
   background: linear-gradient(
     180deg,
-    rgba(6, 13, 23, 0.72) 0%,
-    rgba(6, 13, 23, 0.85) 100%
-  ), url('../../hero-bg.JPG') center/cover no-repeat !important; 
-  /* Change 'campus-1.0.webp' to 'hero-bg.webp' when you download from Drive */
-  padding: 100px 0 80px !important;
+    rgba(6, 13, 23, 0.12) 0%,
+    rgba(6, 13, 23, 0.40) 45%,
+    rgba(6, 13, 23, 0.85) 68%,
+    rgba(6, 13, 23, 0.96) 100%
+  ), url('../../hero-bg.JPG') center 5%/cover no-repeat !important; 
+  padding: 280px 0 0 !important; /* Pushes the entire text block down to the bottom */
   color: #FFFFFF !important;
 }
-
-/* Make text centered and full-width now that cards are gone */
+/* Ticker sits flush at the very bottom edge with NO photo leak underneath */
+.hero-cinematic .alumni-ticker-strip {
+  margin-top: 45px !important;
+  margin-bottom: 0 !important;
+  border-bottom: 1px solid var(--color-border-warm) !important;
+  background-color: #060D17 !important;
+}
 .hero-inner-grid {
   grid-template-columns: 1fr !important;
-  max-width: 820px !important;
+  max-width: 900px !important;
   margin: 0 auto !important;
   text-align: center !important;
 }
@@ -1775,26 +1781,127 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  padding: 0 !important;
+  max-width: 880px !important;
+  margin: 0 auto !important;
 }
 
-/* Crisp white & gold text over the photo */
+/* More compact, elegant headline size */
 .hero-headline {
   color: #FFFFFF !important;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6) !important;
+  font-size: clamp(1.85rem, 3vw, 2.5rem) !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.22 !important;
+  margin-bottom: var(--space-3) !important;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85) !important;
 }
 
 .hero-description {
-  color: rgba(255, 255, 255, 0.9) !important;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important;
-  margin-left: auto;
-  margin-right: auto;
+  color: rgba(255, 255, 255, 0.92) !important;
+  font-size: 1.02rem !important;
+  line-height: 1.6 !important;
+  max-width: 700px !important;
+  margin: 0 auto var(--space-5) !important;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7) !important;
+}
+
+.hero-headline em {
+  font-style: italic;
+  color: var(--color-accent, #D4AF37);
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+.hero-description {
+  color: rgba(255, 255, 255, 0.92) !important;
+  font-size: 1.1rem !important;
+  line-height: 1.65 !important;
+  max-width: 720px !important;
+  margin: 0 auto var(--space-6) !important;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6) !important;
 }
 
 .hero-actions-wrap {
+  display: flex !important;
   justify-content: center !important;
+  align-items: center !important;
+  gap: 16px !important;
+  flex-wrap: wrap !important;
+  margin-bottom: var(--space-6) !important;
 }
 
+/* Polished Heritage Gold Button */
+.hero-actions-wrap .btn-primary {
+  background: linear-gradient(135deg, #D4AF37 0%, #B89628 100%) !important;
+  color: #060D17 !important;
+  border: 1px solid #D4AF37 !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  border-radius: 9999px !important;
+  padding: 12px 28px !important;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  text-decoration: none !important;
+}
+
+.hero-actions-wrap .btn-primary:hover {
+  background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5) !important;
+}
+
+/* Frosted Glass Quick Search Button */
+.hero-actions-wrap .btn-outline {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  border-radius: 9999px !important;
+  padding: 12px 24px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer !important;
+}
+
+.hero-actions-wrap .btn-outline:hover {
+  background: rgba(255, 255, 255, 0.24) !important;
+  border-color: #FFFFFF !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Credentials: Single Clean Line with Spacing */
+/* Credentials: One single horizontal line */
 .hero-credential-footnote {
+  display: flex !important;
+  align-items: center !important;
   justify-content: center !important;
-  color: rgba(255, 255, 255, 0.75) !important;
+  gap: 16px !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 0.88rem !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+.hero-credential-footnote .credential-item {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+.hero-credential-footnote svg {
+  color: var(--color-accent, #D4AF37) !important;
 }
