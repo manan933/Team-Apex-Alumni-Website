@@ -1,257 +1,380 @@
-import { getSubmissions, createSubmission } from '../storage-service.js';
-import { getCurrentUser, onAuthStateChange } from '../auth.js';
-import { showToast } from '../components/toast.js';
+import { getSubmissions, createSubmission } from "../storage-service.js";
+import { getCurrentUser, onAuthStateChange } from "../auth.js";
+import { showToast } from "../nav.js";
 
-const SAVED_KEY='alumni_saved_stories';
-const DEFAULT_IMAGE='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80';
+/* =========================================================
+   GIET ALUMNI GAZETTE
+   ========================================================= */
 
-const students=[
- {name:'Aarav Das',department:'Computer Science & Engineering',branch:'CSE-AIML',year:'2023–2027',company:'TCS',package:'₹9 LPA',image:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=80'},
- {name:'Ananya Mohanty',department:'Computer Science & Engineering',branch:'CSE',year:'2023–2027',company:'Deloitte',package:'₹8.5 LPA',image:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=700&q=80'},
- {name:'Ritwik Sahu',department:'Electronics & Communication Engineering',branch:'ECE',year:'2022–2026',company:'Infosys',package:'₹7.5 LPA',image:'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=700&q=80'},
- {name:'Sneha Patnaik',department:'Information Technology',branch:'IT',year:'2023–2027',company:'Wipro',package:'₹7.2 LPA',image:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80'},
- {name:'Aditya Rout',department:'Mechanical Engineering',branch:'ME',year:'2022–2026',company:'Capgemini',package:'₹6.8 LPA',image:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80'},
- {name:'Priya Behera',department:'Electrical Engineering',branch:'EE',year:'2023–2027',company:'Accenture',package:'₹6.5 LPA',image:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=700&q=80'}
+const SAVED_KEY = "alumni_saved_stories";
+
+let allStories = [];
+let currentCategory = "All";
+let currentSlide = 0;
+
+
+/* =========================================================
+   DEMO PLACEMENT DATA
+   Replace these with approved real placement records.
+   ========================================================= */
+
+const placementStudents = [
+  {
+    name: "Aarav Das",
+    department: "Computer Science",
+    branch: "CSE-AIML",
+    year: "2023–2027",
+    company: "Microsoft",
+    package: "₹13 LPA",
+    image:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Ananya Mohanty",
+    department: "Computer Science",
+    branch: "CSE",
+    year: "2023–2027",
+    company: "Deloitte",
+    package: "₹12 LPA",
+    image:
+      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Ritwik Sahu",
+    department: "Computer Science",
+    branch: "CSE-AIML",
+    year: "2022–2026",
+    company: "TCS",
+    package: "₹10.5 LPA",
+    image:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Sneha Patnaik",
+    department: "Information Technology",
+    branch: "IT",
+    year: "2023–2027",
+    company: "Accenture",
+    package: "₹9 LPA",
+    image:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Aditya Rout",
+    department: "Computer Science",
+    branch: "CSE",
+    year: "2022–2026",
+    company: "Infosys",
+    package: "₹8.5 LPA",
+    image:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Priya Behera",
+    department: "Electrical Engineering",
+    branch: "EE",
+    year: "2023–2027",
+    company: "Wipro",
+    package: "₹7.5 LPA",
+    image:
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Rahul Pradhan",
+    department: "Electronics",
+    branch: "ECE",
+    year: "2022–2026",
+    company: "Capgemini",
+    package: "₹7.2 LPA",
+    image:
+      "https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    name: "Ishita Nayak",
+    department: "Computer Science",
+    branch: "CSE",
+    year: "2023–2027",
+    company: "IBM",
+    package: "₹6.8 LPA",
+    image:
+      "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80"
+  }
 ];
 
-const $=s=>document.querySelector(s);
-const $$=s=>[...document.querySelectorAll(s)];
 
-const saved=()=>{
-  try{
-    return JSON.parse(localStorage.getItem(SAVED_KEY)||'[]');
-  }catch{
-    return[];
-  }
-};
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
 
-const setSaved=v=>
-  localStorage.setItem(SAVED_KEY,JSON.stringify(v));
+function init() {
+  setupFilters();
+  setupSlider();
+  setupInformationSections();
+  setupPlacements();
+  setupSubmissionModal();
+  setupReaderModal();
+  setupStorySubmission();
+  setupAuth();
+  setupDonation();
+  loadStories();
+}
 
-const esc=v=>
-  String(v??'').replace(/[&<>'"]/g,c=>({
-    '&':'&amp;',
-    '<':'&lt;',
-    '>':'&gt;',
-    "'":'&#39;',
-    '"':'&quot;'
-  }[c]));
-
-const categoryLabel=c=>({
-  Story:'Stories & Essays',
-  Achievement:'Breakthroughs',
-  News:'Campus Milestones'
-})[c]||c;
-
-const words=t=>
-  String(t||'').trim().split(/\s+/).filter(Boolean).length;
-
-const readTime=t=>
-  Math.max(1,Math.ceil(words(t)/220));
-
-const storyId=(s,i)=>
-  String(s.id||s.uid||`${s.title||'story'}-${i}`);
-
-const authorName=s=>
-  s.authorName||s.author||'GIET Community';
-
-const authorPhoto=s=>
-  s.authorPhotoURL||s.authorImage||s.authorAvatar||DEFAULT_IMAGE;
-
-const authorLink=s=>
-  s.authorUid
-    ? `profile.html?id=${encodeURIComponent(s.authorUid)}`
-    : '#';
-
-let stories=[];
-
-
-async function loadStories(){
-  try{
-    stories=await getSubmissions('approved')||[];
-  }catch(e){
-    stories=[];
-  }
-
-  renderStories('All');
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
 }
 
 
-function byDate(a,b){
-  const da=new Date(
-    a.createdAt||a.date||a.publishedAt||0
-  ).getTime();
+/* =========================================================
+   STORIES
+   ========================================================= */
 
-  const db=new Date(
-    b.createdAt||b.date||b.publishedAt||0
-  ).getTime();
+async function loadStories() {
+  const grid = document.getElementById("news-grid");
 
-  return db-da;
-}
+  if (!grid) return;
 
+  grid.innerHTML = `
+    <div class="empty-state">
+      Loading the latest GIET stories...
+    </div>
+  `;
 
-function renderStories(filter='All'){
+  try {
+    const stories = await getSubmissions("approved");
 
-  const base=
-    filter==='Saved'
-      ? stories.filter((s,i)=>saved().includes(storyId(s,i)))
-      : filter==='All'
-        ? stories
-        : stories.filter(s=>(s.category||'News')===filter);
+    allStories = Array.isArray(stories) ? stories : [];
 
-  const list=[...base].sort(byDate);
-  const grid=$('#news-grid');
+    renderStories();
+    renderTrending();
+  } catch (error) {
+    console.error("Unable to load stories:", error);
 
-  if(!list.length){
-
-    grid.innerHTML=`
+    grid.innerHTML = `
       <div class="empty-state">
-        <h3>No stories here yet.</h3>
-        <p>Be the first GIET alumnus to share one.</p>
+        <h3>Stories are temporarily unavailable.</h3>
+        <p>Please try again shortly.</p>
+      </div>
+    `;
+  }
+}
+
+
+/* =========================================================
+   FILTERS
+   ========================================================= */
+
+function setupFilters() {
+  const container = document.getElementById("news-category-filters");
+
+  if (!container) return;
+
+  container.addEventListener("click", (event) => {
+    const button = event.target.closest(".filter-btn");
+
+    if (!button) return;
+
+    const category = button.dataset.category;
+
+    currentCategory = category;
+
+    container
+      .querySelectorAll(".filter-btn")
+      .forEach((btn) => btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    if (category === "Story") {
+      scrollToSection("stories-essays");
+    }
+
+    if (category === "Achievement") {
+      scrollToSection("breakthroughs");
+    }
+
+    if (category === "News") {
+      scrollToSection("campus-milestones");
+    }
+
+    renderStories();
+  });
+}
+
+
+/* =========================================================
+   RENDER STORIES
+   ========================================================= */
+
+function renderStories() {
+  const grid = document.getElementById("news-grid");
+
+  if (!grid) return;
+
+  let stories = [...allStories];
+
+  if (currentCategory === "Saved") {
+    const savedIds = getSavedStories();
+
+    stories = stories.filter((story) => {
+      const id = getStoryId(story);
+      return savedIds.includes(id);
+    });
+  } else if (currentCategory !== "All") {
+    stories = stories.filter(
+      (story) => normalizeCategory(story.category) === currentCategory
+    );
+  }
+
+  if (!stories.length) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <h3>No stories found.</h3>
+        <p>
+          ${
+            currentCategory === "Saved"
+              ? "You have not saved any stories yet."
+              : "New stories will appear here as they are approved."
+          }
+        </p>
       </div>
     `;
 
-    $('#trending-list').innerHTML='';
     return;
   }
 
-  grid.innerHTML=list
-    .map((s,i)=>
-      cardHTML(
-        s,
-        stories.indexOf(s),
-        i===0&&filter!=='Saved'
-      )
-    )
-    .join('');
+  grid.innerHTML = stories
+    .map((story, index) => createStoryCard(story, index))
+    .join("");
 
-  const trend=[...stories]
-    .filter(s=>(s.category||'')==='Achievement')
-    .sort(byDate)
-    .slice(0,5);
-
-  const trendList=trend.length?trend:list.slice(0,5);
-
-  $('#trending-list').innerHTML=
-    trendList.map((s,i)=>`
-      <li>
-        <b>${String(i+1).padStart(2,'0')}</b>
-
-        <div>
-          <a
-            href="#"
-            data-read="${esc(storyId(s,stories.indexOf(s)))}"
-          >
-            ${esc(s.title||'GIET Alumni Story')}
-          </a>
-
-          <span class="trending-meta">
-            ${esc(categoryLabel(s.category||'News'))}
-            ·
-            ${readTime(s.body||s.content)} min read
-          </span>
-        </div>
-      </li>
-    `)
-    .join('');
+  attachStoryEvents();
 }
 
 
-function cardHTML(s,index,isLead){
+/* =========================================================
+   STORY CARD
+   ========================================================= */
 
-  const id=storyId(s,index);
+function createStoryCard(story, index) {
+  const id = getStoryId(story);
 
-  const isSaved=saved().includes(id);
-
-  const image=esc(
-    s.imageUrl||s.image||DEFAULT_IMAGE
+  const title = escapeHTML(
+    story.title || story.name || "Untitled story"
   );
 
-  const photo=esc(authorPhoto(s));
+  const excerpt = escapeHTML(
+    story.excerpt ||
+      story.description ||
+      "Read the latest story from the GIET community."
+  );
+
+  const category = normalizeCategory(story.category);
+
+  const image =
+    story.image ||
+    story.imageUrl ||
+    "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80";
+
+  const author =
+    story.authorName ||
+    story.author ||
+    "GIET Alumni Community";
+
+  const readingTime = calculateReadingTime(
+    story.body || story.content || story.text || ""
+  );
+
+  const saved = isStorySaved(id);
+
+  const isLead = index === 0;
+
+  if (isLead) {
+    return `
+      <article
+        class="news-card lead-story"
+        data-story-id="${escapeAttribute(id)}"
+      >
+
+        <div>
+          <img
+            src="${escapeAttribute(image)}"
+            alt="${title}"
+            loading="lazy"
+          >
+        </div>
+
+        <div class="lead-copy">
+
+          <div class="card-meta">
+            <span class="lead-badge">${category}</span>
+            <span>${readingTime} min read</span>
+          </div>
+
+          <h3>
+            <a href="#" class="story-open">
+              ${title}
+            </a>
+          </h3>
+
+          <p>${excerpt}</p>
+
+          <div class="author-line">
+            <span>${escapeHTML(author)}</span>
+
+            <button
+              class="save-btn ${saved ? "saved" : ""}"
+              type="button"
+              data-save-id="${escapeAttribute(id)}"
+              aria-label="Save story"
+              title="Save story"
+            >
+              ${saved ? "★" : "☆"}
+            </button>
+          </div>
+
+        </div>
+
+      </article>
+    `;
+  }
 
   return `
-    <article class="news-card ${isLead?'lead-story':''}">
+    <article
+      class="news-card"
+      data-story-id="${escapeAttribute(id)}"
+    >
 
-      <div class="card-media">
+      <img
+        src="${escapeAttribute(image)}"
+        alt="${title}"
+        loading="lazy"
+      >
 
-        <img
-          src="${image}"
-          alt="${esc(s.title||'GIET alumni story')}"
-          loading="lazy"
-        >
-
-        ${isLead
-          ? '<span class="lead-badge">Lead feature</span>'
-          : ''
-        }
-
+      <div class="card-meta">
+        <span>${category}</span>
+        <span>${readingTime} min read</span>
       </div>
 
+      <h3>
+        <a href="#" class="story-open">
+          ${title}
+        </a>
+      </h3>
 
-      <div class="${isLead?'lead-copy':''}">
+      <p>${excerpt}</p>
 
-        <div class="card-meta">
+      <div class="author-line">
+        <span>${escapeHTML(author)}</span>
 
-          <span>
-            ${esc(categoryLabel(s.category||'News'))}
-          </span>
-
-          <button
-            class="save-btn ${isSaved?'saved':''}"
-            data-save="${esc(id)}"
-            aria-label="${isSaved?'Remove from saved stories':'Save story'}"
-          >
-            ${isSaved?'♥':'♡'}
-          </button>
-
-        </div>
-
-
-        <h3>
-
-          <a
-            href="#"
-            data-read="${esc(id)}"
-          >
-            ${esc(s.title||'GIET Alumni Story')}
-          </a>
-
-        </h3>
-
-
-        <p>
-          ${esc(
-            s.excerpt||
-            'A story from the GIET University community.'
-          )}
-        </p>
-
-
-        <div class="card-meta">
-
-          <a
-            class="author-line"
-            href="${authorLink(s)}"
-          >
-
-            <img
-              class="author-avatar"
-              src="${photo}"
-              alt=""
-            >
-
-            <span>
-              ${esc(authorName(s))}
-            </span>
-
-          </a>
-
-          <span>
-            ${readTime(s.body||s.content)} min read
-          </span>
-
-        </div>
-
+        <button
+          class="save-btn ${saved ? "saved" : ""}"
+          type="button"
+          data-save-id="${escapeAttribute(id)}"
+          aria-label="Save story"
+          title="Save story"
+        >
+          ${saved ? "★" : "☆"}
+        </button>
       </div>
 
     </article>
@@ -259,193 +382,391 @@ function cardHTML(s,index,isLead){
 }
 
 
-function formatDate(value){
+/* =========================================================
+   STORY EVENTS
+   ========================================================= */
 
-  if(!value)return'Gazette Desk';
+function attachStoryEvents() {
+  const grid = document.getElementById("news-grid");
 
-  const d=new Date(value);
+  if (!grid) return;
 
-  return Number.isNaN(d.getTime())
-    ? 'Gazette Desk'
-    : d.toLocaleDateString(
-        undefined,
-        {
-          year:'numeric',
-          month:'long',
-          day:'numeric'
-        }
+  grid.querySelectorAll(".story-open").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      const card = link.closest(".news-card");
+
+      if (!card) return;
+
+      const id = card.dataset.storyId;
+
+      const story = allStories.find(
+        (item) => getStoryId(item) === id
       );
+
+      if (story) {
+        openReader(story);
+      }
+    });
+  });
+
+  grid.querySelectorAll(".save-btn").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      toggleSavedStory(button.dataset.saveId);
+    });
+  });
 }
 
 
-function openReader(story){
+/* =========================================================
+   CATEGORY NORMALIZATION
+   ========================================================= */
 
-  if(!story)return;
+function normalizeCategory(category) {
+  const value = String(category || "").toLowerCase();
 
-  const paras=
-    String(
-      story.body||
-      story.content||
-      story.excerpt||
-      ''
-    )
-    .split(/\n+/)
-    .map(x=>x.trim())
-    .filter(Boolean);
+  if (
+    value.includes("story") ||
+    value.includes("essay")
+  ) {
+    return "Story";
+  }
 
-  const quote=
-    paras.length>2
-      ? paras[
-          Math.floor(paras.length/2)
-        ].slice(0,180)
-      : 'Stories from GIET continue to connect people, ideas and progress.';
+  if (
+    value.includes("achievement") ||
+    value.includes("breakthrough")
+  ) {
+    return "Achievement";
+  }
 
-  const body=
-    paras
-      .map((p,i)=>
-        i===Math.floor(paras.length/2)&&paras.length>3
-          ? `
-            <blockquote class="pull-quote">
-              “${esc(quote)}”
-            </blockquote>
+  if (
+    value.includes("news") ||
+    value.includes("milestone")
+  ) {
+    return "News";
+  }
 
-            <p>
-              ${esc(p)}
-            </p>
-          `
-          : `
-            <p class="${i===0?'dropcap':''}">
-              ${esc(p)}
-            </p>
-          `
-      )
-      .join('');
-
-  const company=
-    story.authorCompany||
-    story.currentCompany||
-    'GIET University Alumni';
-
-  const title=
-    story.authorTitle||
-    story.currentTitle||
-    'Community Contributor';
-
-  const grad=
-    story.graduationYear||
-    story.gradYear||
-    '';
+  return "News";
+}
 
 
-  $('#reader-modal-body').innerHTML=`
+/* =========================================================
+   STORY ID
+   ========================================================= */
 
+function getStoryId(story) {
+  return String(
+    story.id ||
+      story.uid ||
+      story.submissionId ||
+      `${story.title || "story"}-${story.createdAt || ""}`
+  );
+}
+
+
+/* =========================================================
+   SAVED STORIES
+   ========================================================= */
+
+function getSavedStories() {
+  try {
+    return JSON.parse(
+      localStorage.getItem(SAVED_KEY) || "[]"
+    );
+  } catch {
+    return [];
+  }
+}
+
+
+function saveStories(ids) {
+  localStorage.setItem(
+    SAVED_KEY,
+    JSON.stringify(ids)
+  );
+}
+
+
+function isStorySaved(id) {
+  return getSavedStories().includes(String(id));
+}
+
+
+function toggleSavedStory(id) {
+  const storyId = String(id);
+
+  let saved = getSavedStories();
+
+  if (saved.includes(storyId)) {
+    saved = saved.filter((item) => item !== storyId);
+
+    showToast?.("Story removed from saved stories.");
+  } else {
+    saved.push(storyId);
+
+    showToast?.("Story saved.");
+  }
+
+  saveStories(saved);
+
+  renderStories();
+  renderTrending();
+}
+
+
+/* =========================================================
+   TRENDING
+   ========================================================= */
+
+function renderTrending() {
+  const list = document.getElementById("trending-list");
+
+  if (!list) return;
+
+  const stories = [...allStories];
+
+  if (!stories.length) {
+    list.innerHTML = `
+      <li>
+        <div>
+          <span class="trending-meta">
+            Latest
+          </span>
+          <a href="#stories-essays">
+            New GIET stories will appear here.
+          </a>
+        </div>
+      </li>
+    `;
+
+    return;
+  }
+
+  const trending = stories
+    .sort((a, b) => {
+      const aDate = new Date(
+        a.createdAt || a.updatedAt || 0
+      ).getTime();
+
+      const bDate = new Date(
+        b.createdAt || b.updatedAt || 0
+      ).getTime();
+
+      return bDate - aDate;
+    })
+    .slice(0, 5);
+
+  list.innerHTML = trending
+    .map((story, index) => {
+      const id = getStoryId(story);
+      const title = escapeHTML(
+        story.title || "GIET story"
+      );
+
+      return `
+        <li>
+          <b>${String(index + 1).padStart(2, "0")}</b>
+
+          <div>
+            <a href="#" data-trending-id="${escapeAttribute(id)}">
+              ${title}
+            </a>
+
+            <span class="trending-meta">
+              ${normalizeCategory(story.category)}
+            </span>
+          </div>
+        </li>
+      `;
+    })
+    .join("");
+
+  list.querySelectorAll("[data-trending-id]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      const story = allStories.find(
+        (item) =>
+          getStoryId(item) === link.dataset.trendingId
+      );
+
+      if (story) {
+        openReader(story);
+      }
+    });
+  });
+}
+
+
+/* =========================================================
+   READER MODAL
+   ========================================================= */
+
+function setupReaderModal() {
+  const closeButton =
+    document.getElementById("close-reader-modal");
+
+  const modal =
+    document.getElementById("reader-modal");
+
+  if (closeButton) {
+    closeButton.addEventListener(
+      "click",
+      closeReader
+    );
+  }
+
+  if (modal) {
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        closeReader();
+      }
+    });
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeReader();
+    }
+  });
+}
+
+
+function openReader(story) {
+  const modal =
+    document.getElementById("reader-modal");
+
+  const body =
+    document.getElementById("reader-modal-body");
+
+  if (!modal || !body) return;
+
+  const title = escapeHTML(
+    story.title || "GIET Alumni Story"
+  );
+
+  const excerpt = escapeHTML(
+    story.excerpt || ""
+  );
+
+  const author =
+    story.authorName ||
+    story.author ||
+    "GIET Alumni Community";
+
+  const bodyText =
+    story.body ||
+    story.content ||
+    story.text ||
+    excerpt;
+
+  const image =
+    story.image ||
+    story.imageUrl ||
+    "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=80";
+
+  const category =
+    normalizeCategory(story.category);
+
+  const readingTime =
+    calculateReadingTime(bodyText);
+
+  const authorImage =
+    story.authorPhoto ||
+    story.authorImage ||
+    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80";
+
+  const authorUid =
+    story.authorUid ||
+    story.uid ||
+    "";
+
+  const profileLink = authorUid
+    ? `profile.html?id=${encodeURIComponent(authorUid)}`
+    : "#";
+
+  body.innerHTML = `
     <div class="reader-content">
 
       <img
         class="reader-hero"
-        src="${esc(
-          story.imageUrl||
-          story.image||
-          DEFAULT_IMAGE
-        )}"
-        alt="${esc(
-          story.title||
-          'GIET alumni story'
-        )}"
+        src="${escapeAttribute(image)}"
+        alt="${title}"
       >
-
 
       <div class="reader-inner">
 
         <div class="reader-kicker">
-
           <span class="lead-badge">
-            ${esc(
-              categoryLabel(
-                story.category||'News'
-              )
-            )}
+            ${category}
           </span>
 
           <span class="read-pill">
-            ${readTime(
-              story.body||
-              story.content
-            )}
-            min read · Vol. 04 · Issue 09
+            ${readingTime} min read
           </span>
-
         </div>
 
-
-        <h1 id="reader-title">
-          ${esc(
-            story.title||
-            'GIET Alumni Story'
-          )}
-        </h1>
-
+        <h1>${title}</h1>
 
         <p class="reader-deck">
-          ${esc(
-            story.excerpt||
-            'A story from the GIET University community.'
-          )}
+          ${excerpt}
         </p>
-
 
         <div class="reader-byline">
 
           <img
-            src="${esc(authorPhoto(story))}"
-            alt=""
+            src="${escapeAttribute(authorImage)}"
+            alt="${escapeAttribute(author)}"
           >
 
           <div>
+            <strong>
+              ${escapeHTML(author)}
+            </strong>
 
-            By
-            <a href="${authorLink(story)}">
-              ${esc(authorName(story))}
-            </a>
-
-            <br>
-
-            <span>
-              ${esc(
-                formatDate(
-                  story.createdAt||
-                  story.date||
-                  story.publishedAt
-                )
-              )}
-            </span>
-
+            ${
+              authorUid
+                ? `<br>
+                   <a href="${escapeAttribute(profileLink)}">
+                     View Fellow Profile →
+                   </a>`
+                : ""
+            }
           </div>
 
         </div>
 
-
         <div class="reader-body">
 
-          ${
-            body||
-            '<p>Full story details will appear here once published.</p>'
-          }
+          ${formatArticleBody(bodyText)}
 
         </div>
 
-
         <div class="reader-share">
-
-          <strong>
-            Share this story
-          </strong>
 
           <button
             class="share-btn"
             data-share="copy"
           >
             Copy link
+          </button>
+
+          <button
+            class="share-btn"
+            data-share="whatsapp"
+          >
+            WhatsApp
+          </button>
+
+          <button
+            class="share-btn"
+            data-share="linkedin"
+          >
+            LinkedIn
           </button>
 
           <button
@@ -457,34 +778,30 @@ function openReader(story){
 
         </div>
 
-
         <div class="author-callout">
 
           <img
-            src="${esc(authorPhoto(story))}"
-            alt=""
+            src="${escapeAttribute(authorImage)}"
+            alt="${escapeAttribute(author)}"
           >
 
           <div>
 
             <h3>
-              ${esc(authorName(story))}
+              ${escapeHTML(author)}
             </h3>
 
             <p>
-              ${esc(
-                grad
-                  ? `Class of ${grad} · `
-                  : ''
-              )}
-              ${esc(title)}
-              ·
-              ${esc(company)}
+              GIET Alumni Community
             </p>
 
-            <a href="${authorLink(story)}">
-              View Fellow Profile →
-            </a>
+            ${
+              authorUid
+                ? `<a href="${escapeAttribute(profileLink)}">
+                    View Fellow Profile →
+                  </a>`
+                : ""
+            }
 
           </div>
 
@@ -495,634 +812,955 @@ function openReader(story){
     </div>
   `;
 
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden", "false");
 
-  const modal=$('#reader-modal');
+  document.body.style.overflow = "hidden";
 
-  modal.classList.add('open');
-
-  modal.setAttribute(
-    'aria-hidden',
-    'false'
-  );
+  setupShareButtons(title);
 }
 
 
-async function shareStory(mode){
+function closeReader() {
+  const modal =
+    document.getElementById("reader-modal");
 
-  const url=location.href;
+  if (!modal) return;
 
-  if(mode==='copy'){
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden", "true");
 
-    try{
+  document.body.style.overflow = "";
+}
 
-      await navigator.clipboard.writeText(url);
 
-      showToast?.(
-        'Story link copied.'
+/* =========================================================
+   ARTICLE BODY
+   ========================================================= */
+
+function formatArticleBody(text) {
+  if (!text) {
+    return "<p class='dropcap'>This story does not have additional content yet.</p>";
+  }
+
+  const paragraphs = String(text)
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+
+  return paragraphs
+    .map((paragraph, index) => {
+      const safe = escapeHTML(paragraph);
+
+      if (index === 0) {
+        return `<p class="dropcap">${safe}</p>`;
+      }
+
+      if (index === 2 && paragraphs.length > 4) {
+        return `
+          <blockquote class="pull-quote">
+            “Every journey begins with a moment worth remembering.”
+          </blockquote>
+          <p>${safe}</p>
+        `;
+      }
+
+      return `<p>${safe}</p>`;
+    })
+    .join("");
+}
+
+
+/* =========================================================
+   SHARE BUTTONS
+   ========================================================= */
+
+function setupShareButtons(title) {
+  document
+    .querySelectorAll("[data-share]")
+    .forEach((button) => {
+      button.addEventListener("click", async () => {
+        const type = button.dataset.share;
+        const url = window.location.href;
+
+        if (type === "copy") {
+          try {
+            await navigator.clipboard.writeText(url);
+            showToast?.("Story link copied.");
+          } catch {
+            showToast?.("Unable to copy link.");
+          }
+
+          return;
+        }
+
+        if (type === "whatsapp") {
+          const shareUrl =
+            `https://wa.me/?text=${encodeURIComponent(
+              `${title} ${url}`
+            )}`;
+
+          window.open(
+            shareUrl,
+            "_blank",
+            "noopener,noreferrer"
+          );
+
+          return;
+        }
+
+        if (type === "linkedin") {
+          const shareUrl =
+            `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+              url
+            )}`;
+
+          window.open(
+            shareUrl,
+            "_blank",
+            "noopener,noreferrer"
+          );
+
+          return;
+        }
+
+        if (
+          type === "native" &&
+          navigator.share
+        ) {
+          try {
+            await navigator.share({
+              title,
+              url
+            });
+          } catch {
+            // User closed the share dialog.
+          }
+
+          return;
+        }
+
+        showToast?.("Sharing is not available on this browser.");
+      });
+    });
+}
+
+
+/* =========================================================
+   SLIDER
+   ========================================================= */
+
+function setupSlider() {
+  const slider =
+    document.getElementById("featured-slider");
+
+  const prev =
+    document.getElementById("slider-prev");
+
+  const next =
+    document.getElementById("slider-next");
+
+  const dots =
+    document.getElementById("slider-dots");
+
+  if (!slider) return;
+
+  const slides =
+    slider.querySelectorAll(".slide-card");
+
+  if (!slides.length) return;
+
+  if (dots) {
+    dots.innerHTML = "";
+
+    slides.forEach((_, index) => {
+      const dot =
+        document.createElement("button");
+
+      dot.className =
+        `slider-dot ${index === 0 ? "active" : ""}`;
+
+      dot.setAttribute(
+        "aria-label",
+        `Go to slide ${index + 1}`
       );
 
-    }catch{
-
-      showToast?.(
-        'Copy is unavailable in this browser.'
-      );
-
-    }
-
-  }else if(navigator.share){
-
-    try{
-
-      await navigator.share({
-        title:document.title,
-        url
+      dot.addEventListener("click", () => {
+        currentSlide = index;
+        updateSlider();
       });
 
-    }catch{}
-
-  }else{
-
-    try{
-
-      await navigator.clipboard.writeText(url);
-
-      showToast?.(
-        'Story link copied.'
-      );
-
-    }catch{
-
-      showToast?.(
-        'Sharing is unavailable.'
-      );
-
-    }
-
+      dots.appendChild(dot);
+    });
   }
-}
 
+  prev?.addEventListener("click", () => {
+    currentSlide =
+      (currentSlide - 1 + slides.length) %
+      slides.length;
 
-function toggleSave(id){
-
-  const a=saved();
-
-  const has=a.includes(id);
-
-  const n=
-    has
-      ? a.filter(x=>x!==id)
-      : [...a,id];
-
-  setSaved(n);
-
-  const active=
-    document.querySelector(
-      '.filter-btn.active'
-    )?.dataset.category||'All';
-
-  renderStories(active);
-
-  showToast?.(
-    has
-      ? 'Removed from saved stories'
-      : 'Saved to My Saved Stories'
-  );
-}
-
-
-function setupSlider(){
-
-  const slider=$('#campus-slider');
-
-  const cards=$$('.slide-card');
-
-  const dots=$('#slider-dots');
-
-  let index=0;
-
-
-  cards.forEach((_,i)=>{
-
-    const b=document.createElement('button');
-
-    b.className=
-      'slider-dot'+
-      (i===0?' active':'');
-
-    b.type='button';
-
-    b.addEventListener(
-      'click',
-      ()=>go(i)
-    );
-
-    dots.appendChild(b);
-
+    updateSlider();
   });
 
+  next?.addEventListener("click", () => {
+    currentSlide =
+      (currentSlide + 1) %
+      slides.length;
 
-  function go(i){
+    updateSlider();
+  });
 
-    index=
-      (i+cards.length)%cards.length;
+  function updateSlider() {
+    const width =
+      slider.clientWidth;
 
     slider.scrollTo({
-      left:index*slider.clientWidth,
-      behavior:'smooth'
+      left: width * currentSlide,
+      behavior: "smooth"
     });
 
-    $$('.slider-dot').forEach(
-      (d,j)=>
-        d.classList.toggle(
-          'active',
-          j===index
-        )
-    );
-
+    dots
+      ?.querySelectorAll(".slider-dot")
+      .forEach((dot, index) => {
+        dot.classList.toggle(
+          "active",
+          index === currentSlide
+        );
+      });
   }
 
+  let autoSlide = setInterval(() => {
+    currentSlide =
+      (currentSlide + 1) %
+      slides.length;
 
-  $('#slide-next').onclick=
-    ()=>go(index+1);
+    updateSlider();
+  }, 6500);
 
-  $('#slide-prev').onclick=
-    ()=>go(index-1);
+  slider.addEventListener("mouseenter", () => {
+    clearInterval(autoSlide);
+  });
 
+  slider.addEventListener("mouseleave", () => {
+    autoSlide = setInterval(() => {
+      currentSlide =
+        (currentSlide + 1) %
+        slides.length;
 
-  let timer=
-    setInterval(
-      ()=>go(index+1),
-      5500
-    );
-
-
-  slider.addEventListener(
-    'mouseenter',
-    ()=>clearInterval(timer)
-  );
-
-
-  slider.addEventListener(
-    'mouseleave',
-    ()=>timer=setInterval(
-      ()=>go(index+1),
-      5500
-    )
-  );
-
+      updateSlider();
+    }, 6500);
+  });
 }
 
 
-function renderPlacements(){
+/* =========================================================
+   INFORMATION SECTIONS
+   ========================================================= */
 
-  $('#placement-students').innerHTML=
-    students
-      .map(s=>`
+function setupInformationSections() {
 
-        <article class="student-placement-card">
+  document
+    .querySelectorAll(".info-toggle")
+    .forEach((button) => {
 
-          <img
-            src="${s.image}"
-            alt="${esc(s.name)}"
-          >
+      button.addEventListener("click", () => {
 
-          <div class="student-info">
+        const item =
+          button.closest(".info-item");
 
-            <h3>
-              ${esc(s.name)}
-            </h3>
+        const content =
+          item?.querySelector(".info-content");
 
-            <p>
-              <strong>Department:</strong>
-              ${esc(s.department)}
-            </p>
+        if (!item || !content) return;
 
-            <p>
-              <strong>Branch:</strong>
-              ${esc(s.branch)}
-            </p>
+        const alreadyOpen =
+          item.classList.contains("open");
 
-            <p>
-              <strong>Academic Year:</strong>
-              ${esc(s.year)}
-            </p>
+        document
+          .querySelectorAll(".info-item.open")
+          .forEach((openItem) => {
+
+            openItem.classList.remove("open");
+
+            const openContent =
+              openItem.querySelector(".info-content");
+
+            if (openContent) {
+              openContent.style.maxHeight = null;
+            }
+
+          });
+
+        if (!alreadyOpen) {
+          item.classList.add("open");
+
+          content.style.maxHeight =
+            `${content.scrollHeight}px`;
+        }
+
+      });
+
+    });
 
 
-            <div class="student-company">
+  /*
+   * Breakthrough buttons
+   */
 
-              <span>
-                Placed at<br>
-                <strong>
-                  ${esc(s.company)}
-                </strong>
-              </span>
+  document
+    .querySelectorAll(".info-card-button")
+    .forEach((button) => {
 
-              <strong class="package">
-                ${esc(s.package)}
-              </strong>
+      button.addEventListener("click", () => {
+
+        const section =
+          document.getElementById("breakthroughs");
+
+        if (!section) return;
+
+        section.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+        showToast?.(
+          "Explore more GIET breakthrough stories as they are published."
+        );
+
+      });
+
+    });
+}
+
+
+/* =========================================================
+   PLACEMENT DIRECTORY
+   ========================================================= */
+
+function setupPlacements() {
+
+  const spotlight =
+    document.getElementById(
+      "placements-spotlight"
+    );
+
+  const page =
+    document.getElementById("placements");
+
+  const close =
+    document.getElementById(
+      "close-placements"
+    );
+
+  const students =
+    document.getElementById(
+      "placement-students"
+    );
+
+  if (!spotlight || !page || !students) {
+    return;
+  }
+
+  renderPlacements();
+
+  spotlight.addEventListener("click", () => {
+    openPlacements();
+  });
+
+  close?.addEventListener("click", () => {
+    closePlacements();
+  });
+}
+
+
+function openPlacements() {
+
+  const page =
+    document.getElementById("placements");
+
+  if (!page) return;
+
+  page.hidden = false;
+
+  page.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+  history.replaceState(
+    null,
+    "",
+    "#placements"
+  );
+}
+
+
+function closePlacements() {
+
+  const page =
+    document.getElementById("placements");
+
+  if (!page) return;
+
+  page.hidden = true;
+
+  history.replaceState(
+    null,
+    "",
+    window.location.pathname +
+      window.location.search
+  );
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+function renderPlacements() {
+
+  const container =
+    document.getElementById(
+      "placement-students"
+    );
+
+  if (!container) return;
+
+  container.innerHTML =
+    placementStudents
+      .map((student) => {
+
+        return `
+          <article class="student-placement-card">
+
+            <img
+              src="${escapeAttribute(student.image)}"
+              alt="${escapeAttribute(student.name)}"
+              loading="lazy"
+            >
+
+            <div class="student-info">
+
+              <h3>
+                ${escapeHTML(student.name)}
+              </h3>
+
+              <p>
+                ${escapeHTML(student.department)}
+              </p>
+
+              <p>
+                ${escapeHTML(student.branch)}
+                ·
+                ${escapeHTML(student.year)}
+              </p>
+
+              <div class="student-company">
+
+                <div>
+                  <span>Company</span>
+                  <strong>
+                    ${escapeHTML(student.company)}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Package</span>
+                  <strong class="package">
+                    ${escapeHTML(student.package)}
+                  </strong>
+                </div>
+
+              </div>
 
             </div>
 
-          </div>
+          </article>
+        `;
 
-        </article>
-
-      `)
-      .join('');
+      })
+      .join("");
 }
 
 
-function openPlacements(){
+/* =========================================================
+   STORY SUBMISSION MODAL
+   ========================================================= */
 
-  history.pushState(
-    {placements:true},
-    '',
-    `${location.pathname}#placements`
-  );
+function setupSubmissionModal() {
 
-  $('#gazette-main').hidden=true;
-
-  $('#placements-page').hidden=false;
-
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
-  });
-
-}
-
-
-function closePlacements(){
-
-  if(location.hash==='#placements'){
-    history.pushState(
-      {},
-      '',
-      location.pathname
+  const open =
+    document.getElementById(
+      "share-story-btn"
     );
-  }
 
-  $('#placements-page').hidden=true;
+  const modal =
+    document.getElementById(
+      "submit-story-modal"
+    );
 
-  $('#gazette-main').hidden=false;
+  const close =
+    document.getElementById(
+      "close-submit-modal"
+    );
 
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
-  });
+  if (!open || !modal) return;
 
-}
+  open.addEventListener("click", () => {
 
+    const user = getCurrentUser();
 
-function syncHash(){
-
-  if(location.hash==='#placements'){
-
-    renderPlacements();
-
-    $('#gazette-main').hidden=true;
-
-    $('#placements-page').hidden=false;
-
-  }else{
-
-    $('#placements-page').hidden=true;
-
-    $('#gazette-main').hidden=false;
-
-  }
-
-}
-
-
-function setupSubmit(){
-
-  const modal=$('#submit-story-modal');
-
-
-  const open=()=>{
-
-    const user=getCurrentUser?.();
-
-    if(!user){
-
+    if (!user) {
       showToast?.(
-        'Please sign in to submit a story.'
+        "Please sign in before sharing your story."
       );
-
-      window.location.href='auth.html';
 
       return;
     }
 
-    modal.classList.add('open');
-
+    modal.classList.add("open");
     modal.setAttribute(
-      'aria-hidden',
-      'false'
+      "aria-hidden",
+      "false"
     );
 
-    $('#story-title').focus();
+    document.body.style.overflow = "hidden";
+  });
 
-  };
+  close?.addEventListener(
+    "click",
+    closeSubmissionModal
+  );
 
+  modal.addEventListener("click", (event) => {
 
-  $('#share-story-btn').onclick=open;
-
-
-  $$('[data-close-submit]').forEach(
-    b=>b.onclick=()=>{
-
-      modal.classList.remove(
-        'open'
-      );
-
-      modal.setAttribute(
-        'aria-hidden',
-        'true'
-      );
-
+    if (event.target === modal) {
+      closeSubmissionModal();
     }
+
+  });
+}
+
+
+function closeSubmissionModal() {
+
+  const modal =
+    document.getElementById(
+      "submit-story-modal"
+    );
+
+  if (!modal) return;
+
+  modal.classList.remove("open");
+
+  modal.setAttribute(
+    "aria-hidden",
+    "true"
   );
 
-
-  $('#story-title').addEventListener(
-    'input',
-    e=>
-      $('#title-count').textContent=
-        `${e.target.value.length}/120`
-  );
+  document.body.style.overflow = "";
+}
 
 
-  $('#story-body').addEventListener(
-    'input',
-    e=>{
+/* =========================================================
+   STORY FORM
+   ========================================================= */
 
-      const w=words(
-        e.target.value
-      );
+function setupStorySubmission() {
 
-      $('#body-count').textContent=
-        `${w} words`;
+  const form =
+    document.getElementById(
+      "story-submission-form"
+    );
 
-      $('#reading-time').textContent=
-        `${Math.max(
-          1,
-          Math.ceil(w/220)
-        )} min read`;
+  if (!form) return;
 
-    }
-  );
+  const body =
+    document.getElementById(
+      "story-body"
+    );
 
+  const wordCount =
+    document.getElementById(
+      "story-word-count"
+    );
 
-  $('#story-image').addEventListener(
-    'input',
-    e=>{
+  const readingTime =
+    document.getElementById(
+      "story-reading-time"
+    );
 
-      const img=
-        $('#story-image-preview');
+  const imageInput =
+    document.getElementById(
+      "story-image"
+    );
 
-      if(e.target.value){
+  const imagePreview =
+    document.getElementById(
+      "story-image-preview"
+    );
 
-        img.src=e.target.value;
+  body?.addEventListener(
+    "input",
+    () => {
 
-        img.hidden=false;
+      const text =
+        body.value.trim();
 
-        img.onerror=()=>{
-          img.hidden=true;
-        };
+      const words =
+        countWords(text);
 
-      }else{
+      const minutes =
+        calculateReadingTime(text);
 
-        img.hidden=true;
+      if (wordCount) {
+        wordCount.textContent =
+          `${words} ${words === 1 ? "word" : "words"}`;
+      }
 
+      if (readingTime) {
+        readingTime.textContent =
+          `${minutes} min read`;
       }
 
     }
   );
 
 
-  $('#story-submission-form').onsubmit=
-    async e=>{
+  imageInput?.addEventListener(
+    "input",
+    () => {
 
-      e.preventDefault();
+      const url =
+        imageInput.value.trim();
 
-      const user=getCurrentUser?.();
+      if (!url) {
+        imagePreview.hidden = true;
+        imagePreview.removeAttribute("src");
+        return;
+      }
 
-      if(!user){
+      imagePreview.src = url;
+      imagePreview.hidden = false;
 
+      imagePreview.onerror = () => {
+        imagePreview.hidden = true;
+      };
+
+    }
+  );
+
+
+  form.addEventListener(
+    "submit",
+    async (event) => {
+
+      event.preventDefault();
+
+      const user =
+        getCurrentUser();
+
+      if (!user) {
         showToast?.(
-          'Please sign in first.'
+          "Please sign in first."
         );
 
         return;
+      }
+
+      const title =
+        document.getElementById(
+          "story-title"
+        )?.value.trim();
+
+      const category =
+        document.getElementById(
+          "story-category"
+        )?.value;
+
+      const excerpt =
+        document.getElementById(
+          "story-excerpt"
+        )?.value.trim();
+
+      const image =
+        document.getElementById(
+          "story-image"
+        )?.value.trim();
+
+      const storyBody =
+        document.getElementById(
+          "story-body"
+        )?.value.trim();
+
+      if (
+        !title ||
+        !category ||
+        !excerpt ||
+        !storyBody
+      ) {
+        showToast?.(
+          "Please complete all required fields."
+        );
+
+        return;
+      }
+
+      const submitButton =
+        form.querySelector(
+          'button[type="submit"]'
+        );
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent =
+          "Submitting...";
+      }
+
+      try {
+
+        await createSubmission({
+
+          title,
+
+          category,
+
+          excerpt,
+
+          image,
+
+          body: storyBody,
+
+          authorUid:
+            user.uid ||
+            user.id ||
+            null,
+
+          authorName:
+            user.displayName ||
+            user.name ||
+            user.email ||
+            "GIET Alumni"
+
+        });
+
+        form.reset();
+
+        if (imagePreview) {
+          imagePreview.hidden = true;
+          imagePreview.removeAttribute("src");
+        }
+
+        if (wordCount) {
+          wordCount.textContent =
+            "0 words";
+        }
+
+        if (readingTime) {
+          readingTime.textContent =
+            "0 min read";
+        }
+
+        closeSubmissionModal();
+
+        showToast?.(
+          "Story submitted to the moderation queue."
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Submission failed:",
+          error
+        );
+
+        showToast?.(
+          "Unable to submit your story. Please try again."
+        );
+
+      } finally {
+
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent =
+            "Submit Story";
+        }
 
       }
 
-
-      const data={
-
-        title:
-          $('#story-title').value.trim(),
-
-        category:
-          $('#story-category').value,
-
-        excerpt:
-          $('#story-excerpt').value.trim(),
-
-        imageUrl:
-          $('#story-image').value.trim(),
-
-        body:
-          $('#story-body').value.trim(),
-
-        authorUid:
-          user.uid,
-
-        status:
-          'pending'
-
-      };
+    }
+  );
+}
 
 
-      try{
+/* =========================================================
+   AUTH
+   ========================================================= */
 
-        await createSubmission(
-          data
-        );
+function setupAuth() {
 
-        modal.classList.remove(
-          'open'
-        );
+  try {
 
-        modal.setAttribute(
-          'aria-hidden',
-          'true'
-        );
+    onAuthStateChange(() => {
+      // Re-rendering the page is not necessary here.
+      // The auth component handles the global header.
+    });
 
-        e.target.reset();
+  } catch (error) {
 
-        $('#story-image-preview').hidden=true;
+    console.warn(
+      "Auth listener unavailable:",
+      error
+    );
 
-        $('#title-count').textContent=
-          '0/120';
+  }
+}
 
-        $('#body-count').textContent=
-          '0 words';
 
-        $('#reading-time').textContent=
-          '1 min read';
+/* =========================================================
+   DONATION / SUPPORT
+   ========================================================= */
 
-        showToast?.(
-          'Cataloged for staff review in the University Gazette moderation queue.'
-        );
+function setupDonation() {
 
-      }catch(err){
+  const button =
+    document.querySelector(
+      ".support-button"
+    );
 
-        showToast?.(
-          'Could not submit the story. Please try again.'
-        );
+  if (!button) return;
 
-      }
+  button.addEventListener("click", () => {
 
-    };
+    showToast?.(
+      "Opening GIET support and donation page."
+    );
+
+  });
+}
+
+
+/* =========================================================
+   SCROLLING
+   ========================================================= */
+
+function scrollToSection(id) {
+
+  const section =
+    document.getElementById(id);
+
+  if (!section) return;
+
+  section.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+  /*
+   * Small offset for sticky headers.
+   */
+
+  setTimeout(() => {
+
+    window.scrollBy({
+      top: -20,
+      behavior: "smooth"
+    });
+
+  }, 300);
+}
+
+
+/* =========================================================
+   WORD COUNT
+   ========================================================= */
+
+function countWords(text) {
+
+  if (!text) return 0;
+
+  return text
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .length;
+}
+
+
+/* =========================================================
+   READING TIME
+   ========================================================= */
+
+function calculateReadingTime(text) {
+
+  const words =
+    countWords(text);
+
+  if (!words) return 0;
+
+  /*
+   * Approx. 200 words per minute.
+   */
+
+  return Math.max(
+    1,
+    Math.ceil(words / 200)
+  );
+}
+
+
+/* =========================================================
+   HTML SAFETY
+   ========================================================= */
+
+function escapeHTML(value) {
+
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+function escapeAttribute(value) {
+  return escapeHTML(value);
+}
+
+
+/* =========================================================
+   HASH SUPPORT
+   ========================================================= */
+
+if (window.location.hash === "#placements") {
+
+  setTimeout(() => {
+
+    const page =
+      document.getElementById(
+        "placements"
+      );
+
+    if (page) {
+      page.hidden = false;
+    }
+
+  }, 300);
 
 }
 
 
-document.addEventListener(
-  'click',
-  e=>{
+/* =========================================================
+   STORAGE SYNC
+   ========================================================= */
 
-    const read=
-      e.target.closest('[data-read]');
+window.addEventListener("storage", (event) => {
 
-    if(read){
-
-      e.preventDefault();
-
-      openReader(
-        stories.find(
-          (s,i)=>
-            storyId(s,i)===
-            read.dataset.read
-        )
-      );
-
-    }
-
-
-    const save=
-      e.target.closest('[data-save]');
-
-    if(save){
-
-      e.preventDefault();
-
-      toggleSave(
-        save.dataset.save
-      );
-
-    }
-
-
-    const share=
-      e.target.closest('[data-share]');
-
-    if(share){
-
-      e.preventDefault();
-
-      shareStory(
-        share.dataset.share
-      );
-
-    }
-
+  if (event.key === SAVED_KEY) {
+    renderStories();
+    renderTrending();
   }
-);
 
-
-$('#close-reader-modal').onclick=()=>{
-
-  $('#reader-modal').classList.remove(
-    'open'
-  );
-
-  $('#reader-modal').setAttribute(
-    'aria-hidden',
-    'true'
-  );
-
-};
-
-
-$('#reader-modal').addEventListener(
-  'click',
-  e=>{
-
-    if(e.target.id==='reader-modal'){
-      $('#close-reader-modal').click();
-    }
-
-  }
-);
-
-
-$('#placements-spotlight').onclick=
-  openPlacements;
-
-
-$('#placements-back').onclick=
-  closePlacements;
-
-
-window.addEventListener(
-  'popstate',
-  syncHash
-);
-
-
-window.addEventListener(
-  'hashchange',
-  syncHash
-);
-
-
-$$('.filter-btn').forEach(
-  btn=>
-    btn.addEventListener(
-      'click',
-      ()=>{
-        $$('.filter-btn').forEach(
-          b=>b.classList.remove(
-            'active'
-          )
-        );
-
-        btn.classList.add(
-          'active'
-        );
-
-        renderStories(
-          btn.dataset.category
-        );
-      }
-    )
-);
-
-
-setupSlider();
-
-setupSubmit();
-
-syncHash();
-
-renderPlacements();
-
-loadStories();
-
-onAuthStateChange?.(
-  ()=>{}
-);
+});
