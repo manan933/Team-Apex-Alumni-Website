@@ -1760,7 +1760,7 @@
     rgba(6, 13, 23, 0.90) 70%,  /* Deep contrast for text & buttons */
     rgba(6, 13, 23, 0.98) 100%
   ), url('../../hero-bg.JPG') center 5%/cover no-repeat !important;
-  padding: 350px 0 0 !important; /* Pushes the entire text block down to the bottom */
+  padding: 400px 0 0 !important; /* Pushes the entire text block down to the bottom */
   color: #FFFFFF !important;
 }
 /* Ticker sits flush at the very bottom edge with NO photo leak underneath */
