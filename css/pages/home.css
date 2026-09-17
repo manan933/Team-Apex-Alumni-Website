@@ -1755,12 +1755,12 @@
   /* Crystal-clear top (0.12) so all faces shine through, darkens smoothly towards the bottom */
     background: linear-gradient(
     180deg,
-    rgba(6, 13, 23, 0.35) 0%,   /* Darkened from 0.12 for a richer top tone */
-    rgba(6, 13, 23, 0.65) 45%,  /* Darkened from 0.40 */
-    rgba(6, 13, 23, 0.90) 70%,  /* Deep contrast for text & buttons */
+    rgba(6, 13, 23, 0.28) 0%,   /* Clear view of alumni */
+    rgba(6, 13, 23, 0.60) 45%,
+    rgba(6, 13, 23, 0.90) 70%,  /* Deep contrast behind text & buttons */
     rgba(6, 13, 23, 0.98) 100%
-  ), url('../../hero-bg.JPG') center 5%/cover no-repeat !important;
-  padding: 400px 0 0 !important; /* Pushes the entire text block down to the bottom */
+  ), url('../../hero-bg.JPG') center 32%/cover no-repeat !important; /* Crops the top blue banner and shifts alumni UP */
+  padding: 300px 0 0 !important; /* Perfectly balances text right beneath the alumni */
   color: #FFFFFF !important;
 }
 /* Ticker sits flush at the very bottom edge with NO photo leak underneath */
