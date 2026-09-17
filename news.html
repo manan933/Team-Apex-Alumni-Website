@@ -1,192 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
-
-  <meta
-    name="description"
-    content="GIET University Alumni Gazette — news, stories, campus milestones and alumni placement highlights."
-  />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="GIET University Alumni Gazette — news, stories, breakthroughs and campus milestones." />
   <title>GIET University Alumni Gazette</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Global styles -->
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/components.css" />
-
-  <!-- News page styles -->
   <link rel="stylesheet" href="css/pages/news.css" />
 </head>
 
-
 <body>
 
-  <!-- =====================================================
-       REUSABLE GLOBAL HEADER
-       Loaded from components/header.html
-       ===================================================== -->
-
+  <!-- GIET Reusable Header -->
   <div id="site-header-container"></div>
-
-
-  <!-- =====================================================
-       MAIN GAZETTE
-       ===================================================== -->
 
   <main id="gazette-main">
 
-    <!-- ================= HERO ================= -->
-
     <section class="gazette-hero">
-
       <div class="issue-line">
-
-        <span>
-          GIET UNIVERSITY
-        </span>
-
-        <span>
-          ALUMNI GAZETTE · VOL. 04 · ISSUE 09
-        </span>
-
+        <span>GIET UNIVERSITY</span>
+        <span>ALUMNI GAZETTE · VOL. 04 · ISSUE 09</span>
       </div>
 
-
       <div class="hero-copy">
-
-        <p class="eyebrow">
-          Ideas, people and progress worth knowing
-        </p>
-
-
         <h1>
-          Stories from a university
-          <br>
+          Stories from a university<br>
           <em>always in motion.</em>
         </h1>
 
-
         <p class="hero-intro">
-          Recent campus moments, alumni stories, breakthroughs and
-          the achievements shaping the GIET community.
+          Recent campus moments, alumni stories, breakthroughs and achievements shaping the GIET community.
         </p>
-
       </div>
-
     </section>
 
+    <section class="news-toolbar" aria-label="News filters">
 
-    <!-- ================= FILTER BAR ================= -->
+      <div id="news-category-filters" class="filter-row">
 
-    <section
-      class="news-toolbar"
-      aria-label="News filters"
-    >
-
-      <div
-        id="news-category-filters"
-        class="filter-row"
-      >
-
-        <button
-          class="filter-btn active"
-          data-category="All"
-          type="button"
-        >
+        <button class="filter-btn active" data-category="All">
           All
         </button>
 
-
-        <button
-          class="filter-btn"
-          data-category="Story"
-          type="button"
-        >
+        <button class="filter-btn" data-category="Story">
           Stories &amp; Essays
         </button>
 
-
-        <button
-          class="filter-btn"
-          data-category="Achievement"
-          type="button"
-        >
+        <button class="filter-btn" data-category="Achievement">
           Breakthroughs
         </button>
 
-
-        <button
-          class="filter-btn"
-          data-category="News"
-          type="button"
-        >
+        <button class="filter-btn" data-category="News">
           Campus Milestones
         </button>
 
-
-        <button
-          class="filter-btn saved-filter"
-          data-category="Saved"
-          type="button"
-        >
+        <button class="filter-btn saved-filter" data-category="Saved">
           ♡ My Saved Stories
         </button>
 
       </div>
 
-
-      <button
-        id="share-story-btn"
-        class="gold-btn"
-        type="button"
-      >
+      <button id="share-story-btn" class="gold-btn" type="button">
         Share your story
       </button>
 
     </section>
 
 
-    <!-- =====================================================
-         CAMPUS MILESTONES + RECENT PLACEMENTS
-         ===================================================== -->
-
-    <section
-      class="spotlight-grid"
-      aria-label="GIET highlights"
-    >
-
-      <!-- ================= CAMPUS MILESTONES ================= -->
+    <section class="spotlight-grid" aria-label="GIET highlights">
 
       <article class="campus-spotlight">
 
         <div class="section-kicker">
-
-          <span>
-            Campus Milestones
-          </span>
-
-          <span>
-            Explore →
-          </span>
-
+          <span>Campus Milestones</span>
+          <span>Explore →</span>
         </div>
-
 
         <div
           id="campus-slider"
@@ -195,181 +91,87 @@
           aria-label="Recent campus events"
         >
 
-          <!-- Slide 1 -->
-
-          <a
-            class="slide-card"
-            href="events.html"
-          >
-
+          <a class="slide-card" href="events.html">
             <img
               src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1200&q=80"
               alt="University campus"
-            />
-
+            >
 
             <div class="slide-overlay">
-
-              <span>
-                01
-              </span>
-
+              <span>01</span>
 
               <div>
-
-                <p>
-                  Campus Life
-                </p>
-
-
+                <p>Campus Life</p>
                 <h2>
                   GIET community comes together for another landmark campus week.
                 </h2>
-
-
-                <b>
-                  Read event story →
-                </b>
-
+                <b>Read event story →</b>
               </div>
-
             </div>
-
           </a>
 
 
-          <!-- Slide 2 -->
-
-          <a
-            class="slide-card"
-            href="events.html"
-          >
-
+          <a class="slide-card" href="events.html">
             <img
               src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80"
               alt="Students at graduation"
-            />
-
+            >
 
             <div class="slide-overlay">
-
-              <span>
-                02
-              </span>
-
+              <span>02</span>
 
               <div>
-
-                <p>
-                  Graduation
-                </p>
-
-
+                <p>Graduation</p>
                 <h2>
                   Celebrating the next generation of GIET graduates.
                 </h2>
-
-
-                <b>
-                  View event →
-                </b>
-
+                <b>View event →</b>
               </div>
-
             </div>
-
           </a>
 
 
-          <!-- Slide 3 -->
-
-          <a
-            class="slide-card"
-            href="events.html"
-          >
-
+          <a class="slide-card" href="events.html">
             <img
               src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80"
               alt="Students walking across campus"
-            />
-
+            >
 
             <div class="slide-overlay">
-
-              <span>
-                03
-              </span>
-
+              <span>03</span>
 
               <div>
-
-                <p>
-                  Student Life
-                </p>
-
-
+                <p>Student Life</p>
                 <h2>
                   Ideas, clubs and student initiatives taking campus forward.
                 </h2>
-
-
-                <b>
-                  Discover more →
-                </b>
-
+                <b>Discover more →</b>
               </div>
-
             </div>
-
           </a>
 
 
-          <!-- Slide 4 -->
-
-          <a
-            class="slide-card"
-            href="events.html"
-          >
-
+          <a class="slide-card" href="events.html">
             <img
               src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1200&q=80"
               alt="Students collaborating"
-            />
-
+            >
 
             <div class="slide-overlay">
-
-              <span>
-                04
-              </span>
-
+              <span>04</span>
 
               <div>
-
-                <p>
-                  Innovation
-                </p>
-
-
+                <p>Innovation</p>
                 <h2>
                   Student teams turn ambitious ideas into practical projects.
                 </h2>
-
-
-                <b>
-                  Read more →
-                </b>
-
+                <b>Read more →</b>
               </div>
-
             </div>
-
           </a>
 
         </div>
 
-
-        <!-- Slider Controls -->
 
         <div class="slider-controls">
 
@@ -381,12 +183,10 @@
             ←
           </button>
 
-
           <div
             class="slider-dots"
             id="slider-dots"
           ></div>
-
 
           <button
             id="slide-next"
@@ -401,10 +201,6 @@
       </article>
 
 
-      <!-- =================================================
-           RECENT PLACEMENTS SPOTLIGHT
-           ================================================= -->
-
       <button
         id="placements-spotlight"
         class="placement-spotlight"
@@ -414,117 +210,37 @@
 
         <div class="placement-glow"></div>
 
-
-        <!-- Top -->
-
         <div class="placement-top">
-
           <span class="live-dot"></span>
-
-          <span>
-            RECENT PLACEMENTS
-          </span>
-
-          <span class="placement-arrow">
-            ↗
-          </span>
-
+          <span>RECENT PLACEMENTS</span>
+          <span class="placement-arrow">↗</span>
         </div>
-
-
-        <!-- Main -->
 
         <div class="placement-copy">
 
-          <p>
-            Career Highlights
-          </p>
-
+          <p>Career Highlights</p>
 
           <h2>
-            High packages.
-            <br>
+            High packages.<br>
             <em>Big beginnings.</em>
           </h2>
 
+          <strong>₹9 LPA</strong>
 
-          <!-- Package highlights -->
-
-          <div class="package-highlights">
-
-            <div class="package-highlight top-package">
-
-              <span>
-                Highest
-              </span>
-
-              <strong>
-                ₹13 LPA
-              </strong>
-
-            </div>
-
-
-            <div class="package-highlight">
-
-              <span>
-                Featured
-              </span>
-
-              <strong>
-                ₹12 LPA
-              </strong>
-
-            </div>
-
-
-            <div class="package-highlight">
-
-              <span>
-                Featured
-              </span>
-
-              <strong>
-                ₹10.5 LPA
-              </strong>
-
-            </div>
-
-
-            <div class="package-highlight">
-
-              <span>
-                Featured
-              </span>
-
-              <strong>
-                ₹9 LPA
-              </strong>
-
-            </div>
-
-          </div>
-
-
-          <span class="placement-caption">
-            Recent students placed in leading companies
+          <span>
+            Featured placement highlight
           </span>
 
         </div>
 
-
-        <!-- Bottom -->
-
         <div class="placement-bottom">
-
           <span>
-            TCS · Deloitte · Infosys · Microsoft · Accenture &amp; more
+            Students placed at TCS · Deloitte · Infosys &amp; more
           </span>
 
           <b>
             View placement stories →
           </b>
-
         </div>
 
       </button>
@@ -532,28 +248,14 @@
     </section>
 
 
-    <!-- =====================================================
-         MAGAZINE NEWS SECTION
-         ===================================================== -->
-
     <section class="magazine-layout">
-
-      <!-- Latest -->
 
       <div class="lead-column">
 
         <div class="section-heading">
-
-          <span>
-            01
-          </span>
-
-          <h2>
-            Latest from the Gazette
-          </h2>
-
+          <span>01</span>
+          <h2>Latest from the Gazette</h2>
         </div>
-
 
         <div
           id="news-grid"
@@ -563,39 +265,24 @@
       </div>
 
 
-      <!-- Trending -->
-
       <aside class="trending-column">
 
         <div class="section-heading">
-
-          <span>
-            02
-          </span>
-
-          <h2>
-            Trending Insights
-          </h2>
-
+          <span>02</span>
+          <h2>Trending Insights</h2>
         </div>
-
 
         <ol
           id="trending-list"
           class="trending-list"
         ></ol>
 
-
         <div class="editor-note">
 
-          <span>
-            EDITOR'S NOTE
-          </span>
-
+          <span>EDITOR'S NOTE</span>
 
           <p>
-            From the classroom to the workplace, GIET stories are
-            built by people who keep moving forward.
+            From the classroom to the workplace, GIET stories are built by people who keep moving forward.
           </p>
 
         </div>
@@ -605,74 +292,35 @@
     </section>
 
 
-    <!-- =====================================================
-         GAZETTE STATS
-         ===================================================== -->
-
     <section
       class="gazette-stats"
       aria-label="Gazette highlights"
     >
 
       <div>
-
-        <strong>
-          25+
-        </strong>
-
-        <span>
-          Years of alumni stories
-        </span>
-
+        <strong>25+</strong>
+        <span>Years of alumni stories</span>
       </div>
 
-
       <div>
-
-        <strong>
-          10K+
-        </strong>
-
-        <span>
-          Alumni community
-        </span>
-
+        <strong>10K+</strong>
+        <span>Alumni community</span>
       </div>
 
-
       <div>
-
-        <strong>
-          50+
-        </strong>
-
-        <span>
-          Campus events &amp; milestones
-        </span>
-
+        <strong>50+</strong>
+        <span>Campus events &amp; milestones</span>
       </div>
 
-
       <div>
-
-        <strong>
-          100+
-        </strong>
-
-        <span>
-          Career success stories
-        </span>
-
+        <strong>100+</strong>
+        <span>Career success stories</span>
       </div>
 
     </section>
 
   </main>
 
-
-  <!-- =====================================================
-       PLACEMENTS PAGE
-       ===================================================== -->
 
   <section
     id="placements-page"
@@ -690,7 +338,6 @@
         ← Back to Gazette
       </button>
 
-
       <span>
         GIET UNIVERSITY · CAREER STORIES
       </span>
@@ -698,76 +345,47 @@
     </div>
 
 
-    <!-- Intro -->
-
     <div class="placements-intro">
 
       <p class="eyebrow">
         Recent Placements
       </p>
 
-
       <h1>
-        Where GIET students
-        <br>
+        Where GIET students<br>
         <em>are headed next.</em>
       </h1>
 
-
       <p>
-        Explore featured placement highlights with student profile
-        details, academic journey and recruiting company.
+        Explore featured placement highlights with student profile details, academic journey and recruiting company.
       </p>
 
     </div>
 
 
-    <!-- Summary -->
-
     <div class="placement-summary">
 
       <div>
-
-        <span>
-          HIGHEST PACKAGE
-        </span>
-
-        <strong>
-          ₹13 LPA
-        </strong>
-
+        <span>FEATURED HIGHEST PACKAGE</span>
+        <strong>₹9 LPA</strong>
       </div>
 
-
       <div>
-
-        <span>
-          OTHER HIGH PACKAGES
-        </span>
-
+        <span>HIRING COMPANIES</span>
         <strong>
-          ₹12 LPA · ₹10.5 LPA · ₹9 LPA
+          TCS · Deloitte · Infosys · Wipro
         </strong>
-
       </div>
 
-
       <div>
-
-        <span>
-          HIRING COMPANIES
-        </span>
-
+        <span>ACADEMIC YEARS</span>
         <strong>
-          TCS · Deloitte · Microsoft · Infosys
+          2023–2027 · 2022–2026
         </strong>
-
       </div>
 
     </div>
 
-
-    <!-- Students -->
 
     <div
       id="placement-students"
@@ -777,9 +395,7 @@
   </section>
 
 
-  <!-- =====================================================
-       READER MODAL
-       ===================================================== -->
+  <!-- Reader Modal -->
 
   <div
     id="reader-modal"
@@ -787,17 +403,21 @@
     aria-hidden="true"
   >
 
-    <div class="modal-card reader-card">
+    <div
+      class="modal-card reader-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="reader-title"
+    >
 
       <button
         id="close-reader-modal"
         class="modal-close"
         type="button"
-        aria-label="Close story"
+        aria-label="Close article"
       >
         ×
       </button>
-
 
       <div id="reader-modal-body"></div>
 
@@ -806,9 +426,7 @@
   </div>
 
 
-  <!-- =====================================================
-       SUBMIT STORY MODAL
-       ===================================================== -->
+  <!-- Submit Story Modal -->
 
   <div
     id="submit-story-modal"
@@ -816,7 +434,12 @@
     aria-hidden="true"
   >
 
-    <div class="modal-card submit-card">
+    <div
+      class="modal-card submit-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="submit-title"
+    >
 
       <button
         class="modal-close"
@@ -827,34 +450,32 @@
         ×
       </button>
 
-
       <p class="eyebrow">
         CONTRIBUTE
       </p>
 
-
-      <h2>
+      <h2 id="submit-title">
         Share a GIET story
       </h2>
+
+      <p class="submission-intro">
+        Your story will be cataloged for staff review in the University Gazette moderation queue before publication.
+      </p>
 
 
       <form id="story-submission-form">
 
         <label>
-
           Title
-
           <input
             id="story-title"
             required
             maxlength="120"
           />
-
         </label>
 
 
         <label>
-
           Category
 
           <select id="story-category">
@@ -877,7 +498,6 @@
 
 
         <label>
-
           Excerpt
 
           <textarea
@@ -890,7 +510,6 @@
 
 
         <label>
-
           Image URL
 
           <input
@@ -898,7 +517,6 @@
             type="url"
             placeholder="https://..."
           />
-
 
           <img
             id="story-image-preview"
@@ -910,7 +528,6 @@
 
 
         <label>
-
           Story body
 
           <textarea
@@ -946,10 +563,8 @@
           Submit for moderation
         </button>
 
-
-        <small>
-          Your story will enter the university moderation queue
-          before publication.
+        <small class="queue-note">
+          ✓ Cataloged submissions are sent to the University Gazette staff review queue.
         </small>
 
       </form>
@@ -959,38 +574,25 @@
   </div>
 
 
-  <!-- =====================================================
-       REUSABLE GLOBAL FOOTER
-       Loaded from components/footer.html
-       ===================================================== -->
-
+  <!-- GIET Reusable Footer -->
   <div id="site-footer-container"></div>
 
 
-  <!-- =====================================================
-       SCRIPTS
-       ===================================================== -->
-
-  <!-- NEW SUPERVISOR COMPONENT LOADER -->
+  <!-- Reusable Components -->
   <script
     type="module"
     src="js/components.js"
   ></script>
 
-
-  <!-- Existing navigation -->
   <script
     type="module"
     src="js/nav.js"
   ></script>
 
-
-  <!-- News page -->
   <script
     type="module"
     src="js/pages/news.js"
   ></script>
 
 </body>
-
 </html>

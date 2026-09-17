@@ -1,824 +1,488 @@
-/* =========================================================
-   GIET UNIVERSITY ALUMNI GAZETTE
-   NEWS PAGE JAVASCRIPT
-   ========================================================= */
-
-
-/* ================= IMPORTS ================= */
-
-import {
-  getSubmissions,
-  createSubmission
-} from "../storage-service.js";
-
-import {
-  getCurrentUser,
-  onAuthStateChange
-} from "../auth.js";
-
-import {
-  showToast
-} from "../nav.js";
-
-
-/* =========================================================
-   CONSTANTS
-   ========================================================= */
-
-const SAVED_KEY =
-  "alumni_saved_stories";
-
-
-const DEFAULT_IMAGE =
-  "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80";
-
-
-/* =========================================================
-   PLACEMENT DATA
-   DEMO DATA
-   Replace with approved real placement information.
-   ========================================================= */
-
-const students = [
-
-  {
-    name: "Aarav Das",
-
-    department:
-      "Computer Science & Engineering",
-
-    branch:
-      "CSE-AIML",
-
-    year:
-      "2023–2027",
-
-    company:
-      "Microsoft",
-
-    package:
-      "₹13 LPA",
-
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=80"
-  },
-
-
-  {
-    name: "Ananya Mohanty",
-
-    department:
-      "Computer Science & Engineering",
-
-    branch:
-      "CSE",
-
-    year:
-      "2023–2027",
-
-    company:
-      "Deloitte",
-
-    package:
-      "₹12 LPA",
-
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=700&q=80"
-  },
-
-
-  {
-    name: "Ritwik Sahu",
-
-    department:
-      "Computer Science & Engineering",
-
-    branch:
-      "CSE-AIML",
-
-    year:
-      "2022–2026",
-
-    company:
-      "TCS",
-
-    package:
-      "₹10.5 LPA",
-
-    image:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=700&q=80"
-  },
-
-
-  {
-    name: "Sneha Patnaik",
-
-    department:
-      "Information Technology",
-
-    branch:
-      "IT",
-
-    year:
-      "2023–2027",
-
-    company:
-      "Accenture",
-
-    package:
-      "₹9 LPA",
-
-    image:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80"
-  },
-
-
-  {
-    name: "Aditya Rout",
-
-    department:
-      "Computer Science & Engineering",
-
-    branch:
-      "CSE",
-
-    year:
-      "2022–2026",
-
-    company:
-      "Infosys",
-
-    package:
-      "₹8.5 LPA",
-
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80"
-  },
-
-
-  {
-    name: "Priya Behera",
-
-    department:
-      "Electrical Engineering",
-
-    branch:
-      "EE",
-
-    year:
-      "2023–2027",
-
-    company:
-      "Wipro",
-
-    package:
-      "₹7.5 LPA",
-
-    image:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=700&q=80"
-  },
-
-
-  {
-    name: "Rahul Pradhan",
-
-    department:
-      "Electronics & Communication Engineering",
-
-    branch:
-      "ECE",
-
-    year:
-      "2022–2026",
-
-    company:
-      "Capgemini",
-
-    package:
-      "₹7.2 LPA",
-
-    image:
-      "https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=700&q=80"
-  },
-
-
-  {
-    name: "Ishita Nayak",
-
-    department:
-      "Computer Science & Engineering",
-
-    branch:
-      "CSE",
-
-    year:
-      "2023–2027",
-
-    company:
-      "IBM",
-
-    package:
-      "₹6.8 LPA",
-
-    image:
-      "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=700&q=80"
-  }
-
+import { getSubmissions, createSubmission } from '../storage-service.js';
+import { getCurrentUser, onAuthStateChange } from '../auth.js';
+import { showToast } from '../components/toast.js';
+
+const SAVED_KEY='alumni_saved_stories';
+const DEFAULT_IMAGE='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80';
+
+const students=[
+ {name:'Aarav Das',department:'Computer Science & Engineering',branch:'CSE-AIML',year:'2023–2027',company:'TCS',package:'₹9 LPA',image:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=80'},
+ {name:'Ananya Mohanty',department:'Computer Science & Engineering',branch:'CSE',year:'2023–2027',company:'Deloitte',package:'₹8.5 LPA',image:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=700&q=80'},
+ {name:'Ritwik Sahu',department:'Electronics & Communication Engineering',branch:'ECE',year:'2022–2026',company:'Infosys',package:'₹7.5 LPA',image:'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=700&q=80'},
+ {name:'Sneha Patnaik',department:'Information Technology',branch:'IT',year:'2023–2027',company:'Wipro',package:'₹7.2 LPA',image:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80'},
+ {name:'Aditya Rout',department:'Mechanical Engineering',branch:'ME',year:'2022–2026',company:'Capgemini',package:'₹6.8 LPA',image:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80'},
+ {name:'Priya Behera',department:'Electrical Engineering',branch:'EE',year:'2023–2027',company:'Accenture',package:'₹6.5 LPA',image:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=700&q=80'}
 ];
 
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
 
-/* =========================================================
-   HELPER FUNCTIONS
-   ========================================================= */
-
-const $ = (selector) =>
-  document.querySelector(selector);
-
-
-const $$ = (selector) =>
-  [...document.querySelectorAll(selector)];
-
-
-/* Saved stories */
-
-const getSavedStories = () =>
-  JSON.parse(
-    localStorage.getItem(SAVED_KEY) || "[]"
-  );
-
-
-const setSavedStories = (stories) =>
-  localStorage.setItem(
-    SAVED_KEY,
-    JSON.stringify(stories)
-  );
-
-
-/* Escape HTML */
-
-const esc = (value) => {
-
-  return String(value ?? "")
-    .replace(
-      /[&<>'"]/g,
-      (character) => {
-
-        const map = {
-
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          "'": "&#39;",
-          '"': "&quot;"
-
-        };
-
-        return map[character];
-
-      }
-    );
-
+const saved=()=>{
+  try{
+    return JSON.parse(localStorage.getItem(SAVED_KEY)||'[]');
+  }catch{
+    return[];
+  }
 };
 
+const setSaved=v=>
+  localStorage.setItem(SAVED_KEY,JSON.stringify(v));
 
-/* Category labels */
+const esc=v=>
+  String(v??'').replace(/[&<>'"]/g,c=>({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    "'":'&#39;',
+    '"':'&quot;'
+  }[c]));
 
-const categoryLabel = (category) => {
+const categoryLabel=c=>({
+  Story:'Stories & Essays',
+  Achievement:'Breakthroughs',
+  News:'Campus Milestones'
+})[c]||c;
 
-  const labels = {
+const words=t=>
+  String(t||'').trim().split(/\s+/).filter(Boolean).length;
 
-    Story:
-      "Stories & Essays",
+const readTime=t=>
+  Math.max(1,Math.ceil(words(t)/220));
 
-    Achievement:
-      "Breakthroughs",
+const storyId=(s,i)=>
+  String(s.id||s.uid||`${s.title||'story'}-${i}`);
 
-    News:
-      "Campus Milestones"
+const authorName=s=>
+  s.authorName||s.author||'GIET Community';
 
-  };
+const authorPhoto=s=>
+  s.authorPhotoURL||s.authorImage||s.authorAvatar||DEFAULT_IMAGE;
 
-  return labels[category] || category;
+const authorLink=s=>
+  s.authorUid
+    ? `profile.html?id=${encodeURIComponent(s.authorUid)}`
+    : '#';
 
-};
-
-
-/* Reading time */
-
-const readTime = (text) => {
-
-  const words =
-    String(text || "")
-      .trim()
-      .split(/\s+/)
-      .filter(Boolean)
-      .length;
-
-
-  return Math.max(
-    1,
-    Math.ceil(words / 220)
-  );
-
-};
+let stories=[];
 
 
-/* =========================================================
-   NEWS STORIES
-   ========================================================= */
-
-let stories = [];
-
-
-/* Load approved stories */
-
-async function loadStories() {
-
-  try {
-
-    stories =
-      await getSubmissions("approved") || [];
-
+async function loadStories(){
+  try{
+    stories=await getSubmissions('approved')||[];
+  }catch(e){
+    stories=[];
   }
 
-  catch (error) {
-
-    console.error(
-      "Could not load stories:",
-      error
-    );
-
-    stories = [];
-
-  }
-
-
-  renderStories("All");
-
+  renderStories('All');
 }
 
 
-/* Story ID */
+function byDate(a,b){
+  const da=new Date(
+    a.createdAt||a.date||a.publishedAt||0
+  ).getTime();
 
-function storyId(story, index) {
+  const db=new Date(
+    b.createdAt||b.date||b.publishedAt||0
+  ).getTime();
 
-  return (
-    story.id ||
-    story.uid ||
-    `${story.title || "story"}-${index}`
-  );
-
+  return db-da;
 }
 
 
-/* Find story */
+function renderStories(filter='All'){
 
-function findStory(id) {
+  const base=
+    filter==='Saved'
+      ? stories.filter((s,i)=>saved().includes(storyId(s,i)))
+      : filter==='All'
+        ? stories
+        : stories.filter(s=>(s.category||'News')===filter);
 
-  return stories.find(
-    (story, index) =>
-      storyId(story, index) === id
-  );
+  const list=[...base].sort(byDate);
+  const grid=$('#news-grid');
 
-}
+  if(!list.length){
 
-
-/* =========================================================
-   RENDER STORIES
-   ========================================================= */
-
-function renderStories(filter = "All") {
-
-  let list;
-
-
-  /* Saved */
-
-  if (filter === "Saved") {
-
-    const saved =
-      getSavedStories();
-
-
-    list =
-      stories.filter(
-        (story, index) =>
-          saved.includes(
-            storyId(story, index)
-          )
-      );
-
-  }
-
-
-  /* All */
-
-  else if (filter === "All") {
-
-    list = stories;
-
-  }
-
-
-  /* Category */
-
-  else {
-
-    list =
-      stories.filter(
-        (story) =>
-          (story.category || "News") === filter
-      );
-
-  }
-
-
-  const grid =
-    $("#news-grid");
-
-
-  const trending =
-    $("#trending-list");
-
-
-  /* Empty */
-
-  if (!list.length) {
-
-    grid.innerHTML = `
-
+    grid.innerHTML=`
       <div class="empty-state">
+        <h3>No stories here yet.</h3>
+        <p>Be the first GIET alumnus to share one.</p>
+      </div>
+    `;
 
-        <h3>
-          No stories here yet.
-        </h3>
+    $('#trending-list').innerHTML='';
+    return;
+  }
 
-        <p>
-          Be the first GIET alumnus to share one.
-        </p>
+  grid.innerHTML=list
+    .map((s,i)=>
+      cardHTML(
+        s,
+        stories.indexOf(s),
+        i===0&&filter!=='Saved'
+      )
+    )
+    .join('');
+
+  const trend=[...stories]
+    .filter(s=>(s.category||'')==='Achievement')
+    .sort(byDate)
+    .slice(0,5);
+
+  const trendList=trend.length?trend:list.slice(0,5);
+
+  $('#trending-list').innerHTML=
+    trendList.map((s,i)=>`
+      <li>
+        <b>${String(i+1).padStart(2,'0')}</b>
+
+        <div>
+          <a
+            href="#"
+            data-read="${esc(storyId(s,stories.indexOf(s)))}"
+          >
+            ${esc(s.title||'GIET Alumni Story')}
+          </a>
+
+          <span class="trending-meta">
+            ${esc(categoryLabel(s.category||'News'))}
+            ·
+            ${readTime(s.body||s.content)} min read
+          </span>
+        </div>
+      </li>
+    `)
+    .join('');
+}
+
+
+function cardHTML(s,index,isLead){
+
+  const id=storyId(s,index);
+
+  const isSaved=saved().includes(id);
+
+  const image=esc(
+    s.imageUrl||s.image||DEFAULT_IMAGE
+  );
+
+  const photo=esc(authorPhoto(s));
+
+  return `
+    <article class="news-card ${isLead?'lead-story':''}">
+
+      <div class="card-media">
+
+        <img
+          src="${image}"
+          alt="${esc(s.title||'GIET alumni story')}"
+          loading="lazy"
+        >
+
+        ${isLead
+          ? '<span class="lead-badge">Lead feature</span>'
+          : ''
+        }
 
       </div>
 
-    `;
+
+      <div class="${isLead?'lead-copy':''}">
+
+        <div class="card-meta">
+
+          <span>
+            ${esc(categoryLabel(s.category||'News'))}
+          </span>
+
+          <button
+            class="save-btn ${isSaved?'saved':''}"
+            data-save="${esc(id)}"
+            aria-label="${isSaved?'Remove from saved stories':'Save story'}"
+          >
+            ${isSaved?'♥':'♡'}
+          </button>
+
+        </div>
 
 
-    trending.innerHTML = "";
+        <h3>
 
-    return;
+          <a
+            href="#"
+            data-read="${esc(id)}"
+          >
+            ${esc(s.title||'GIET Alumni Story')}
+          </a>
 
-  }
-
-
-  /* News cards */
-
-  grid.innerHTML =
-    list
-      .map(
-        (story, index) => {
-
-          const id =
-            storyId(
-              story,
-              index
-            );
+        </h3>
 
 
-          const isSaved =
-            getSavedStories()
-              .includes(id);
+        <p>
+          ${esc(
+            s.excerpt||
+            'A story from the GIET University community.'
+          )}
+        </p>
 
 
-          return `
+        <div class="card-meta">
 
-            <article class="news-card">
+          <a
+            class="author-line"
+            href="${authorLink(s)}"
+          >
 
-              <img
-                src="${esc(
-                  story.imageUrl ||
-                  story.image ||
-                  DEFAULT_IMAGE
-                )}"
-                alt=""
-              />
+            <img
+              class="author-avatar"
+              src="${photo}"
+              alt=""
+            >
 
+            <span>
+              ${esc(authorName(s))}
+            </span>
 
-              <div class="card-meta">
+          </a>
 
-                <span>
-                  ${esc(
-                    categoryLabel(
-                      story.category ||
-                      "News"
-                    )
-                  )}
-                </span>
+          <span>
+            ${readTime(s.body||s.content)} min read
+          </span>
 
+        </div>
 
-                <button
-                  class="save-btn"
-                  data-save="${esc(id)}"
-                  aria-label="Save story"
-                  type="button"
-                >
-                  ${isSaved ? "♥" : "♡"}
-                </button>
+      </div>
 
-              </div>
-
-
-              <h3>
-
-                <a
-                  href="#"
-                  data-read="${esc(id)}"
-                >
-                  ${esc(
-                    story.title ||
-                    "GIET Alumni Story"
-                  )}
-                </a>
-
-              </h3>
-
-
-              <p>
-                ${esc(
-                  story.excerpt ||
-                  "A story from the GIET University community."
-                )}
-              </p>
-
-
-              <div class="card-meta">
-
-                <span>
-                  ${esc(
-                    story.authorName ||
-                    story.author ||
-                    "GIET Community"
-                  )}
-                </span>
-
-
-                <span>
-                  ${readTime(
-                    story.body ||
-                    story.content
-                  )}
-                  min read
-                </span>
-
-              </div>
-
-            </article>
-
-          `;
-
-        }
-      )
-      .join("");
-
-
-  /* Trending */
-
-  const trend =
-    [...list].slice(0, 5);
-
-
-  trending.innerHTML =
-    trend
-      .map(
-        (story, index) => {
-
-          return `
-
-            <li>
-
-              <b>
-                ${String(
-                  index + 1
-                ).padStart(2, "0")}
-              </b>
-
-
-              <a
-                href="#"
-                data-read="${esc(
-                  storyId(
-                    story,
-                    stories.indexOf(
-                      story
-                    )
-                  )
-                )}"
-              >
-                ${esc(
-                  story.title ||
-                  "GIET Alumni Story"
-                )}
-              </a>
-
-            </li>
-
-          `;
-
-        }
-      )
-      .join("");
-
+    </article>
+  `;
 }
 
 
-/* =========================================================
-   STORY READER
-   ========================================================= */
+function formatDate(value){
 
-function openReader(story) {
+  if(!value)return'Gazette Desk';
 
-  if (!story) {
-    return;
-  }
+  const d=new Date(value);
+
+  return Number.isNaN(d.getTime())
+    ? 'Gazette Desk'
+    : d.toLocaleDateString(
+        undefined,
+        {
+          year:'numeric',
+          month:'long',
+          day:'numeric'
+        }
+      );
+}
 
 
-  const body =
+function openReader(story){
+
+  if(!story)return;
+
+  const paras=
     String(
-      story.body ||
-      story.content ||
-      story.excerpt ||
-      ""
+      story.body||
+      story.content||
+      story.excerpt||
+      ''
     )
-      .split(/\n+/)
-      .filter(Boolean);
+    .split(/\n+/)
+    .map(x=>x.trim())
+    .filter(Boolean);
+
+  const quote=
+    paras.length>2
+      ? paras[
+          Math.floor(paras.length/2)
+        ].slice(0,180)
+      : 'Stories from GIET continue to connect people, ideas and progress.';
+
+  const body=
+    paras
+      .map((p,i)=>
+        i===Math.floor(paras.length/2)&&paras.length>3
+          ? `
+            <blockquote class="pull-quote">
+              “${esc(quote)}”
+            </blockquote>
+
+            <p>
+              ${esc(p)}
+            </p>
+          `
+          : `
+            <p class="${i===0?'dropcap':''}">
+              ${esc(p)}
+            </p>
+          `
+      )
+      .join('');
+
+  const company=
+    story.authorCompany||
+    story.currentCompany||
+    'GIET University Alumni';
+
+  const title=
+    story.authorTitle||
+    story.currentTitle||
+    'Community Contributor';
+
+  const grad=
+    story.graduationYear||
+    story.gradYear||
+    '';
 
 
-  const quote =
-    body.length > 2
+  $('#reader-modal-body').innerHTML=`
 
-      ? body[
-          Math.floor(
-            body.length / 2
-          )
-        ].slice(0, 180)
+    <div class="reader-content">
 
-      : "Stories from GIET continue to connect people, ideas and progress.";
-
-
-  $("#reader-modal-body")
-    .innerHTML = `
-
-      <div class="reader-content">
-
-        <img
-          src="${esc(
-            story.imageUrl ||
-            story.image ||
-            DEFAULT_IMAGE
-          )}"
-          alt=""
-        />
+      <img
+        class="reader-hero"
+        src="${esc(
+          story.imageUrl||
+          story.image||
+          DEFAULT_IMAGE
+        )}"
+        alt="${esc(
+          story.title||
+          'GIET alumni story'
+        )}"
+      >
 
 
-        <div
-          class="card-meta"
-          style="margin-top:18px"
-        >
+      <div class="reader-inner">
 
-          <span>
+        <div class="reader-kicker">
+
+          <span class="lead-badge">
             ${esc(
               categoryLabel(
-                story.category ||
-                "News"
+                story.category||'News'
               )
             )}
           </span>
 
-
-          <span>
-
+          <span class="read-pill">
             ${readTime(
-              story.body ||
+              story.body||
               story.content
             )}
-
-            min read ·
-
-            VOL. 04 · ISSUE 09
-
+            min read · Vol. 04 · Issue 09
           </span>
 
         </div>
 
 
-        <h1>
+        <h1 id="reader-title">
           ${esc(
-            story.title ||
-            "GIET Alumni Story"
+            story.title||
+            'GIET Alumni Story'
           )}
         </h1>
 
 
-        <p>
-
-          <strong>
-            By
-            ${esc(
-              story.authorName ||
-              story.author ||
-              "GIET Community"
-            )}
-          </strong>
-
+        <p class="reader-deck">
+          ${esc(
+            story.excerpt||
+            'A story from the GIET University community.'
+          )}
         </p>
 
 
-        ${body
-          .map(
-            (paragraph, index) => {
+        <div class="reader-byline">
 
-              if (index === 1) {
+          <img
+            src="${esc(authorPhoto(story))}"
+            alt=""
+          >
 
-                return `
+          <div>
 
-                  <blockquote
-                    class="pull-quote"
-                  >
-                    “${esc(quote)}”
-                  </blockquote>
+            By
+            <a href="${authorLink(story)}">
+              ${esc(authorName(story))}
+            </a>
+
+            <br>
+
+            <span>
+              ${esc(
+                formatDate(
+                  story.createdAt||
+                  story.date||
+                  story.publishedAt
+                )
+              )}
+            </span>
+
+          </div>
+
+        </div>
 
 
-                  <p class="dropcap">
-                    ${esc(paragraph)}
-                  </p>
+        <div class="reader-body">
 
-                `;
+          ${
+            body||
+            '<p>Full story details will appear here once published.</p>'
+          }
 
-              }
+        </div>
 
 
-              return `
+        <div class="reader-share">
 
-                <p
-                  class="${
-                    index === 0
-                      ? "dropcap"
-                      : ""
-                  }"
-                >
-                  ${esc(paragraph)}
-                </p>
+          <strong>
+            Share this story
+          </strong>
 
-              `;
+          <button
+            class="share-btn"
+            data-share="copy"
+          >
+            Copy link
+          </button>
 
-            }
-          )
-          .join("")}
+          <button
+            class="share-btn"
+            data-share="native"
+          >
+            Share
+          </button>
+
+        </div>
 
 
         <div class="author-callout">
 
           <img
-            src="${esc(
-              story.authorPhotoURL ||
-              story.authorImage ||
-              DEFAULT_IMAGE
-            )}"
+            src="${esc(authorPhoto(story))}"
             alt=""
-          />
-
+          >
 
           <div>
 
-            <strong>
-              ${esc(
-                story.authorName ||
-                story.author ||
-                "GIET Community"
-              )}
-            </strong>
-
+            <h3>
+              ${esc(authorName(story))}
+            </h3>
 
             <p>
-
               ${esc(
-                story.authorTitle ||
-                "GIET University Alumni"
+                grad
+                  ? `Class of ${grad} · `
+                  : ''
               )}
-
+              ${esc(title)}
               ·
-
-              ${esc(
-                story.authorCompany ||
-                "Community Contributor"
-              )}
-
+              ${esc(company)}
             </p>
 
-
-            <a
-              href="profile.html?id=${encodeURIComponent(
-                story.authorUid || ""
-              )}"
-            >
+            <a href="${authorLink(story)}">
               View Fellow Profile →
             </a>
 
@@ -828,799 +492,496 @@ function openReader(story) {
 
       </div>
 
-    `;
+    </div>
+  `;
 
 
-  $("#reader-modal")
-    .classList.add("open");
+  const modal=$('#reader-modal');
 
+  modal.classList.add('open');
 
-  $("#reader-modal")
-    .setAttribute(
-      "aria-hidden",
-      "false"
-    );
-
-}
-
-
-/* =========================================================
-   SAVE STORY
-   ========================================================= */
-
-function toggleSave(id) {
-
-  const current =
-    getSavedStories();
-
-
-  const alreadySaved =
-    current.includes(id);
-
-
-  const updated =
-    alreadySaved
-
-      ? current.filter(
-          (item) =>
-            item !== id
-        )
-
-      : [
-          ...current,
-          id
-        ];
-
-
-  setSavedStories(updated);
-
-
-  const activeFilter =
-    document.querySelector(
-      ".filter-btn.active"
-    )?.dataset.category ||
-    "All";
-
-
-  renderStories(
-    activeFilter
+  modal.setAttribute(
+    'aria-hidden',
+    'false'
   );
-
-
-  if (showToast) {
-
-    showToast(
-      alreadySaved
-        ? "Removed from saved stories"
-        : "Saved to My Saved Stories"
-    );
-
-  }
-
 }
 
 
-/* =========================================================
-   CAMPUS SLIDER
-   ========================================================= */
+async function shareStory(mode){
 
-function setupSlider() {
+  const url=location.href;
 
-  const slider =
-    $("#campus-slider");
+  if(mode==='copy'){
 
+    try{
 
-  const cards =
-    $$(".slide-card");
+      await navigator.clipboard.writeText(url);
 
-
-  const dots =
-    $("#slider-dots");
-
-
-  if (
-    !slider ||
-    !cards.length
-  ) {
-    return;
-  }
-
-
-  let index = 0;
-
-
-  /* Create dots */
-
-  cards.forEach(
-    (_, cardIndex) => {
-
-      const button =
-        document.createElement(
-          "button"
-        );
-
-
-      button.className =
-        "slider-dot" +
-        (
-          cardIndex === 0
-            ? " active"
-            : ""
-        );
-
-
-      button.type =
-        "button";
-
-
-      button.setAttribute(
-        "aria-label",
-        `Go to slide ${cardIndex + 1}`
+      showToast?.(
+        'Story link copied.'
       );
 
+    }catch{
 
-      button.addEventListener(
-        "click",
-        () =>
-          goToSlide(
-            cardIndex
-          )
-      );
-
-
-      dots.appendChild(
-        button
+      showToast?.(
+        'Copy is unavailable in this browser.'
       );
 
     }
+
+  }else if(navigator.share){
+
+    try{
+
+      await navigator.share({
+        title:document.title,
+        url
+      });
+
+    }catch{}
+
+  }else{
+
+    try{
+
+      await navigator.clipboard.writeText(url);
+
+      showToast?.(
+        'Story link copied.'
+      );
+
+    }catch{
+
+      showToast?.(
+        'Sharing is unavailable.'
+      );
+
+    }
+
+  }
+}
+
+
+function toggleSave(id){
+
+  const a=saved();
+
+  const has=a.includes(id);
+
+  const n=
+    has
+      ? a.filter(x=>x!==id)
+      : [...a,id];
+
+  setSaved(n);
+
+  const active=
+    document.querySelector(
+      '.filter-btn.active'
+    )?.dataset.category||'All';
+
+  renderStories(active);
+
+  showToast?.(
+    has
+      ? 'Removed from saved stories'
+      : 'Saved to My Saved Stories'
   );
+}
 
 
-  /* Slide */
+function setupSlider(){
 
-  function goToSlide(
-    newIndex
-  ) {
+  const slider=$('#campus-slider');
 
-    index =
-      (
-        newIndex +
-        cards.length
-      ) %
-      cards.length;
+  const cards=$$('.slide-card');
 
+  const dots=$('#slider-dots');
+
+  let index=0;
+
+
+  cards.forEach((_,i)=>{
+
+    const b=document.createElement('button');
+
+    b.className=
+      'slider-dot'+
+      (i===0?' active':'');
+
+    b.type='button';
+
+    b.addEventListener(
+      'click',
+      ()=>go(i)
+    );
+
+    dots.appendChild(b);
+
+  });
+
+
+  function go(i){
+
+    index=
+      (i+cards.length)%cards.length;
 
     slider.scrollTo({
-
-      left:
-        index *
-        slider.clientWidth,
-
-      behavior:
-        "smooth"
-
+      left:index*slider.clientWidth,
+      behavior:'smooth'
     });
 
-
-    $$(".slider-dot")
-      .forEach(
-        (dot, dotIndex) => {
-
-          dot.classList.toggle(
-            "active",
-            dotIndex === index
-          );
-
-        }
-      );
+    $$('.slider-dot').forEach(
+      (d,j)=>
+        d.classList.toggle(
+          'active',
+          j===index
+        )
+    );
 
   }
 
 
-  /* Buttons */
+  $('#slide-next').onclick=
+    ()=>go(index+1);
 
-  $("#slide-next").onclick =
-    () =>
-      goToSlide(
-        index + 1
-      );
+  $('#slide-prev').onclick=
+    ()=>go(index-1);
 
 
-  $("#slide-prev").onclick =
-    () =>
-      goToSlide(
-        index - 1
-      );
-
-
-  /* Automatic slider */
-
-  let timer =
+  let timer=
     setInterval(
-      () =>
-        goToSlide(
-          index + 1
-        ),
+      ()=>go(index+1),
       5500
     );
 
 
   slider.addEventListener(
-    "mouseenter",
-    () =>
-      clearInterval(timer)
+    'mouseenter',
+    ()=>clearInterval(timer)
   );
 
 
   slider.addEventListener(
-    "mouseleave",
-    () => {
-
-      timer =
-        setInterval(
-          () =>
-            goToSlide(
-              index + 1
-            ),
-          5500
-        );
-
-    }
+    'mouseleave',
+    ()=>timer=setInterval(
+      ()=>go(index+1),
+      5500
+    )
   );
 
 }
 
 
-/* =========================================================
-   PLACEMENTS
-   ========================================================= */
+function renderPlacements(){
 
-function renderPlacements() {
+  $('#placement-students').innerHTML=
+    students
+      .map(s=>`
 
-  const container =
-    $("#placement-students");
+        <article class="student-placement-card">
 
+          <img
+            src="${s.image}"
+            alt="${esc(s.name)}"
+          >
 
-  if (!container) {
-    return;
-  }
+          <div class="student-info">
 
+            <h3>
+              ${esc(s.name)}
+            </h3>
 
-  /* Highest package first */
+            <p>
+              <strong>Department:</strong>
+              ${esc(s.department)}
+            </p>
 
-  const sortedStudents =
-    [...students].sort(
-      (a, b) => {
+            <p>
+              <strong>Branch:</strong>
+              ${esc(s.branch)}
+            </p>
 
-        const packageA =
-          parseFloat(
-            a.package.replace(
-              /[^\d.]/g,
-              ""
-            )
-          );
-
-
-        const packageB =
-          parseFloat(
-            b.package.replace(
-              /[^\d.]/g,
-              ""
-            )
-          );
+            <p>
+              <strong>Academic Year:</strong>
+              ${esc(s.year)}
+            </p>
 
 
-        return packageB - packageA;
+            <div class="student-company">
 
-      }
-    );
+              <span>
+                Placed at<br>
+                <strong>
+                  ${esc(s.company)}
+                </strong>
+              </span>
 
+              <strong class="package">
+                ${esc(s.package)}
+              </strong>
 
-  /* Render */
+            </div>
 
-  container.innerHTML =
-    sortedStudents
-      .map(
-        (student, index) => {
+          </div>
 
-          const isHighest =
-            index === 0;
+        </article>
 
-
-          return `
-
-            <article
-              class="student-placement-card"
-            >
-
-              <img
-                src="${esc(student.image)}"
-                alt="${esc(student.name)}"
-                loading="lazy"
-              />
-
-
-              <div class="student-info">
-
-                <h3>
-                  ${esc(
-                    student.name
-                  )}
-                </h3>
-
-
-                <p>
-
-                  <strong>
-                    Department:
-                  </strong>
-
-                  ${esc(
-                    student.department
-                  )}
-
-                </p>
-
-
-                <p>
-
-                  <strong>
-                    Branch:
-                  </strong>
-
-                  ${esc(
-                    student.branch
-                  )}
-
-                </p>
-
-
-                <p>
-
-                  <strong>
-                    Academic Year:
-                  </strong>
-
-                  ${esc(
-                    student.year
-                  )}
-
-                </p>
-
-
-                <div
-                  class="student-company"
-                >
-
-                  <span>
-
-                    Placed at
-
-                    <br>
-
-                    <strong>
-                      ${esc(
-                        student.company
-                      )}
-                    </strong>
-
-                  </span>
-
-
-                  <strong
-                    class="${
-                      isHighest
-                        ? "package"
-                        : ""
-                    }"
-                  >
-                    ${esc(
-                      student.package
-                    )}
-                  </strong>
-
-                </div>
-
-              </div>
-
-            </article>
-
-          `;
-
-        }
-      )
-      .join("");
-
+      `)
+      .join('');
 }
 
 
-/* =========================================================
-   OPEN PLACEMENTS
-   ========================================================= */
-
-function openPlacements() {
+function openPlacements(){
 
   history.pushState(
-    { placements: true },
-    "",
+    {placements:true},
+    '',
     `${location.pathname}#placements`
   );
 
+  $('#gazette-main').hidden=true;
 
-  $("#gazette-main")
-    .hidden = true;
-
-
-  $("#placements-page")
-    .hidden = false;
-
-
-  renderPlacements();
-
+  $('#placements-page').hidden=false;
 
   window.scrollTo({
-
-    top: 0,
-
-    behavior:
-      "smooth"
-
+    top:0,
+    behavior:'smooth'
   });
 
 }
 
 
-/* =========================================================
-   CLOSE PLACEMENTS
-   ========================================================= */
+function closePlacements(){
 
-function closePlacements() {
-
-  if (
-    location.hash ===
-    "#placements"
-  ) {
-
+  if(location.hash==='#placements'){
     history.pushState(
       {},
-      "",
+      '',
       location.pathname
     );
-
   }
 
+  $('#placements-page').hidden=true;
 
-  $("#placements-page")
-    .hidden = true;
-
-
-  $("#gazette-main")
-    .hidden = false;
-
+  $('#gazette-main').hidden=false;
 
   window.scrollTo({
-
-    top: 0,
-
-    behavior:
-      "smooth"
-
+    top:0,
+    behavior:'smooth'
   });
 
 }
 
 
-/* =========================================================
-   HASH SYNC
-   ========================================================= */
+function syncHash(){
 
-function syncHash() {
-
-  if (
-    location.hash ===
-    "#placements"
-  ) {
+  if(location.hash==='#placements'){
 
     renderPlacements();
 
+    $('#gazette-main').hidden=true;
 
-    $("#gazette-main")
-      .hidden = true;
+    $('#placements-page').hidden=false;
 
+  }else{
 
-    $("#placements-page")
-      .hidden = false;
+    $('#placements-page').hidden=true;
 
-  }
-
-  else {
-
-    $("#placements-page")
-      .hidden = true;
-
-
-    $("#gazette-main")
-      .hidden = false;
+    $('#gazette-main').hidden=false;
 
   }
 
 }
 
 
-/* =========================================================
-   STORY SUBMISSION
-   ========================================================= */
+function setupSubmit(){
 
-function setupSubmit() {
-
-  const modal =
-    $("#submit-story-modal");
+  const modal=$('#submit-story-modal');
 
 
-  if (!modal) {
-    return;
-  }
+  const open=()=>{
 
+    const user=getCurrentUser?.();
 
-  /* Open */
-
-  const open = () => {
-
-    const user =
-      getCurrentUser?.();
-
-
-    if (!user) {
+    if(!user){
 
       showToast?.(
-        "Please sign in to submit a story."
+        'Please sign in to submit a story.'
       );
 
-
-      window.location.href =
-        "auth.html";
-
+      window.location.href='auth.html';
 
       return;
-
     }
 
-
-    modal.classList.add(
-      "open"
-    );
-
+    modal.classList.add('open');
 
     modal.setAttribute(
-      "aria-hidden",
-      "false"
+      'aria-hidden',
+      'false'
     );
+
+    $('#story-title').focus();
 
   };
 
 
-  $("#share-story-btn")
-    .onclick = open;
+  $('#share-story-btn').onclick=open;
 
 
-  /* Close */
+  $$('[data-close-submit]').forEach(
+    b=>b.onclick=()=>{
 
-  $$("[data-close-submit]")
-    .forEach(
-      (button) => {
+      modal.classList.remove(
+        'open'
+      );
 
-        button.onclick =
-          () => {
+      modal.setAttribute(
+        'aria-hidden',
+        'true'
+      );
 
-            modal.classList.remove(
-              "open"
-            );
-
-
-            modal.setAttribute(
-              "aria-hidden",
-              "true"
-            );
-
-          };
-
-      }
-    );
+    }
+  );
 
 
-  /* Title count */
-
-  $("#story-title")
-    .addEventListener(
-      "input",
-      (event) => {
-
-        $("#title-count")
-          .textContent =
-          `${event.target.value.length}/120`;
-
-      }
-    );
+  $('#story-title').addEventListener(
+    'input',
+    e=>
+      $('#title-count').textContent=
+        `${e.target.value.length}/120`
+  );
 
 
-  /* Body count */
+  $('#story-body').addEventListener(
+    'input',
+    e=>{
 
-  $("#story-body")
-    .addEventListener(
-      "input",
-      (event) => {
+      const w=words(
+        e.target.value
+      );
 
-        const text =
-          event.target.value.trim();
+      $('#body-count').textContent=
+        `${w} words`;
 
+      $('#reading-time').textContent=
+        `${Math.max(
+          1,
+          Math.ceil(w/220)
+        )} min read`;
 
-        const words =
-          text
-            ? text
-                .split(/\s+/)
-                .length
-            : 0;
-
-
-        $("#body-count")
-          .textContent =
-          `${words} words`;
+    }
+  );
 
 
-        $("#reading-time")
-          .textContent =
-          `${Math.max(
-            1,
-            Math.ceil(
-              words / 220
-            )
-          )} min read`;
+  $('#story-image').addEventListener(
+    'input',
+    e=>{
+
+      const img=
+        $('#story-image-preview');
+
+      if(e.target.value){
+
+        img.src=e.target.value;
+
+        img.hidden=false;
+
+        img.onerror=()=>{
+          img.hidden=true;
+        };
+
+      }else{
+
+        img.hidden=true;
 
       }
-    );
+
+    }
+  );
 
 
-  /* Image preview */
+  $('#story-submission-form').onsubmit=
+    async e=>{
 
-  $("#story-image")
-    .addEventListener(
-      "input",
-      (event) => {
+      e.preventDefault();
 
-        const image =
-          $("#story-image-preview");
+      const user=getCurrentUser?.();
 
-
-        if (
-          event.target.value
-        ) {
-
-          image.src =
-            event.target.value;
-
-
-          image.hidden =
-            false;
-
-        }
-
-        else {
-
-          image.hidden =
-            true;
-
-        }
-
-      }
-    );
-
-
-  /* Submit */
-
-  $("#story-submission-form")
-    .onsubmit =
-    async (event) => {
-
-      event.preventDefault();
-
-
-      const user =
-        getCurrentUser?.();
-
-
-      if (!user) {
+      if(!user){
 
         showToast?.(
-          "Please sign in first."
+          'Please sign in first.'
         );
-
 
         return;
 
       }
 
 
-      const data = {
+      const data={
 
         title:
-          $("#story-title").value,
+          $('#story-title').value.trim(),
 
         category:
-          $("#story-category").value,
+          $('#story-category').value,
 
         excerpt:
-          $("#story-excerpt").value,
+          $('#story-excerpt').value.trim(),
 
         imageUrl:
-          $("#story-image").value,
+          $('#story-image').value.trim(),
 
         body:
-          $("#story-body").value,
+          $('#story-body').value.trim(),
 
         authorUid:
           user.uid,
 
         status:
-          "pending"
+          'pending'
 
       };
 
 
-      try {
+      try{
 
         await createSubmission(
           data
         );
 
-
         modal.classList.remove(
-          "open"
+          'open'
         );
-
 
         modal.setAttribute(
-          "aria-hidden",
-          "true"
+          'aria-hidden',
+          'true'
         );
 
+        e.target.reset();
 
-        event.target.reset();
+        $('#story-image-preview').hidden=true;
 
+        $('#title-count').textContent=
+          '0/120';
 
-        $("#story-image-preview")
-          .hidden = true;
+        $('#body-count').textContent=
+          '0 words';
 
-
-        $("#title-count")
-          .textContent =
-          "0/120";
-
-
-        $("#body-count")
-          .textContent =
-          "0 words";
-
-
-        $("#reading-time")
-          .textContent =
-          "1 min read";
-
+        $('#reading-time').textContent=
+          '1 min read';
 
         showToast?.(
-          "Story submitted. It is now waiting for moderation."
+          'Cataloged for staff review in the University Gazette moderation queue.'
         );
 
-      }
-
-      catch (error) {
-
-        console.error(
-          error
-        );
-
+      }catch(err){
 
         showToast?.(
-          "Could not submit the story. Please try again."
+          'Could not submit the story. Please try again.'
         );
 
       }
@@ -1630,51 +991,51 @@ function setupSubmit() {
 }
 
 
-/* =========================================================
-   GLOBAL CLICK EVENTS
-   ========================================================= */
-
 document.addEventListener(
-  "click",
-  (event) => {
+  'click',
+  e=>{
 
-    /* Read story */
+    const read=
+      e.target.closest('[data-read]');
 
-    const readButton =
-      event.target.closest(
-        "[data-read]"
-      );
+    if(read){
 
-
-    if (readButton) {
-
-      event.preventDefault();
-
+      e.preventDefault();
 
       openReader(
-        findStory(
-          readButton.dataset.read
+        stories.find(
+          (s,i)=>
+            storyId(s,i)===
+            read.dataset.read
         )
       );
 
     }
 
 
-    /* Save story */
+    const save=
+      e.target.closest('[data-save]');
 
-    const saveButton =
-      event.target.closest(
-        "[data-save]"
-      );
+    if(save){
 
-
-    if (saveButton) {
-
-      event.preventDefault();
-
+      e.preventDefault();
 
       toggleSave(
-        saveButton.dataset.save
+        save.dataset.save
+      );
+
+    }
+
+
+    const share=
+      e.target.closest('[data-share]');
+
+    if(share){
+
+      e.preventDefault();
+
+      shareStory(
+        share.dataset.share
       );
 
     }
@@ -1683,117 +1044,74 @@ document.addEventListener(
 );
 
 
-/* =========================================================
-   INITIALIZATION
-   ========================================================= */
+$('#close-reader-modal').onclick=()=>{
 
-
-/* Reader close */
-
-const readerClose =
-  $("#close-reader-modal");
-
-
-if (readerClose) {
-
-  readerClose.onclick =
-    () => {
-
-      $("#reader-modal")
-        .classList.remove(
-          "open"
-        );
-
-
-      $("#reader-modal")
-        .setAttribute(
-          "aria-hidden",
-          "true"
-        );
-
-    };
-
-}
-
-
-/* Placement spotlight */
-
-const placementSpotlight =
-  $("#placements-spotlight");
-
-
-if (placementSpotlight) {
-
-  placementSpotlight.onclick =
-    openPlacements;
-
-}
-
-
-/* Placement back */
-
-const placementBack =
-  $("#placements-back");
-
-
-if (placementBack) {
-
-  placementBack.onclick =
-    closePlacements;
-
-}
-
-
-/* Browser navigation */
-
-window.addEventListener(
-  "popstate",
-  syncHash
-);
-
-
-window.addEventListener(
-  "hashchange",
-  syncHash
-);
-
-
-/* News filters */
-
-$$(".filter-btn")
-  .forEach(
-    (button) => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          $$(".filter-btn")
-            .forEach(
-              (item) =>
-                item.classList.remove(
-                  "active"
-                )
-            );
-
-
-          button.classList.add(
-            "active"
-          );
-
-
-          renderStories(
-            button.dataset.category
-          );
-
-        }
-      );
-
-    }
+  $('#reader-modal').classList.remove(
+    'open'
   );
 
+  $('#reader-modal').setAttribute(
+    'aria-hidden',
+    'true'
+  );
 
-/* Start components */
+};
+
+
+$('#reader-modal').addEventListener(
+  'click',
+  e=>{
+
+    if(e.target.id==='reader-modal'){
+      $('#close-reader-modal').click();
+    }
+
+  }
+);
+
+
+$('#placements-spotlight').onclick=
+  openPlacements;
+
+
+$('#placements-back').onclick=
+  closePlacements;
+
+
+window.addEventListener(
+  'popstate',
+  syncHash
+);
+
+
+window.addEventListener(
+  'hashchange',
+  syncHash
+);
+
+
+$$('.filter-btn').forEach(
+  btn=>
+    btn.addEventListener(
+      'click',
+      ()=>{
+        $$('.filter-btn').forEach(
+          b=>b.classList.remove(
+            'active'
+          )
+        );
+
+        btn.classList.add(
+          'active'
+        );
+
+        renderStories(
+          btn.dataset.category
+        );
+      }
+    )
+);
+
 
 setupSlider();
 
@@ -1805,15 +1123,6 @@ renderPlacements();
 
 loadStories();
 
-
-/*
-  Header/Footer are now handled by:
-
-  js/components.js
-
-  The News page does not modify those shared components.
-*/
-
 onAuthStateChange?.(
-  () => {}
+  ()=>{}
 );
