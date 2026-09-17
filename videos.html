@@ -16,55 +16,7 @@
 
 <body>
 
-  <!-- Site Header -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="brand">
-        <div class="brand-crest">Ω</div>
-        <div class="brand-info">
-          <span class="brand-title">Apex University</span>
-          <span class="brand-subtitle">Alumni Network</span>
-        </div>
-      </a>
-      <nav class="nav-links" aria-label="Primary Navigation">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="directory.html" class="nav-link">Alumni Directory</a>
-        <a href="videos.html" class="nav-link active">Videos</a>
-        <a href="news.html" class="nav-link">News &amp; Stories</a>
-        <a href="events.html" class="nav-link">Events</a>
-        <a href="donate.html" class="nav-link">Donate</a>
-      </nav>
-      <div class="header-actions">
-        <div id="nav-auth-container">
-          <a href="login.html" class="btn btn-outline btn-sm">Alumni Login</a>
-        </div>
-        <button class="mobile-toggle" aria-label="Toggle navigation menu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Mobile Drawer -->
-  <div class="mobile-drawer-backdrop"></div>
-  <div class="mobile-drawer">
-    <div class="brand">
-      <div class="brand-crest">Ω</div>
-      <div class="brand-info">
-        <span class="brand-title">Apex University</span>
-        <span class="brand-subtitle">Alumni Network</span>
-      </div>
-    </div>
-    <div class="mobile-nav-links">
-      <a href="index.html" class="mobile-nav-link">Home</a>
-      <a href="directory.html" class="mobile-nav-link">Alumni Directory</a>
-      <a href="videos.html" class="mobile-nav-link active">Videos</a>
-      <a href="news.html" class="mobile-nav-link">News &amp; Stories</a>
-      <a href="events.html" class="mobile-nav-link">Events</a>
-      <a href="donate.html" class="mobile-nav-link">Donate</a>
-    </div>
-    <div id="mobile-auth-container"></div>
-  </div>
+  <div id="site-header-container"></div>
 
   <main class="main-content">
     <section class="vg-page-hero" id="videos-hero">
@@ -122,74 +74,9 @@
     </div>
   </main>
 
-  <!-- Persistent Site Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="brand" style="color: #fff;">
-            <div class="brand-crest">Ω</div>
-            <div class="brand-info">
-              <span class="brand-title" style="color: #fff;">Apex University</span>
-              <span class="brand-subtitle">Alumni Network</span>
-            </div>
-          </div>
-          <p class="footer-desc">
-            Empowering lifelong connections between our global alumni body and current student cohorts through
-            mentorship, chapters, and community initiatives.
-          </p>
-        </div>
+  <div id="site-footer-container"></div>
 
-        <div>
-          <h4 class="footer-heading">Explore</h4>
-          <ul class="footer-links">
-            <li><a href="directory.html" class="footer-link">Alumni Directory</a></li>
-            <li><a href="news.html" class="footer-link">News &amp; Stories</a></li>
-            <li><a href="videos.html" class="footer-link">Video Highlights</a></li>
-            <li><a href="events.html" class="footer-link">Upcoming Events</a></li>
-            <li><a href="donate.html" class="footer-link">Ways to Give</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="footer-heading">Member Portal</h4>
-          <ul class="footer-links">
-            <li><a href="login.html" class="footer-link">Alumni Sign In</a></li>
-            <li><a href="signup.html" class="footer-link">Join Network</a></li>
-            <li><a href="profile.html" class="footer-link">Update My Profile</a></li>
-            <li><a href="news.html#submit" class="footer-link">Submit a Story</a></li>
-            <li><a href="admin.html" class="footer-link">Staff Administration</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="footer-heading">Stay Connected</h4>
-          <p style="font-size: var(--text-sm); color: var(--color-text-inverse-muted); margin-bottom: var(--space-3);">
-            Receive our quarterly alumni bulletin and regional chapter invitations.
-          </p>
-          <form class="newsletter-form">
-            <div class="newsletter-input-group">
-              <input type="email" class="newsletter-input" placeholder="Your email address" required
-                aria-label="Email for alumni newsletter" />
-              <button type="submit" class="btn btn-accent btn-sm">Join</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>&copy; 2026 Apex University Alumni Association. All rights reserved.</div>
-        <div class="social-links">
-          <a href="#" class="social-link" aria-label="LinkedIn">LinkedIn</a>
-          <a href="#" class="social-link" aria-label="YouTube">YouTube</a>
-          <a href="#" class="social-link" aria-label="X Twitter">X (Twitter)</a>
-          <a href="#" class="social-link" aria-label="Instagram">Instagram</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script type="module" src="js/nav.js"></script>
+  <script type="module" src="js/components.js"></script>
   <script type="module" src="js/pages/videos.js"></script>
 </body>
 
