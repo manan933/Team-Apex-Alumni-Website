@@ -414,8 +414,8 @@ img {
   background:
     linear-gradient(
       to top,
-      rgba(5, 12, 22, .94),
-      rgba(5, 12, 22, .05)
+      rgba(251, 252, 253, 0.94),
+      rgba(251, 248, 248, 0.05)
     );
 }
 
