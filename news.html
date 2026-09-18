@@ -93,7 +93,7 @@
          SEARCH + FILTER TOOLBAR
     ====================================================== -->
 
-    <section class="news-toolbar reveal-on-scroll">
+    <section class="news-toolbar">
 
       <div class="news-search">
 
@@ -165,7 +165,7 @@
          FEATURED STORIES
     ====================================================== -->
 
-    <section class="news-section featured-section reveal-on-scroll" id="featured-stories">
+    <section class="news-section featured-section" id="featured-stories">
 
       <div class="section-heading">
 
@@ -297,10 +297,10 @@
 
 
     <!-- =====================================================
-         RECENT PLACEMENTS
+         RECENT PLACEMENTS SPOTLIGHT
     ====================================================== -->
 
-    <section class="placement-spotlight reveal-on-scroll">
+    <section class="placement-spotlight">
 
       <div class="placement-spotlight-copy">
 
@@ -341,7 +341,7 @@
         </div>
 
         <button id="open-placement-directory">
-          View Complete Placement Directory →
+          View Complete Placement Directory ↓
         </button>
 
       </div>
@@ -393,7 +393,7 @@
          LATEST FROM GIET
     ====================================================== -->
 
-    <section class="news-section reveal-on-scroll" id="latest-giet">
+    <section class="news-section" id="latest-giet">
 
       <div class="section-heading">
 
@@ -413,7 +413,42 @@
 
         <div id="news-grid" class="news-grid">
 
-          <!-- Dynamic approved stories appear here -->
+          <!-- Default Pre-rendered Stories -->
+          <article class="news-card" data-story-id="story-101">
+            <div class="news-card-image">
+              <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80" alt="Robotics Journey" loading="lazy">
+            </div>
+            <div class="news-card-content">
+              <small>ACHIEVEMENT · 3 MIN READ</small>
+              <h3>From Campus Hackathon to Series-A: The AgroGrid Robotics Journey</h3>
+              <p>How four third-year roommates combined autonomous drones with micro-sensor grids to revolutionize crop yields across 800 rural districts.</p>
+              <button class="save-story" data-save-id="story-101">♡ Save Story</button>
+            </div>
+          </article>
+
+          <article class="news-card" data-story-id="story-102">
+            <div class="news-card-image">
+              <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80" alt="Cloud Microservices" loading="lazy">
+            </div>
+            <div class="news-card-content">
+              <small>CAREER · 4 MIN READ</small>
+              <h3>Scaling Distributed Cloud Microservices at Microsoft</h3>
+              <p>Reflections on navigating early-career software engineering, distributed systems, and the mental frameworks acquired during college.</p>
+              <button class="save-story" data-save-id="story-102">♡ Save Story</button>
+            </div>
+          </article>
+
+          <article class="news-card" data-story-id="story-103">
+            <div class="news-card-image">
+              <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1200&q=80" alt="Compute Center" loading="lazy">
+            </div>
+            <div class="news-card-content">
+              <small>CAMPUS · 3 MIN READ</small>
+              <h3>10,000 Sq. Ft. High-Performance AI Compute Center Inaugurated</h3>
+              <p>University leadership and distinguished alumni formally open state-of-the-art AI cluster equipped with enterprise NVIDIA accelerators.</p>
+              <button class="save-story" data-save-id="story-103">♡ Save Story</button>
+            </div>
+          </article>
 
         </div>
 
@@ -474,7 +509,7 @@
          STORIES & ESSAYS
     ====================================================== -->
 
-    <section class="news-section image-story-section reveal-on-scroll" id="stories-essays">
+    <section class="news-section image-story-section" id="stories-essays">
 
       <div class="section-heading">
 
@@ -602,7 +637,7 @@
          ALUMNI SPOTLIGHT
     ====================================================== -->
 
-    <section class="spotlight-section reveal-on-scroll" id="alumni-spotlight">
+    <section class="spotlight-section" id="alumni-spotlight">
 
       <div class="spotlight-image">
 
@@ -663,7 +698,7 @@
          BREAKTHROUGHS
     ====================================================== -->
 
-    <section class="news-section image-story-section reveal-on-scroll" id="breakthroughs">
+    <section class="news-section image-story-section" id="breakthroughs">
 
       <div class="section-heading">
 
@@ -791,7 +826,7 @@
          CAMPUS MILESTONES
     ====================================================== -->
 
-    <section class="news-section milestones-section reveal-on-scroll" id="campus-milestones">
+    <section class="news-section milestones-section" id="campus-milestones">
 
       <div class="section-heading">
 
@@ -907,7 +942,7 @@
          THIS WEEK
     ====================================================== -->
 
-    <section class="weekly-news-section reveal-on-scroll">
+    <section class="weekly-news-section">
 
       <div class="section-heading">
 
@@ -970,7 +1005,7 @@
          DIGITAL GAZETTE
     ====================================================== -->
 
-    <section class="gazette-section reveal-on-scroll">
+    <section class="gazette-section">
 
       <div class="gazette-cover">
 
@@ -1006,7 +1041,7 @@
          NEWS + VIDEO
     ====================================================== -->
 
-    <section class="news-section media-section reveal-on-scroll">
+    <section class="news-section media-section">
 
       <div class="section-heading">
 
@@ -1065,7 +1100,7 @@
          NEWS GALLERY (WITH CONTEXT POPUP)
     ====================================================== -->
 
-    <section class="news-section gallery-section reveal-on-scroll">
+    <section class="news-section gallery-section">
 
       <div class="section-heading">
 
@@ -1085,6 +1120,7 @@
 
         <button
           class="gallery-item"
+          type="button"
           data-gallery-image="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1800&q=90"
           data-gallery-title="Annual Alumni Homecoming Gala 2026"
           data-gallery-tag="CAMPUS REUNION"
@@ -1099,6 +1135,7 @@
 
         <button
           class="gallery-item"
+          type="button"
           data-gallery-image="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1800&q=90"
           data-gallery-title="Convocation & Silver Jubilee Ceremony"
           data-gallery-tag="CONVOCATION"
@@ -1113,6 +1150,7 @@
 
         <button
           class="gallery-item"
+          type="button"
           data-gallery-image="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=90"
           data-gallery-title="Inter-Batch Technical Mentorship Workshop"
           data-gallery-tag="TECH WORKSHOP"
@@ -1127,6 +1165,7 @@
 
         <button
           class="gallery-item"
+          type="button"
           data-gallery-image="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1800&q=90"
           data-gallery-title="Bangalore Tech Chapter Alumni Dinner"
           data-gallery-tag="METRO CHAPTER"
@@ -1148,7 +1187,7 @@
          ALUMNI TIMELINE
     ====================================================== -->
 
-    <section class="timeline-section reveal-on-scroll">
+    <section class="timeline-section">
 
       <div class="section-heading">
 
@@ -1249,7 +1288,7 @@
          ALUMNI MILESTONES
     ====================================================== -->
 
-    <section class="milestone-icons-section reveal-on-scroll">
+    <section class="milestone-icons-section">
 
       <div class="section-heading">
 
@@ -1267,37 +1306,37 @@
 
       <div class="milestone-icons">
 
-        <button>
+        <button type="button">
           <span>🎓</span>
           <strong>Graduation</strong>
           <small>Class of 2026</small>
         </button>
 
-        <button>
+        <button type="button">
           <span>💼</span>
           <strong>New Role</strong>
           <small>Promotions & Moves</small>
         </button>
 
-        <button>
+        <button type="button">
           <span>🏆</span>
           <strong>Honors</strong>
           <small>National Awards</small>
         </button>
 
-        <button>
+        <button type="button">
           <span>🚀</span>
           <strong>Startups</strong>
           <small>Funded Ventures</small>
         </button>
 
-        <button>
+        <button type="button">
           <span>📚</span>
           <strong>Research</strong>
           <small>Peer Publications</small>
         </button>
 
-        <button>
+        <button type="button">
           <span>🌍</span>
           <strong>Global</strong>
           <small>International Roles</small>
@@ -1309,7 +1348,7 @@
 
 
     <!-- =====================================================
-         PLACEMENT DIRECTORY
+         PLACEMENT DIRECTORY (PERMANENTLY VISIBLE & PRE-RENDERED)
     ====================================================== -->
 
     <section id="placements" class="placement-directory">
@@ -1318,18 +1357,138 @@
 
         <div class="heading-title-group">
           <h2>Recent Placements Directory</h2>
-          <span class="heading-badge">Verified Placement Cell Data</span>
+          <span class="heading-badge">Verified Placement Cell Data · 2026</span>
         </div>
 
-        <button id="close-placement-directory">
-          ← Back to Newsroom
-        </button>
+        <p class="heading-description">
+          Comprehensive directory of verified student campus placements with verified package tiers, roles, and recruiting multinationals.
+        </p>
 
       </div>
 
 
       <div id="placement-grid" class="placement-grid">
-        <!-- JS inserts placement cards -->
+
+        <!-- Placement 1 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Aarav Das" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>CSE-AIML</small>
+            <h3>Aarav Das</h3>
+            <p>🎓 Artificial Intelligence & Machine Learning</p>
+            <p>📅 2023–2027</p>
+            <p>🏢 Microsoft</p>
+            <span class="package-badge">₹13 LPA</span>
+          </div>
+        </article>
+
+        <!-- Placement 2 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Ananya Mohanty" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>CSE</small>
+            <h3>Ananya Mohanty</h3>
+            <p>🎓 Computer Science & Engineering</p>
+            <p>📅 2023–2027</p>
+            <p>🏢 Deloitte</p>
+            <span class="package-badge">₹12 LPA</span>
+          </div>
+        </article>
+
+        <!-- Placement 3 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Ritwik Sahu" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>CSE-AIML</small>
+            <h3>Ritwik Sahu</h3>
+            <p>🎓 Artificial Intelligence & Machine Learning</p>
+            <p>📅 2022–2026</p>
+            <p>🏢 TCS</p>
+            <span class="package-badge">₹10.5 LPA</span>
+          </div>
+        </article>
+
+        <!-- Placement 4 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sneha Patnaik" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>IT</small>
+            <h3>Sneha Patnaik</h3>
+            <p>🎓 Information Technology</p>
+            <p>📅 2023–2027</p>
+            <p>🏢 Accenture</p>
+            <span class="package-badge">₹9 LPA</span>
+          </div>
+        </article>
+
+        <!-- Placement 5 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Aditya Rout" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>CSE</small>
+            <h3>Aditya Rout</h3>
+            <p>🎓 Computer Science & Engineering</p>
+            <p>📅 2022–2026</p>
+            <p>🏢 Infosys</p>
+            <span class="package-badge">₹8.5 LPA</span>
+          </div>
+        </article>
+
+        <!-- Placement 6 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/women/47.jpg" alt="Priya Behera" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>EE</small>
+            <h3>Priya Behera</h3>
+            <p>🎓 Electrical Engineering</p>
+            <p>📅 2023–2027</p>
+            <p>🏢 Wipro</p>
+            <span class="package-badge">₹7.5 LPA</span>
+          </div>
+        </article>
+
+        <!-- Placement 7 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/men/71.jpg" alt="Rahul Pradhan" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>ECE</small>
+            <h3>Rahul Pradhan</h3>
+            <p>🎓 Electronics & Communication Engineering</p>
+            <p>📅 2022–2026</p>
+            <p>🏢 Capgemini</p>
+            <span class="package-badge">₹7.2 LPA</span>
+          </div>
+        </article>
+
+        <!-- Placement 8 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/women/49.jpg" alt="Ishita Nayak" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>CSE</small>
+            <h3>Ishita Nayak</h3>
+            <p>🎓 Computer Science & Engineering</p>
+            <p>📅 2023–2027</p>
+            <p>🏢 IBM</p>
+            <span class="package-badge">₹6.8 LPA</span>
+          </div>
+        </article>
+
       </div>
 
     </section>
@@ -1339,7 +1498,7 @@
          DONATION / SUPPORT
     ====================================================== -->
 
-    <section class="support-section reveal-on-scroll">
+    <section class="support-section">
 
       <div>
 

@@ -1060,51 +1060,6 @@ function renderPlacements() {
 }
 
 
-function openPlacements() {
-
-  document.body.classList.add(
-    "placements-open"
-  );
-
-  renderPlacements();
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-  history.pushState(
-    { placements: true },
-    "",
-    "#placements"
-  );
-
-}
-
-
-function closePlacements() {
-
-  document.body.classList.remove(
-    "placements-open"
-  );
-
-  if (
-    location.hash ===
-    "#placements"
-  ) {
-
-    history.pushState(
-      "",
-      document.title,
-      window.location.pathname +
-      window.location.search
-    );
-
-  }
-
-}
-
-
 /* =========================================================
    GALLERY MODAL WITH RICH CONTEXT BELOW IMAGE
 ========================================================= */
@@ -1866,8 +1821,6 @@ function setupModalEvents() {
 
       closeGallery();
 
-      closePlacements();
-
       document
         .querySelectorAll(
           ".modal-overlay.open"
@@ -1917,100 +1870,72 @@ function setupAuthListener() {
 
 
 /* =========================================================
-   INITIALIZATION
+   INITIALIZATION (INSTANT RUN WITHOUT WAITING)
 ========================================================= */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
+function init() {
 
-    purgeStrayNumbers();
+  purgeStrayNumbers();
 
-    setupFilters();
+  setupFilters();
 
-    setupSearch();
+  setupSearch();
 
-    setupHero();
+  setupHero();
 
-    setupFeaturedStories();
+  setupFeaturedStories();
 
-    setupStoryActions();
+  setupStoryActions();
 
-    setupGallery();
+  setupGallery();
 
-    setupVideo();
+  setupVideo();
 
-    setupGazette();
+  setupGazette();
 
-    setupSpotlight();
+  setupSpotlight();
 
-    setupMilestones();
+  setupMilestones();
 
-    setupDonation();
+  setupDonation();
 
-    setupSubmission();
+  setupSubmission();
 
-    setupModalEvents();
+  setupModalEvents();
 
-    setupAuthListener();
+  setupAuthListener();
 
-    renderPlacements();
+  renderPlacements();
 
-
-    document
-      .getElementById(
-        "open-placement-directory"
-      )
-      ?.addEventListener(
-        "click",
-        openPlacements
-      );
+  loadStories();
 
 
-    document
-      .getElementById(
-        "close-placement-directory"
-      )
-      ?.addEventListener(
-        "click",
-        closePlacements
-      );
+  document
+    .getElementById(
+      "open-placement-directory"
+    )
+    ?.addEventListener(
+      "click",
+      () => {
+        scrollToId("placements");
+      }
+    );
 
 
-    document
-      .getElementById(
-        "close-reader-modal"
-      )
-      ?.addEventListener(
-        "click",
-        closeReader
-      );
+  document
+    .getElementById(
+      "close-reader-modal"
+    )
+    ?.addEventListener(
+      "click",
+      closeReader
+    );
 
+}
 
-    loadStories();
-
-  }
-);
-
-
-/* =========================================================
-   BROWSER BACK BUTTON
-========================================================= */
-
-window.addEventListener(
-  "popstate",
-  () => {
-
-    if (
-      location.hash !==
-      "#placements"
-    ) {
-
-      document.body.classList.remove(
-        "placements-open"
-      );
-
-    }
-
-  }
-);
+// Guarantee execution regardless of when the module loads
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
+}

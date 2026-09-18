@@ -86,7 +86,7 @@ ol.trending-list,
 }
 
 /* ---------------------------------------------------------
-   GLOBAL BODY & BASE VISIBILITY (NEVER HIDDEN)
+   GLOBAL BODY & BASE VISIBILITY
 --------------------------------------------------------- */
 html {
   scroll-behavior: smooth;
@@ -132,7 +132,7 @@ button {
 }
 
 /* ---------------------------------------------------------
-   PAGE ENTRANCE & HOVER ANIMATIONS (PURE CSS)
+   PAGE ENTRANCE & HOVER ANIMATIONS
 --------------------------------------------------------- */
 @keyframes heroFadeUp {
   0% {
@@ -160,14 +160,6 @@ button {
 
 .hero-scroll-btn {
   animation: heroGlowPulse 3s infinite ease-in-out;
-}
-
-/* Always visible with gentle transition on scroll */
-.reveal-on-scroll {
-  opacity: 1 !important;
-  visibility: visible !important;
-  transform: none !important;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 /* ---------------------------------------------------------
@@ -1761,35 +1753,15 @@ button {
 }
 
 /* ---------------------------------------------------------
-   PLACEMENT DIRECTORY FULL VIEW
+   PLACEMENT DIRECTORY (ALWAYS VISIBLE FULL SECTION)
 --------------------------------------------------------- */
 .placement-directory {
   max-width: 1280px;
   margin: 0 auto;
   padding: 70px 24px;
-}
-
-body:not(.placements-open) .placement-directory {
-  display: none;
-}
-
-body.placements-open main > section:not(.placement-directory) {
-  display: none;
-}
-
-#close-placement-directory {
-  font-family: var(--font-label);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-card);
-  padding: 10px 20px;
-  border-radius: var(--radius-sm);
-  font-weight: 700;
-  color: var(--text-heading-dark);
-}
-
-#close-placement-directory:hover {
-  background: var(--bg-navy);
-  color: #FFFFFF;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
 }
 
 .placement-grid {
@@ -1806,16 +1778,29 @@ body.placements-open main > section:not(.placement-directory) {
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.placement-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
 }
 
 .placement-card-image {
   height: 210px;
+  overflow: hidden;
+  background: var(--bg-surface-tint);
 }
 
 .placement-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.placement-card:hover .placement-card-image img {
+  transform: scale(1.05);
 }
 
 .placement-card-content {
@@ -1915,7 +1900,7 @@ body.placements-open main > section:not(.placement-directory) {
 }
 
 /* ---------------------------------------------------------
-   MODAL OVERLAYS & DIALOGS
+   MODAL OVERLAYS & DIALOGS (POINTER-EVENTS GUARD)
 --------------------------------------------------------- */
 .modal-overlay {
   position: fixed;
@@ -1929,12 +1914,14 @@ body.placements-open main > section:not(.placement-directory) {
   padding: 20px;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+  pointer-events: none !important; /* Crucial: Prevents invisible blocker */
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
 }
 
 .modal-overlay.open {
-  opacity: 1;
-  visibility: visible;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important; /* Active when opened */
 }
 
 .modal-close {
