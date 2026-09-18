@@ -1645,6 +1645,7 @@ function setupSubmissionForm() {
           excerpt,
           image,
           body,
+          status: "pending",
 
           authorUid:
             user.uid ||
