@@ -15,7 +15,7 @@ const videos = [
   {
     id: 'v-001',
     youtubeId: 'Ks-_Mh1QhMc',
-    title: 'Alumni Keynote: Presence & Leadership in the Modern Workplace',
+    title: 'Words of Experience — Presence & Leadership',
     category: 'Interviews',
     description: 'Distinguished alumna Dr. Priya Mehta explores how confident executive presence and body language reshape career trajectories in today\'s hybrid work landscape.',
     addedAt: '2026-08-15'
@@ -23,7 +23,7 @@ const videos = [
   {
     id: 'v-002',
     youtubeId: 'iG9CE55wbtY',
-    title: 'Do Universities Still Kill Creativity? An Alumni Forum',
+    title: 'Annual Celebration — The Creativity Forum',
     category: 'Events',
     description: 'A panel of Apex alumni leaders revisit the landmark debate on transformative education and lifelong learning in the age of AI.',
     addedAt: '2026-07-22'
@@ -31,7 +31,7 @@ const videos = [
   {
     id: 'v-003',
     youtubeId: 'aircAruvnKk',
-    title: 'Tech Talks: Understanding Neural Networks — Alumni in AI Series',
+    title: 'From GIET to Industry — Understanding Neural Networks',
     category: 'Interviews',
     description: 'Apex alumnus and DeepMind researcher Rohan Verma breaks down foundational AI concepts for a broad alumni audience — no PhD required.',
     addedAt: '2026-06-30'
@@ -39,7 +39,7 @@ const videos = [
   {
     id: 'v-004',
     youtubeId: '8jPQjjsBbIc',
-    title: 'How to Communicate Like a Leader — Distinguished Speaker Series',
+    title: 'Avyat — Distinguished Speaker Series',
     category: 'Events',
     description: 'MIT\'s celebrated communication masterclass, hosted at Apex University\'s annual Distinguished Speakers Weekend. A must-watch for every alumnus.',
     addedAt: '2026-05-18'
@@ -47,7 +47,7 @@ const videos = [
   {
     id: 'v-005',
     youtubeId: 'UF8uR6Z6KLc',
-    title: 'Commencement Address: Connecting the Dots',
+    title: 'Batch Reunion — Connecting the Dots',
     category: 'Reunions',
     description: 'The iconic commencement address that inspired a generation of Apex graduates — replayed at our 45th Foundation Anniversary gala celebration.',
     addedAt: '2026-04-10'
@@ -55,7 +55,7 @@ const videos = [
   {
     id: 'v-006',
     youtubeId: 'dQw4w9WgXcQ',
-    title: 'Apex Gala 2024: Highlights of a Landmark Evening',
+    title: 'GIET Reunita — Highlights of a Landmark Evening',
     category: 'Reunions',
     description: 'Relive the most memorable moments from our sold-out annual alumni gala, including the Outstanding Alumni Award ceremony and live performances.',
     addedAt: '2026-03-05'
@@ -63,7 +63,7 @@ const videos = [
   {
     id: 'v-007',
     youtubeId: 'L_LUpnjgPso',
-    title: 'Campus Walkthrough: The New Innovation Quad & Research Labs',
+    title: 'A Day at GIET — Exploring New Innovation Labs',
     category: 'Campus Life',
     description: 'Take a guided video tour of Apex University\'s newly unveiled STEM Innovation Complex, collaborative maker studios, and expanded campus green spaces.',
     addedAt: '2026-02-20'
@@ -71,7 +71,7 @@ const videos = [
   {
     id: 'v-008',
     youtubeId: 'bTqVqk7FSmY',
-    title: 'Alumni Chapter Meet — Singapore Regional Summit 2025',
+    title: 'Alumni Meet — Singapore Regional Summit',
     category: 'Events',
     description: 'Full recap of the Singapore alumni chapter\'s annual summit: networking sessions, startup pitches, a cultural evening, and the chapter leadership handover.',
     addedAt: '2026-01-14'
