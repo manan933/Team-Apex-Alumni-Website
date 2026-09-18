@@ -152,7 +152,7 @@ function renderGrid() {
 
 function buildCardHTML(v, idx) {
   const thumbUrl = `https://img.youtube.com/vi/${encodeURIComponent(v.youtubeId)}/hqdefault.jpg`;
-  const featuredClass = idx === 0 ? ' video-card--featured' : '';
+  const featuredClass = '';
   const dateLabel = formatDate(v.addedAt);
 
   return `
