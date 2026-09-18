@@ -19,6 +19,817 @@
 
 <body>
 
+  <!-- =====================================================
+       REUSABLE HEADER
+  ====================================================== -->
+
+  <div id="site-header-container"></div>
+
+
+  <main>
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="news-hero">
+
+      <div class="hero-copy">
+
+        <div class="hero-label">
+          ALUMNI STORIES · IDEAS · ACHIEVEMENTS
+        </div>
+
+        <h1>
+          Stories that <em>move us forward.</em>
+        </h1>
+
+        <p class="hero-intro">
+          Discover the people, ideas, achievements and moments
+          shaping the GIET University alumni community.
+        </p>
+
+        <div class="hero-actions">
+          <button class="hero-scroll-btn" id="hero-explore-btn">
+            Explore Stories ↓
+          </button>
+        </div>
+
+      </div>
+
+      <div class="hero-decoration" aria-hidden="true">
+        <span>GIET</span>
+        <span>ALUMNI</span>
+        <span>GAZETTE</span>
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SEARCH + FILTER TOOLBAR
+    ====================================================== -->
+
+    <section class="news-toolbar">
+
+      <div class="news-search">
+
+        <span class="search-icon">⌕</span>
+
+        <input
+          type="search"
+          id="news-search-input"
+          placeholder="Search alumni news..."
+          aria-label="Search alumni news"
+        >
+
+      </div>
+
+
+      <div class="filter-row" id="news-category-filters">
+
+        <button class="filter-btn active" data-category="all">
+          All
+        </button>
+
+        <button class="filter-btn" data-category="Achievement">
+          Alumni Achievements
+        </button>
+
+        <button class="filter-btn" data-category="Career">
+          Career
+        </button>
+
+        <button class="filter-btn" data-category="Campus">
+          Campus
+        </button>
+
+        <button class="filter-btn" data-category="Events">
+          Events
+        </button>
+
+        <button class="filter-btn" data-category="Startups">
+          Startups
+        </button>
+
+        <button class="filter-btn" data-category="Awards">
+          Awards
+        </button>
+
+        <button class="filter-btn" data-category="Research">
+          Research
+        </button>
+
+        <button class="filter-btn" data-category="Announcements">
+          Announcements
+        </button>
+
+        <button class="filter-btn" data-category="Saved">
+          Saved Stories
+        </button>
+
+      </div>
+
+
+      <button id="share-story-btn" class="share-story-btn">
+        + Share Your Story
+      </button>
+
+    </section>
+
+
+    <!-- =====================================================
+         FEATURED STORIES
+    ====================================================== -->
+
+    <section class="news-section featured-section" id="featured-stories">
+
+      <div class="section-heading">
+
+        <div>
+          <span>01</span>
+          <h2>Featured Stories</h2>
+        </div>
+
+        <p>
+          Stories worth stopping for.
+        </p>
+
+      </div>
+
+
+      <div class="featured-layout">
+
+        <!-- LARGE FEATURE -->
+
+        <article
+          class="featured-main story-jump"
+          data-feature-target="stories-essays"
+        >
+
+          <div class="featured-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=85"
+              alt="Students and alumni"
+            >
+
+            <div class="slide-overlay">
+
+              <span class="slide-number">01</span>
+
+              <div class="slide-overlay-content">
+
+                <span>ALUMNI SPOTLIGHT</span>
+
+                <h3>
+                  From campus projects to leading programs
+                </h3>
+
+                <p>
+                  Stories of alumni turning ideas into meaningful careers.
+                </p>
+
+                <strong>
+                  Read Story →
+                </strong>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- SMALL FEATURES -->
+
+        <div class="featured-side">
+
+          <article
+            class="featured-small story-jump"
+            data-feature-target="campus-milestones"
+          >
+
+            <img
+              src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=1000&q=85"
+              alt="University campus"
+            >
+
+            <div class="small-overlay">
+
+              <span>02</span>
+
+              <div>
+                <small>CAMPUS MILESTONES</small>
+
+                <h3>
+                  A new chapter of growth, innovation and community
+                </h3>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article
+            class="featured-small story-jump"
+            data-feature-target="breakthroughs"
+          >
+
+            <img
+              src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=85"
+              alt="Innovation and teamwork"
+            >
+
+            <div class="small-overlay">
+
+              <span>03</span>
+
+              <div>
+                <small>BREAKTHROUGHS</small>
+
+                <h3>
+                  Celebrating achievements across the GIET community
+                </h3>
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         RECENT PLACEMENTS
+    ====================================================== -->
+
+    <section class="placement-spotlight">
+
+      <div class="placement-spotlight-copy">
+
+        <span class="eyebrow">CAREER MILESTONES</span>
+
+        <h2>
+          Where our alumni are
+          <em>going next.</em>
+        </h2>
+
+        <p>
+          Explore recent placements, companies and career milestones
+          across the GIET alumni community.
+        </p>
+
+        <button id="open-placement-directory">
+          View Placement Directory →
+        </button>
+
+      </div>
+
+
+      <div class="placement-highlight-card">
+
+        <div class="placement-highlight-image">
+
+          <img
+            src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=85"
+            alt="Professional team"
+          >
+
+          <div class="placement-package">
+            ₹13 LPA
+          </div>
+
+        </div>
+
+        <div class="placement-highlight-content">
+
+          <span>RECENT PLACEMENT</span>
+
+          <h3>
+            Aarav Das
+          </h3>
+
+          <p>
+            CSE-AIML · Batch 2023–2027
+          </p>
+
+          <strong>
+            Microsoft
+          </strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LATEST FROM GIET
+    ====================================================== -->
+
+    <section class="news-section" id="latest-giet">
+
+      <div class="section-heading">
+
+        <div>
+          <span>02</span>
+          <h2>Latest from GIET</h2>
+        </div>
+
+        <p>
+          Recent updates from our community.
+        </p>
+
+      </div>
+
+
+      <div class="latest-layout">
+
+        <div id="news-grid" class="news-grid">
+
+          <!-- Dynamic approved stories appear here -->
+
+        </div>
+
+
+        <aside class="trending-panel">
+
+          <div class="trending-title">
+            TRENDING INSIGHTS
+          </div>
+
+          <ol>
+
+            <li>
+              <span>01</span>
+              <p>Alumni careers creating new opportunities</p>
+            </li>
+
+            <li>
+              <span>02</span>
+              <p>Innovation projects gaining recognition</p>
+            </li>
+
+            <li>
+              <span>03</span>
+              <p>GIET alumni community expands globally</p>
+            </li>
+
+            <li>
+              <span>04</span>
+              <p>Students connecting with industry mentors</p>
+            </li>
+
+            <li>
+              <span>05</span>
+              <p>New campus initiatives and events</p>
+            </li>
+
+          </ol>
+
+        </aside>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         STORIES & ESSAYS
+    ====================================================== -->
+
+    <section class="news-section image-story-section" id="stories-essays">
+
+      <div class="section-heading">
+
+        <div>
+          <span>03</span>
+          <h2>Stories & Essays</h2>
+        </div>
+
+        <p>
+          Personal journeys, reflections and experiences.
+        </p>
+
+      </div>
+
+
+      <div class="image-story-grid">
+
+        <article class="image-story-card">
+
+          <div class="image-story-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=85"
+              alt="Alumni working together"
+            >
+
+            <span>CAREER</span>
+
+          </div>
+
+          <div class="image-story-content">
+
+            <small>STORY · 06 MIN READ</small>
+
+            <h3>
+              From classroom to career
+            </h3>
+
+            <p>
+              How alumni transformed university experiences,
+              projects and friendships into successful professional journeys.
+            </p>
+
+            <button class="story-action" data-scroll-target="latest-giet">
+              Read Story →
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <article class="image-story-card">
+
+          <div class="image-story-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=85"
+              alt="Friends and alumni"
+            >
+
+            <span>ESSAY</span>
+
+          </div>
+
+          <div class="image-story-content">
+
+            <small>REFLECTION · 04 MIN READ</small>
+
+            <h3>
+              Lessons that stayed with us
+            </h3>
+
+            <p>
+              The people, challenges and small moments from campus
+              that continue to influence alumni long after graduation.
+            </p>
+
+            <button class="story-action" data-scroll-target="latest-giet">
+              Explore Essay →
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <article class="image-story-card">
+
+          <div class="image-story-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1200&q=85"
+              alt="University community"
+            >
+
+            <span>ALUMNI</span>
+
+          </div>
+
+          <div class="image-story-content">
+
+            <small>JOURNEY · 05 MIN READ</small>
+
+            <h3>
+              Alumni journeys
+            </h3>
+
+            <p>
+              Different paths, different industries and different
+              destinations — connected by one shared university experience.
+            </p>
+
+            <button class="story-action" data-scroll-target="alumni-spotlight">
+              Meet Alumni →
+            </button>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ALUMNI SPOTLIGHT
+    ====================================================== -->
+
+    <section class="spotlight-section" id="alumni-spotlight">
+
+      <div class="spotlight-image">
+
+        <img
+          src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=1200&q=85"
+          alt="Alumni spotlight"
+        >
+
+      </div>
+
+      <div class="spotlight-content">
+
+        <span class="eyebrow">
+          ALUMNI SPOTLIGHT
+        </span>
+
+        <h2>
+          Anushka Palo
+        </h2>
+
+        <h3>
+          National Program Lead, Wooble
+        </h3>
+
+        <p class="spotlight-role">
+          Data Science Club Leader
+        </p>
+
+        <blockquote>
+          “From campus projects to leading programs,
+          every chapter creates the foundation for the next.”
+        </blockquote>
+
+        <button class="spotlight-button">
+          View Fellow Profile →
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         BREAKTHROUGHS
+    ====================================================== -->
+
+    <section class="news-section image-story-section" id="breakthroughs">
+
+      <div class="section-heading">
+
+        <div>
+          <span>04</span>
+          <h2>Breakthroughs</h2>
+        </div>
+
+        <p>
+          Ideas becoming achievements.
+        </p>
+
+      </div>
+
+
+      <div class="image-story-grid">
+
+        <article class="image-story-card">
+
+          <div class="image-story-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=85"
+              alt="Student technology project"
+            >
+
+            <span>PROJECTS</span>
+
+          </div>
+
+          <div class="image-story-content">
+
+            <small>INNOVATION</small>
+
+            <h3>
+              Student projects
+            </h3>
+
+            <p>
+              From artificial intelligence to robotics,
+              student ideas are becoming practical solutions.
+            </p>
+
+            <button class="story-action" data-scroll-target="latest-giet">
+              Explore Projects →
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <article class="image-story-card">
+
+          <div class="image-story-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=85"
+              alt="Competition team"
+            >
+
+            <span>ACHIEVEMENTS</span>
+
+          </div>
+
+          <div class="image-story-content">
+
+            <small>COMPETITIONS</small>
+
+            <h3>
+              Competition victories
+            </h3>
+
+            <p>
+              Alumni and students continue to represent GIET
+              through competitions, hackathons and innovation challenges.
+            </p>
+
+            <button class="story-action" data-scroll-target="latest-giet">
+              View Achievements →
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <article class="image-story-card">
+
+          <div class="image-story-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=85"
+              alt="Research and innovation"
+            >
+
+            <span>RESEARCH</span>
+
+          </div>
+
+          <div class="image-story-content">
+
+            <small>RESEARCH · DEVELOPMENT</small>
+
+            <h3>
+              Research & innovation
+            </h3>
+
+            <p>
+              Research, publications and technical work continue
+              to create new possibilities for the GIET community.
+            </p>
+
+            <button class="story-action" data-scroll-target="latest-giet">
+              Discover More →
+            </button>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CAMPUS MILESTONES
+    ====================================================== -->
+
+    <section class="news-section milestones-section" id="campus-milestones">
+
+      <div class="section-heading">
+
+        <div>
+          <span>05</span>
+          <h2>Campus Milestones</h2>
+        </div>
+
+        <p>
+          Moments that define the GIET journey.
+        </p>
+
+      </div>
+
+
+      <div class="milestone-grid">
+
+        <article class="milestone-card">
+
+          <div class="milestone-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1200&q=85"
+              alt="Academic campus"
+            >
+
+            <span>01</span>
+
+          </div>
+
+          <div class="milestone-content">
+
+            <small>ACADEMICS</small>
+
+            <h3>
+              New academic initiatives
+            </h3>
+
+            <p>
+              New programs, learning opportunities and industry
+              connections continue to expand the student experience.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="milestone-card">
+
+          <div class="milestone-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=85"
+              alt="Campus event"
+            >
+
+            <span>02</span>
+
+          </div>
+
+          <div class="milestone-content">
+
+            <small>COMMUNITY</small>
+
+            <h3>
+              Community events
+            </h3>
+
+            <p>
+              Alumni meets, student activities and community events
+              continue to strengthen connections across generations.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="milestone-card">
+
+          <div class="milestone-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1200&q=85"
+              alt="Graduation celebration"
+            >
+
+            <span>03</span>
+
+          </div>
+
+          <div class="milestone-content">
+
+            <small>ALUMNI NETWORK</small>
+
+            <h3>
+              Growing alumni network
+            </h3>
+
+            <p>
+              Alumni across industries and cities are reconnecting
+              with GIET and creating new opportunities for students.
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
 
     <!-- =====================================================
          THIS WEEK
