@@ -1758,7 +1758,7 @@ function setupSubmissionForm() {
 
 
 /* =========================================================
-   SCROLL REVEAL OBSERVER
+   SCROLL REVEAL OBSERVER + INSTANT SAFETY BACKUP
 ========================================================= */
 
 function setupScrollReveal() {
@@ -1797,12 +1797,36 @@ function setupScrollReveal() {
     },
     {
       root: null,
-      threshold: 0.12,
-      rootMargin: "0px 0px -40px 0px"
+      threshold: 0.08,
+      rootMargin: "0px 0px -20px 0px"
     }
   );
 
   elements.forEach(el => observer.observe(el));
+
+  // Safety fallback: reveal immediately after 300ms if not triggered yet
+  setTimeout(() => {
+    elements.forEach(el => el.classList.add("is-visible"));
+  }, 350);
+
+}
+
+
+/* =========================================================
+   DEFENSIVE CLEANUP OF ANY STRAY NUMBER SPANS
+========================================================= */
+
+function purgeStrayNumbers() {
+
+  document
+    .querySelectorAll(
+      ".section-heading > div > span:not(.heading-badge), .slide-number, .milestone-image > span:not(.milestone-badge)"
+    )
+    .forEach(el => {
+      if (/^\s*\d+\s*$/.test(el.textContent)) {
+        el.remove();
+      }
+    });
 
 }
 
@@ -1914,6 +1938,8 @@ function setupAuthListener() {
 document.addEventListener(
   "DOMContentLoaded",
   () => {
+
+    purgeStrayNumbers();
 
     setupFilters();
 

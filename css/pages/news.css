@@ -61,6 +61,31 @@
 }
 
 /* ---------------------------------------------------------
+   GUARANTEED PURGE OF NUMBERS ON LEFT OF HEADINGS / CARDS
+--------------------------------------------------------- */
+.section-heading > div > span:not(.heading-badge),
+.section-heading::before,
+.section-heading > div::before,
+.slide-number,
+.small-overlay > span:first-child,
+.milestone-image > span:not(.milestone-badge),
+.trending-panel li > span {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+}
+
+ol.trending-list,
+.trending-panel ol {
+  list-style: none !important;
+  list-style-type: none !important;
+}
+
+/* ---------------------------------------------------------
    GLOBAL BODY & SMOOTH SCROLL
 --------------------------------------------------------- */
 html {
@@ -98,12 +123,12 @@ button {
 }
 
 /* ---------------------------------------------------------
-   SCROLL REVEAL & ENTRANCE ANIMATIONS
+   PAGE ENTRANCE & SCROLL REVEAL ANIMATIONS
 --------------------------------------------------------- */
 @keyframes heroFadeUp {
   0% {
     opacity: 0;
-    transform: translateY(32px);
+    transform: translateY(34px);
   }
   100% {
     opacity: 1;
@@ -111,24 +136,38 @@ button {
   }
 }
 
+@keyframes heroGlowPulse {
+  0%, 100% {
+    box-shadow: 0 8px 24px rgba(251, 191, 36, 0.35);
+  }
+  50% {
+    box-shadow: 0 12px 32px rgba(251, 191, 36, 0.6);
+  }
+}
+
 .animate-enter {
   animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.hero-scroll-btn {
+  animation: heroGlowPulse 3s infinite ease-in-out;
+}
+
+/* Scroll reveal class with buttery smooth upward glide */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(32px);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
 .reveal-on-scroll.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 /* ---------------------------------------------------------
-   SECTION HEADINGS (CLEAN — NO NUMBERS ON LEFT)
+   SECTION HEADINGS & INFORMATIVE DECKS (NO LEFT NUMBERS)
 --------------------------------------------------------- */
 .news-section {
   max-width: 1280px;
@@ -141,21 +180,23 @@ button {
   justify-content: space-between;
   align-items: flex-end;
   border-bottom: 2px solid var(--border-light);
-  padding-bottom: 20px;
+  padding-bottom: 22px;
   margin-bottom: 44px;
-  gap: 20px;
+  gap: 24px;
   flex-wrap: wrap;
 }
 
-.section-heading > div {
+.heading-title-group {
   display: flex;
-  align-items: baseline;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
 }
 
 .section-heading h2 {
   font-family: var(--font-display);
   color: var(--text-heading-dark);
-  font-size: clamp(2rem, 3.4vw, 2.6rem);
+  font-size: clamp(2.1rem, 3.5vw, 2.7rem);
   font-weight: 500;
   margin: 0;
   letter-spacing: -0.035em;
@@ -165,20 +206,34 @@ button {
 .section-heading h2::after {
   content: "";
   position: absolute;
-  bottom: -22px;
+  bottom: -24px;
   left: 0;
-  width: 50px;
+  width: 54px;
   height: 3px;
   background: var(--gold-rich);
 }
 
-.section-heading > p {
+.heading-badge {
+  font-family: var(--font-label);
+  background: #FEF3C7;
+  color: var(--gold-rich);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid #FCD34D;
+}
+
+.heading-description {
   font-family: var(--font-ui);
   color: var(--text-muted-dark);
-  font-size: 1rem;
+  font-size: 1.02rem;
+  line-height: 1.6;
   margin: 0;
   font-weight: 500;
-  max-width: 500px;
+  max-width: 540px;
 }
 
 .eyebrow {
@@ -256,14 +311,12 @@ button {
   font-size: 0.95rem;
   padding: 14px 34px;
   border-radius: var(--radius-full);
-  box-shadow: 0 8px 24px rgba(251, 191, 36, 0.35);
   display: inline-block;
 }
 
 .hero-scroll-btn:hover {
   transform: translateY(-3px) scale(1.02);
   background: #FCD34D;
-  box-shadow: 0 14px 32px rgba(251, 191, 36, 0.5);
 }
 
 .hero-stats-strip {
@@ -450,7 +503,7 @@ button {
 }
 
 .featured-main:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
 }
 
@@ -469,7 +522,7 @@ button {
 }
 
 .featured-main:hover .featured-image img {
-  transform: scale(1.035);
+  transform: scale(1.04);
 }
 
 .slide-overlay {
@@ -535,7 +588,7 @@ button {
 }
 
 .featured-main:hover .slide-overlay-content strong {
-  transform: translateX(4px);
+  transform: translateX(5px);
 }
 
 .featured-side {
@@ -551,11 +604,11 @@ button {
   height: 248px;
   cursor: pointer;
   box-shadow: var(--shadow-md);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .featured-small:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-hover);
 }
 
@@ -567,7 +620,7 @@ button {
 }
 
 .featured-small:hover img {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 .small-overlay {
@@ -706,11 +759,11 @@ button {
   overflow: hidden;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border-card);
-  transition: transform 0.3s ease;
+  transition: transform 0.35s ease;
 }
 
 .placement-highlight-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
 }
 
 .placement-highlight-image {
@@ -830,7 +883,7 @@ button {
 }
 
 .news-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
   box-shadow: var(--shadow-hover);
   border-color: #D1C7B7;
 }
@@ -845,11 +898,11 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s ease;
 }
 
 .news-card:hover .news-card-image img {
-  transform: scale(1.06);
+  transform: scale(1.07);
 }
 
 .news-card-content {
@@ -914,11 +967,11 @@ button {
 .save-story:hover {
   color: var(--burgundy-rich);
   border-color: var(--burgundy-badge-border);
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 /* ---------------------------------------------------------
-   TRENDING INSIGHTS PANEL
+   TRENDING INSIGHTS PANEL (NO NUMBERS)
 --------------------------------------------------------- */
 .trending-panel {
   background: var(--bg-surface);
@@ -942,7 +995,7 @@ button {
 }
 
 .trending-panel ol {
-  list-style: none;
+  list-style: none !important;
   padding: 0;
   margin: 0;
   display: flex;
@@ -1003,7 +1056,7 @@ button {
 }
 
 .image-story-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
   box-shadow: var(--shadow-hover);
 }
 
@@ -1016,6 +1069,11 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.image-story-card:hover .image-story-image img {
+  transform: scale(1.06);
 }
 
 .card-badge {
@@ -1216,11 +1274,11 @@ button {
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.3s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .milestone-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   box-shadow: var(--shadow-md);
 }
 
@@ -1233,6 +1291,11 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.milestone-card:hover .milestone-image img {
+  transform: scale(1.05);
 }
 
 .milestone-badge {
@@ -1302,11 +1365,11 @@ button {
   padding: 26px 18px;
   text-align: center;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.25s ease, border-color 0.25s ease;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .weekly-item:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   border-color: var(--gold-rich);
   box-shadow: var(--shadow-md);
 }
@@ -1505,7 +1568,7 @@ button {
 }
 
 /* ---------------------------------------------------------
-   NEWS GALLERY WITH INTERACTIVE CARD HOVER
+   NEWS GALLERY WITH INTERACTIVE HOVER
 --------------------------------------------------------- */
 .gallery-grid {
   display: grid;
@@ -1913,13 +1976,13 @@ body.placements-open main > section:not(.placement-directory) {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-height: 520px;
+  max-height: 500px;
   overflow: hidden;
 }
 
 .gallery-modal-image-wrap img {
   width: 100%;
-  max-height: 520px;
+  max-height: 500px;
   object-fit: cover;
 }
 
@@ -1957,7 +2020,7 @@ body.placements-open main > section:not(.placement-directory) {
 .gallery-modal-caption-wrap h3 {
   font-family: var(--font-display);
   color: var(--text-heading-dark);
-  font-size: 1.8rem;
+  font-size: 1.85rem;
   font-weight: 600;
   margin: 0 0 12px;
   letter-spacing: -0.02em;

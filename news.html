@@ -29,15 +29,15 @@
   <main>
 
     <!-- =====================================================
-         HERO
+         HERO SECTION (ANIMATED ENTRANCE)
     ====================================================== -->
 
     <section class="news-hero">
 
-      <div class="hero-copy">
+      <div class="hero-copy animate-enter">
 
         <div class="hero-label">
-          ALUMNI STORIES · IDEAS · ACHIEVEMENTS
+          ALUMNI STORIES · RESEARCH · GLOBAL ACHIEVEMENTS
         </div>
 
         <h1>
@@ -45,14 +45,37 @@
         </h1>
 
         <p class="hero-intro">
-          Discover the people, ideas, achievements and moments
-          shaping the GIET University alumni community.
+          Discover the leaders, technical innovators, research pioneers, and enduring memories
+          shaping the 24,000+ strong GIET University global alumni network across 42 countries.
         </p>
 
         <div class="hero-actions">
           <button class="hero-scroll-btn" id="hero-explore-btn">
             Explore Stories ↓
           </button>
+        </div>
+
+        <!-- Institutional Highlights Strip -->
+        <div class="hero-stats-strip">
+          <div class="stat-pill">
+            <strong>24,000+</strong>
+            <span>Global Alumni</span>
+          </div>
+          <div class="stat-divider">·</div>
+          <div class="stat-pill">
+            <strong>42+</strong>
+            <span>Countries Represented</span>
+          </div>
+          <div class="stat-divider">·</div>
+          <div class="stat-pill">
+            <strong>450+</strong>
+            <span>Corporate Partners</span>
+          </div>
+          <div class="stat-divider">·</div>
+          <div class="stat-pill">
+            <strong>₹13 LPA</strong>
+            <span>Top Tier Placements</span>
+          </div>
         </div>
 
       </div>
@@ -70,7 +93,7 @@
          SEARCH + FILTER TOOLBAR
     ====================================================== -->
 
-    <section class="news-toolbar">
+    <section class="news-toolbar reveal-on-scroll">
 
       <div class="news-search">
 
@@ -79,7 +102,7 @@
         <input
           type="search"
           id="news-search-input"
-          placeholder="Search alumni news..."
+          placeholder="Search by name, company, breakthrough, or category..."
           aria-label="Search alumni news"
         >
 
@@ -89,7 +112,7 @@
       <div class="filter-row" id="news-category-filters">
 
         <button class="filter-btn active" data-category="all">
-          All
+          All Stories
         </button>
 
         <button class="filter-btn" data-category="Achievement">
@@ -97,27 +120,27 @@
         </button>
 
         <button class="filter-btn" data-category="Career">
-          Career
+          Career & Leadership
         </button>
 
         <button class="filter-btn" data-category="Campus">
-          Campus
+          Campus Milestones
         </button>
 
         <button class="filter-btn" data-category="Events">
-          Events
+          Reunions & Events
         </button>
 
         <button class="filter-btn" data-category="Startups">
-          Startups
+          Startups & Ventures
         </button>
 
         <button class="filter-btn" data-category="Awards">
-          Awards
+          Honor & Awards
         </button>
 
         <button class="filter-btn" data-category="Research">
-          Research
+          Research & Tech
         </button>
 
         <button class="filter-btn" data-category="Announcements">
@@ -142,17 +165,17 @@
          FEATURED STORIES
     ====================================================== -->
 
-    <section class="news-section featured-section" id="featured-stories">
+    <section class="news-section featured-section reveal-on-scroll" id="featured-stories">
 
       <div class="section-heading">
 
-        <div>
-          <span>01</span>
+        <div class="heading-title-group">
           <h2>Featured Stories</h2>
+          <span class="heading-badge">Curated Bi-Weekly · 14 Articles Active</span>
         </div>
 
-        <p>
-          Stories worth stopping for.
+        <p class="heading-description">
+          In-depth investigative reports, distinguished alumni profiles, and milestone achievements shaping our international community.
         </p>
 
       </div>
@@ -171,27 +194,29 @@
 
             <img
               src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=85"
-              alt="Students and alumni"
+              alt="Students and alumni collaborate"
             >
 
             <div class="slide-overlay">
 
-              <span class="slide-number">01</span>
-
               <div class="slide-overlay-content">
 
-                <span>ALUMNI SPOTLIGHT</span>
+                <span class="featured-tag">LEAD EDITORIAL COVER</span>
 
                 <h3>
-                  From campus projects to leading programs
+                  From Campus Innovation Labs to Leading Multi-Million Dollar Global Programs
                 </h3>
 
                 <p>
-                  Stories of alumni turning ideas into meaningful careers.
+                  How five GIET engineering graduates built India's next-generation edge computing architecture, scaling from semester capstone projects into an internationally acclaimed venture.
                 </p>
 
+                <div class="featured-byline">
+                  <span>By Editorial Board · 7 min read · Volume 14 Edition</span>
+                </div>
+
                 <strong>
-                  Read Story →
+                  Read Full Story →
                 </strong>
 
               </div>
@@ -219,14 +244,16 @@
 
             <div class="small-overlay">
 
-              <span>02</span>
-
               <div>
-                <small>CAMPUS MILESTONES</small>
+                <small>CAMPUS ADVANCEMENT</small>
 
                 <h3>
-                  A new chapter of growth, innovation and community
+                  State-of-the-Art Autonomous Systems & Robotics Research Center Inaugurated
                 </h3>
+
+                <p class="small-excerpt">
+                  A ₹4.5 Crore collaborative research facility co-funded by distinguished alumni.
+                </p>
               </div>
 
             </div>
@@ -246,14 +273,16 @@
 
             <div class="small-overlay">
 
-              <span>03</span>
-
               <div>
-                <small>BREAKTHROUGHS</small>
+                <small>STARTUP MILESTONES</small>
 
                 <h3>
-                  Celebrating achievements across the GIET community
+                  Alumni Founded Clean-Tech Venture Secures Pre-Series A Funding
                 </h3>
+
+                <p class="small-excerpt">
+                  Empowering rural agricultural micro-grids across Eastern India.
+                </p>
               </div>
 
             </div>
@@ -271,11 +300,11 @@
          RECENT PLACEMENTS
     ====================================================== -->
 
-    <section class="placement-spotlight">
+    <section class="placement-spotlight reveal-on-scroll">
 
       <div class="placement-spotlight-copy">
 
-        <span class="eyebrow">CAREER MILESTONES</span>
+        <span class="eyebrow">CAREER ACCELERATION</span>
 
         <h2>
           Where our alumni are
@@ -283,12 +312,36 @@
         </h2>
 
         <p>
-          Explore recent placements, companies and career milestones
-          across the GIET alumni community.
+          From tier-1 silicon engineering and cloud computing giants to prestigious management consultancies, GIET graduates continue setting industry benchmarks across the globe.
         </p>
 
+        <!-- Placement Stats Overview -->
+        <div class="placement-key-metrics">
+          <div class="metric-item">
+            <strong>₹13 LPA</strong>
+            <span>Highest Package</span>
+          </div>
+          <div class="metric-item">
+            <strong>280+</strong>
+            <span>Offers Extended</span>
+          </div>
+          <div class="metric-item">
+            <strong>40+</strong>
+            <span>Fortune 500 Recruiters</span>
+          </div>
+        </div>
+
+        <div class="recruiter-tags">
+          <span>Microsoft</span>
+          <span>Deloitte</span>
+          <span>Amazon</span>
+          <span>TCS</span>
+          <span>Capgemini</span>
+          <span>Infosys</span>
+        </div>
+
         <button id="open-placement-directory">
-          View Placement Directory →
+          View Complete Placement Directory →
         </button>
 
       </div>
@@ -311,18 +364,22 @@
 
         <div class="placement-highlight-content">
 
-          <span>RECENT PLACEMENT</span>
+          <span>FEATURED PLACEMENT SPOTLIGHT</span>
 
           <h3>
             Aarav Das
           </h3>
 
           <p>
-            CSE-AIML · Batch 2023–2027
+            B.Tech in CSE-AIML · Class of 2023–2027
           </p>
 
+          <div class="role-designation">
+            Software Development Engineer — Cloud Infrastructure
+          </div>
+
           <strong>
-            Microsoft
+            Microsoft Corporation
           </strong>
 
         </div>
@@ -336,17 +393,17 @@
          LATEST FROM GIET
     ====================================================== -->
 
-    <section class="news-section" id="latest-giet">
+    <section class="news-section reveal-on-scroll" id="latest-giet">
 
       <div class="section-heading">
 
-        <div>
-          <span>02</span>
+        <div class="heading-title-group">
           <h2>Latest from GIET</h2>
+          <span class="heading-badge">Live Gazette Feed · Moderated by Editorial Board</span>
         </div>
 
-        <p>
-          Recent updates from our community.
+        <p class="heading-description">
+          Live submissions, verified peer publications, and official department announcements updated daily.
         </p>
 
       </div>
@@ -364,34 +421,44 @@
         <aside class="trending-panel">
 
           <div class="trending-title">
-            TRENDING INSIGHTS
+            TRENDING INSIGHTS & DISCUSSIONS
           </div>
 
-          <ol>
+          <ol class="trending-list">
 
             <li>
-              <span>01</span>
-              <p>Alumni careers creating new opportunities</p>
+              <div>
+                <p>AI Infrastructure & Semiconductor Design Careers for 2027 Graduates</p>
+                <small>68 comments · 4 min read</small>
+              </div>
             </li>
 
             <li>
-              <span>02</span>
-              <p>Innovation projects gaining recognition</p>
+              <div>
+                <p>Alumni Angel Network announces ₹1 Crore seed fund for student startups</p>
+                <small>142 upvotes · Campus Notice</small>
+              </div>
             </li>
 
             <li>
-              <span>03</span>
-              <p>GIET alumni community expands globally</p>
+              <div>
+                <p>GIET Global Chapter Meetups scheduled across Bangalore, London & Dallas</p>
+                <small>Events · Register Now</small>
+              </div>
             </li>
 
             <li>
-              <span>04</span>
-              <p>Students connecting with industry mentors</p>
+              <div>
+                <p>Industry Mentor Fellowship: Over 80 senior executive alumni open 1-on-1 slots</p>
+                <small>Mentorship Program</small>
+              </div>
             </li>
 
             <li>
-              <span>05</span>
-              <p>New campus initiatives and events</p>
+              <div>
+                <p>Department of Electrical Engineering receives National Accreditation honor</p>
+                <small>Official Commendation</small>
+              </div>
             </li>
 
           </ol>
@@ -407,17 +474,17 @@
          STORIES & ESSAYS
     ====================================================== -->
 
-    <section class="news-section image-story-section" id="stories-essays">
+    <section class="news-section image-story-section reveal-on-scroll" id="stories-essays">
 
       <div class="section-heading">
 
-        <div>
-          <span>03</span>
+        <div class="heading-title-group">
           <h2>Stories & Essays</h2>
+          <span class="heading-badge">Long-Form Journalism · 4–8 Min Reads</span>
         </div>
 
-        <p>
-          Personal journeys, reflections and experiences.
+        <p class="heading-description">
+          Personal memoirs, career transformations, technical reflections, and nostalgic letters penned by GIET alumni worldwide.
         </p>
 
       </div>
@@ -434,25 +501,24 @@
               alt="Alumni working together"
             >
 
-            <span>CAREER</span>
+            <span class="card-badge">CAREER ESSAY</span>
 
           </div>
 
           <div class="image-story-content">
 
-            <small>STORY · 06 MIN READ</small>
+            <small>CAREER CHRONICLE · 06 MIN READ</small>
 
             <h3>
-              From classroom to career
+              From Classroom to Silicon Valley: Demystifying the First 1,000 Days
             </h3>
 
             <p>
-              How alumni transformed university experiences,
-              projects and friendships into successful professional journeys.
+              By Rashmi Ranjan Panda ('18), Senior Platform Architect. How mastering data structures in lab 3 laid the technical foundation for building high-concurrency distributed engines.
             </p>
 
             <button class="story-action" data-scroll-target="latest-giet">
-              Read Story →
+              Read Essay →
             </button>
 
           </div>
@@ -469,25 +535,24 @@
               alt="Friends and alumni"
             >
 
-            <span>ESSAY</span>
+            <span class="card-badge">CAMPUS NOSTALGIA</span>
 
           </div>
 
           <div class="image-story-content">
 
-            <small>REFLECTION · 04 MIN READ</small>
+            <small>CAMPUS ESSAY · 04 MIN READ</small>
 
             <h3>
-              Lessons that stayed with us
+              The Late Nights at Gunupur: The Friendships that Built Companies
             </h3>
 
             <p>
-              The people, challenges and small moments from campus
-              that continue to influence alumni long after graduation.
+              By Priya Patnaik ('20), Co-founder of AgroTech Labs. A candid reflection on late-night canteen brainstorms that turned into sustainable tech ventures.
             </p>
 
             <button class="story-action" data-scroll-target="latest-giet">
-              Explore Essay →
+              Explore Story →
             </button>
 
           </div>
@@ -504,25 +569,24 @@
               alt="University community"
             >
 
-            <span>ALUMNI</span>
+            <span class="card-badge">GLOBAL PERSPECTIVE</span>
 
           </div>
 
           <div class="image-story-content">
 
-            <small>JOURNEY · 05 MIN READ</small>
+            <small>ALUMNI JOURNEY · 05 MIN READ</small>
 
             <h3>
-              Alumni journeys
+              Across Three Continents: Carrying the GIET Spirit Worldwide
             </h3>
 
             <p>
-              Different paths, different industries and different
-              destinations — connected by one shared university experience.
+              By Debasish Jena ('16), Lead Renewable Energy Consultant in Frankfurt. Navigating international research grants and global sustainability transitions.
             </p>
 
             <button class="story-action" data-scroll-target="alumni-spotlight">
-              Meet Alumni →
+              Meet Author →
             </button>
 
           </div>
@@ -538,7 +602,7 @@
          ALUMNI SPOTLIGHT
     ====================================================== -->
 
-    <section class="spotlight-section" id="alumni-spotlight">
+    <section class="spotlight-section reveal-on-scroll" id="alumni-spotlight">
 
       <div class="spotlight-image">
 
@@ -552,7 +616,7 @@
       <div class="spotlight-content">
 
         <span class="eyebrow">
-          ALUMNI SPOTLIGHT
+          DISTINGUISHED FELLOW SPOTLIGHT
         </span>
 
         <h2>
@@ -560,17 +624,31 @@
         </h2>
 
         <h3>
-          National Program Lead, Wooble
+          National Program Lead, Wooble Technologies
         </h3>
 
         <p class="spotlight-role">
-          Data Science Club Leader
+          B.Tech in Computer Science & Engineering · Former Data Science Club President
         </p>
 
         <blockquote>
-          “From campus projects to leading programs,
-          every chapter creates the foundation for the next.”
+          “Every hackathon project we debugged until sunrise at GIET was not just coursework; it became our real-world blueprint for leading cross-functional engineering teams across the country.”
         </blockquote>
+
+        <div class="spotlight-achievements">
+          <div>
+            <strong>1,500+</strong>
+            <span>Students Mentored</span>
+          </div>
+          <div>
+            <strong>12+</strong>
+            <span>National Hackathons Judged</span>
+          </div>
+          <div>
+            <strong>Forbes 30 Under 30</strong>
+            <span>Nominated Pioneer</span>
+          </div>
+        </div>
 
         <button class="spotlight-button">
           View Fellow Profile →
@@ -585,17 +663,17 @@
          BREAKTHROUGHS
     ====================================================== -->
 
-    <section class="news-section image-story-section" id="breakthroughs">
+    <section class="news-section image-story-section reveal-on-scroll" id="breakthroughs">
 
       <div class="section-heading">
 
-        <div>
-          <span>04</span>
-          <h2>Breakthroughs</h2>
+        <div class="heading-title-group">
+          <h2>Breakthroughs & Innovations</h2>
+          <span class="heading-badge">R&D Dispatches · 8 Active Patents</span>
         </div>
 
-        <p>
-          Ideas becoming achievements.
+        <p class="heading-description">
+          Patented technologies, high-concurrency software architectures, IEEE research papers, and disruptive tech ventures founded by alumni.
         </p>
 
       </div>
@@ -612,25 +690,24 @@
               alt="Student technology project"
             >
 
-            <span>PROJECTS</span>
+            <span class="card-badge">AI & MACHINE LEARNING</span>
 
           </div>
 
           <div class="image-story-content">
 
-            <small>INNOVATION</small>
+            <small>PATENT APPLIED · COMPUTING</small>
 
             <h3>
-              Student projects
+              Low-Power Edge Neural Network for Diagnostic Soil Analysis
             </h3>
 
             <p>
-              From artificial intelligence to robotics,
-              student ideas are becoming practical solutions.
+              Engineered by third-year ECE & AIML cohorts in collaboration with agricultural alumni mentors. Successfully tested across 12 farming cooperatives.
             </p>
 
             <button class="story-action" data-scroll-target="latest-giet">
-              Explore Projects →
+              Read Research Summary →
             </button>
 
           </div>
@@ -647,25 +724,24 @@
               alt="Competition team"
             >
 
-            <span>ACHIEVEMENTS</span>
+            <span class="card-badge">NATIONAL HONORS</span>
 
           </div>
 
           <div class="image-story-content">
 
-            <small>COMPETITIONS</small>
+            <small>GRAND PRIX · TECH COMPETITIONS</small>
 
             <h3>
-              Competition victories
+              Team GIET Secures 1st Place at National Smart Mobility Hackathon
             </h3>
 
             <p>
-              Alumni and students continue to represent GIET
-              through competitions, hackathons and innovation challenges.
+              Outperforming 240 collegiate teams nationwide with an intelligent telematics algorithm reducing battery degradation in commercial electric vehicles.
             </p>
 
             <button class="story-action" data-scroll-target="latest-giet">
-              View Achievements →
+              View Competition Details →
             </button>
 
           </div>
@@ -682,25 +758,24 @@
               alt="Research and innovation"
             >
 
-            <span>RESEARCH</span>
+            <span class="card-badge">SUSTAINABLE MATERIALS</span>
 
           </div>
 
           <div class="image-story-content">
 
-            <small>RESEARCH · DEVELOPMENT</small>
+            <small>PEER-REVIEWED PUBLICATION · IEEE</small>
 
             <h3>
-              Research & innovation
+              Composite Eco-Concretes: Sustainable Urban Infrastructure Paper
             </h3>
 
             <p>
-              Research, publications and technical work continue
-              to create new possibilities for the GIET community.
+              Published in the International Journal of Sustainable Engineering by Civil Engineering research fellows and industrial advisors.
             </p>
 
             <button class="story-action" data-scroll-target="latest-giet">
-              Discover More →
+              View Citation & Abstract →
             </button>
 
           </div>
@@ -716,17 +791,17 @@
          CAMPUS MILESTONES
     ====================================================== -->
 
-    <section class="news-section milestones-section" id="campus-milestones">
+    <section class="news-section milestones-section reveal-on-scroll" id="campus-milestones">
 
       <div class="section-heading">
 
-        <div>
-          <span>05</span>
+        <div class="heading-title-group">
           <h2>Campus Milestones</h2>
+          <span class="heading-badge">Campus Archives · Since 1997</span>
         </div>
 
-        <p>
-          Moments that define the GIET journey.
+        <p class="heading-description">
+          Documenting institutional expansion, world-class laboratory centers, student welfare endowments, and legacy reunions.
         </p>
 
       </div>
@@ -743,21 +818,20 @@
               alt="Academic campus"
             >
 
-            <span>01</span>
+            <span class="milestone-badge">INFRASTRUCTURE</span>
 
           </div>
 
           <div class="milestone-content">
 
-            <small>ACADEMICS</small>
+            <small>ACADEMIC EXCELLENCE</small>
 
             <h3>
-              New academic initiatives
+              New 10,000 Sq. Ft. High-Performance Computing Cluster
             </h3>
 
             <p>
-              New programs, learning opportunities and industry
-              connections continue to expand the student experience.
+              Equipped with enterprise GPUs and dedicated quantum computing simulators to support interdisciplinary PhD and postgraduate data engineering labs.
             </p>
 
           </div>
@@ -774,21 +848,20 @@
               alt="Campus event"
             >
 
-            <span>02</span>
+            <span class="milestone-badge">GLOBAL CONCLAVE</span>
 
           </div>
 
           <div class="milestone-content">
 
-            <small>COMMUNITY</small>
+            <small>ALUMNI CONVENTION</small>
 
             <h3>
-              Community events
+              Annual Global Alumni Homecoming: 2,400+ Delegates Convene
             </h3>
 
             <p>
-              Alumni meets, student activities and community events
-              continue to strengthen connections across generations.
+              Distinguished graduates from 14 batches returned to campus for mentorship roundtables, career recruitment fair booths, and endowed scholarship ceremonies.
             </p>
 
           </div>
@@ -805,21 +878,20 @@
               alt="Graduation celebration"
             >
 
-            <span>03</span>
+            <span class="milestone-badge">SCHOLARSHIPS</span>
 
           </div>
 
           <div class="milestone-content">
 
-            <small>ALUMNI NETWORK</small>
+            <small>STUDENT WELFARE</small>
 
             <h3>
-              Growing alumni network
+              Alumni Merit Endowment Crosses ₹2.2 Crore Corpus
             </h3>
 
             <p>
-              Alumni across industries and cities are reconnecting
-              with GIET and creating new opportunities for students.
+              Directly financing 100% full-ride tuition scholarships for underprivileged rural STEM candidates demonstrating exceptional engineering aptitude.
             </p>
 
           </div>
@@ -835,17 +907,17 @@
          THIS WEEK
     ====================================================== -->
 
-    <section class="weekly-news-section">
+    <section class="weekly-news-section reveal-on-scroll">
 
       <div class="section-heading">
 
-        <div>
-          <span>07</span>
+        <div class="heading-title-group">
           <h2>This Week in Alumni News</h2>
+          <span class="heading-badge">Weekly Digest · Updated September 2026</span>
         </div>
 
-        <p>
-          A quick look at what's happening.
+        <p class="heading-description">
+          A rapid digest of executive promotions, venture fundings, startup seed rounds, and chapter gatherings over the last 7 days.
         </p>
 
       </div>
@@ -855,32 +927,38 @@
 
         <div class="weekly-item">
           <span>🎓</span>
-          <strong>3 alumni</strong>
-          <p>received promotions</p>
+          <strong>14 Alumni</strong>
+          <p>Promoted to Director / VP</p>
         </div>
 
         <div class="weekly-item">
           <span>🏆</span>
-          <strong>2 alumni</strong>
-          <p>won awards</p>
+          <strong>3 Fellowships</strong>
+          <p>Won in Global Competitions</p>
         </div>
 
         <div class="weekly-item">
           <span>🚀</span>
-          <strong>1 alumni startup</strong>
-          <p>launched a new product</p>
+          <strong>2 Startups</strong>
+          <p>Completed Seed Funding Rounds</p>
         </div>
 
         <div class="weekly-item">
           <span>💼</span>
-          <strong>5 opportunities</strong>
-          <p>posted for students</p>
+          <strong>18 Roles</strong>
+          <p>Posted Exclusively for GIET Alumni</p>
         </div>
 
         <div class="weekly-item">
           <span>🌍</span>
-          <strong>Alumni meetup</strong>
-          <p>held in Bengaluru</p>
+          <strong>Bangalore Meet</strong>
+          <p>Attended by 320+ Tech Alumni</p>
+        </div>
+
+        <div class="weekly-item">
+          <span>📚</span>
+          <strong>5 Papers</strong>
+          <p>Accepted into IEEE / Scopus</p>
         </div>
 
       </div>
@@ -892,17 +970,17 @@
          DIGITAL GAZETTE
     ====================================================== -->
 
-    <section class="gazette-section">
+    <section class="gazette-section reveal-on-scroll">
 
       <div class="gazette-cover">
 
         <div class="gazette-cover-top">
-          THE ALUMNI GAZETTE
+          OFFICIAL UNIVERSITY ARCHIVE · THE ALUMNI GAZETTE
         </div>
 
         <div class="gazette-cover-main">
 
-          <span>SEPTEMBER 2026</span>
+          <span>SEPTEMBER 2026 EDITION · VOLUME 14, ISSUE 3</span>
 
           <h2>
             Stories that
@@ -910,14 +988,13 @@
           </h2>
 
           <p>
-            Major alumni stories · campus updates · events ·
-            achievements · upcoming activities
+            An 84-page comprehensive journal documenting high-impact research, alumni executive interviews, venture showcases, and archival retrospective photographs.
           </p>
 
         </div>
 
         <button id="read-gazette-btn">
-          📖 Read Gazette
+          📖 Read Full Digital Edition
         </button>
 
       </div>
@@ -929,17 +1006,17 @@
          NEWS + VIDEO
     ====================================================== -->
 
-    <section class="news-section media-section">
+    <section class="news-section media-section reveal-on-scroll">
 
       <div class="section-heading">
 
-        <div>
-          <span>08</span>
+        <div class="heading-title-group">
           <h2>News + Video</h2>
+          <span class="heading-badge">Multimedia Archive · 4K UHD Broadcasts</span>
         </div>
 
-        <p>
-          Watch stories from the community.
+        <p class="heading-description">
+          Cinematic short documentaries, alumni keynote addresses, convocation footage, and panel discussions from our auditorium.
         </p>
 
       </div>
@@ -954,7 +1031,7 @@
             alt="Alumni event"
           >
 
-          <button id="watch-video-btn" class="play-button">
+          <button id="watch-video-btn" class="play-button" aria-label="Play video highlights">
             ▶
           </button>
 
@@ -963,18 +1040,18 @@
 
         <div class="video-news-copy">
 
-          <span>🎥 WATCH</span>
+          <span>DOCUMENTARY ARCHIVE</span>
 
           <h3>
-            Alumni Meet 2026 — Highlights
+            Alumni Conclave 2026: The Legacy of Innovation
           </h3>
 
           <p>
-            Moments, conversations and memories from the alumni community.
+            Watch emotional reunions, keynote addresses from industry pioneers, and the unveiling of the new Innovation Quadrangle at GIET University.
           </p>
 
           <button id="watch-video-text">
-            Watch Highlights →
+            Watch Full 14-Minute Feature →
           </button>
 
         </div>
@@ -985,20 +1062,20 @@
 
 
     <!-- =====================================================
-         NEWS GALLERY
+         NEWS GALLERY (WITH CONTEXT POPUP)
     ====================================================== -->
 
-    <section class="news-section gallery-section">
+    <section class="news-section gallery-section reveal-on-scroll">
 
       <div class="section-heading">
 
-        <div>
-          <span>09</span>
+        <div class="heading-title-group">
           <h2>News Gallery</h2>
+          <span class="heading-badge">Photographic Archive · Click Any Photo to Read Context</span>
         </div>
 
-        <p>
-          Moments worth remembering.
+        <p class="heading-description">
+          Visual chronicles of campus life, silver jubilee celebrations, convocations, and chapter meetups. Click any photo to read the full archival story.
         </p>
 
       </div>
@@ -1006,20 +1083,60 @@
 
       <div class="gallery-grid">
 
-        <button class="gallery-item" data-gallery-image="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1800&q=90">
+        <button
+          class="gallery-item"
+          data-gallery-image="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1800&q=90"
+          data-gallery-title="Annual Alumni Homecoming Gala 2026"
+          data-gallery-tag="CAMPUS REUNION"
+          data-gallery-caption="Over 1,200 alumni gathered at the Central Amphitheatre celebrating three decades of engineering leadership, honoring founding professors, and establishing new career endowments for underprivileged STEM cohorts."
+          data-gallery-date="September 2026 · Main Amphitheatre, GIET Campus"
+        >
           <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=900&q=85" alt="Alumni event">
+          <div class="gallery-item-overlay">
+            <span>View Story ↗</span>
+          </div>
         </button>
 
-        <button class="gallery-item" data-gallery-image="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1800&q=90">
+        <button
+          class="gallery-item"
+          data-gallery-image="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1800&q=90"
+          data-gallery-title="Convocation & Silver Jubilee Ceremony"
+          data-gallery-tag="CONVOCATION"
+          data-gallery-caption="Commemorating 25 graduating batches of engineers, technologists, and researchers with medals of honor presented by state education dignitaries and visiting academic chancellors."
+          data-gallery-date="August 2026 · University Convention Hall"
+        >
           <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=900&q=85" alt="University event">
+          <div class="gallery-item-overlay">
+            <span>View Story ↗</span>
+          </div>
         </button>
 
-        <button class="gallery-item" data-gallery-image="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=90">
-          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=85" alt="Students">
+        <button
+          class="gallery-item"
+          data-gallery-image="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=90"
+          data-gallery-title="Inter-Batch Technical Mentorship Workshop"
+          data-gallery-tag="TECH WORKSHOP"
+          data-gallery-caption="Senior software engineers and engineering managers guiding third-year students on system architecture, cloud-native deployments, and modern artificial intelligence tooling."
+          data-gallery-date="July 2026 · Center for Innovation & Research"
+        >
+          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=85" alt="Students and alumni">
+          <div class="gallery-item-overlay">
+            <span>View Story ↗</span>
+          </div>
         </button>
 
-        <button class="gallery-item" data-gallery-image="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1800&q=90">
-          <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=900&q=85" alt="Community">
+        <button
+          class="gallery-item"
+          data-gallery-image="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1800&q=90"
+          data-gallery-title="Bangalore Tech Chapter Alumni Dinner"
+          data-gallery-tag="METRO CHAPTER"
+          data-gallery-caption="The GIET Bangalore Alumni Chapter gathered over 300 engineering leads and startup founders for an evening of angel networking, cross-company collaboration, and student sponsorship."
+          data-gallery-date="June 2026 · The Leela Palace, Bengaluru"
+        >
+          <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=900&q=85" alt="Community gathering">
+          <div class="gallery-item-overlay">
+            <span>View Story ↗</span>
+          </div>
         </button>
 
       </div>
@@ -1031,17 +1148,17 @@
          ALUMNI TIMELINE
     ====================================================== -->
 
-    <section class="timeline-section">
+    <section class="timeline-section reveal-on-scroll">
 
       <div class="section-heading">
 
-        <div>
-          <span>10</span>
+        <div class="heading-title-group">
           <h2>Alumni Timeline</h2>
+          <span class="heading-badge">Chronological Dispatch · September 2026</span>
         </div>
 
-        <p>
-          A running record of community moments.
+        <p class="heading-description">
+          A running real-time ledger of notable alumni appointments, startup exits, academic honors, and student mentorship launches.
         </p>
 
       </div>
@@ -1053,9 +1170,12 @@
 
           <time>18 SEP</time>
 
-          <div>
-            <span>🏆</span>
-            <h3>Alumni wins National Innovation Award</h3>
+          <div class="timeline-content">
+            <span class="timeline-icon">🏆</span>
+            <div>
+              <h3>Alumni Team Honored with National Clean-Tech Innovation Award</h3>
+              <p>Recognized by the Ministry of Science and Technology for scaling modular solar micro-inverters across 600 rural communities.</p>
+            </div>
           </div>
 
         </article>
@@ -1065,9 +1185,12 @@
 
           <time>15 SEP</time>
 
-          <div>
-            <span>💼</span>
-            <h3>Alumni joins Microsoft</h3>
+          <div class="timeline-content">
+            <span class="timeline-icon">💼</span>
+            <div>
+              <h3>Batch of '27 Graduate Aarav Das Appointed SDE at Microsoft</h3>
+              <p>Joins the Azure Cognitive Services infrastructure engineering team headquartered in Hyderabad.</p>
+            </div>
           </div>
 
         </article>
@@ -1077,9 +1200,12 @@
 
           <time>12 SEP</time>
 
-          <div>
-            <span>🚀</span>
-            <h3>Alumni startup launches new product</h3>
+          <div class="timeline-content">
+            <span class="timeline-icon">🚀</span>
+            <div>
+              <h3>Alumni-Founded DeepTech Enterprise Unveils Autonomous Drone Suite</h3>
+              <p>AeroGrid Systems announces general availability of its high-precision agricultural LiDAR scanning payloads.</p>
+            </div>
           </div>
 
         </article>
@@ -1089,9 +1215,12 @@
 
           <time>08 SEP</time>
 
-          <div>
-            <span>🤝</span>
-            <h3>Bengaluru Alumni Meet</h3>
+          <div class="timeline-content">
+            <span class="timeline-icon">🤝</span>
+            <div>
+              <h3>South India Alumni Chapter Meet Held in Bengaluru</h3>
+              <p>320 alumni across tech, aerospace, and finance shared industry roadmaps with upcoming graduates.</p>
+            </div>
           </div>
 
         </article>
@@ -1101,9 +1230,12 @@
 
           <time>05 SEP</time>
 
-          <div>
-            <span>🎓</span>
-            <h3>Alumni mentors 50 students</h3>
+          <div class="timeline-content">
+            <span class="timeline-icon">🎓</span>
+            <div>
+              <h3>Executive Alumni Mentorship Cohort Launches</h3>
+              <p>50 pre-final year students paired with VP and Principal Engineer alumni across FAANG and global firms.</p>
+            </div>
           </div>
 
         </article>
@@ -1117,17 +1249,17 @@
          ALUMNI MILESTONES
     ====================================================== -->
 
-    <section class="milestone-icons-section">
+    <section class="milestone-icons-section reveal-on-scroll">
 
       <div class="section-heading">
 
-        <div>
-          <span>11</span>
+        <div class="heading-title-group">
           <h2>Alumni Milestones</h2>
+          <span class="heading-badge">Quick Category Explorer</span>
         </div>
 
-        <p>
-          Small updates. Big moments.
+        <p class="heading-description">
+          Celebrate fellow graduates by milestone category. Filter our directory to connect with newly placed alumni, founders, and researchers.
         </p>
 
       </div>
@@ -1138,31 +1270,37 @@
         <button>
           <span>🎓</span>
           <strong>Graduation</strong>
+          <small>Class of 2026</small>
         </button>
 
         <button>
           <span>💼</span>
           <strong>New Role</strong>
+          <small>Promotions & Moves</small>
         </button>
 
         <button>
           <span>🏆</span>
-          <strong>Award</strong>
+          <strong>Honors</strong>
+          <small>National Awards</small>
         </button>
 
         <button>
           <span>🚀</span>
-          <strong>Startup</strong>
+          <strong>Startups</strong>
+          <small>Funded Ventures</small>
         </button>
 
         <button>
           <span>📚</span>
           <strong>Research</strong>
+          <small>Peer Publications</small>
         </button>
 
         <button>
           <span>🌍</span>
-          <strong>International Achievement</strong>
+          <strong>Global</strong>
+          <small>International Roles</small>
         </button>
 
       </div>
@@ -1178,13 +1316,13 @@
 
       <div class="section-heading">
 
-        <div>
-          <span>12</span>
-          <h2>Recent Placements</h2>
+        <div class="heading-title-group">
+          <h2>Recent Placements Directory</h2>
+          <span class="heading-badge">Verified Placement Cell Data</span>
         </div>
 
         <button id="close-placement-directory">
-          ← Back to News
+          ← Back to Newsroom
         </button>
 
       </div>
@@ -1201,12 +1339,12 @@
          DONATION / SUPPORT
     ====================================================== -->
 
-    <section class="support-section">
+    <section class="support-section reveal-on-scroll">
 
       <div>
 
         <span class="eyebrow">
-          GIVE BACK
+          GIVE BACK TO YOUR ALMA MATER
         </span>
 
         <h2>
@@ -1215,14 +1353,13 @@
         </h2>
 
         <p>
-          Your support helps create scholarships, learning opportunities,
-          student experiences and stronger alumni connections.
+          Your contributions endow student scholarships, upgrade experimental laboratories, sponsor national hackathon teams, and ensure no promising mind is held back by financial need.
         </p>
 
       </div>
 
       <button id="donate-btn">
-        Support GIET →
+        Support GIET Endowment Fund →
       </button>
 
     </section>
@@ -1258,7 +1395,7 @@
 
 
   <!-- =====================================================
-       GALLERY MODAL
+       GALLERY MODAL WITH CONTEXT BELOW IMAGE
   ====================================================== -->
 
   <div
@@ -1267,13 +1404,25 @@
     aria-hidden="true"
   >
 
-    <div class="gallery-modal">
+    <div class="gallery-modal-card">
 
-      <button id="close-gallery-modal" class="modal-close">
+      <button id="close-gallery-modal" class="modal-close" aria-label="Close gallery preview">
         ×
       </button>
 
-      <img id="gallery-modal-image" src="" alt="Gallery preview">
+      <div class="gallery-modal-image-wrap">
+        <img id="gallery-modal-image" src="" alt="Gallery preview">
+      </div>
+
+      <!-- Rich Context Written Below The Image -->
+      <div class="gallery-modal-caption-wrap" id="gallery-modal-caption-wrap">
+        <div class="gallery-caption-header">
+          <span class="gallery-tag-pill" id="gallery-modal-tag">MOMENT</span>
+          <span class="gallery-date-pill" id="gallery-modal-date">DATE</span>
+        </div>
+        <h3 id="gallery-modal-title">Event Title</h3>
+        <p id="gallery-modal-desc">Detailed context and story behind this photograph will appear here.</p>
+      </div>
 
     </div>
 
@@ -1292,7 +1441,7 @@
 
     <div class="video-modal">
 
-      <button id="close-video-modal" class="modal-close">
+      <button id="close-video-modal" class="modal-close" aria-label="Close video player">
         ×
       </button>
 
@@ -1305,7 +1454,7 @@
         </h3>
 
         <p>
-          Video content can be connected here.
+          Official video broadcast stream connects here.
         </p>
 
       </div>
@@ -1327,13 +1476,13 @@
 
     <div class="gazette-modal">
 
-      <button id="close-gazette-modal" class="modal-close">
+      <button id="close-gazette-modal" class="modal-close" aria-label="Close gazette view">
         ×
       </button>
 
       <div class="gazette-reader">
 
-        <span>SEPTEMBER 2026 EDITION</span>
+        <span>SEPTEMBER 2026 EDITION · VOLUME 14</span>
 
         <h2>
           The Alumni Gazette
@@ -1342,23 +1491,23 @@
         <div class="gazette-lines">
 
           <p>
-            Major alumni stories
+            ✨ Lead Cover Feature: Edge AI Architecture for Smart Grids
           </p>
 
           <p>
-            Campus updates
+            🏛️ Campus Infrastructure: The 10,000 Sq. Ft. HPC Center
           </p>
 
           <p>
-            Events & community moments
+            🚀 Venture Dispatch: 4 Alumni Startups Securing Angel Rounds
           </p>
 
           <p>
-            Achievements
+            🤝 Career Milestones: Microsoft, Deloitte & Amazon Cohorts
           </p>
 
           <p>
-            Upcoming activities
+            📅 Upcoming Events: London & North American Chapter Reunions
           </p>
 
         </div>
@@ -1385,6 +1534,7 @@
       <button
         id="close-submit-modal"
         class="modal-close"
+        aria-label="Close submission form"
       >
         ×
       </button>
@@ -1392,7 +1542,7 @@
       <div class="submit-header">
 
         <span class="eyebrow">
-          ALUMNI NEWSROOM
+          ALUMNI NEWSROOM DESK
         </span>
 
         <h2>
@@ -1400,7 +1550,7 @@
         </h2>
 
         <p>
-          Submit your story for review by the alumni editorial team.
+          Submit your career transition, breakthrough research, or student memory for review by the GIET alumni editorial board.
         </p>
 
       </div>
@@ -1416,7 +1566,7 @@
             type="text"
             required
             maxlength="150"
-            placeholder="Enter your story title"
+            placeholder="e.g., Scaling My First Cloud Architecture at Amazon"
           >
 
         </label>
@@ -1428,19 +1578,19 @@
           <select id="story-category" required>
 
             <option value="">
-              Select category
+              Select Category
             </option>
 
             <option value="News">
-              News
+              News & Announcements
             </option>
 
             <option value="Story">
-              Story
+              Stories & Career Essays
             </option>
 
             <option value="Achievement">
-              Achievement
+              Awards & Breakthroughs
             </option>
 
           </select>
@@ -1455,19 +1605,19 @@
             id="story-excerpt"
             rows="3"
             maxlength="300"
-            placeholder="Briefly describe your story..."
+            placeholder="A compelling 2-sentence summary that grabs readers' attention..."
           ></textarea>
 
         </label>
 
 
         <label>
-          Image URL
+          Image URL (Optional)
 
           <input
             id="story-image"
             type="url"
-            placeholder="https://..."
+            placeholder="https://images.unsplash.com/..."
           >
 
         </label>
@@ -1480,13 +1630,13 @@
 
 
         <label>
-          Story Body
+          Full Article Body
 
           <textarea
             id="story-body"
             rows="10"
             required
-            placeholder="Write your story..."
+            placeholder="Share the full narrative, lessons learned, and advice for the GIET community..."
           ></textarea>
 
         </label>
@@ -1509,7 +1659,7 @@
           type="submit"
           class="submit-story-button"
         >
-          Submit for Review →
+          Submit for Editorial Moderation →
         </button>
 
       </form>
