@@ -1,1446 +1,1377 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Alumni News | GIET University</title>
+  <title>News & Stories — GIET University Alumni Gazette</title>
 
   <meta
     name="description"
-    content="Discover in-depth features, milestones, achievements, reflections and stories from GIET University alumni and students."
-  >
+    content="Discover the latest news, events, achievements and stories from GIET University alumni and the university community."
+  />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Existing Design System -->
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
-
-  <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/pages/news.css">
+  <!-- News Page CSS -->
+  <link rel="stylesheet" href="css/pages/news.css" />
 </head>
 
 <body>
 
-  <!-- =====================================================
-       GLOBAL HEADER
-  ====================================================== -->
-  <div id="site-header-container"></div>
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+
+  <header class="site-header">
+
+    <div class="container header-inner">
+
+      <a href="index.html" class="brand">
+
+        <div class="brand-crest">
+          Ω
+        </div>
+
+        <div class="brand-info">
+
+          <span class="brand-title">
+            GIET University
+          </span>
+
+          <span class="brand-subtitle">
+            Alumni
+          </span>
+
+        </div>
+
+      </a>
 
 
-  <main>
+      <nav class="nav-links" aria-label="Primary Navigation">
 
-    <!-- =====================================================
-         HERO
-    ====================================================== -->
+        <a href="index.html" class="nav-link">
+          Home
+        </a>
+
+        <a href="directory.html" class="nav-link">
+          Directory
+        </a>
+
+        <a href="news.html" class="nav-link active">
+          News
+        </a>
+
+        <a href="events.html" class="nav-link">
+          Events
+        </a>
+
+        <a href="videos.html" class="nav-link">
+          Videos
+        </a>
+
+        <a href="donate.html" class="nav-link">
+          Donate
+        </a>
+
+      </nav>
+
+
+      <div class="header-actions">
+
+        <!-- IMPORTANT:
+             nav.js uses this container -->
+        <div id="nav-auth-container">
+          <a href="login.html" class="btn btn-outline btn-sm">
+            Alumni Login
+          </a>
+        </div>
+
+        <button
+          class="mobile-toggle"
+          aria-label="Toggle navigation menu"
+          type="button"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================================================
+       MOBILE DRAWER
+       ========================================================= -->
+
+  <div class="mobile-drawer-backdrop"></div>
+
+  <div class="mobile-drawer">
+
+    <div class="brand">
+
+      <div class="brand-crest">
+        Ω
+      </div>
+
+      <div class="brand-info">
+
+        <span class="brand-title">
+          GIET University
+        </span>
+
+        <span class="brand-subtitle">
+          Alumni
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="mobile-nav-links">
+
+      <a
+        href="index.html"
+        class="mobile-nav-link"
+      >
+        Home
+      </a>
+
+      <a
+        href="directory.html"
+        class="mobile-nav-link"
+      >
+        Directory
+      </a>
+
+      <a
+        href="news.html"
+        class="mobile-nav-link active"
+      >
+        News
+      </a>
+
+      <a
+        href="events.html"
+        class="mobile-nav-link"
+      >
+        Events
+      </a>
+
+      <a
+        href="videos.html"
+        class="mobile-nav-link"
+      >
+        Videos
+      </a>
+
+      <a
+        href="donate.html"
+        class="mobile-nav-link"
+      >
+        Donate
+      </a>
+
+    </div>
+
+    <!-- IMPORTANT:
+         nav.js uses this container -->
+    <div id="mobile-auth-container"></div>
+
+  </div>
+
+
+  <!-- =========================================================
+       MAIN CONTENT
+       ========================================================= -->
+
+  <main class="main-content">
+
+
+    <!-- =======================================================
+         MAGAZINE HERO
+         ======================================================= -->
+
     <section class="gazette-hero">
 
-      <div class="hero-copy">
+      <div class="container gazette-hero-inner">
 
-        <div class="hero-label">
-          
-        </div>
 
-        <h1>
-          Stories that 
-          <em>move us forward.</em>
-        </h1>
+        <!-- LEFT SIDE -->
+        <div class="gazette-intro">
 
-        <p class="hero-intro">
-          Discover the people, ideas, achievements and moments
-          shaping the GIET University community.
-        </p>
+          <div class="gazette-label">
 
-        <div class="hero-actions">
+            <span class="gazette-label-line"></span>
 
-          <button
-            class="hero-scroll-btn"
-            data-scroll-target="stories-essays"
-          >
-            Explore Stories ↓
-          </button>
-
-        </div>
-
-      </div>
-
-      <div class="hero-decoration" aria-hidden="true">
-        <span>GIET</span>
-        <span>ALUMNI</span>
-        <span>GAZETTE</span>
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         FILTERS + SHARE
-    ====================================================== -->
-    <section class="news-toolbar">
-
-      <div
-        class="filter-row"
-        id="news-category-filters"
-      >
-
-        <button
-          class="filter-btn active"
-          data-category="All"
-        >
-          All
-        </button>
-
-        <button
-          class="filter-btn"
-          data-category="Story"
-        >
-          Stories &amp; Essays
-        </button>
-
-        <button
-          class="filter-btn"
-          data-category="Achievement"
-        >
-          Breakthroughs
-        </button>
-
-        <button
-          class="filter-btn"
-          data-category="News"
-        >
-          Campus Milestones
-        </button>
-
-        <button
-          class="filter-btn saved-filter"
-          data-category="Saved"
-        >
-          Saved Stories
-        </button>
-
-      </div>
-
-
-      <button
-        id="share-story-btn"
-        class="gold-btn"
-      >
-        Share Your Story +
-      </button>
-
-    </section>
-
-
-    <!-- =====================================================
-         01 FEATURED STORIES
-    ====================================================== -->
-    <section class="spotlight-grid">
-
-      <div>
-
-        <div class="section-heading">
-
-          <span>01</span>
-
-          <h2>
-            Featured Stories
-          </h2>
-
-        </div>
-
-
-        <div
-          class="horizontal-slider"
-          id="featured-slider"
-        >
-
-          <!-- FEATURE 01 -->
-          <article class="slide-card">
-
-            <img
-              src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=85"
-              alt="University campus"
-            >
-
-            <div class="slide-overlay">
-
-              <span class="slide-number">
-                01
-              </span>
-
-              <div class="slide-overlay-content">
-
-                <p>
-                  STORIES &amp; ESSAYS
-                </p>
-
-                <h2>
-                  The people and ideas shaping
-                  our alumni community
-                </h2>
-
-                <b>
-                  Read story →
-                </b>
-
-              </div>
-
-            </div>
-
-          </article>
-
-
-          <!-- FEATURE 02 -->
-          <article class="slide-card">
-
-            <img
-              src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=1600&q=85"
-              alt="University building"
-            >
-
-            <div class="slide-overlay">
-
-              <span class="slide-number">
-                02
-              </span>
-
-              <div class="slide-overlay-content">
-
-                <p>
-                  CAMPUS MILESTONES
-                </p>
-
-                <h2>
-                  A new chapter of growth,
-                  innovation and community
-                </h2>
-
-                <b>
-                  Explore milestone →
-                </b>
-
-              </div>
-
-            </div>
-
-          </article>
-
-
-          <!-- FEATURE 03 -->
-          <article class="slide-card">
-
-            <img
-              src="https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=1600&q=85"
-              alt="Student achievement"
-            >
-
-            <div class="slide-overlay">
-
-              <span class="slide-number">
-                03
-              </span>
-
-              <div class="slide-overlay-content">
-
-                <p>
-                  BREAKTHROUGHS
-                </p>
-
-                <h2>
-                  Celebrating achievements
-                  across the GIET community
-                </h2>
-
-                <b>
-                  Explore achievement →
-                </b>
-
-              </div>
-
-            </div>
-
-          </article>
-
-        </div>
-
-
-        <div class="slider-controls">
-
-          <button
-            id="slider-prev"
-            aria-label="Previous featured story"
-          >
-            ←
-          </button>
-
-          <div
-            class="slider-dots"
-            id="slider-dots"
-          ></div>
-
-          <button
-            id="slider-next"
-            aria-label="Next featured story"
-          >
-            →
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- ===================================================
-           RECENT PLACEMENTS
-      ==================================================== -->
-      <button
-        id="placements-spotlight"
-        class="placement-spotlight"
-        type="button"
-        aria-label="Open recent GIET placements"
-      >
-
-        <div class="placement-glow"></div>
-
-        <div class="placement-top">
-
-          <span class="live-dot"></span>
-
-          <span>
-            RECENT PLACEMENTS
-          </span>
-
-          <span class="placement-arrow">
-            ↗
-          </span>
-
-        </div>
-
-
-        <div class="placement-copy">
-
-          <p>
-            Career Highlights
-          </p>
-
-          <h2>
-            High packages.<br>
-            <em>Big beginnings.</em>
-          </h2>
-
-
-          <div class="package-highlights">
-
-            <div class="package-highlight top-package">
-
-              <span>
-                Highest
-              </span>
-
-              <strong>
-                ₹13 LPA
-              </strong>
-
-            </div>
-
-
-            <div class="package-highlight">
-
-              <span>
-                Featured
-              </span>
-
-              <strong>
-                ₹12 LPA
-              </strong>
-
-            </div>
-
-
-            <div class="package-highlight">
-
-              <span>
-                Featured
-              </span>
-
-              <strong>
-                ₹10.5 LPA
-              </strong>
-
-            </div>
-
-
-            <div class="package-highlight">
-
-              <span>
-                Featured
-              </span>
-
-              <strong>
-                ₹9 LPA
-              </strong>
-
-            </div>
+            <span>
+              THE GIET GAZETTE
+            </span>
 
           </div>
 
 
-          <span>
-            Recent students placed in leading companies
-          </span>
+          <h1 class="gazette-title">
+            Ideas, people and
+            <br />
+            progress worth knowing.
+          </h1>
+
+
+          <p class="gazette-description">
+
+            Real stories. Lasting impact. The latest from GIET University,
+            our alumni, our campus and our global community.
+
+          </p>
 
         </div>
 
 
-        <div class="placement-bottom">
 
-          <span>
-            TCS · Deloitte · Infosys · Microsoft ·
-            Accenture &amp; more
-          </span>
+        <!-- =================================================
+             RIGHT SIDE
+             ONE CARD SLIDER
+             ================================================= -->
 
-          <b>
-            View placement stories →
-          </b>
+        <section
+          class="recent-news-showcase"
+          aria-label="Recent Events and News"
+        >
 
-        </div>
+          <div class="recent-news-heading">
 
-      </button>
+            <span class="section-kicker">
+              RECENT EVENTS &amp; NEWS
+            </span>
+
+
+            <a
+              href="events.html"
+              class="view-all-news"
+            >
+              View all News &amp; Events →
+            </a>
+
+          </div>
+
+
+          <div class="news-slider">
+
+
+            <!-- PREVIOUS -->
+            <button
+              class="news-slider-btn news-slider-prev"
+              id="news-slider-prev"
+              type="button"
+              aria-label="Previous event or news"
+            >
+              ‹
+            </button>
+
+
+            <!-- WINDOW -->
+            <div class="news-slider-window">
+
+              <div
+                class="news-slider-track"
+                id="news-slider-track"
+              >
+
+
+                <!-- ==========================================
+                     SLIDE 1
+                     ========================================== -->
+
+                <a
+                  href="events.html"
+                  class="recent-news-slide"
+                >
+
+                  <img
+                    src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1200&q=85"
+                    alt="GIET University event"
+                  />
+
+
+                  <div class="recent-news-slide-content">
+
+                    <span class="news-type event">
+                      EVENT
+                    </span>
+
+                    <h3>
+                      GIET Innovation Summit 2025
+                    </h3>
+
+                    <p>
+                      Students, alumni and innovators come together
+                      for a day of ideas, technology and collaboration.
+                    </p>
+
+                    <span class="news-date">
+                      September 15, 2025
+                    </span>
+
+                  </div>
+
+                </a>
+
+
+
+                <!-- ==========================================
+                     SLIDE 2
+                     ========================================== -->
+
+                <a
+                  href="news.html"
+                  class="recent-news-slide"
+                >
+
+                  <img
+                    src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=85"
+                    alt="GIET University campus"
+                  />
+
+
+                  <div class="recent-news-slide-content">
+
+                    <span class="news-type news">
+                      NEWS
+                    </span>
+
+                    <h3>
+                      GIET University Celebrates a New Milestone
+                    </h3>
+
+                    <p>
+                      A new chapter of growth, achievement and
+                      opportunity for the GIET University community.
+                    </p>
+
+                    <span class="news-date">
+                      September 10, 2025
+                    </span>
+
+                  </div>
+
+                </a>
+
+
+
+                <!-- ==========================================
+                     SLIDE 3
+                     ========================================== -->
+
+                <a
+                  href="events.html"
+                  class="recent-news-slide"
+                >
+
+                  <img
+                    src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1200&q=85"
+                    alt="GIET alumni gathering"
+                  />
+
+
+                  <div class="recent-news-slide-content">
+
+                    <span class="news-type event">
+                      EVENT
+                    </span>
+
+                    <h3>
+                      GIET Alumni Meet 2025
+                    </h3>
+
+                    <p>
+                      Alumni reconnect, share memories and inspire
+                      the next generation of GIET students.
+                    </p>
+
+                    <span class="news-date">
+                      September 5, 2025
+                    </span>
+
+                  </div>
+
+                </a>
+
+
+
+                <!-- ==========================================
+                     SLIDE 4
+                     ========================================== -->
+
+                <a
+                  href="news.html"
+                  class="recent-news-slide"
+                >
+
+                  <img
+                    src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=85"
+                    alt="GIET alumni achievement"
+                  />
+
+
+                  <div class="recent-news-slide-content">
+
+                    <span class="news-type news">
+                      NEWS
+                    </span>
+
+                    <h3>
+                      GIET Alumni Startup Reaches New Heights
+                    </h3>
+
+                    <p>
+                      A GIET graduate turns an idea into a growing
+                      technology venture.
+                    </p>
+
+                    <span class="news-date">
+                      August 28, 2025
+                    </span>
+
+                  </div>
+
+                </a>
+
+
+
+                <!-- ==========================================
+                     SLIDE 5
+                     ========================================== -->
+
+                <a
+                  href="events.html"
+                  class="recent-news-slide"
+                >
+
+                  <img
+                    src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=85"
+                    alt="GIET University student event"
+                  />
+
+
+                  <div class="recent-news-slide-content">
+
+                    <span class="news-type event">
+                      EVENT
+                    </span>
+
+                    <h3>
+                      Annual Student &amp; Alumni Leadership Forum
+                    </h3>
+
+                    <p>
+                      A gathering focused on leadership, mentorship
+                      and building stronger alumni connections.
+                    </p>
+
+                    <span class="news-date">
+                      August 22, 2025
+                    </span>
+
+                  </div>
+
+                </a>
+
+
+
+                <!-- ==========================================
+                     SLIDE 6
+                     ========================================== -->
+
+                <a
+                  href="news.html"
+                  class="recent-news-slide"
+                >
+
+                  <img
+                    src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=85"
+                    alt="GIET University technology event"
+                  />
+
+
+                  <div class="recent-news-slide-content">
+
+                    <span class="news-type news">
+                      NEWS
+                    </span>
+
+                    <h3>
+                      GIET Community Expands Technology Initiatives
+                    </h3>
+
+                    <p>
+                      New academic and technology initiatives are
+                      creating opportunities for students and alumni.
+                    </p>
+
+                    <span class="news-date">
+                      August 18, 2025
+                    </span>
+
+                  </div>
+
+                </a>
+
+
+              </div>
+
+            </div>
+
+
+            <!-- NEXT -->
+            <button
+              class="news-slider-btn news-slider-next"
+              id="news-slider-next"
+              type="button"
+              aria-label="Next event or news"
+            >
+              ›
+            </button>
+
+          </div>
+
+
+          <!-- DOTS -->
+
+          <div
+            class="news-slider-dots"
+            id="news-slider-dots"
+            aria-label="Choose event or news"
+          >
+
+            <button
+              type="button"
+              class="active"
+              data-slide="0"
+              aria-label="Slide 1"
+            ></button>
+
+            <button
+              type="button"
+              data-slide="1"
+              aria-label="Slide 2"
+            ></button>
+
+            <button
+              type="button"
+              data-slide="2"
+              aria-label="Slide 3"
+            ></button>
+
+            <button
+              type="button"
+              data-slide="3"
+              aria-label="Slide 4"
+            ></button>
+
+            <button
+              type="button"
+              data-slide="4"
+              aria-label="Slide 5"
+            ></button>
+
+            <button
+              type="button"
+              data-slide="5"
+              aria-label="Slide 6"
+            ></button>
+
+          </div>
+
+        </section>
+
+      </div>
 
     </section>
 
 
-    <!-- =====================================================
-         02 LATEST FROM GIET
-    ====================================================== -->
-    <section class="magazine-layout">
 
-      <div>
+    <!-- =======================================================
+         NEWS TOOLBAR
+         ======================================================= -->
 
-        <div class="section-heading">
+    <section class="section news-section">
 
-          <span>
-            02
-          </span>
+      <div class="container">
 
-          <h2>
-            Latest from GIET
-          </h2>
+
+        <div class="news-toolbar">
+
+
+          <div
+            id="news-category-filters"
+            class="news-categories"
+          >
+            <!-- Populated by news.js -->
+          </div>
+
+
+          <button
+            id="saved-stories-btn"
+            class="saved-stories-btn"
+            type="button"
+          >
+            <span class="saved-icon">♡</span>
+            My Saved Stories
+          </button>
+
+
+          <button
+            id="share-story-btn"
+            class="btn btn-accent btn-sm"
+            type="button"
+          >
+            Share Your Story +
+          </button>
 
         </div>
 
+
+
+        <!-- =================================================
+             EDITORIAL GRID
+             ================================================= -->
 
         <div
           id="news-grid"
           class="news-grid"
-        ></div>
+        >
+          <!-- Populated dynamically -->
+        </div>
+
 
       </div>
 
+    </section>
 
-      <!-- TRENDING -->
-      <aside>
 
-        <div class="section-heading trending-heading">
 
-          <span>
-            INSIGHTS
-          </span>
+    <!-- =======================================================
+         READER MODAL
+         ======================================================= -->
 
-          <h2>
-            Trending
-          </h2>
+    <div
+      id="reader-modal"
+      class="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+    >
+
+      <div class="modal-content reader-modal-content">
+
+
+        <div
+          id="reader-modal-body"
+          class="reader-modal-body"
+        >
+          <!-- Populated by news.js -->
+        </div>
+
+
+        <div class="modal-footer reader-modal-footer">
+
+          <button
+            id="close-reader-modal"
+            class="btn btn-outline btn-sm"
+            type="button"
+          >
+            Close Article
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =======================================================
+         SUBMIT STORY MODAL
+         ======================================================= -->
+
+    <div
+      id="submit-story-modal"
+      class="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+    >
+
+      <div class="modal-content submit-modal-content">
+
+
+        <div class="modal-header">
+
+          <div>
+
+            <span class="modal-kicker">
+              GIET ALUMNI GAZETTE
+            </span>
+
+            <h3 class="modal-title">
+              Share Your Story
+            </h3>
+
+          </div>
+
+
+          <button
+            id="close-submit-modal"
+            class="modal-close-btn"
+            type="button"
+            aria-label="Close dialog"
+          >
+            &times;
+          </button>
 
         </div>
 
 
-        <ol
-          id="trending-list"
-          class="trending-list"
-        ></ol>
+
+        <form id="story-submission-form">
 
 
-        <div class="editor-note">
+          <div class="modal-body">
 
-          <span>
-            EDITOR'S NOTE
+
+            <!-- Moderation notice -->
+
+            <div class="moderation-notice">
+
+              <div class="moderation-icon">
+                ✓
+              </div>
+
+              <div>
+
+                <strong>
+                  Editorial Moderation
+                </strong>
+
+                <p>
+                  Every submission is reviewed by university
+                  administrators before appearing publicly.
+                </p>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- Title -->
+
+            <div class="form-group">
+
+              <label
+                for="story-title"
+                class="form-label"
+              >
+                Story or Article Headline
+                <span class="required">*</span>
+              </label>
+
+              <input
+                type="text"
+                id="story-title"
+                class="form-control"
+                placeholder="e.g. Building a Technology Startup After GIET"
+                maxlength="150"
+                required
+              />
+
+              <div class="field-meta">
+
+                <span>
+                  Create a clear and interesting headline.
+                </span>
+
+                <span id="title-count">
+                  0 / 150
+                </span>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- Category -->
+
+            <div class="form-group">
+
+              <label
+                for="story-category"
+                class="form-label"
+              >
+                Category
+              </label>
+
+              <select
+                id="story-category"
+                class="form-control"
+              >
+
+                <option value="Story">
+                  Stories &amp; Essays
+                </option>
+
+                <option value="Achievement">
+                  Breakthroughs
+                </option>
+
+                <option value="News">
+                  Campus Milestones
+                </option>
+
+              </select>
+
+            </div>
+
+
+
+            <!-- Excerpt -->
+
+            <div class="form-group">
+
+              <label
+                for="story-excerpt"
+                class="form-label"
+              >
+                Brief Summary / Excerpt
+              </label>
+
+              <input
+                type="text"
+                id="story-excerpt"
+                class="form-control"
+                placeholder="One or two sentences describing your story"
+                maxlength="250"
+              />
+
+              <div class="field-meta">
+
+                <span>
+                  This appears on the story card.
+                </span>
+
+                <span id="excerpt-count">
+                  0 / 250
+                </span>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- Image -->
+
+            <div class="form-group">
+
+              <label
+                for="story-image"
+                class="form-label"
+              >
+                Featured Image URL
+              </label>
+
+              <input
+                type="url"
+                id="story-image"
+                class="form-control"
+                placeholder="https://images.unsplash.com/..."
+              />
+
+
+              <div
+                id="story-image-preview"
+                class="story-image-preview"
+              >
+
+                <span>
+                  Image preview will appear here
+                </span>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- Body -->
+
+            <div class="form-group">
+
+              <label
+                for="story-body"
+                class="form-label"
+              >
+                Full Narrative
+                <span class="required">*</span>
+              </label>
+
+              <textarea
+                id="story-body"
+                class="form-control story-body-input"
+                rows="10"
+                placeholder="Share your experience, project, achievement, lessons learned or journey..."
+                required
+              ></textarea>
+
+
+              <div class="submission-stats">
+
+                <span>
+                  <strong id="word-count">
+                    0
+                  </strong>
+                  words
+                </span>
+
+                <span>
+                  <strong id="reading-time">
+                    0 min
+                  </strong>
+                  reading time
+                </span>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- Queue message -->
+
+            <div
+              id="submission-queue-message"
+              class="submission-queue-message"
+            >
+
+              <span class="queue-dot"></span>
+
+              Your story will enter the moderation queue after submission.
+
+            </div>
+
+
+          </div>
+
+
+
+          <div class="modal-footer">
+
+            <button
+              type="button"
+              id="cancel-submit-story"
+              class="btn btn-outline btn-sm"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              class="btn btn-primary btn-sm"
+            >
+              Submit for Review
+            </button>
+
+          </div>
+
+
+        </form>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =======================================================
+         RECENT DONOR POPUP
+         ======================================================= -->
+
+    <aside
+      class="recent-donor-popup"
+      id="recent-donor-popup"
+      aria-live="polite"
+    >
+
+      <button
+        class="donor-close"
+        id="donor-close"
+        type="button"
+        aria-label="Close donor notification"
+      >
+        ×
+      </button>
+
+
+      <div class="donor-label">
+
+        <span class="donor-gold-line"></span>
+
+        RECENT DONOR
+
+      </div>
+
+
+      <div class="donor-content">
+
+
+        <div class="donor-avatar">
+
+          <img
+            id="donor-image"
+            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"
+            alt="GIET alumni donor"
+          />
+
+        </div>
+
+
+        <div class="donor-info">
+
+          <h4 id="donor-name">
+            Rahul Sharma
+          </h4>
+
+          <span id="donor-year">
+            Class of 2018
           </span>
 
           <p>
-            Every GIET story begins with a person,
-            an idea or a moment worth remembering.
+
+            contributed
+
+            <strong id="donor-amount">
+              ₹50,000
+            </strong>
+
+            to GIET University.
+
           </p>
 
         </div>
 
-      </aside>
-
-    </section>
-
-
-    <!-- =====================================================
-         03 STORIES & ESSAYS
-    ====================================================== -->
-    <section
-      id="stories-essays"
-      class="content-information-section stories-section"
-    >
-
-      <div class="section-heading">
-
-        <span>
-          03
-        </span>
-
-        <h2>
-          Stories &amp; Essays
-        </h2>
-
       </div>
 
 
-      <div class="information-intro">
+      <a
+        href="donate.html"
+        class="donor-action"
+      >
+        Support GIET →
+      </a>
+
+    </aside>
 
-        <div>
-
-          <span class="section-kicker">
-            VOICES FROM OUR COMMUNITY
-          </span>
-
-          <h2>
-            Stories that stay with us.
-          </h2>
-
-        </div>
-
-        <p>
-          Personal experiences, alumni journeys,
-          reflections and stories from students and
-          graduates of GIET University.
-        </p>
-
-      </div>
-
-
-      <div class="story-information-grid">
-
-
-        <!-- STORY 01 -->
-        <article class="info-item">
-
-          <div class="info-image-wrap">
-
-            <img
-              src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1100&q=85"
-              alt="Students studying together"
-              loading="lazy"
-            >
-
-            <span class="info-number">
-              01
-            </span>
-
-          </div>
-
-
-          <div class="info-card-body">
-
-            <div class="info-card-meta">
-              STORIES &amp; ESSAYS
-            </div>
-
-            <h3>
-              From classroom to career
-            </h3>
-
-            <p>
-              Alumni share how their university experiences
-              helped them transition from classrooms into
-              professional careers across technology,
-              business and other industries.
-            </p>
-
-
-            <button class="info-toggle">
-
-              <span>
-                READ STORY
-              </span>
-
-              <span class="toggle-icon">
-                +
-              </span>
-
-            </button>
-
-
-            <div class="info-content">
-
-              <p>
-                University life creates more than academic
-                knowledge. Projects, mentors, friendships,
-                internships and everyday challenges often
-                become the foundation for professional life.
-              </p>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-        <!-- STORY 02 -->
-        <article class="info-item">
-
-          <div class="info-image-wrap">
-
-            <img
-              src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1100&q=85"
-              alt="Friends and alumni together"
-              loading="lazy"
-            >
-
-            <span class="info-number">
-              02
-            </span>
-
-          </div>
-
-
-          <div class="info-card-body">
-
-            <div class="info-card-meta">
-              REFLECTION
-            </div>
-
-            <h3>
-              Lessons that stayed with us
-            </h3>
-
-            <p>
-              Stories about mentors, friendships,
-              projects and experiences that continued
-              to influence alumni long after graduation.
-            </p>
-
-
-            <button class="info-toggle">
-
-              <span>
-                READ STORY
-              </span>
-
-              <span class="toggle-icon">
-                +
-              </span>
-
-            </button>
-
-
-            <div class="info-content">
-
-              <p>
-                Some of the most meaningful lessons from
-                university happen outside classrooms.
-                The people we meet and the challenges we
-                overcome can shape the way we approach
-                our careers and lives.
-              </p>
-
-            </div>
-
-          </div>
-
-        </article>
-
-
-        <!-- STORY 03 -->
-        <article class="info-item">
-
-          <div class="info-image-wrap">
-
-            <img
-              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1100&q=85"
-              alt="Alumni working on technology"
-              loading="lazy"
-            >
-
-            <span class="info-number">
-              03
-            </span>
-
-          </div>
-
-
-          <div class="info-card-body">
-
-            <div class="info-card-meta">
-              ALUMNI JOURNEYS
-            </div>
-
-            <h3>
-              Alumni journeys
-            </h3>
-
-            <p>
-              Explore the different paths taken by GIET
-              graduates as they build careers, start
-              companies and contribute to their communities.
-            </p>
-
-
-            <button class="info-toggle">
-
-              <span>
-                READ STORY
-              </span>
-
-              <span class="toggle-icon">
-                +
-              </span>
-
-            </button>
-
-
-            <div class="info-content">
-
-              <p>
-                From first jobs to entrepreneurship,
-                higher education and leadership,
-                every alumni journey is different.
-                Together they form the larger story
-                of the GIET community.
-              </p>
-
-            </div>
-
-          </div>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         04 BREAKTHROUGHS
-    ====================================================== -->
-    <section
-      id="breakthroughs"
-      class="content-information-section alternate-section"
-    >
-
-      <div class="section-heading">
-
-        <span>
-          04
-        </span>
-
-        <h2>
-          Breakthroughs
-        </h2>
-
-      </div>
-
-
-      <div class="information-intro">
-
-        <div>
-
-          <span class="section-kicker">
-            IDEAS BECOMING IMPACT
-          </span>
-
-          <h2>
-            From ideas to achievements.
-          </h2>
-
-        </div>
-
-        <p>
-          Research, innovation, competitions,
-          projects and achievements from the
-          GIET community.
-        </p>
-
-      </div>
-
-
-      <div class="breakthrough-grid">
-
-
-        <!-- BREAKTHROUGH 01 -->
-        <article class="information-card image-card">
-
-          <div class="card-image">
-
-            <img
-              src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1100&q=85"
-              alt="Technology project"
-              loading="lazy"
-            >
-
-            <span>
-              01
-            </span>
-
-          </div>
-
-
-          <div class="information-card-content">
-
-            <span>
-              INNOVATION
-            </span>
-
-            <h3>
-              Student projects
-            </h3>
-
-            <p>
-              Innovative projects developed by students
-              across engineering, AI, technology and
-              emerging fields.
-            </p>
-
-            <button class="info-card-button">
-              Explore projects →
-            </button>
-
-          </div>
-
-        </article>
-
-
-        <!-- BREAKTHROUGH 02 -->
-        <article class="information-card image-card">
-
-          <div class="card-image">
-
-            <img
-              src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1100&q=85"
-              alt="Students collaborating"
-              loading="lazy"
-            >
-
-            <span>
-              02
-            </span>
-
-          </div>
-
-
-          <div class="information-card-content">
-
-            <span>
-              ACHIEVEMENT
-            </span>
-
-            <h3>
-              Competition victories
-            </h3>
-
-            <p>
-              Celebrating students and teams who
-              represented GIET at competitions,
-              hackathons and technical events.
-            </p>
-
-            <button class="info-card-button">
-              View achievements →
-            </button>
-
-          </div>
-
-        </article>
-
-
-        <!-- BREAKTHROUGH 03 -->
-        <article class="information-card image-card">
-
-          <div class="card-image">
-
-            <img
-              src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1100&q=85"
-              alt="Research and innovation"
-              loading="lazy"
-            >
-
-            <span>
-              03
-            </span>
-
-          </div>
-
-
-          <div class="information-card-content">
-
-            <span>
-              RESEARCH
-            </span>
-
-            <h3>
-              Research &amp; innovation
-            </h3>
-
-            <p>
-              Discover research initiatives and ideas
-              contributing to academic and technological
-              progress.
-            </p>
-
-            <button class="info-card-button">
-              Discover more →
-            </button>
-
-          </div>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         05 CAMPUS MILESTONES
-    ====================================================== -->
-    <section
-      id="campus-milestones"
-      class="content-information-section milestones-section"
-    >
-
-      <div class="section-heading">
-
-        <span>
-          05
-        </span>
-
-        <h2>
-          Campus Milestones
-        </h2>
-
-      </div>
-
-
-      <div class="information-intro">
-
-        <div>
-
-          <span class="section-kicker">
-            MOMENTS WORTH REMEMBERING
-          </span>
-
-          <h2>
-            The story of GIET, one moment at a time.
-          </h2>
-
-        </div>
-
-        <p>
-          Important developments, celebrations,
-          events and achievements that mark the
-          continuing story of GIET.
-        </p>
-
-      </div>
-
-
-      <div class="milestone-timeline">
-
-
-        <!-- MILESTONE 01 -->
-        <article class="milestone-item">
-
-          <div class="milestone-image">
-
-            <img
-              src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1000&q=85"
-              alt="Academic classroom"
-              loading="lazy"
-            >
-
-            <span>
-              01
-            </span>
-
-          </div>
-
-
-          <div class="milestone-content">
-
-            <span>
-              ACADEMICS
-            </span>
-
-            <h3>
-              New academic initiatives
-            </h3>
-
-            <p>
-              New learning opportunities, programs
-              and initiatives designed to prepare
-              students for the future.
-            </p>
-
-          </div>
-
-        </article>
-
-
-        <!-- MILESTONE 02 -->
-        <article class="milestone-item">
-
-          <div class="milestone-image">
-
-            <img
-              src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1000&q=85"
-              alt="University community event"
-              loading="lazy"
-            >
-
-            <span>
-              02
-            </span>
-
-          </div>
-
-
-          <div class="milestone-content">
-
-            <span>
-              CAMPUS
-            </span>
-
-            <h3>
-              Community events
-            </h3>
-
-            <p>
-              Cultural programs, student activities
-              and university events bringing the
-              GIET community together.
-            </p>
-
-          </div>
-
-        </article>
-
-
-        <!-- MILESTONE 03 -->
-        <article class="milestone-item">
-
-          <div class="milestone-image">
-
-            <img
-              src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85"
-              alt="Professional alumni community"
-              loading="lazy"
-            >
-
-            <span>
-              03
-            </span>
-
-          </div>
-
-
-          <div class="milestone-content">
-
-            <span>
-              ALUMNI
-            </span>
-
-            <h3>
-              Growing alumni network
-            </h3>
-
-            <p>
-              New connections between alumni, students,
-              faculty and industry partners continue
-              to strengthen the community.
-            </p>
-
-          </div>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         RECENT PLACEMENTS DIRECTORY
-    ====================================================== -->
-    <section
-      id="placements"
-      class="placements-page"
-      hidden
-    >
-
-      <div class="placements-header">
-
-        <button
-          id="close-placements"
-          class="back-btn"
-        >
-          ← Back to Gazette
-        </button>
-
-        <span>
-          CAREER HIGHLIGHTS
-        </span>
-
-      </div>
-
-
-      <div class="placements-intro">
-
-        <span class="eyebrow">
-          RECENT PLACEMENTS
-        </span>
-
-        <h1>
-          High packages.<br>
-          <em>Big beginnings.</em>
-        </h1>
-
-        <p>
-          A look at recent student placement highlights
-          and the companies welcoming GIET talent.
-        </p>
-
-      </div>
-
-
-      <div class="placement-summary">
-
-        <div>
-
-          <span>
-            HIGHEST PACKAGE
-          </span>
-
-          <strong>
-            ₹13 LPA
-          </strong>
-
-        </div>
-
-
-        <div>
-
-          <span>
-            OTHER HIGH PACKAGES
-          </span>
-
-          <strong>
-            ₹12 LPA · ₹10.5 LPA · ₹9 LPA
-          </strong>
-
-        </div>
-
-
-        <div>
-
-          <span>
-            HIRING COMPANIES
-          </span>
-
-          <strong>
-            TCS · Deloitte · Microsoft · Infosys
-          </strong>
-
-        </div>
-
-      </div>
-
-
-      <div
-        id="placement-students"
-        class="placement-students"
-      ></div>
-
-    </section>
-
-
-    <!-- =====================================================
-         DONATION / SUPPORT
-    ====================================================== -->
-    <section
-      id="support-giet"
-      class="support-section"
-    >
-
-      <div>
-
-        <span class="eyebrow">
-          GIVE BACK
-        </span>
-
-        <h2>
-          Help build the<br>
-          <em>next generation.</em>
-        </h2>
-
-      </div>
-
-
-      <div>
-
-        <p>
-          Your support can help students access
-          better learning opportunities, resources,
-          scholarships and experiences.
-        </p>
-
-        <a
-          href="donate.html"
-          class="gold-btn support-button"
-        >
-          Support GIET →
-        </a>
-
-      </div>
-
-    </section>
 
   </main>
 
 
-  <!-- =====================================================
-       READER MODAL
-  ====================================================== -->
-  <div
-    id="reader-modal"
-    class="modal-overlay"
-    aria-hidden="true"
-  >
 
-    <article class="modal-card reader-card">
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
 
-      <button
-        id="close-reader-modal"
-        class="modal-close"
-        aria-label="Close article"
-      >
-        ×
-      </button>
+  <footer class="site-footer">
 
-      <div id="reader-modal-body"></div>
+    <div class="container">
 
-    </article>
-
-  </div>
+      <div class="footer-grid">
 
 
-  <!-- =====================================================
-       SUBMIT STORY MODAL
-  ====================================================== -->
-  <div
-    id="submit-story-modal"
-    class="modal-overlay"
-    aria-hidden="true"
-  >
+        <!-- BRAND -->
 
-    <article class="modal-card submit-card">
+        <div class="footer-brand">
 
-      <button
-        id="close-submit-modal"
-        class="modal-close"
-        aria-label="Close dialog"
-      >
-        ×
-      </button>
+          <div
+            class="brand"
+            style="color: #fff;"
+          >
 
+            <div class="brand-crest">
+              Ω
+            </div>
 
-      <h2>
-        Submit an Alumni Story or Update
-      </h2>
+            <div class="brand-info">
 
-      <p class="submission-intro">
-        Submit your story to the GIET Alumni Gazette.
-        All submissions are reviewed by staff administrators
-        before appearing on the public alumni gazette.
-      </p>
+              <span
+                class="brand-title"
+                style="color: #fff;"
+              >
+                GIET University
+              </span>
 
+              <span class="brand-subtitle">
+                Alumni
+              </span>
 
-      <form id="story-submission-form">
+            </div>
+
+          </div>
 
 
-        <div class="editorial-notice">
+          <p class="footer-desc">
 
-          <strong>
-            Editorial Moderation Notice:
-          </strong>
+            Empowering lifelong connections between GIET University,
+            its global alumni community and current students through
+            mentorship, stories, chapters and community initiatives.
 
-          Submissions are reviewed by staff administrators
-          before appearing on the public alumni gazette.
+          </p>
 
         </div>
 
 
-        <label>
 
-          Story or Article Headline
-          <span class="required">*</span>
+        <!-- EXPLORE -->
 
-          <input
-            id="story-title"
-            type="text"
-            maxlength="150"
-            placeholder="e.g. Pioneering Clean Microgrids in Rural Kenya"
-            required
-          >
+        <div>
 
-        </label>
+          <h4 class="footer-heading">
+            Explore
+          </h4>
 
+          <ul class="footer-links">
 
-        <label>
+            <li>
+              <a
+                href="directory.html"
+                class="footer-link"
+              >
+                Alumni Directory
+              </a>
+            </li>
 
-          Category
+            <li>
+              <a
+                href="news.html"
+                class="footer-link"
+              >
+                News &amp; Stories
+              </a>
+            </li>
 
-          <select id="story-category">
+            <li>
+              <a
+                href="videos.html"
+                class="footer-link"
+              >
+                Video Highlights
+              </a>
+            </li>
 
-            <option value="Story">
-              Alumni Feature &amp; Story
-            </option>
+            <li>
+              <a
+                href="events.html"
+                class="footer-link"
+              >
+                Upcoming Events
+              </a>
+            </li>
 
-            <option value="Achievement">
-              Career Milestone &amp; Award
-            </option>
+            <li>
+              <a
+                href="donate.html"
+                class="footer-link"
+              >
+                Ways to Give
+              </a>
+            </li>
 
-            <option value="News">
-              Campus &amp; Chapter News
-            </option>
-
-          </select>
-
-        </label>
-
-
-        <label>
-
-          Brief Summary / Excerpt
-
-          <input
-            id="story-excerpt"
-            type="text"
-            maxlength="300"
-            placeholder="One or two sentences summarizing your announcement"
-            required
-          >
-
-        </label>
-
-
-        <label>
-
-          Featured Image URL (Optional)
-
-          <input
-            id="story-image"
-            type="url"
-            placeholder="https://images.unsplash.com/..."
-          >
-
-          <img
-            id="story-image-preview"
-            alt="Featured image preview"
-            hidden
-          >
-
-        </label>
-
-
-        <label>
-
-          Full Narrative
-          <span class="required">*</span>
-
-          <textarea
-            id="story-body"
-            rows="10"
-            placeholder="Share your experience, lessons learned, or project details..."
-            required
-          ></textarea>
-
-        </label>
-
-
-        <div class="form-meta">
-
-          <span id="story-word-count">
-            0 words
-          </span>
-
-          <span id="story-reading-time">
-            0 min read
-          </span>
+          </ul>
 
         </div>
 
 
-        <p class="queue-note">
-          Your submission will be sent to the moderation
-          queue before appearing publicly.
-        </p>
 
+        <!-- MEMBER PORTAL -->
 
-        <div class="submit-actions">
+        <div>
 
-          <button
-            type="button"
-            id="cancel-submit-story"
-            class="outline-btn"
-          >
-            Cancel
-          </button>
+          <h4 class="footer-heading">
+            Member Portal
+          </h4>
 
-          <button
-            type="submit"
-            class="gold-btn"
-          >
-            Submit for Review
-          </button>
+          <ul class="footer-links">
+
+            <li>
+              <a
+                href="login.html"
+                class="footer-link"
+              >
+                Alumni Sign In
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="signup.html"
+                class="footer-link"
+              >
+                Join Network
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="profile.html"
+                class="footer-link"
+              >
+                Update My Profile
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="news.html#submit"
+                class="footer-link"
+              >
+                Submit a Story
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="admin.html"
+                class="footer-link"
+              >
+                Staff Administration
+              </a>
+            </li>
+
+          </ul>
 
         </div>
 
-      </form>
-
-    </article>
-
-  </div>
 
 
-  <!-- =====================================================
-       GLOBAL FOOTER
-  ====================================================== -->
-  <div id="site-footer-container"></div>
+        <!-- NEWSLETTER -->
+
+        <div>
+
+          <h4 class="footer-heading">
+            Stay Connected
+          </h4>
+
+          <p
+            class="footer-newsletter-text"
+          >
+            Receive the latest GIET alumni news,
+            stories and event invitations.
+          </p>
 
 
-  <!-- =====================================================
-       SCRIPTS
-  ====================================================== -->
-  <script
-    type="module"
-    src="js/components.js"
-  ></script>
+          <form class="newsletter-form">
 
+            <div class="newsletter-input-group">
+
+              <input
+                type="email"
+                class="newsletter-input"
+                placeholder="Your email address"
+                required
+                aria-label="Email for alumni newsletter"
+              />
+
+              <button
+                type="submit"
+                class="btn btn-accent btn-sm"
+              >
+                Join
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+
+      </div>
+
+
+
+      <div class="footer-bottom">
+
+        <div>
+          &copy; 2026 GIET University Alumni Association.
+          All rights reserved.
+        </div>
+
+
+        <div class="social-links">
+
+          <a
+            href="#"
+            class="social-link"
+            aria-label="LinkedIn"
+          >
+            LinkedIn
+          </a>
+
+          <a
+            href="#"
+            class="social-link"
+            aria-label="YouTube"
+          >
+            YouTube
+          </a>
+
+          <a
+            href="#"
+            class="social-link"
+            aria-label="X Twitter"
+          >
+            X
+          </a>
+
+          <a
+            href="#"
+            class="social-link"
+            aria-label="Instagram"
+          >
+            Instagram
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+
+  <!-- =========================================================
+       JAVASCRIPT
+       ========================================================= -->
+
+  <!-- Existing global navigation -->
   <script
     type="module"
     src="js/nav.js"
   ></script>
 
+  <!-- News page -->
   <script
     type="module"
     src="js/pages/news.js"
