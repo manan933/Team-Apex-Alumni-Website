@@ -14,133 +14,129 @@ import {
 
 
 /* =========================================================
-   CONFIG
-========================================================= */
-
-const SAVED_KEY = "alumni_saved_stories";
-
-let allStories = [];
-let currentCategory = "All";
-
-
-/* =========================================================
    DEMO PLACEMENT DATA
 ========================================================= */
 
-const placementStudents = [
+const placementData = [
 
   {
     name: "Aarav Das",
-    department: "Engineering",
-    branch: "CSE-AIML",
+    department: "CSE-AIML",
+    branch: "Artificial Intelligence & Machine Learning",
     year: "2023–2027",
     company: "Microsoft",
     package: "₹13 LPA",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=85"
+    image: "https://randomuser.me/api/portraits/men/32.jpg"
   },
 
   {
     name: "Ananya Mohanty",
-    department: "Engineering",
-    branch: "CSE",
+    department: "CSE",
+    branch: "Computer Science & Engineering",
     year: "2023–2027",
     company: "Deloitte",
     package: "₹12 LPA",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=85"
+    image: "https://randomuser.me/api/portraits/women/44.jpg"
   },
 
   {
     name: "Ritwik Sahu",
-    department: "Engineering",
-    branch: "CSE-AIML",
+    department: "CSE-AIML",
+    branch: "Artificial Intelligence & Machine Learning",
     year: "2022–2026",
     company: "TCS",
     package: "₹10.5 LPA",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85"
+    image: "https://randomuser.me/api/portraits/men/45.jpg"
   },
 
   {
     name: "Sneha Patnaik",
-    department: "Engineering",
-    branch: "IT",
+    department: "IT",
+    branch: "Information Technology",
     year: "2023–2027",
     company: "Accenture",
     package: "₹9 LPA",
-    image:
-      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=800&q=85"
+    image: "https://randomuser.me/api/portraits/women/65.jpg"
   },
 
   {
     name: "Aditya Rout",
-    department: "Engineering",
-    branch: "CSE",
+    department: "CSE",
+    branch: "Computer Science & Engineering",
     year: "2022–2026",
     company: "Infosys",
     package: "₹8.5 LPA",
-    image:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=85"
+    image: "https://randomuser.me/api/portraits/men/67.jpg"
   },
 
   {
     name: "Priya Behera",
-    department: "Engineering",
-    branch: "EE",
+    department: "EE",
+    branch: "Electrical Engineering",
     year: "2023–2027",
     company: "Wipro",
     package: "₹7.5 LPA",
-    image:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=85"
+    image: "https://randomuser.me/api/portraits/women/47.jpg"
   },
 
   {
     name: "Rahul Pradhan",
-    department: "Engineering",
-    branch: "ECE",
+    department: "ECE",
+    branch: "Electronics & Communication Engineering",
     year: "2022–2026",
     company: "Capgemini",
     package: "₹7.2 LPA",
-    image:
-      "https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=800&q=85"
+    image: "https://randomuser.me/api/portraits/men/71.jpg"
   },
 
   {
     name: "Ishita Nayak",
-    department: "Engineering",
-    branch: "CSE",
+    department: "CSE",
+    branch: "Computer Science & Engineering",
     year: "2023–2027",
     company: "IBM",
     package: "₹6.8 LPA",
-    image:
-      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=85"
+    image: "https://randomuser.me/api/portraits/women/49.jpg"
   }
 
 ];
 
 
 /* =========================================================
-   DOM HELPERS
+   SAVED STORIES
 ========================================================= */
 
-const $ = (
-  selector,
-  parent = document
-) => parent.querySelector(selector);
+const SAVED_KEY = "alumni_saved_stories";
+
+function getSavedStories() {
+
+  try {
+    return JSON.parse(
+      localStorage.getItem(SAVED_KEY) || "[]"
+    );
+
+  } catch {
+    return [];
+  }
+
+}
 
 
-const $$ = (
-  selector,
-  parent = document
-) => [...parent.querySelectorAll(selector)];
+function setSavedStories(ids) {
+
+  localStorage.setItem(
+    SAVED_KEY,
+    JSON.stringify(ids)
+  );
+
+}
 
 
 /* =========================================================
-   ESCAPE HTML
+   HELPERS
 ========================================================= */
 
-function escapeHTML(value = "") {
+function escapeHtml(value = "") {
 
   return String(value)
     .replaceAll("&", "&amp;")
@@ -152,210 +148,202 @@ function escapeHTML(value = "") {
 }
 
 
-/* =========================================================
-   SAVED STORIES
-========================================================= */
+function readingTime(text = "") {
 
-function getSavedStories() {
-
-  try {
-
-    return JSON.parse(
-      localStorage.getItem(SAVED_KEY) || "[]"
-    );
-
-  } catch {
-
-    return [];
-
-  }
-
-}
-
-
-function setSavedStories(stories) {
-
-  localStorage.setItem(
-    SAVED_KEY,
-    JSON.stringify(stories)
-  );
-
-}
-
-
-function isSaved(id) {
-
-  return getSavedStories().includes(id);
-
-}
-
-
-function toggleSaved(id) {
-
-  const saved =
-    getSavedStories();
-
-  const index =
-    saved.indexOf(id);
-
-
-  if (index >= 0) {
-
-    saved.splice(index, 1);
-
-    showToast?.(
-      "Story removed from saved stories."
-    );
-
-  } else {
-
-    saved.push(id);
-
-    showToast?.(
-      "Story saved."
-    );
-
-  }
-
-
-  setSavedStories(saved);
-
-  renderStories(currentCategory);
-
-}
-
-
-/* =========================================================
-   READING TIME
-========================================================= */
-
-function getReadingTime(text = "") {
-
-  const words =
-    text
-      .trim()
-      .split(/\s+/)
-      .filter(Boolean)
-      .length;
-
+  const words = String(text)
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .length;
 
   return Math.max(
     1,
-    Math.ceil(words / 200)
+    Math.ceil(words / 220)
   );
 
 }
 
 
-/* =========================================================
-   LOAD APPROVED STORIES
-========================================================= */
+function scrollToId(id) {
 
-async function loadStories() {
+  const element = document.getElementById(id);
 
-  try {
+  if (!element) return;
 
-    allStories =
-      await getSubmissions("approved");
-
-
-    if (!Array.isArray(allStories)) {
-      allStories = [];
-    }
-
-
-    renderStories("All");
-
-    renderTrending();
-
-  } catch (error) {
-
-    console.error(
-      "Could not load alumni stories:",
-      error
-    );
-
-    allStories = [];
-
-    renderStories("All");
-
-    renderTrending();
-
-  }
+  element.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
 
 }
 
 
 /* =========================================================
-   FILTER STORIES
+   STORY RENDERING
 ========================================================= */
 
-function getFilteredStories(category) {
+let allStories = [];
+let activeCategory = "all";
+let searchTerm = "";
+
+
+function normalizeCategory(category) {
+
+  const value = String(category || "")
+    .toLowerCase();
+
+  if (value.includes("achievement")) {
+    return "Achievement";
+  }
+
+  if (value.includes("story")) {
+    return "Story";
+  }
+
+  if (value.includes("news")) {
+    return "News";
+  }
+
+  return category || "News";
+
+}
+
+
+function categoryMatches(story, category) {
+
+  if (category === "all") {
+    return true;
+  }
 
   if (category === "Saved") {
 
-    const saved =
-      getSavedStories();
+    const saved = getSavedStories();
 
-    return allStories.filter(
-      story =>
-        saved.includes(story.id)
+    return saved.includes(
+      story.id
     );
 
   }
 
+  const normalized = normalizeCategory(
+    story.category
+  );
 
-  if (category === "All") {
+  const categoryMap = {
 
-    return allStories;
+    Achievement: [
+      "Achievement",
+      "Awards",
+      "Startups",
+      "Research",
+      "Career"
+    ],
 
+    Career: [
+      "Career",
+      "Achievement"
+    ],
+
+    Campus: [
+      "Campus",
+      "News"
+    ],
+
+    Events: [
+      "Events",
+      "News"
+    ],
+
+    Startups: [
+      "Startups",
+      "Achievement"
+    ],
+
+    Awards: [
+      "Awards",
+      "Achievement"
+    ],
+
+    Research: [
+      "Research",
+      "Achievement"
+    ],
+
+    Announcements: [
+      "Announcements",
+      "News"
+    ]
+
+  };
+
+  if (!categoryMap[category]) {
+    return normalized === category;
   }
 
-
-  return allStories.filter(
-    story =>
-      story.category === category
+  return categoryMap[category].includes(
+    normalized
   );
 
 }
 
 
-/* =========================================================
-   RENDER NEWS
-========================================================= */
+function matchesSearch(story) {
 
-function renderStories(
-  category = "All"
-) {
+  if (!searchTerm) {
+    return true;
+  }
 
-  currentCategory =
-    category;
+  const content = [
+
+    story.title,
+    story.excerpt,
+    story.body,
+    story.category,
+    story.authorName,
+    story.authorUid
+
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  return content.includes(
+    searchTerm.toLowerCase()
+  );
+
+}
 
 
-  const grid =
-    $("#news-grid");
+function renderStories() {
 
+  const grid = document.getElementById(
+    "news-grid"
+  );
 
   if (!grid) return;
 
+  const filtered = allStories.filter(
+    story =>
+      categoryMatches(
+        story,
+        activeCategory
+      ) &&
+      matchesSearch(story)
+  );
 
-  const stories =
-    getFilteredStories(category);
 
-
-  if (!stories.length) {
+  if (!filtered.length) {
 
     grid.innerHTML = `
 
-      <div class="empty-news-state">
+      <div class="news-empty">
 
         <h3>
-          No stories here yet.
+          No stories found
         </h3>
 
         <p>
-          New stories and achievements will appear
-          here after moderation.
+          Try another category or search term.
         </p>
 
       </div>
@@ -363,154 +351,189 @@ function renderStories(
     `;
 
     return;
-
   }
 
 
-  grid.innerHTML =
-    stories.map(
-      (story, index) => {
+  grid.innerHTML = filtered.map(
+    story => {
 
-        const id =
-          story.id ||
-          `story-${index}`;
+      const id = story.id || story.createdAt;
 
+      const saved = getSavedStories()
+        .includes(id);
 
-        const title =
-          escapeHTML(
-            story.title ||
-            "Untitled story"
-          );
+      const image =
+        story.image ||
+        story.imageUrl ||
+        "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80";
 
 
-        const excerpt =
-          escapeHTML(
-            story.excerpt ||
-            story.body ||
-            ""
-          );
+      return `
 
+        <article
+          class="news-card"
+          data-story-id="${escapeHtml(id)}"
+        >
 
-        const categoryLabel =
-          escapeHTML(
-            story.category ||
-            "Story"
-          );
-
-
-        const image =
-          story.image ||
-          "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=85";
-
-
-        const saved =
-          isSaved(id);
-
-
-        return `
-
-          <article
-            class="news-card"
-            data-story-id="${escapeHTML(id)}"
-          >
+          <div class="news-card-image">
 
             <img
-              src="${escapeHTML(image)}"
-              alt="${title}"
-              loading="lazy"
+              src="${escapeHtml(image)}"
+              alt="${escapeHtml(story.title || "Alumni story")}"
             >
 
-
-            <div class="news-card-body">
-
-              <div class="news-card-category">
-                ${categoryLabel}
-              </div>
+          </div>
 
 
-              <h3>
-                ${title}
-              </h3>
+          <div class="news-card-content">
+
+            <small>
+              ${escapeHtml(story.category || "NEWS")}
+              ·
+              ${readingTime(story.body || story.excerpt || "")} MIN READ
+            </small>
+
+            <h3>
+              ${escapeHtml(story.title || "Untitled Story")}
+            </h3>
+
+            <p>
+              ${escapeHtml(
+                story.excerpt ||
+                story.body ||
+                "Read this alumni community story."
+              )}
+            </p>
 
 
-              <p>
-                ${excerpt.slice(0, 200)}
-                ${excerpt.length > 200 ? "…" : ""}
-              </p>
+            <button
+              class="save-story"
+              data-save-id="${escapeHtml(id)}"
+            >
+              ${saved ? "♥ Saved" : "♡ Save Story"}
+            </button>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }
+  ).join("");
 
 
-              <div class="news-card-footer">
+  grid.querySelectorAll(
+    ".news-card"
+  ).forEach(card => {
 
-                <button
-                  class="read-story-btn"
-                  data-read-story="${escapeHTML(id)}"
-                >
-                  READ STORY →
-                </button>
+    card.addEventListener(
+      "click",
+      event => {
 
+        if (
+          event.target.closest(
+            ".save-story"
+          )
+        ) {
+          return;
+        }
 
-                <button
-                  class="save-story-btn"
-                  data-save-story="${escapeHTML(id)}"
-                >
-                  ${saved ? "★ SAVED" : "☆ SAVE"}
-                </button>
+        const story = allStories.find(
+          item =>
+            String(item.id) ===
+            String(card.dataset.storyId)
+        );
 
-              </div>
-
-            </div>
-
-          </article>
-
-        `;
+        if (story) {
+          openReader(story);
+        }
 
       }
-    ).join("");
+    );
+
+  });
 
 
-  bindStoryButtons();
+  grid.querySelectorAll(
+    ".save-story"
+  ).forEach(button => {
+
+    button.addEventListener(
+      "click",
+      event => {
+
+        event.stopPropagation();
+
+        const id =
+          button.dataset.saveId;
+
+        const saved =
+          getSavedStories();
+
+        const index =
+          saved.indexOf(id);
+
+        if (index >= 0) {
+
+          saved.splice(
+            index,
+            1
+          );
+
+        } else {
+
+          saved.push(id);
+
+        }
+
+        setSavedStories(saved);
+
+        renderStories();
+
+        showToast?.(
+          index >= 0
+            ? "Story removed from saved stories."
+            : "Story saved."
+        );
+
+      }
+    );
+
+  });
 
 }
 
 
 /* =========================================================
-   STORY BUTTONS
+   LOAD STORIES
 ========================================================= */
 
-function bindStoryButtons() {
+async function loadStories() {
 
-  $$("[data-read-story]")
-    .forEach(button => {
+  try {
 
-      button.addEventListener(
-        "click",
-        () => {
+    const result =
+      await getSubmissions("approved");
 
-          openReader(
-            button.dataset.readStory
-          );
+    allStories = Array.isArray(result)
+      ? result
+      : [];
 
-        }
-      );
+    renderStories();
 
-    });
+  } catch (error) {
 
+    console.error(
+      "Unable to load stories:",
+      error
+    );
 
-  $$("[data-save-story]")
-    .forEach(button => {
+    allStories = [];
 
-      button.addEventListener(
-        "click",
-        () => {
+    renderStories();
 
-          toggleSaved(
-            button.dataset.saveStory
-          );
-
-        }
-      );
-
-    });
+  }
 
 }
 
@@ -519,168 +542,143 @@ function bindStoryButtons() {
    READER
 ========================================================= */
 
-function openReader(id) {
-
-  const story =
-    allStories.find(
-      item =>
-        item.id === id
-    );
-
-
-  if (!story) return;
-
+function openReader(story) {
 
   const modal =
-    $("#reader-modal");
+    document.getElementById(
+      "reader-modal"
+    );
 
   const body =
-    $("#reader-modal-body");
-
+    document.getElementById(
+      "reader-modal-body"
+    );
 
   if (!modal || !body) return;
 
 
-  const title =
-    escapeHTML(
-      story.title ||
-      "Untitled story"
-    );
-
-
-  const category =
-    escapeHTML(
-      story.category ||
-      "Story"
-    );
-
-
-  const author =
-    escapeHTML(
-      story.authorName ||
-      story.author ||
-      "GIET Alumni"
-    );
-
-
-  const storyBody =
-    story.body ||
-    story.content ||
-    story.excerpt ||
+  const image =
+    story.image ||
+    story.imageUrl ||
     "";
 
 
-  const readingTime =
-    getReadingTime(
-      storyBody
-    );
+  const authorName =
+    story.authorName ||
+    "GIET Alumni Community";
 
 
-  const authorImage =
-    story.authorPhoto ||
-    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80";
+  const authorUid =
+    story.authorUid;
 
 
-  const paragraphs =
-    escapeHTML(storyBody)
-      .split(/\n+/)
-      .filter(Boolean)
-      .map(
-        paragraph =>
-          `<p>${paragraph}</p>`
-      )
-      .join("");
+  const profileLink =
+    authorUid
+      ? `
+        <a href="profile.html?id=${encodeURIComponent(authorUid)}">
+          View Fellow Profile →
+        </a>
+      `
+      : "";
 
 
   body.innerHTML = `
 
-    <div class="reader-meta">
+    <article class="reader-content">
 
-      <span>
-        ${category}
-      </span>
-
-      <span>
-        ${readingTime} MIN READ
-      </span>
-
-      <span>
-        GIET ALUMNI GAZETTE
-      </span>
-
-    </div>
+      <div class="reader-meta">
+        ALUMNI GAZETTE ·
+        ${escapeHtml(story.category || "STORY")}
+        ·
+        ${readingTime(story.body || "")} MIN READ
+      </div>
 
 
-    <h1>
-      ${title}
-    </h1>
+      <h1>
+        ${escapeHtml(
+          story.title || "Alumni Story"
+        )}
+      </h1>
 
 
-    <div class="reader-body">
-
-      ${paragraphs}
-
-    </div>
-
-
-    <div class="pull-quote">
-
-      Stories, experiences and ideas
-      that continue beyond the campus.
-
-    </div>
+      ${
+        image
+          ? `
+            <img
+              class="reader-image"
+              src="${escapeHtml(image)}"
+              alt="${escapeHtml(story.title || "")}"
+            >
+          `
+          : ""
+      }
 
 
-    <div class="author-callout">
+      <div class="reader-body">
 
-      <img
-        src="${escapeHTML(authorImage)}"
-        alt="${author}"
-      >
+        <p>
+          ${escapeHtml(
+            story.excerpt || ""
+          )}
+        </p>
 
 
-      <div>
+        <blockquote class="reader-pullquote">
 
-        <strong>
-          ${author}
-        </strong>
+          Stories, ideas and experiences
+          that continue to shape the GIET community.
 
-        <span>
-          GIET Alumni Community
-        </span>
+        </blockquote>
+
+
+        <p>
+          ${escapeHtml(
+            story.body ||
+            "This story is part of the GIET Alumni Gazette."
+          )}
+        </p>
 
       </div>
 
-    </div>
+
+      <div class="reader-author">
+
+        <strong>
+          ${escapeHtml(authorName)}
+        </strong>
+
+        <p>
+          GIET Alumni Community
+        </p>
+
+        ${profileLink}
+
+      </div>
+
+    </article>
 
   `;
 
 
   modal.classList.add("open");
-
   modal.setAttribute(
     "aria-hidden",
     "false"
   );
 
-  document.body.style.overflow =
-    "hidden";
+  document.body.style.overflow = "hidden";
 
 }
 
 
-/* =========================================================
-   CLOSE READER
-========================================================= */
-
 function closeReader() {
 
   const modal =
-    $("#reader-modal");
-
+    document.getElementById(
+      "reader-modal"
+    );
 
   if (!modal) return;
-
 
   modal.classList.remove("open");
 
@@ -689,6 +687,464 @@ function closeReader() {
     "true"
   );
 
+  document.body.style.overflow = "";
+
+}
+
+
+/* =========================================================
+   CATEGORY FILTERS
+========================================================= */
+
+function setupFilters() {
+
+  document
+    .querySelectorAll(
+      ".filter-btn"
+    )
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          document
+            .querySelectorAll(
+              ".filter-btn"
+            )
+            .forEach(
+              item =>
+                item.classList.remove(
+                  "active"
+                )
+            );
+
+          button.classList.add(
+            "active"
+          );
+
+
+          activeCategory =
+            button.dataset.category ||
+            "all";
+
+
+          if (
+            activeCategory ===
+            "Achievement"
+          ) {
+
+            scrollToId(
+              "breakthroughs"
+            );
+
+          } else if (
+            activeCategory ===
+            "Career"
+          ) {
+
+            scrollToId(
+              "where-now"
+            );
+
+          } else if (
+            activeCategory ===
+            "Campus"
+          ) {
+
+            scrollToId(
+              "campus-milestones"
+            );
+
+          } else if (
+            activeCategory ===
+            "Events"
+          ) {
+
+            scrollToId(
+              "latest-giet"
+            );
+
+          } else if (
+            activeCategory ===
+            "Startups"
+          ) {
+
+            scrollToId(
+              "breakthroughs"
+            );
+
+          } else if (
+            activeCategory ===
+            "Awards"
+          ) {
+
+            scrollToId(
+              "breakthroughs"
+            );
+
+          } else if (
+            activeCategory ===
+            "Research"
+          ) {
+
+            scrollToId(
+              "breakthroughs"
+            );
+
+          } else if (
+            activeCategory ===
+            "Announcements"
+          ) {
+
+            scrollToId(
+              "latest-giet"
+            );
+
+          } else if (
+            activeCategory ===
+            "Saved"
+          ) {
+
+            scrollToId(
+              "latest-giet"
+            );
+
+          } else if (
+            activeCategory ===
+            "Story"
+          ) {
+
+            scrollToId(
+              "stories-essays"
+            );
+
+          } else {
+
+            scrollToId(
+              "latest-giet"
+            );
+
+          }
+
+
+          renderStories();
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function setupSearch() {
+
+  const input =
+    document.getElementById(
+      "news-search-input"
+    );
+
+  if (!input) return;
+
+  input.addEventListener(
+    "input",
+    event => {
+
+      searchTerm =
+        event.target.value.trim();
+
+      renderStories();
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+function setupHero() {
+
+  document
+    .getElementById(
+      "hero-explore-btn"
+    )
+    ?.addEventListener(
+      "click",
+      () => {
+        scrollToId(
+          "featured-stories"
+        );
+      }
+    );
+
+}
+
+
+/* =========================================================
+   FEATURED STORY JUMPS
+========================================================= */
+
+function setupFeaturedStories() {
+
+  document
+    .querySelectorAll(
+      ".story-jump"
+    )
+    .forEach(card => {
+
+      card.addEventListener(
+        "click",
+        () => {
+
+          const target =
+            card.dataset.featureTarget;
+
+          if (target) {
+            scrollToId(target);
+          }
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   STORY ACTION BUTTONS
+========================================================= */
+
+function setupStoryActions() {
+
+  document
+    .querySelectorAll(
+      ".story-action"
+    )
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        event => {
+
+          event.stopPropagation();
+
+          const target =
+            button.dataset.scrollTarget;
+
+          if (target) {
+            scrollToId(target);
+          }
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   PLACEMENT DIRECTORY
+========================================================= */
+
+function renderPlacements() {
+
+  const grid =
+    document.getElementById(
+      "placement-grid"
+    );
+
+  if (!grid) return;
+
+
+  grid.innerHTML =
+    placementData.map(
+      student => `
+
+        <article class="placement-card">
+
+          <div class="placement-card-image">
+
+            <img
+              src="${student.image}"
+              alt="${escapeHtml(student.name)}"
+              loading="lazy"
+            >
+
+          </div>
+
+
+          <div class="placement-card-content">
+
+            <small>
+              ${escapeHtml(student.department)}
+            </small>
+
+            <h3>
+              ${escapeHtml(student.name)}
+            </h3>
+
+            <p>
+              🎓 ${escapeHtml(student.branch)}
+            </p>
+
+            <p>
+              📅 ${escapeHtml(student.year)}
+            </p>
+
+            <p>
+              🏢 ${escapeHtml(student.company)}
+            </p>
+
+            <span class="package-badge">
+              ${escapeHtml(student.package)}
+            </span>
+
+          </div>
+
+        </article>
+
+      `
+    ).join("");
+
+}
+
+
+function openPlacements() {
+
+  document.body.classList.add(
+    "placements-open"
+  );
+
+  renderPlacements();
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+  history.pushState(
+    { placements: true },
+    "",
+    "#placements"
+  );
+
+}
+
+
+function closePlacements() {
+
+  document.body.classList.remove(
+    "placements-open"
+  );
+
+  if (
+    location.hash ===
+    "#placements"
+  ) {
+
+    history.pushState(
+      "",
+      document.title,
+      window.location.pathname +
+      window.location.search
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+function setupGallery() {
+
+  const modal =
+    document.getElementById(
+      "gallery-modal"
+    );
+
+  const image =
+    document.getElementById(
+      "gallery-modal-image"
+    );
+
+  document
+    .querySelectorAll(
+      ".gallery-item"
+    )
+    .forEach(item => {
+
+      item.addEventListener(
+        "click",
+        () => {
+
+          if (!modal || !image) return;
+
+          image.src =
+            item.dataset.galleryImage;
+
+          modal.classList.add(
+            "open"
+          );
+
+          document.body.style.overflow =
+            "hidden";
+
+        }
+      );
+
+    });
+
+
+  document
+    .getElementById(
+      "close-gallery-modal"
+    )
+    ?.addEventListener(
+      "click",
+      closeGallery
+    );
+
+
+  modal?.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target === modal
+      ) {
+        closeGallery();
+      }
+
+    }
+  );
+
+}
+
+
+function closeGallery() {
+
+  const modal =
+    document.getElementById(
+      "gallery-modal"
+    );
+
+  modal?.classList.remove(
+    "open"
+  );
+
   document.body.style.overflow =
     "";
 
@@ -696,579 +1152,206 @@ function closeReader() {
 
 
 /* =========================================================
-   TRENDING
+   VIDEO
 ========================================================= */
 
-function renderTrending() {
+function setupVideo() {
 
-  const list =
-    $("#trending-list");
-
-
-  if (!list) return;
-
-
-  const stories =
-    [...allStories]
-      .sort(
-        (a,b) =>
-          new Date(
-            b.createdAt || 0
-          ) -
-          new Date(
-            a.createdAt || 0
-          )
-      )
-      .slice(0,5);
+  const modal =
+    document.getElementById(
+      "video-modal"
+    );
 
 
-  if (!stories.length) {
+  const openVideo = () => {
 
-    list.innerHTML = `
+    modal?.classList.add(
+      "open"
+    );
 
-      <li>
+    document.body.style.overflow =
+      "hidden";
 
-        <button type="button">
-          New alumni stories arriving soon
-        </button>
-
-      </li>
-
-
-      <li>
-
-        <button type="button">
-          Explore GIET achievements
-        </button>
-
-      </li>
+  };
 
 
-      <li>
-
-        <button type="button">
-          Discover campus milestones
-        </button>
-
-      </li>
-
-    `;
-
-    return;
-
-  }
+  document
+    .getElementById(
+      "watch-video-btn"
+    )
+    ?.addEventListener(
+      "click",
+      openVideo
+    );
 
 
-  list.innerHTML =
-    stories.map(
-      story => `
-
-        <li>
-
-          <button
-            type="button"
-            data-trending-story="${escapeHTML(story.id)}"
-          >
-            ${escapeHTML(
-              story.title ||
-              "Untitled story"
-            )}
-          </button>
-
-        </li>
-
-      `
-    ).join("");
+  document
+    .getElementById(
+      "watch-video-text"
+    )
+    ?.addEventListener(
+      "click",
+      openVideo
+    );
 
 
-  $$("[data-trending-story]")
-    .forEach(button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          openReader(
-            button.dataset.trendingStory
-          );
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =========================================================
-   FILTER BUTTONS
-========================================================= */
-
-function setupFilters() {
-
-  const filters =
-    $$("#news-category-filters .filter-btn");
-
-
-  filters.forEach(button => {
-
-    button.addEventListener(
+  document
+    .getElementById(
+      "close-video-modal"
+    )
+    ?.addEventListener(
       "click",
       () => {
 
-        filters.forEach(
-          item =>
-            item.classList.remove(
-              "active"
-            )
+        modal?.classList.remove(
+          "open"
         );
 
-
-        button.classList.add(
-          "active"
-        );
-
-
-        const category =
-          button.dataset.category;
-
-
-        renderStories(
-          category
-        );
-
-
-        if (category === "Story") {
-
-          scrollToSection(
-            "stories-essays"
-          );
-
-        }
-
-        else if (
-          category === "Achievement"
-        ) {
-
-          scrollToSection(
-            "breakthroughs"
-          );
-
-        }
-
-        else if (
-          category === "News"
-        ) {
-
-          scrollToSection(
-            "campus-milestones"
-          );
-
-        }
-
-        else if (
-          category === "Saved"
-        ) {
-
-          scrollToSection(
-            "news-grid"
-          );
-
-        }
+        document.body.style.overflow =
+          "";
 
       }
     );
 
-  });
-
 }
 
 
 /* =========================================================
-   SCROLL TO SECTION
+   GAZETTE
 ========================================================= */
 
-function scrollToSection(id) {
+function setupGazette() {
 
-  const target =
-    document.getElementById(id);
-
-
-  if (!target) return;
-
-
-  const offset =
-    95;
+  const modal =
+    document.getElementById(
+      "gazette-modal"
+    );
 
 
-  const top =
-    target.getBoundingClientRect().top +
-    window.scrollY -
-    offset;
+  document
+    .getElementById(
+      "read-gazette-btn"
+    )
+    ?.addEventListener(
+      "click",
+      () => {
 
-
-  window.scrollTo({
-
-    top,
-
-    behavior: "smooth"
-
-  });
-
-}
-
-
-/* =========================================================
-   HERO SCROLL
-========================================================= */
-
-function setupHeroScroll() {
-
-  $$("[data-scroll-target]")
-    .forEach(button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          scrollToSection(
-            button.dataset.scrollTarget
-          );
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =========================================================
-   INFORMATION ACCORDION
-========================================================= */
-
-function setupInformationAccordion() {
-
-  $$(".info-toggle")
-    .forEach(button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          const item =
-            button.closest(
-              ".info-item"
-            );
-
-
-          if (!item) return;
-
-
-          item.classList.toggle(
-            "open"
-          );
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =========================================================
-   FEATURED SLIDER
-========================================================= */
-
-function setupSlider() {
-
-  const slider =
-    $("#featured-slider");
-
-  const previous =
-    $("#slider-prev");
-
-  const next =
-    $("#slider-next");
-
-  const dots =
-    $("#slider-dots");
-
-
-  if (!slider) return;
-
-
-  const slides =
-    $$(".slide-card", slider);
-
-
-  if (!slides.length) return;
-
-
-  let current =
-    0;
-
-
-  function createDots() {
-
-    if (!dots) return;
-
-
-    dots.innerHTML =
-      slides.map(
-        (_, index) => `
-
-          <button
-            class="slider-dot ${
-              index === 0
-                ? "active"
-                : ""
-            }"
-            data-slide="${index}"
-            aria-label="Go to featured story ${index + 1}"
-          ></button>
-
-        `
-      ).join("");
-
-
-    $$(".slider-dot")
-      .forEach(dot => {
-
-        dot.addEventListener(
-          "click",
-          () => {
-
-            current =
-              Number(
-                dot.dataset.slide
-              );
-
-            moveToSlide();
-
-          }
+        modal?.classList.add(
+          "open"
         );
 
-      });
+        document.body.style.overflow =
+          "hidden";
 
-  }
-
-
-  function moveToSlide() {
-
-    const slide =
-      slides[current];
+      }
+    );
 
 
-    if (!slide) return;
+  document
+    .getElementById(
+      "close-gazette-modal"
+    )
+    ?.addEventListener(
+      "click",
+      () => {
+
+        modal?.classList.remove(
+          "open"
+        );
+
+        document.body.style.overflow =
+          "";
+
+      }
+    );
+
+}
 
 
-    slider.scrollTo({
+/* =========================================================
+   SPOTLIGHT
+========================================================= */
 
-      left:
-        slide.offsetLeft,
+function setupSpotlight() {
 
-      behavior:
-        "smooth"
+  document
+    .querySelector(
+      ".spotlight-button"
+    )
+    ?.addEventListener(
+      "click",
+      () => {
 
-    });
+        showToast?.(
+          "Fellow profile opening soon."
+        );
+
+      }
+    );
+
+}
 
 
-    $$(".slider-dot")
-      .forEach(
-        (dot,index) => {
+/* =========================================================
+   MILESTONE ICONS
+========================================================= */
 
-          dot.classList.toggle(
-            "active",
-            index === current
-          );
+function setupMilestones() {
+
+  document
+    .querySelectorAll(
+      ".milestone-icons button"
+    )
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const title =
+            button
+              .querySelector(
+                "strong"
+              )
+              ?.textContent
+              ?.trim();
+
+          if (title) {
+
+            showToast?.(
+              `${title} updates will appear here.`
+            );
+
+          }
 
         }
       );
 
-  }
-
-
-  previous?.addEventListener(
-    "click",
-    () => {
-
-      current =
-        current <= 0
-          ? slides.length - 1
-          : current - 1;
-
-      moveToSlide();
-
-    }
-  );
-
-
-  next?.addEventListener(
-    "click",
-    () => {
-
-      current =
-        current >=
-        slides.length - 1
-          ? 0
-          : current + 1;
-
-      moveToSlide();
-
-    }
-  );
-
-
-  createDots();
+    });
 
 }
 
 
 /* =========================================================
-   PLACEMENTS
+   DONATION
 ========================================================= */
 
-function renderPlacements() {
+function setupDonation() {
 
-  const container =
-    $("#placement-students");
+  document
+    .getElementById(
+      "donate-btn"
+    )
+    ?.addEventListener(
+      "click",
+      () => {
 
+        showToast?.(
+          "Donation section connected. Add your official donation URL here."
+        );
 
-  if (!container) return;
-
-
-  container.innerHTML =
-    placementStudents
-      .map(
-        student => `
-
-          <article
-            class="placement-student"
-          >
-
-            <img
-              src="${student.image}"
-              alt="${escapeHTML(student.name)}"
-              loading="lazy"
-            >
-
-
-            <div
-              class="placement-student-body"
-            >
-
-              <span>
-                ${escapeHTML(student.branch)}
-              </span>
-
-
-              <h3>
-                ${escapeHTML(student.name)}
-              </h3>
-
-
-              <p>
-                Department:
-                ${escapeHTML(student.department)}
-              </p>
-
-
-              <p>
-                Branch:
-                ${escapeHTML(student.branch)}
-              </p>
-
-
-              <p>
-                Batch:
-                ${escapeHTML(student.year)}
-              </p>
-
-
-              <p>
-                Company:
-                ${escapeHTML(student.company)}
-              </p>
-
-
-              <div
-                class="placement-package"
-              >
-                ${escapeHTML(student.package)}
-              </div>
-
-            </div>
-
-          </article>
-
-        `
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   PLACEMENT OPEN / CLOSE
-========================================================= */
-
-function setupPlacements() {
-
-  const openButton =
-    $("#placements-spotlight");
-
-  const closeButton =
-    $("#close-placements");
-
-  const placements =
-    $("#placements");
-
-
-  if (!openButton || !placements) {
-    return;
-  }
-
-
-  openButton.addEventListener(
-    "click",
-    () => {
-
-      placements.hidden =
-        false;
-
-
-      setTimeout(
-        () => {
-
-          placements.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
-
-        },
-        50
-      );
-
-    }
-  );
-
-
-  closeButton?.addEventListener(
-    "click",
-    () => {
-
-      placements.hidden =
-        true;
-
-
-      scrollToSection(
-        "featured-slider"
-      );
-
-    }
-  );
+      }
+    );
 
 }
 
@@ -1277,58 +1360,45 @@ function setupPlacements() {
    SUBMISSION MODAL
 ========================================================= */
 
-function setupSubmissionModal() {
-
-  const openButton =
-    $("#share-story-btn");
+function setupSubmission() {
 
   const modal =
-    $("#submit-story-modal");
+    document.getElementById(
+      "submit-story-modal"
+    );
+
+
+  const openButton =
+    document.getElementById(
+      "share-story-btn"
+    );
+
 
   const closeButton =
-    $("#close-submit-modal");
-
-  const cancelButton =
-    $("#cancel-submit-story");
-
-  const form =
-    $("#story-submission-form");
+    document.getElementById(
+      "close-submit-modal"
+    );
 
 
-  if (!openButton || !modal) {
-    return;
-  }
-
-
-  openButton.addEventListener(
+  openButton?.addEventListener(
     "click",
     () => {
 
       const user =
-        getCurrentUser?.();
-
+        getCurrentUser();
 
       if (!user) {
 
         showToast?.(
-          "Please sign in before sharing your story."
+          "Please sign in to share your story."
         );
 
         return;
-
       }
 
-
-      modal.classList.add(
+      modal?.classList.add(
         "open"
       );
-
-
-      modal.setAttribute(
-        "aria-hidden",
-        "false"
-      );
-
 
       document.body.style.overflow =
         "hidden";
@@ -1337,51 +1407,166 @@ function setupSubmissionModal() {
   );
 
 
-  function closeModal() {
-
-    modal.classList.remove(
-      "open"
-    );
-
-
-    modal.setAttribute(
-      "aria-hidden",
-      "true"
-    );
-
-
-    document.body.style.overflow =
-      "";
-
-  }
-
-
   closeButton?.addEventListener(
     "click",
-    closeModal
+    closeSubmission
   );
 
 
-  cancelButton?.addEventListener(
-    "click",
-    closeModal
-  );
-
-
-  modal.addEventListener(
+  modal?.addEventListener(
     "click",
     event => {
 
       if (
         event.target === modal
       ) {
-
-        closeModal();
-
+        closeSubmission();
       }
 
     }
   );
+
+
+  setupSubmissionMeta();
+
+  setupImagePreview();
+
+  setupSubmissionForm();
+
+}
+
+
+function closeSubmission() {
+
+  const modal =
+    document.getElementById(
+      "submit-story-modal"
+    );
+
+  modal?.classList.remove(
+    "open"
+  );
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+/* =========================================================
+   SUBMISSION WORD COUNT
+========================================================= */
+
+function setupSubmissionMeta() {
+
+  const body =
+    document.getElementById(
+      "story-body"
+    );
+
+  const count =
+    document.getElementById(
+      "story-word-count"
+    );
+
+  const time =
+    document.getElementById(
+      "story-reading-time"
+    );
+
+
+  function update() {
+
+    const words =
+      body.value
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean)
+        .length;
+
+
+    count.textContent =
+      `${words} words`;
+
+    time.textContent =
+      `${Math.max(
+        1,
+        Math.ceil(words / 220)
+      )} min read`;
+
+  }
+
+
+  body?.addEventListener(
+    "input",
+    update
+  );
+
+  update();
+
+}
+
+
+/* =========================================================
+   IMAGE PREVIEW
+========================================================= */
+
+function setupImagePreview() {
+
+  const input =
+    document.getElementById(
+      "story-image"
+    );
+
+  const preview =
+    document.getElementById(
+      "story-image-preview"
+    );
+
+
+  input?.addEventListener(
+    "input",
+    () => {
+
+      const url =
+        input.value.trim();
+
+      if (!url) {
+
+        preview.innerHTML =
+          "";
+
+        return;
+
+      }
+
+
+      preview.innerHTML = `
+
+        <img
+          src="${escapeHtml(url)}"
+          alt="Story preview"
+          onerror="this.parentElement.innerHTML='<p>Unable to load image preview.</p>'"
+        >
+
+      `;
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   SUBMISSION FORM
+========================================================= */
+
+function setupSubmissionForm() {
+
+  const form =
+    document.getElementById(
+      "story-submission-form"
+    );
 
 
   form?.addEventListener(
@@ -1392,7 +1577,7 @@ function setupSubmissionModal() {
 
 
       const user =
-        getCurrentUser?.();
+        getCurrentUser();
 
 
       if (!user) {
@@ -1407,38 +1592,38 @@ function setupSubmissionModal() {
 
 
       const title =
-        $("#story-title")
-          ?.value
-          .trim();
+        document.getElementById(
+          "story-title"
+        ).value.trim();
 
 
       const category =
-        $("#story-category")
-          ?.value;
+        document.getElementById(
+          "story-category"
+        ).value;
 
 
       const excerpt =
-        $("#story-excerpt")
-          ?.value
-          .trim();
+        document.getElementById(
+          "story-excerpt"
+        ).value.trim();
 
 
       const image =
-        $("#story-image")
-          ?.value
-          .trim();
+        document.getElementById(
+          "story-image"
+        ).value.trim();
 
 
       const body =
-        $("#story-body")
-          ?.value
-          .trim();
+        document.getElementById(
+          "story-body"
+        ).value.trim();
 
 
       if (
         !title ||
         !category ||
-        !excerpt ||
         !body
       ) {
 
@@ -1456,17 +1641,14 @@ function setupSubmissionModal() {
         await createSubmission({
 
           title,
-
           category,
-
           excerpt,
-
           image,
-
           body,
 
           authorUid:
-            user.uid,
+            user.uid ||
+            user.id,
 
           authorName:
             user.displayName ||
@@ -1483,37 +1665,35 @@ function setupSubmissionModal() {
 
         form.reset();
 
-        updateSubmissionStats();
 
-        const preview =
-          $("#story-image-preview");
-
-
-        if (preview) {
-
-          preview.hidden =
-            true;
-
-          preview.removeAttribute(
-            "src"
-          );
-
-        }
+        document.getElementById(
+          "story-image-preview"
+        ).innerHTML = "";
 
 
-        closeModal();
+        closeSubmission();
 
-      }
 
-      catch (error) {
+        setTimeout(
+          () => {
+
+            showToast?.(
+              "Your story is now waiting in the moderation queue."
+            );
+
+          },
+          500
+        );
+
+
+      } catch (error) {
 
         console.error(
-          "Submission error:",
           error
         );
 
         showToast?.(
-          "Could not submit your story. Please try again."
+          "Unable to submit story. Please try again."
         );
 
       }
@@ -1525,201 +1705,67 @@ function setupSubmissionModal() {
 
 
 /* =========================================================
-   WORD COUNT + READING TIME
+   MODAL BACKDROP + ESCAPE
 ========================================================= */
 
-function updateSubmissionStats() {
+function setupModalEvents() {
 
-  const textarea =
-    $("#story-body");
+  document
+    .querySelectorAll(
+      ".modal-overlay"
+    )
+    .forEach(modal => {
 
-  const count =
-    $("#story-word-count");
+      modal.addEventListener(
+        "click",
+        event => {
 
-  const time =
-    $("#story-reading-time");
+          if (
+            event.target !== modal
+          ) {
+            return;
+          }
 
+          modal.classList.remove(
+            "open"
+          );
 
-  if (!textarea) return;
+          document.body.style.overflow =
+            "";
 
+        }
+      );
 
-  const text =
-    textarea.value.trim();
+    });
 
-
-  const words =
-    text
-      ? text
-          .split(/\s+/)
-          .filter(Boolean)
-      : [];
-
-
-  const wordCount =
-    words.length;
-
-
-  const readingTime =
-    wordCount === 0
-      ? 0
-      : Math.ceil(
-          wordCount / 200
-        );
-
-
-  if (count) {
-
-    count.textContent =
-      `${wordCount} words`;
-
-  }
-
-
-  if (time) {
-
-    time.textContent =
-      `${readingTime} min read`;
-
-  }
-
-}
-
-
-/* =========================================================
-   IMAGE PREVIEW
-========================================================= */
-
-function setupImagePreview() {
-
-  const input =
-    $("#story-image");
-
-  const preview =
-    $("#story-image-preview");
-
-
-  if (!input || !preview) {
-    return;
-  }
-
-
-  input.addEventListener(
-    "input",
-    () => {
-
-      const url =
-        input.value.trim();
-
-
-      if (!url) {
-
-        preview.hidden =
-          true;
-
-        preview.removeAttribute(
-          "src"
-        );
-
-        return;
-
-      }
-
-
-      preview.src =
-        url;
-
-      preview.hidden =
-        false;
-
-
-      preview.onerror =
-        () => {
-
-          preview.hidden =
-            true;
-
-        };
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   READER MODAL
-========================================================= */
-
-function setupReaderModal() {
-
-  const closeButton =
-    $("#close-reader-modal");
-
-  const modal =
-    $("#reader-modal");
-
-
-  closeButton?.addEventListener(
-    "click",
-    closeReader
-  );
-
-
-  modal?.addEventListener(
-    "click",
-    event => {
-
-      if (
-        event.target === modal
-      ) {
-
-        closeReader();
-
-      }
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   KEYBOARD
-========================================================= */
-
-function setupKeyboard() {
 
   document.addEventListener(
     "keydown",
     event => {
 
       if (
-        event.key !== "Escape"
+        event.key !==
+        "Escape"
       ) {
         return;
       }
 
-
       closeReader();
 
+      closeGallery();
 
-      const submitModal =
-        $("#submit-story-modal");
+      closePlacements();
 
-
-      if (submitModal) {
-
-        submitModal.classList.remove(
-          "open"
+      document
+        .querySelectorAll(
+          ".modal-overlay.open"
+        )
+        .forEach(
+          modal =>
+            modal.classList.remove(
+              "open"
+            )
         );
-
-        submitModal.setAttribute(
-          "aria-hidden",
-          "true"
-        );
-
-      }
-
 
       document.body.style.overflow =
         "";
@@ -1731,27 +1777,22 @@ function setupKeyboard() {
 
 
 /* =========================================================
-   AUTH
+   AUTH STATE
 ========================================================= */
 
 function setupAuthListener() {
 
   try {
 
-    onAuthStateChange?.(
+    onAuthStateChange(
       () => {
 
-        /*
-          Authentication UI is controlled
-          by the shared navigation component.
-        */
+        loadStories();
 
       }
     );
 
-  }
-
-  catch (error) {
+  } catch (error) {
 
     console.warn(
       "Auth listener unavailable:",
@@ -1764,44 +1805,98 @@ function setupAuthListener() {
 
 
 /* =========================================================
-   INITIALIZE
+   INITIALIZATION
 ========================================================= */
 
 document.addEventListener(
   "DOMContentLoaded",
-  async () => {
+  () => {
 
     setupFilters();
 
-    setupHeroScroll();
+    setupSearch();
 
-    setupInformationAccordion();
+    setupHero();
 
-    setupSlider();
+    setupFeaturedStories();
 
-    setupPlacements();
+    setupStoryActions();
 
-    renderPlacements();
+    setupGallery();
 
-    setupSubmissionModal();
+    setupVideo();
 
-    setupImagePreview();
+    setupGazette();
 
-    setupReaderModal();
+    setupSpotlight();
 
-    setupKeyboard();
+    setupMilestones();
+
+    setupDonation();
+
+    setupSubmission();
+
+    setupModalEvents();
 
     setupAuthListener();
 
+    renderPlacements();
 
-    $("#story-body")
+
+    document
+      .getElementById(
+        "open-placement-directory"
+      )
       ?.addEventListener(
-        "input",
-        updateSubmissionStats
+        "click",
+        openPlacements
       );
 
 
-    await loadStories();
+    document
+      .getElementById(
+        "close-placement-directory"
+      )
+      ?.addEventListener(
+        "click",
+        closePlacements
+      );
+
+
+    document
+      .getElementById(
+        "close-reader-modal"
+      )
+      ?.addEventListener(
+        "click",
+        closeReader
+      );
+
+
+    loadStories();
+
+  }
+);
+
+
+/* =========================================================
+   BROWSER BACK BUTTON
+========================================================= */
+
+window.addEventListener(
+  "popstate",
+  () => {
+
+    if (
+      location.hash !==
+      "#placements"
+    ) {
+
+      document.body.classList.remove(
+        "placements-open"
+      );
+
+    }
 
   }
 );
