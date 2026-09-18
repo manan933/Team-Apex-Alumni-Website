@@ -1,6 +1,6 @@
 /* =========================================================
    GIET ALUMNI GAZETTE & NEWS STYLESHEET
-   Full Layout, Scroll Animations, High-Contrast Typography & Gallery Modal
+   High-Contrast Typography, Smooth CSS Animations & Gallery Modal
 ========================================================= */
 
 /* ---------------------------------------------------------
@@ -86,7 +86,7 @@ ol.trending-list,
 }
 
 /* ---------------------------------------------------------
-   GLOBAL BODY & SMOOTH SCROLL
+   GLOBAL BODY & BASE VISIBILITY (NEVER HIDDEN)
 --------------------------------------------------------- */
 html {
   scroll-behavior: smooth;
@@ -99,6 +99,8 @@ body {
   line-height: 1.65;
   margin: 0;
   padding: 0;
+  opacity: 1 !important;
+  visibility: visible !important;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -106,6 +108,13 @@ body {
 main {
   width: 100%;
   overflow-x: hidden;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+section {
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 img {
@@ -123,12 +132,12 @@ button {
 }
 
 /* ---------------------------------------------------------
-   PAGE ENTRANCE & SCROLL REVEAL ANIMATIONS
+   PAGE ENTRANCE & HOVER ANIMATIONS (PURE CSS)
 --------------------------------------------------------- */
 @keyframes heroFadeUp {
   0% {
     opacity: 0;
-    transform: translateY(34px);
+    transform: translateY(28px);
   }
   100% {
     opacity: 1;
@@ -146,24 +155,19 @@ button {
 }
 
 .animate-enter {
-  animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .hero-scroll-btn {
   animation: heroGlowPulse 3s infinite ease-in-out;
 }
 
-/* Scroll reveal class with buttery smooth upward glide */
+/* Always visible with gentle transition on scroll */
 .reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-.reveal-on-scroll.is-visible {
   opacity: 1 !important;
-  transform: translateY(0) !important;
+  visibility: visible !important;
+  transform: none !important;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 /* ---------------------------------------------------------
@@ -172,7 +176,9 @@ button {
 .news-section {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 80px 24px;
+  padding: 70px 24px;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .section-heading {
@@ -253,7 +259,7 @@ button {
 .news-hero {
   background: linear-gradient(135deg, var(--bg-navy) 0%, var(--bg-navy-dark) 100%);
   color: var(--text-heading-light);
-  padding: 110px 24px 100px;
+  padding: 100px 24px 90px;
   position: relative;
   overflow: hidden;
   border-bottom: 4px solid var(--gold-rich);
@@ -499,7 +505,7 @@ button {
   cursor: pointer;
   background: var(--bg-navy);
   box-shadow: var(--shadow-md);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
 }
 
 .featured-main:hover {

@@ -14,6 +14,44 @@ import {
 
 
 /* =========================================================
+   FALLBACK INITIAL DEMO STORIES (ALWAYS POPULATED)
+========================================================= */
+
+const defaultEditorialStories = [
+  {
+    id: "story-101",
+    title: "From Campus Hackathon to Series-A: The AgroGrid Robotics Journey",
+    category: "Achievement",
+    excerpt: "How four third-year roommates combined autonomous drones with micro-sensor grids to revolutionize crop yields across 800 rural districts.",
+    body: "When we initially configured our first prototype in Lab 4 during our fifth semester, we faced dozens of hardware bottlenecks. With constant mentorship from GIET faculty and our alumni mentors in Bengaluru, we iterated until the telemetry was sub-millimeter accurate. Today, our company has scaled into a full-fledged enterprise with over 45 full-time engineers.",
+    authorName: "Subhashree Ray",
+    authorUid: "usr-101",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    id: "story-102",
+    title: "Scaling Distributed Cloud Microservices at Microsoft",
+    category: "Career",
+    excerpt: "Reflections on navigating early-career software engineering, distributed systems, and the mental frameworks acquired during college.",
+    body: "Stepping into Microsoft's cloud infrastructure team was an exhilarating shift. The rigorous foundations in algorithms, database design, and hands-on laboratory exercises at GIET University gave me the exact technical resilience required to maintain 99.999% uptime services.",
+    authorName: "Aarav Das",
+    authorUid: "usr-102",
+    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    id: "story-103",
+    title: "10,000 Sq. Ft. High-Performance AI Compute Center Inaugurated",
+    category: "Campus",
+    excerpt: "University leadership and distinguished alumni formally open state-of-the-art AI cluster equipped with enterprise NVIDIA accelerators.",
+    body: "GIET University has achieved yet another benchmark in technical infrastructure. The new AI research cluster enables postgraduate fellows and undergraduate researchers to simulate large language models and biomedical neural networks right here on campus.",
+    authorName: "GIET Editorial Board",
+    authorUid: "admin",
+    image: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1200&q=80"
+  }
+];
+
+
+/* =========================================================
    DEMO PLACEMENT DATA
 ========================================================= */
 
@@ -182,7 +220,7 @@ function scrollToId(id) {
    STORY RENDERING
 ========================================================= */
 
-let allStories = [];
+let allStories = [...defaultEditorialStories];
 let activeCategory = "all";
 let searchTerm = "";
 
@@ -357,7 +395,7 @@ function renderStories() {
   grid.innerHTML = filtered.map(
     story => {
 
-      const id = story.id || story.createdAt;
+      const id = story.id || story.createdAt || Math.random().toString();
 
       const saved = getSavedStories()
         .includes(id);
@@ -507,7 +545,7 @@ function renderStories() {
 
 
 /* =========================================================
-   LOAD STORIES
+   LOAD STORIES (WITH AUTO-MERGE)
 ========================================================= */
 
 async function loadStories() {
@@ -517,20 +555,22 @@ async function loadStories() {
     const result =
       await getSubmissions("approved");
 
-    allStories = Array.isArray(result)
-      ? result
-      : [];
+    if (Array.isArray(result) && result.length > 0) {
+      allStories = [...result, ...defaultEditorialStories];
+    } else {
+      allStories = [...defaultEditorialStories];
+    }
 
     renderStories();
 
   } catch (error) {
 
-    console.error(
-      "Unable to load stories:",
+    console.warn(
+      "Using default editorial stories:",
       error
     );
 
-    allStories = [];
+    allStories = [...defaultEditorialStories];
 
     renderStories();
 
@@ -1758,61 +1798,6 @@ function setupSubmissionForm() {
 
 
 /* =========================================================
-   SCROLL REVEAL OBSERVER + INSTANT SAFETY BACKUP
-========================================================= */
-
-function setupScrollReveal() {
-
-  const elements =
-    document.querySelectorAll(
-      ".reveal-on-scroll"
-    );
-
-  if (!("IntersectionObserver" in window)) {
-
-    elements.forEach(
-      el => el.classList.add("is-visible")
-    );
-
-    return;
-  }
-
-  const observer = new IntersectionObserver(
-    (entries, obs) => {
-
-      entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-          entry.target.classList.add(
-            "is-visible"
-          );
-
-          obs.unobserve(entry.target);
-
-        }
-
-      });
-
-    },
-    {
-      root: null,
-      threshold: 0.08,
-      rootMargin: "0px 0px -20px 0px"
-    }
-  );
-
-  elements.forEach(el => observer.observe(el));
-
-  // Safety fallback: reveal immediately after 300ms if not triggered yet
-  setTimeout(() => {
-    elements.forEach(el => el.classList.add("is-visible"));
-  }, 350);
-
-}
-
-
-/* =========================================================
    DEFENSIVE CLEANUP OF ANY STRAY NUMBER SPANS
 ========================================================= */
 
@@ -1968,8 +1953,6 @@ document.addEventListener(
     setupModalEvents();
 
     setupAuthListener();
-
-    setupScrollReveal();
 
     renderPlacements();
 
