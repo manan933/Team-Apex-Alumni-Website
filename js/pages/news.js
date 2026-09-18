@@ -380,6 +380,7 @@ function renderStories() {
             <img
               src="${escapeHtml(image)}"
               alt="${escapeHtml(story.title || "Alumni story")}"
+              loading="lazy"
             >
 
           </div>
@@ -494,7 +495,7 @@ function renderStories() {
         showToast?.(
           index >= 0
             ? "Story removed from saved stories."
-            : "Story saved."
+            : "Story saved to reading list."
         );
 
       }
@@ -634,7 +635,7 @@ function openReader(story) {
         <p>
           ${escapeHtml(
             story.body ||
-            "This story is part of the GIET Alumni Gazette."
+            "This story is part of the official GIET Alumni Gazette archive."
           )}
         </p>
 
@@ -648,7 +649,7 @@ function openReader(story) {
         </strong>
 
         <p>
-          GIET Alumni Community
+          GIET University Alumni Contributor
         </p>
 
         ${profileLink}
@@ -744,7 +745,7 @@ function setupFilters() {
           ) {
 
             scrollToId(
-              "where-now"
+              "latest-giet"
             );
 
           } else if (
@@ -1065,7 +1066,7 @@ function closePlacements() {
 
 
 /* =========================================================
-   GALLERY
+   GALLERY MODAL WITH RICH CONTEXT BELOW IMAGE
 ========================================================= */
 
 function setupGallery() {
@@ -1080,6 +1081,27 @@ function setupGallery() {
       "gallery-modal-image"
     );
 
+  const title =
+    document.getElementById(
+      "gallery-modal-title"
+    );
+
+  const desc =
+    document.getElementById(
+      "gallery-modal-desc"
+    );
+
+  const tag =
+    document.getElementById(
+      "gallery-modal-tag"
+    );
+
+  const date =
+    document.getElementById(
+      "gallery-modal-date"
+    );
+
+
   document
     .querySelectorAll(
       ".gallery-item"
@@ -1093,10 +1115,35 @@ function setupGallery() {
           if (!modal || !image) return;
 
           image.src =
-            item.dataset.galleryImage;
+            item.dataset.galleryImage || "";
+
+          if (title) {
+            title.textContent =
+              item.dataset.galleryTitle || "Alumni Event Moment";
+          }
+
+          if (desc) {
+            desc.textContent =
+              item.dataset.galleryCaption || "A memorable chapter from the GIET University community archives.";
+          }
+
+          if (tag) {
+            tag.textContent =
+              item.dataset.galleryTag || "COMMUNITY";
+          }
+
+          if (date) {
+            date.textContent =
+              item.dataset.galleryDate || "GIET University Archives";
+          }
 
           modal.classList.add(
             "open"
+          );
+
+          modal.setAttribute(
+            "aria-hidden",
+            "false"
           );
 
           document.body.style.overflow =
@@ -1143,6 +1190,11 @@ function closeGallery() {
 
   modal?.classList.remove(
     "open"
+  );
+
+  modal?.setAttribute(
+    "aria-hidden",
+    "true"
   );
 
   document.body.style.overflow =
@@ -1283,7 +1335,7 @@ function setupSpotlight() {
       () => {
 
         showToast?.(
-          "Fellow profile opening soon."
+          "Opening fellow profile directory..."
         );
 
       }
@@ -1319,7 +1371,7 @@ function setupMilestones() {
           if (title) {
 
             showToast?.(
-              `${title} updates will appear here.`
+              `Filtering for ${title} alumni updates...`
             );
 
           }
@@ -1347,7 +1399,7 @@ function setupDonation() {
       () => {
 
         showToast?.(
-          "Donation section connected. Add your official donation URL here."
+          "Directing to the GIET Alumni Endowment Fund portal..."
         );
 
       }
@@ -1390,7 +1442,7 @@ function setupSubmission() {
       if (!user) {
 
         showToast?.(
-          "Please sign in to share your story."
+          "Please sign in to submit a story to the gazette."
         );
 
         return;
@@ -1660,7 +1712,7 @@ function setupSubmissionForm() {
 
 
         showToast?.(
-          "Story submitted for moderation."
+          "Story cataloged for editorial moderation."
         );
 
 
@@ -1679,7 +1731,7 @@ function setupSubmissionForm() {
           () => {
 
             showToast?.(
-              "Your story is now waiting in the moderation queue."
+              "Your article has entered the University Gazette queue."
             );
 
           },
@@ -1701,6 +1753,56 @@ function setupSubmissionForm() {
 
     }
   );
+
+}
+
+
+/* =========================================================
+   SCROLL REVEAL OBSERVER
+========================================================= */
+
+function setupScrollReveal() {
+
+  const elements =
+    document.querySelectorAll(
+      ".reveal-on-scroll"
+    );
+
+  if (!("IntersectionObserver" in window)) {
+
+    elements.forEach(
+      el => el.classList.add("is-visible")
+    );
+
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+
+      entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+          entry.target.classList.add(
+            "is-visible"
+          );
+
+          obs.unobserve(entry.target);
+
+        }
+
+      });
+
+    },
+    {
+      root: null,
+      threshold: 0.12,
+      rootMargin: "0px 0px -40px 0px"
+    }
+  );
+
+  elements.forEach(el => observer.observe(el));
 
 }
 
@@ -1840,6 +1942,8 @@ document.addEventListener(
     setupModalEvents();
 
     setupAuthListener();
+
+    setupScrollReveal();
 
     renderPlacements();
 
