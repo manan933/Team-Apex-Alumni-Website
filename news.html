@@ -1,2466 +1,1847 @@
-/* =========================================================
-   GIET ALUMNI GAZETTE & NEWS STYLESHEET
-   High-Contrast Typography, Smooth CSS Animations & Gallery Modal
-========================================================= */
-
-/* ---------------------------------------------------------
-   DESIGN TOKENS & COLOR SYSTEM (HIGH CONTRAST)
---------------------------------------------------------- */
-:root {
-  /* Typography Scale */
-  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
-  --font-ui: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-label: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-crest: "Cinzel", Georgia, serif;
-
-  /* Surface & Background Colors */
-  --bg-page: #FAF8F4;              /* Institutional Warm Ivory Cream */
-  --bg-surface: #FFFFFF;           /* Crisp Card White */
-  --bg-surface-tint: #F3EFE6;      /* Subtle Parchment Tone */
-  --bg-navy: #0B192C;              /* Oxford Collegiate Navy */
-  --bg-navy-dark: #050E1A;         /* Midnight Black Navy */
-  --bg-navy-card: #122138;
-
-  /* Text Colors — High Contrast, NEVER Blends With Background */
-  --text-heading-dark: #0B192C;    /* Sharp 16:1 contrast on ivory/white */
-  --text-body-dark: #2B3545;       /* Ultra-readable dark charcoal */
-  --text-muted-dark: #4B5565;      /* High contrast secondary */
-
-  --text-heading-light: #FFFFFF;   /* Clear white on dark backgrounds */
-  --text-body-light: #F1F5F9;      /* Off-white reading text */
-  --text-muted-light: #CBD5E1;     /* High contrast subtext on dark */
-
-  /* Distinct Accent Hues */
-  --gold-rich: #9A6A12;            /* Deep antique amber gold (light surfaces) */
-  --gold-bright: #FBBF24;          /* Radiant golden yellow (dark surfaces) */
-  --gold-glow: #FDE68A;
-  
-  --blue-rich: #1E40AF;            /* Royal Oxford Blue */
-  --blue-badge-bg: #EFF6FF;
-  --blue-badge-border: #BFDBFE;
-
-  --green-rich: #065F46;           /* Academic Emerald */
-  --green-badge-bg: #ECFDF5;
-  --green-badge-border: #A7F3D0;
-
-  --burgundy-rich: #831843;        /* Heritage Crimson */
-  --burgundy-badge-bg: #FDF2F8;
-  --burgundy-badge-border: #FBCFE8;
-
-  /* Borders & Shadows */
-  --border-light: rgba(11, 25, 44, 0.1);
-  --border-card: #E6DFD2;
-  --shadow-sm: 0 2px 8px rgba(11, 25, 44, 0.05);
-  --shadow-md: 0 10px 24px rgba(11, 25, 44, 0.08);
-  --shadow-lg: 0 20px 48px rgba(11, 25, 44, 0.14);
-  --shadow-hover: 0 16px 36px rgba(11, 25, 44, 0.13);
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-full: 9999px;
-}
-
-/* ---------------------------------------------------------
-   GUARANTEED PURGE OF NUMBERS ON LEFT OF HEADINGS / CARDS
---------------------------------------------------------- */
-.section-heading > div > span:not(.heading-badge),
-.section-heading::before,
-.section-heading > div::before,
-.slide-number,
-.small-overlay > span:first-child,
-.milestone-image > span:not(.milestone-badge),
-.trending-panel li > span {
-  display: none !important;
-  visibility: hidden !important;
-  width: 0 !important;
-  height: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  opacity: 0 !important;
-}
-
-ol.trending-list,
-.trending-panel ol {
-  list-style: none !important;
-  list-style-type: none !important;
-}
-
-/* ---------------------------------------------------------
-   GLOBAL BODY & BASE VISIBILITY
---------------------------------------------------------- */
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: var(--bg-page);
-  color: var(--text-body-dark);
-  font-family: var(--font-ui);
-  line-height: 1.65;
-  margin: 0;
-  padding: 0;
-  opacity: 1 !important;
-  visibility: visible !important;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-main {
-  width: 100%;
-  overflow-x: hidden;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-section {
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  font-family: inherit;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* ---------------------------------------------------------
-   PAGE ENTRANCE & HOVER ANIMATIONS
---------------------------------------------------------- */
-@keyframes heroFadeUp {
-  0% {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes heroGlowPulse {
-  0%, 100% {
-    box-shadow: 0 8px 24px rgba(251, 191, 36, 0.35);
-  }
-  50% {
-    box-shadow: 0 12px 32px rgba(251, 191, 36, 0.6);
-  }
-}
-
-.animate-enter {
-  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.hero-scroll-btn {
-  animation: heroGlowPulse 3s infinite ease-in-out;
-}
-
-/* ---------------------------------------------------------
-   SCROLL REVEAL ANIMATIONS (INTERSECTION OBSERVER)
---------------------------------------------------------- */
-.scroll-reveal {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-.scroll-reveal.revealed {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-}
-
-.delay-1 { transition-delay: 0.1s; }
-.delay-2 { transition-delay: 0.2s; }
-.delay-3 { transition-delay: 0.3s; }
-.delay-4 { transition-delay: 0.4s; }
-
-/* ---------------------------------------------------------
-   SECTION HEADINGS & INFORMATIVE DECKS (NO LEFT NUMBERS)
---------------------------------------------------------- */
-.news-section {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 70px 24px;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-.section-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  border-bottom: 2px solid var(--border-light);
-  padding-bottom: 22px;
-  margin-bottom: 44px;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.heading-title-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: flex-start;
-}
-
-.section-heading h2 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: clamp(2.1rem, 3.5vw, 2.7rem);
-  font-weight: 500;
-  margin: 0;
-  letter-spacing: -0.035em;
-  position: relative;
-}
-
-.section-heading h2::after {
-  content: "";
-  position: absolute;
-  bottom: -24px;
-  left: 0;
-  width: 54px;
-  height: 3px;
-  background: var(--gold-rich);
-}
-
-.heading-badge {
-  font-family: var(--font-label);
-  background: #FEF3C7;
-  color: var(--gold-rich);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 4px 12px;
-  border-radius: var(--radius-sm);
-  border: 1px solid #FCD34D;
-}
-
-.heading-description {
-  font-family: var(--font-ui);
-  color: var(--text-muted-dark);
-  font-size: 1.02rem;
-  line-height: 1.6;
-  margin: 0;
-  font-weight: 500;
-  max-width: 540px;
-}
-
-.eyebrow {
-  font-family: var(--font-label);
-  color: var(--gold-rich);
-  font-weight: 800;
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  display: inline-block;
-  margin-bottom: 10px;
-}
-
-/* ---------------------------------------------------------
-   HERO SECTION
---------------------------------------------------------- */
-.news-hero {
-  background: linear-gradient(135deg, var(--bg-navy) 0%, var(--bg-navy-dark) 100%);
-  color: var(--text-heading-light);
-  padding: 100px 24px 90px;
-  position: relative;
-  overflow: hidden;
-  border-bottom: 4px solid var(--gold-rich);
-}
-
-.news-hero .hero-copy {
-  max-width: 960px;
-  margin: 0 auto;
-  text-align: center;
-  position: relative;
-  z-index: 2;
-}
-
-.hero-label {
-  font-family: var(--font-label);
-  color: var(--gold-bright);
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  margin-bottom: 18px;
-}
-
-.hero-copy h1 {
-  font-family: var(--font-display);
-  color: #FFFFFF !important;
-  font-size: clamp(2.8rem, 5.8vw, 4.6rem);
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.04em;
-  margin: 0 0 24px;
-}
-
-.hero-copy h1 em {
-  font-family: var(--font-display);
-  color: var(--gold-bright) !important;
-  font-style: italic;
-  font-weight: 500;
-}
-
-.hero-intro {
-  font-family: var(--font-ui);
-  color: var(--text-body-light);
-  font-size: 1.2rem;
-  max-width: 720px;
-  margin: 0 auto 36px;
-  line-height: 1.65;
-}
-
-.hero-scroll-btn {
-  font-family: var(--font-label);
-  background: var(--gold-bright);
-  color: var(--bg-navy);
-  font-weight: 800;
-  font-size: 0.95rem;
-  padding: 14px 34px;
-  border-radius: var(--radius-full);
-  display: inline-block;
-}
-
-.hero-scroll-btn:hover {
-  transform: translateY(-3px) scale(1.02);
-  background: #FCD34D;
-}
-
-.hero-stats-strip {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 48px;
-  padding: 16px 24px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-full);
-  backdrop-filter: blur(10px);
-  flex-wrap: wrap;
-}
-
-.stat-pill {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-}
-
-.stat-pill strong {
-  font-family: var(--font-display);
-  color: var(--gold-bright);
-  font-size: 1.15rem;
-  font-weight: 700;
-}
-
-.stat-pill span {
-  font-family: var(--font-label);
-  color: var(--text-muted-light);
-  font-size: 0.82rem;
-  font-weight: 600;
-}
-
-.stat-divider {
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 1.2rem;
-}
-
-.hero-decoration {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  gap: 40px;
-  font-family: var(--font-crest);
-  font-size: clamp(4rem, 14vw, 13rem);
-  font-weight: 800;
-  color: rgba(255, 255, 255, 0.03);
-  letter-spacing: 0.1em;
-  user-select: none;
-  pointer-events: none;
-  z-index: 1;
-  white-space: nowrap;
-}
-
-/* ---------------------------------------------------------
-   SEARCH & FILTER TOOLBAR
---------------------------------------------------------- */
-.news-toolbar {
-  max-width: 1280px;
-  margin: -36px auto 40px;
-  padding: 0 24px;
-  position: relative;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.news-search {
-  position: relative;
-  width: 100%;
-}
-
-.search-icon {
-  position: absolute;
-  left: 22px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.3rem;
-  color: var(--text-muted-dark);
-  pointer-events: none;
-}
-
-.news-search input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 18px 20px 18px 58px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-md);
-  font-family: var(--font-ui);
-  font-size: 1rem;
-  color: var(--text-heading-dark);
-  font-weight: 500;
-  box-shadow: var(--shadow-md);
-  outline: none;
-  transition: all 0.25s ease;
-}
-
-.news-search input:focus {
-  border-color: var(--bg-navy);
-  box-shadow: 0 0 0 4px rgba(11, 25, 44, 0.12);
-}
-
-.news-search input::placeholder {
-  color: #8C94A0;
-}
-
-.filter-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-}
-
-.filter-btn {
-  font-family: var(--font-label);
-  background: var(--bg-surface);
-  color: var(--text-heading-dark);
-  border: 1px solid var(--border-card);
-  padding: 9px 18px;
-  border-radius: var(--radius-full);
-  font-size: 0.88rem;
-  font-weight: 700;
-  transition: all 0.2s ease;
-}
-
-.filter-btn:hover {
-  border-color: var(--gold-rich);
-  color: var(--gold-rich);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-}
-
-.filter-btn.active {
-  background: var(--bg-navy);
-  color: #FFFFFF;
-  border-color: var(--bg-navy);
-  box-shadow: 0 6px 14px rgba(11, 25, 44, 0.22);
-}
-
-.share-story-btn {
-  font-family: var(--font-label);
-  align-self: flex-start;
-  background: var(--bg-navy);
-  color: var(--gold-bright);
-  border: 1px solid rgba(251, 191, 36, 0.4);
-  font-weight: 800;
-  font-size: 0.9rem;
-  padding: 12px 26px;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-}
-
-.share-story-btn:hover {
-  background: var(--bg-navy-dark);
-  border-color: var(--gold-bright);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(11, 25, 44, 0.25);
-}
-
-/* ---------------------------------------------------------
-   FEATURED STORIES SECTION
---------------------------------------------------------- */
-.featured-layout {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 30px;
-}
-
-.featured-main {
-  position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  cursor: pointer;
-  background: var(--bg-navy);
-  box-shadow: var(--shadow-md);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
-}
-
-.featured-main:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
-}
-
-.featured-image {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 520px;
-}
-
-.featured-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.featured-main:hover .featured-image img {
-  transform: scale(1.04);
-}
-
-.slide-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(11, 25, 44, 0.1) 0%, rgba(11, 25, 44, 0.86) 60%, rgba(11, 25, 44, 0.98) 100%);
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  color: #FFFFFF;
-}
-
-.featured-tag {
-  font-family: var(--font-label);
-  background: #FEF3C7;
-  color: var(--gold-rich);
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  padding: 5px 12px;
-  border-radius: 4px;
-  display: inline-block;
-  margin-bottom: 14px;
-  border: 1px solid #FCD34D;
-}
-
-.slide-overlay-content h3 {
-  font-family: var(--font-display);
-  color: #FFFFFF !important;
-  font-size: clamp(1.8rem, 2.6vw, 2.3rem);
-  font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: -0.025em;
-  margin: 0 0 14px;
-}
-
-.slide-overlay-content p {
-  font-family: var(--font-ui);
-  color: var(--text-body-light) !important;
-  font-size: 1.02rem;
-  margin: 0 0 16px;
-  max-width: 600px;
-  line-height: 1.6;
-}
-
-.featured-byline {
-  font-family: var(--font-label);
-  font-size: 0.82rem;
-  color: var(--gold-bright);
-  margin-bottom: 14px;
-  font-weight: 600;
-}
-
-.slide-overlay-content strong {
-  font-family: var(--font-label);
-  color: var(--gold-bright) !important;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: transform 0.2s ease;
-}
-
-.featured-main:hover .slide-overlay-content strong {
-  transform: translateX(5px);
-}
-
-.featured-side {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.featured-small {
-  position: relative;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  height: 248px;
-  cursor: pointer;
-  box-shadow: var(--shadow-md);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-.featured-small:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
-}
-
-.featured-small img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.featured-small:hover img {
-  transform: scale(1.06);
-}
-
-.small-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(11, 25, 44, 0.1) 0%, rgba(11, 25, 44, 0.88) 65%, rgba(11, 25, 44, 0.98) 100%);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  color: #FFFFFF;
-}
-
-.small-overlay small {
-  font-family: var(--font-label);
-  color: var(--gold-bright) !important;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  display: block;
-  margin-bottom: 6px;
-}
-
-.small-overlay h3 {
-  font-family: var(--font-display);
-  color: #FFFFFF !important;
-  font-size: 1.22rem;
-  font-weight: 500;
-  line-height: 1.35;
-  margin: 0 0 6px;
-}
-
-.small-excerpt {
-  font-family: var(--font-ui);
-  color: var(--text-muted-light);
-  font-size: 0.88rem;
-  margin: 0;
-  line-height: 1.45;
-}
-
-/* ---------------------------------------------------------
-   PLACEMENT HIGHLIGHT SECTION
---------------------------------------------------------- */
-.placement-spotlight {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 70px 24px;
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 48px;
-  align-items: center;
-}
-
-.placement-spotlight-copy h2 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
-  font-weight: 500;
-  line-height: 1.18;
-  margin: 10px 0 16px;
-}
-
-.placement-spotlight-copy h2 em {
-  color: var(--gold-rich);
-  font-style: italic;
-}
-
-.placement-spotlight-copy p {
-  font-family: var(--font-ui);
-  color: var(--text-muted-dark);
-  font-size: 1.05rem;
-  margin: 0 0 24px;
-  max-width: 520px;
-}
-
-.placement-key-metrics {
-  display: flex;
-  gap: 24px;
-  margin-bottom: 24px;
-  padding: 16px 0;
-  border-top: 1px solid var(--border-light);
-  border-bottom: 1px solid var(--border-light);
-}
-
-.metric-item strong {
-  font-family: var(--font-display);
-  color: var(--blue-rich);
-  font-size: 1.4rem;
-  display: block;
-}
-
-.metric-item span {
-  font-family: var(--font-label);
-  color: var(--text-muted-dark);
-  font-size: 0.78rem;
-  font-weight: 600;
-}
-
-.recruiter-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 28px;
-}
-
-.recruiter-tags span {
-  font-family: var(--font-label);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-card);
-  color: var(--text-heading-dark);
-  font-size: 0.8rem;
-  font-weight: 700;
-  padding: 5px 12px;
-  border-radius: var(--radius-sm);
-}
-
-#open-placement-directory {
-  font-family: var(--font-label);
-  background: var(--bg-navy);
-  color: #FFFFFF;
-  font-weight: 700;
-  padding: 14px 28px;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-}
-
-#open-placement-directory:hover {
-  background: #182C48;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.placement-highlight-card {
-  background: var(--bg-surface);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-card);
-  transition: transform 0.35s ease;
-}
-
-.placement-highlight-card:hover {
-  transform: translateY(-5px);
-}
-
-.placement-highlight-image {
-  position: relative;
-  height: 280px;
-}
-
-.placement-highlight-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.placement-package {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  background: var(--green-rich);
-  color: #FFFFFF;
-  font-family: var(--font-label);
-  font-weight: 800;
-  font-size: 1rem;
-  padding: 6px 16px;
-  border-radius: var(--radius-full);
-  box-shadow: 0 4px 12px rgba(6, 95, 70, 0.35);
-}
-
-.placement-highlight-content {
-  padding: 28px;
-}
-
-.placement-highlight-content > span {
-  font-family: var(--font-label);
-  color: var(--gold-rich);
-  font-weight: 800;
-  font-size: 0.74rem;
-  letter-spacing: 0.16em;
-}
-
-.placement-highlight-content h3 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: 1.75rem;
-  font-weight: 600;
-  margin: 6px 0 4px;
-}
-
-.placement-highlight-content p {
-  font-family: var(--font-ui);
-  color: var(--text-muted-dark);
-  font-size: 0.95rem;
-  margin: 0 0 10px;
-}
-
-.role-designation {
-  font-family: var(--font-ui);
-  color: var(--text-body-dark);
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-.placement-highlight-content strong {
-  font-family: var(--font-label);
-  color: var(--blue-rich);
-  font-size: 1.25rem;
-  font-weight: 800;
-  display: block;
-}
-
-/* ---------------------------------------------------------
-   LATEST FROM GIET & NEWS GRID
---------------------------------------------------------- */
-.latest-layout {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 36px;
-}
-
-.news-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-  gap: 26px;
-}
-
-.news-empty {
-  grid-column: 1 / -1;
-  background: var(--bg-surface);
-  border: 1px dashed var(--border-card);
-  border-radius: var(--radius-md);
-  padding: 60px 24px;
-  text-align: center;
-}
-
-.news-empty h3 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: 1.5rem;
-  margin: 0 0 8px;
-}
-
-.news-empty p {
-  color: var(--text-muted-dark);
-  margin: 0;
-}
-
-.news-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.news-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-hover);
-  border-color: #D1C7B7;
-}
-
-.news-card-image {
-  height: 190px;
-  overflow: hidden;
-  background: var(--bg-surface-tint);
-}
-
-.news-card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.news-card:hover .news-card-image img {
-  transform: scale(1.07);
-}
-
-.news-card-content {
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.news-card-content small {
-  font-family: var(--font-label);
-  color: var(--gold-rich);
-  font-weight: 800;
-  font-size: 0.74rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-  display: block;
-}
-
-.news-card-content h3 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: 1.3rem;
-  font-weight: 600;
-  line-height: 1.35;
-  margin: 0 0 10px;
-  letter-spacing: -0.02em;
-  transition: color 0.2s ease;
-}
-
-.news-card:hover .news-card-content h3 {
-  color: var(--blue-rich);
-}
-
-.news-card-content p {
-  font-family: var(--font-ui);
-  color: var(--text-body-dark);
-  font-size: 0.94rem;
-  line-height: 1.6;
-  margin: 0 0 18px;
-  flex: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.save-story {
-  font-family: var(--font-label);
-  align-self: flex-start;
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--text-muted-dark);
-  padding: 5px 12px;
-  border-radius: var(--radius-sm);
-  background: var(--bg-surface-tint);
-  border: 1px solid var(--border-card);
-  transition: all 0.2s ease;
-}
-
-.save-story:hover {
-  color: var(--burgundy-rich);
-  border-color: var(--burgundy-badge-border);
-  transform: scale(1.05);
-}
-
-.save-story.active {
-  background: #FDF2F8;
-  color: var(--burgundy-rich);
-  border-color: var(--burgundy-badge-border);
-}
-
-/* ---------------------------------------------------------
-   TRENDING INSIGHTS PANEL (NO NUMBERS)
---------------------------------------------------------- */
-.trending-panel {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-lg);
-  padding: 32px;
-  box-shadow: var(--shadow-md);
-  height: fit-content;
-}
-
-.trending-title {
-  font-family: var(--font-label);
-  color: var(--gold-rich);
-  font-weight: 800;
-  font-size: 0.8rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  border-bottom: 2px solid var(--border-light);
-  padding-bottom: 14px;
-  margin-bottom: 22px;
-}
-
-.trending-panel ol {
-  list-style: none !important;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.trending-panel li {
-  border-bottom: 1px solid var(--border-light);
-  padding-bottom: 16px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.trending-panel li:hover {
-  transform: translateX(4px);
-}
-
-.trending-panel li:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.trending-panel li p {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: 1.08rem;
-  font-weight: 500;
-  margin: 0 0 4px;
-  line-height: 1.4;
-  transition: color 0.2s ease;
-}
-
-.trending-panel li:hover p {
-  color: var(--blue-rich);
-}
-
-.trending-panel li small {
-  font-family: var(--font-label);
-  color: var(--text-muted-dark);
-  font-size: 0.78rem;
-  font-weight: 600;
-}
-
-/* ---------------------------------------------------------
-   IMAGE STORY CARDS (STORIES, ESSAYS, BREAKTHROUGHS)
---------------------------------------------------------- */
-.image-story-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 32px;
-}
-
-.image-story-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
-}
-
-.image-story-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-hover);
-}
-
-.image-story-image {
-  position: relative;
-  height: 230px;
-}
-
-.image-story-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.image-story-card:hover .image-story-image img {
-  transform: scale(1.06);
-}
-
-.card-badge {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  font-family: var(--font-label);
-  background: var(--bg-navy);
-  color: #FFFFFF;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  padding: 5px 12px;
-  border-radius: var(--radius-sm);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-}
-
-.image-story-content {
-  padding: 26px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.image-story-content small {
-  font-family: var(--font-label);
-  color: var(--gold-rich);
-  font-weight: 800;
-  font-size: 0.76rem;
-  letter-spacing: 0.14em;
-  margin-bottom: 8px;
-}
-
-.image-story-content h3 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: 1.48rem;
-  font-weight: 600;
-  line-height: 1.3;
-  margin: 0 0 12px;
-  letter-spacing: -0.02em;
-}
-
-.image-story-content p {
-  font-family: var(--font-ui);
-  color: var(--text-body-dark);
-  font-size: 0.96rem;
-  line-height: 1.7;
-  margin: 0 0 22px;
-  flex: 1;
-}
-
-.story-action {
-  font-family: var(--font-label);
-  color: var(--blue-rich);
-  font-weight: 800;
-  font-size: 0.9rem;
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.story-action:hover {
-  text-decoration: underline;
-  transform: translateX(4px);
-}
-
-/* Breakthrough Section Color Accents */
-#breakthroughs .image-story-content small {
-  color: var(--burgundy-rich);
-}
-
-#breakthroughs .story-action {
-  color: var(--burgundy-rich);
-}
-
-/* ---------------------------------------------------------
-   ALUMNI SPOTLIGHT SECTION
---------------------------------------------------------- */
-.spotlight-section {
-  max-width: 1280px;
-  margin: 50px auto;
-  padding: 0 24px;
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 54px;
-  align-items: center;
-}
-
-.spotlight-image {
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  height: 500px;
-}
-
-.spotlight-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.spotlight-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.spotlight-content h2 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: clamp(2.4rem, 4vw, 3.4rem);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  margin: 6px 0 8px;
-}
-
-.spotlight-content h3 {
-  font-family: var(--font-ui);
-  color: var(--blue-rich);
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin: 0 0 6px;
-}
-
-.spotlight-role {
-  font-family: var(--font-label);
-  color: var(--gold-rich);
-  font-weight: 800;
-  font-size: 0.88rem;
-  letter-spacing: 0.1em;
-  margin: 0 0 24px;
-}
-
-.spotlight-content blockquote {
-  font-family: var(--font-display);
-  color: var(--burgundy-rich);
-  font-style: italic;
-  font-size: 1.4rem;
-  line-height: 1.6;
-  margin: 0 0 28px;
-  padding-left: 24px;
-  border-left: 4px solid var(--gold-rich);
-}
-
-.spotlight-achievements {
-  display: flex;
-  gap: 24px;
-  margin-bottom: 28px;
-  padding: 16px 0;
-  border-top: 1px solid var(--border-light);
-  border-bottom: 1px solid var(--border-light);
-  flex-wrap: wrap;
-}
-
-.spotlight-achievements strong {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: 1.25rem;
-  display: block;
-}
-
-.spotlight-achievements span {
-  font-family: var(--font-label);
-  color: var(--text-muted-dark);
-  font-size: 0.78rem;
-  font-weight: 600;
-}
-
-.spotlight-button {
-  font-family: var(--font-label);
-  align-self: flex-start;
-  background: var(--bg-navy);
-  color: #FFFFFF;
-  font-weight: 700;
-  padding: 14px 28px;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-}
-
-.spotlight-button:hover {
-  background: #182C48;
-  transform: translateY(-2px);
-}
-
-/* ---------------------------------------------------------
-   CAMPUS MILESTONES
---------------------------------------------------------- */
-.milestone-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 30px;
-}
-
-.milestone-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-.milestone-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
-}
-
-.milestone-image {
-  position: relative;
-  height: 210px;
-}
-
-.milestone-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.milestone-card:hover .milestone-image img {
-  transform: scale(1.05);
-}
-
-.milestone-badge {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  font-family: var(--font-label);
-  background: rgba(11, 25, 44, 0.88);
-  color: var(--gold-bright);
-  font-size: 0.72rem;
-  font-weight: 800;
-  padding: 5px 12px;
-  border-radius: 4px;
-  letter-spacing: 0.12em;
-}
-
-.milestone-content {
-  padding: 26px;
-}
-
-.milestone-content small {
-  font-family: var(--font-label);
-  color: var(--green-rich);
-  font-weight: 800;
-  font-size: 0.74rem;
-  letter-spacing: 0.14em;
-  display: block;
-  margin-bottom: 6px;
-}
-
-.milestone-content h3 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: 1.38rem;
-  font-weight: 600;
-  margin: 0 0 10px;
-  line-height: 1.35;
-}
-
-.milestone-content p {
-  font-family: var(--font-ui);
-  color: var(--text-body-dark);
-  font-size: 0.95rem;
-  margin: 0;
-  line-height: 1.65;
-}
-
-/* ---------------------------------------------------------
-   THIS WEEK IN ALUMNI NEWS
---------------------------------------------------------- */
-.weekly-news-section {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 60px 24px;
-}
-
-.weekly-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-}
-
-.weekly-item {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-md);
-  padding: 26px 18px;
-  text-align: center;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.weekly-item:hover {
-  transform: translateY(-5px);
-  border-color: var(--gold-rich);
-  box-shadow: var(--shadow-md);
-}
-
-.weekly-item span {
-  font-size: 2.2rem;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.weekly-item strong {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: 1.3rem;
-  font-weight: 600;
-  display: block;
-  margin-bottom: 4px;
-}
-
-.weekly-item p {
-  font-family: var(--font-label);
-  color: var(--text-muted-dark);
-  font-size: 0.86rem;
-  font-weight: 600;
-  margin: 0;
-}
-
-/* ---------------------------------------------------------
-   DIGITAL GAZETTE COVER
---------------------------------------------------------- */
-.gazette-section {
-  max-width: 1280px;
-  margin: 0 auto 70px;
-  padding: 0 24px;
-}
-
-.gazette-cover {
-  background: linear-gradient(135deg, var(--bg-navy) 0%, #15263F 100%);
-  border-radius: var(--radius-lg);
-  padding: 64px 40px;
-  border: 2px solid rgba(251, 191, 36, 0.45);
-  box-shadow: var(--shadow-lg);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.gazette-cover-top {
-  font-family: var(--font-crest);
-  color: var(--gold-bright);
-  font-size: 0.88rem;
-  font-weight: 800;
-  letter-spacing: 0.22em;
-  margin-bottom: 16px;
-}
-
-.gazette-cover-main > span {
-  font-family: var(--font-label);
-  color: #E2E8F0;
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  display: block;
-  margin-bottom: 14px;
-}
-
-.gazette-cover-main h2 {
-  font-family: var(--font-display);
-  color: #FFFFFF;
-  font-size: clamp(2.2rem, 4.4vw, 3.5rem);
-  font-weight: 400;
-  margin: 0 0 16px;
-  letter-spacing: -0.03em;
-}
-
-.gazette-cover-main h2 em {
-  color: var(--gold-bright);
-  font-style: italic;
-}
-
-.gazette-cover-main p {
-  font-family: var(--font-ui);
-  color: var(--text-body-light);
-  font-size: 1.08rem;
-  max-width: 640px;
-  margin: 0 auto 32px;
-  line-height: 1.6;
-}
-
-#read-gazette-btn {
-  font-family: var(--font-label);
-  background: var(--gold-bright);
-  color: var(--bg-navy);
-  font-weight: 800;
-  font-size: 0.98rem;
-  padding: 14px 34px;
-  border-radius: var(--radius-full);
-  box-shadow: 0 8px 22px rgba(251, 191, 36, 0.35);
-}
-
-#read-gazette-btn:hover {
-  background: #FCD34D;
-  transform: translateY(-2px) scale(1.02);
-}
-
-/* ---------------------------------------------------------
-   MEDIA & VIDEO NEWS
---------------------------------------------------------- */
-.video-news-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-}
-
-.video-thumbnail {
-  position: relative;
-  height: 380px;
-}
-
-.video-thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.play-button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 72px;
-  height: 72px;
-  background: rgba(11, 25, 44, 0.88);
-  color: var(--gold-bright);
-  border-radius: 50%;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--gold-bright);
-  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.45);
-}
-
-.play-button:hover {
-  transform: translate(-50%, -50%) scale(1.1);
-  background: var(--bg-navy);
-}
-
-.video-news-copy {
-  padding: 44px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.video-news-copy > span {
-  font-family: var(--font-label);
-  color: var(--gold-rich);
-  font-weight: 800;
-  font-size: 0.78rem;
-  letter-spacing: 0.16em;
-  margin-bottom: 10px;
-}
-
-.video-news-copy h3 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: 1.85rem;
-  font-weight: 600;
-  line-height: 1.25;
-  margin: 0 0 14px;
-}
-
-.video-news-copy p {
-  font-family: var(--font-ui);
-  color: var(--text-body-dark);
-  font-size: 1rem;
-  line-height: 1.65;
-  margin: 0 0 24px;
-}
-
-.video-news-copy button {
-  font-family: var(--font-label);
-  align-self: flex-start;
-  color: var(--blue-rich);
-  font-weight: 800;
-  font-size: 0.95rem;
-}
-
-.video-news-copy button:hover {
-  text-decoration: underline;
-}
-
-/* ---------------------------------------------------------
-   NEWS GALLERY WITH INTERACTIVE HOVER
---------------------------------------------------------- */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 22px;
-}
-
-.gallery-item {
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  height: 240px;
-  box-shadow: var(--shadow-sm);
-  padding: 0;
-  position: relative;
-  cursor: pointer;
-  border: 1px solid var(--border-card);
-}
-
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.gallery-item-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(11, 25, 44, 0.85) 100%);
-  display: flex;
-  align-items: flex-end;
-  padding: 16px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.gallery-item-overlay span {
-  font-family: var(--font-label);
-  color: var(--gold-bright);
-  font-weight: 800;
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
-}
-
-.gallery-item:hover .gallery-item-overlay {
-  opacity: 1;
-}
-
-.gallery-item:hover img {
-  transform: scale(1.08);
-}
-
-/* ---------------------------------------------------------
-   ALUMNI TIMELINE
---------------------------------------------------------- */
-.timeline-section {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 70px 24px;
-}
-
-.timeline {
-  position: relative;
-  padding-left: 40px;
-  border-left: 2px solid var(--border-card);
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.timeline-item {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 28px;
-}
-
-.timeline-item::before {
-  content: "";
-  position: absolute;
-  left: -47px;
-  top: 6px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--gold-rich);
-  border: 3px solid var(--bg-page);
-}
-
-.timeline-item time {
-  font-family: var(--font-crest);
-  color: var(--gold-rich);
-  font-weight: 800;
-  font-size: 0.9rem;
-  letter-spacing: 0.1em;
-  min-width: 80px;
-  padding-top: 2px;
-}
-
-.timeline-content {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  flex: 1;
-}
-
-.timeline-icon {
-  font-size: 1.4rem;
-  line-height: 1;
-  padding-top: 2px;
-}
-
-.timeline-content h3 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin: 0 0 6px;
-}
-
-.timeline-content p {
-  font-family: var(--font-ui);
-  color: var(--text-muted-dark);
-  font-size: 0.94rem;
-  margin: 0;
-  line-height: 1.55;
-}
-
-/* ---------------------------------------------------------
-   ALUMNI MILESTONE BUTTONS
---------------------------------------------------------- */
-.milestone-icons-section {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 40px 24px 70px;
-}
-
-.milestone-icons {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 18px;
-}
-
-.milestone-icons button {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-md);
-  padding: 22px 14px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.25s ease;
-}
-
-.milestone-icons button:hover {
-  transform: translateY(-4px);
-  border-color: var(--gold-rich);
-  box-shadow: var(--shadow-md);
-}
-
-.milestone-icons button span {
-  font-size: 2rem;
-}
-
-.milestone-icons button strong {
-  font-family: var(--font-label);
-  color: var(--text-heading-dark);
-  font-size: 0.92rem;
-  font-weight: 700;
-  transition: color 0.2s ease;
-}
-
-.milestone-icons button small {
-  font-family: var(--font-ui);
-  color: var(--text-muted-dark);
-  font-size: 0.76rem;
-}
-
-.milestone-icons button:hover strong {
-  color: var(--gold-rich);
-}
-
-/* ---------------------------------------------------------
-   PLACEMENT DIRECTORY (ALWAYS VISIBLE FULL SECTION)
---------------------------------------------------------- */
-.placement-directory {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 70px 24px;
-  opacity: 1 !important;
-  visibility: visible !important;
-  display: block !important;
-}
-
-.placement-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 26px;
-}
-
-.placement-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.placement-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-hover);
-}
-
-.placement-card-image {
-  height: 210px;
-  overflow: hidden;
-  background: var(--bg-surface-tint);
-}
-
-.placement-card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.placement-card:hover .placement-card-image img {
-  transform: scale(1.05);
-}
-
-.placement-card-content {
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.placement-card-content small {
-  font-family: var(--font-label);
-  color: var(--gold-rich);
-  font-weight: 800;
-  font-size: 0.76rem;
-}
-
-.placement-card-content h3 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: 1.35rem;
-  font-weight: 600;
-  margin: 4px 0 10px;
-}
-
-.placement-card-content p {
-  font-family: var(--font-ui);
-  color: var(--text-muted-dark);
-  font-size: 0.88rem;
-  margin: 0 0 6px;
-}
-
-.package-badge {
-  font-family: var(--font-label);
-  align-self: flex-start;
-  margin-top: auto;
-  background: #ECFDF5;
-  color: var(--green-rich);
-  border: 1px solid #A7F3D0;
-  font-weight: 800;
-  font-size: 0.84rem;
-  padding: 5px 12px;
-  border-radius: var(--radius-sm);
-}
-
-/* ---------------------------------------------------------
-   SUPPORT & DONATION SECTION
---------------------------------------------------------- */
-.support-section {
-  background: linear-gradient(135deg, var(--bg-navy) 0%, #172B44 100%);
-  color: #FFFFFF;
-  padding: 90px 24px;
-  text-align: center;
-  border-top: 4px solid var(--gold-rich);
-}
-
-.support-section > div {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.support-section h2 {
-  font-family: var(--font-display);
-  color: #FFFFFF;
-  font-size: clamp(2.4rem, 4.4vw, 3.4rem);
-  font-weight: 400;
-  margin: 12px 0 18px;
-}
-
-.support-section h2 em {
-  font-family: var(--font-display);
-  color: var(--gold-bright);
-  font-style: italic;
-}
-
-.support-section p {
-  font-family: var(--font-ui);
-  color: var(--text-body-light);
-  font-size: 1.15rem;
-  line-height: 1.65;
-  margin: 0 0 36px;
-}
-
-.support-section button {
-  font-family: var(--font-label);
-  background: var(--gold-bright);
-  color: var(--bg-navy);
-  font-weight: 800;
-  font-size: 1.02rem;
-  padding: 15px 36px;
-  border-radius: var(--radius-full);
-  box-shadow: 0 8px 26px rgba(251, 191, 36, 0.4);
-}
-
-.support-section button:hover {
-  background: #FCD34D;
-  transform: translateY(-2px) scale(1.02);
-}
-
-/* ---------------------------------------------------------
-   MODAL OVERLAYS & DIALOGS (POINTER-EVENTS GUARD)
---------------------------------------------------------- */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(11, 25, 44, 0.85);
-  backdrop-filter: blur(10px);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none !important; /* Crucial: Prevents invisible blocker */
-  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
-}
-
-.modal-overlay.open {
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important; /* Active when opened */
-}
-
-.modal-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: #F1F5F9;
-  color: var(--text-heading-dark);
-  font-size: 1.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 20;
-  border: 1px solid var(--border-light);
-}
-
-.modal-close:hover {
-  background: var(--bg-navy);
-  color: #FFFFFF;
-}
-
-/* ---------------------------------------------------------
-   GALLERY MODAL WITH CONTEXT BELOW IMAGE
---------------------------------------------------------- */
-.gallery-modal-card {
-  background: var(--bg-surface);
-  width: 100%;
-  max-width: 840px;
-  max-height: 92vh;
-  border-radius: var(--radius-lg);
-  overflow-y: auto;
-  position: relative;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-card);
-  display: flex;
-  flex-direction: column;
-}
-
-.gallery-modal-image-wrap {
-  width: 100%;
-  background: #000000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-height: 500px;
-  overflow: hidden;
-}
-
-.gallery-modal-image-wrap img {
-  width: 100%;
-  max-height: 500px;
-  object-fit: cover;
-}
-
-.gallery-modal-caption-wrap {
-  padding: 32px 36px 36px;
-  background: var(--bg-surface);
-}
-
-.gallery-caption-header {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.gallery-tag-pill {
-  font-family: var(--font-label);
-  background: #FEF3C7;
-  color: var(--gold-rich);
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  padding: 4px 10px;
-  border-radius: var(--radius-sm);
-  border: 1px solid #FDE68A;
-}
-
-.gallery-date-pill {
-  font-family: var(--font-label);
-  color: var(--text-muted-dark);
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.gallery-modal-caption-wrap h3 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: 1.85rem;
-  font-weight: 600;
-  margin: 0 0 12px;
-  letter-spacing: -0.02em;
-}
-
-.gallery-modal-caption-wrap p {
-  font-family: var(--font-ui);
-  color: var(--text-body-dark);
-  font-size: 1.05rem;
-  line-height: 1.7;
-  margin: 0;
-}
-
-/* ---------------------------------------------------------
-   READER MODAL (ACADEMIC LONG-FORM MAGAZINE)
---------------------------------------------------------- */
-.reader-modal {
-  background: var(--bg-surface);
-  width: 100%;
-  max-width: 860px;
-  max-height: 90vh;
-  border-radius: var(--radius-lg);
-  overflow-y: auto;
-  position: relative;
-  box-shadow: var(--shadow-lg);
-  padding: 48px;
-  border: 1px solid var(--border-card);
-}
-
-.reader-meta {
-  font-family: var(--font-crest);
-  color: var(--gold-rich);
-  font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.16em;
-  background: #FEF3C7;
-  border: 1px solid #FDE68A;
-  padding: 6px 14px;
-  border-radius: var(--radius-full);
-  display: inline-block;
-  margin-bottom: 20px;
-}
-
-.reader-content h1 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: clamp(2rem, 3.4vw, 2.8rem);
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
-  margin: 0 0 24px;
-}
-
-.reader-image {
-  width: 100%;
-  max-height: 420px;
-  object-fit: cover;
-  border-radius: var(--radius-md);
-  margin-bottom: 30px;
-}
-
-.reader-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 20px 0 28px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border-light);
-}
-
-.reader-share-btn {
-  font-family: var(--font-label);
-  font-size: 0.84rem;
-  font-weight: 700;
-  color: var(--text-heading-dark);
-  background: var(--bg-surface-tint);
-  border: 1px solid var(--border-card);
-  padding: 8px 16px;
-  border-radius: var(--radius-full);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s ease;
-}
-
-.reader-share-btn:hover {
-  background: var(--bg-navy);
-  color: #FFFFFF;
-  border-color: var(--bg-navy);
-}
-
-.reader-body p {
-  font-family: var(--font-ui);
-  color: var(--text-body-dark);
-  font-size: 1.1rem;
-  line-height: 1.8;
-  margin-bottom: 22px;
-}
-
-/* Drop Cap on First Paragraph */
-.reader-body > p:first-of-type::first-letter {
-  font-family: var(--font-display);
-  float: left;
-  font-size: 3.8rem;
-  line-height: 0.85;
-  font-weight: 700;
-  margin-right: 12px;
-  margin-top: 4px;
-  color: var(--text-heading-dark);
-}
-
-.reader-pullquote {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.35rem;
-  line-height: 1.6;
-  color: var(--burgundy-rich);
-  border-left: 4px solid var(--gold-rich);
-  background: var(--bg-surface-tint);
-  padding: 22px 28px;
-  margin: 32px 0;
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-}
-
-.reader-author {
-  margin-top: 40px;
-  padding: 26px;
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: var(--radius-md);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.reader-author-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 6px;
-}
-
-.reader-author-avatar {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--gold-rich);
-}
-
-.reader-author strong {
-  font-family: var(--font-ui);
-  font-size: 1.15rem;
-  color: var(--text-heading-dark);
-}
-
-.reader-author p {
-  font-family: var(--font-ui);
-  color: var(--text-muted-dark);
-  margin: 0;
-  font-size: 0.92rem;
-}
-
-.reader-author a {
-  font-family: var(--font-label);
-  font-weight: 800;
-  color: var(--blue-rich);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 10px;
-}
-
-.reader-author a:hover {
-  text-decoration: underline;
-}
-
-/* ---------------------------------------------------------
-   SUBMISSION MODAL FORM
---------------------------------------------------------- */
-.submit-modal {
-  background: var(--bg-surface);
-  width: 100%;
-  max-width: 680px;
-  max-height: 90vh;
-  border-radius: var(--radius-lg);
-  overflow-y: auto;
-  position: relative;
-  box-shadow: var(--shadow-lg);
-  padding: 40px;
-  border: 1px solid var(--border-card);
-}
-
-.submit-header h2 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: 2rem;
-  margin: 4px 0 8px;
-  font-weight: 500;
-}
-
-.submit-header p {
-  font-family: var(--font-ui);
-  color: var(--text-muted-dark);
-  margin: 0 0 24px;
-}
-
-#story-submission-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-#story-submission-form label {
-  font-family: var(--font-label);
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: var(--text-heading-dark);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-#story-submission-form input,
-#story-submission-form select,
-#story-submission-form textarea {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px 16px;
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-ui);
-  font-size: 0.95rem;
-  color: var(--text-heading-dark);
-  outline: none;
-  background: var(--bg-surface);
-}
-
-#story-submission-form input:focus,
-#story-submission-form select:focus,
-#story-submission-form textarea:focus {
-  border-color: var(--bg-navy);
-  box-shadow: 0 0 0 3px rgba(11, 25, 44, 0.1);
-}
-
-.story-image-preview {
-  max-height: 180px;
-  overflow: hidden;
-  border-radius: var(--radius-sm);
-}
-
-.story-image-preview img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-
-.submission-meta {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--font-label);
-  font-size: 0.82rem;
-  color: var(--text-muted-dark);
-  font-weight: 600;
-  padding: 4px 2px;
-}
-
-.submit-story-button {
-  font-family: var(--font-label);
-  background: var(--bg-navy);
-  color: var(--gold-bright);
-  font-weight: 800;
-  font-size: 1rem;
-  padding: 14px 24px;
-  border-radius: var(--radius-sm);
-  margin-top: 10px;
-  box-shadow: var(--shadow-sm);
-}
-
-.submit-story-button:hover {
-  background: var(--bg-navy-dark);
-  transform: translateY(-2px);
-}
-
-/* ---------------------------------------------------------
-   VIDEO & GAZETTE MODALS
---------------------------------------------------------- */
-.video-modal {
-  background: var(--bg-surface);
-  border-radius: var(--radius-lg);
-  padding: 40px;
-  width: 100%;
-  max-width: 600px;
-  position: relative;
-  text-align: center;
-}
-
-.video-placeholder div {
-  font-size: 3rem;
-  color: var(--blue-rich);
-  margin-bottom: 12px;
-}
-
-.video-placeholder h3 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: 1.6rem;
-  margin: 0 0 8px;
-}
-
-.gazette-modal {
-  background: var(--bg-surface);
-  border-radius: var(--radius-lg);
-  padding: 50px;
-  width: 100%;
-  max-width: 600px;
-  position: relative;
-  border: 2px solid var(--border-card);
-}
-
-.gazette-reader span {
-  font-family: var(--font-crest);
-  color: var(--gold-rich);
-  font-weight: 800;
-  font-size: 0.85rem;
-  letter-spacing: 0.16em;
-}
-
-.gazette-reader h2 {
-  font-family: var(--font-display);
-  color: var(--text-heading-dark);
-  font-size: 2.2rem;
-  margin: 6px 0 20px;
-}
-
-.gazette-lines p {
-  font-family: var(--font-ui);
-  color: var(--text-body-dark);
-  font-size: 1.05rem;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border-light);
-  margin: 0;
-}
-
-/* ---------------------------------------------------------
-   TOAST NOTIFICATION COMPONENT
---------------------------------------------------------- */
-.news-toast {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: var(--bg-navy);
-  color: #FFFFFF;
-  border: 1px solid var(--gold-bright);
-  padding: 14px 22px;
-  border-radius: var(--radius-md);
-  font-family: var(--font-label);
-  font-size: 0.92rem;
-  font-weight: 700;
-  box-shadow: var(--shadow-lg);
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  animation: heroFadeUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-/* ---------------------------------------------------------
-   RESPONSIVE MEDIA QUERIES
---------------------------------------------------------- */
-@media (max-width: 1024px) {
-  .featured-layout,
-  .latest-layout,
-  .placement-spotlight,
-  .video-news-card,
-  .spotlight-section {
-    grid-template-columns: 1fr;
-  }
-
-  .spotlight-image {
-    height: 360px;
-  }
-}
-
-@media (max-width: 768px) {
-  .news-section {
-    padding: 50px 16px;
-  }
-
-  .news-hero {
-    padding: 75px 16px 65px;
-  }
-
-  .hero-stats-strip {
-    border-radius: var(--radius-md);
-    gap: 12px;
-  }
-
-  .stat-divider {
-    display: none;
-  }
-
-  .reader-modal,
-  .submit-modal,
-  .gallery-modal-caption-wrap {
-    padding: 24px 18px;
-  }
-
-  .filter-row {
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    padding-bottom: 6px;
-  }
-
-  .filter-btn {
-    white-space: nowrap;
-  }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Alumni News & Gazette | GIET University</title>
+
+  <!-- High-End Editorial & Academic Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..800&family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages/news.css">
+</head>
+
+<body>
+
+  <!-- =====================================================
+       REUSABLE HEADER
+  ====================================================== -->
+
+  <div id="site-header-container"></div>
+
+
+  <main>
+
+    <!-- =====================================================
+         HERO SECTION (ANIMATED ENTRANCE)
+    ====================================================== -->
+
+    <section class="news-hero">
+
+      <div class="hero-copy animate-enter">
+
+        <div class="hero-label">
+          ALUMNI STORIES · RESEARCH · GLOBAL ACHIEVEMENTS
+        </div>
+
+        <h1>
+          Stories that <em>move us forward.</em>
+        </h1>
+
+        <p class="hero-intro">
+          Discover the leaders, technical innovators, research pioneers, and enduring memories
+          shaping the 24,000+ strong GIET University global alumni network across 42 countries.
+        </p>
+
+        <div class="hero-actions">
+          <button class="hero-scroll-btn" id="hero-explore-btn">
+            Explore Stories ↓
+          </button>
+        </div>
+
+        <!-- Institutional Highlights Strip -->
+        <div class="hero-stats-strip">
+          <div class="stat-pill">
+            <strong>24,000+</strong>
+            <span>Global Alumni</span>
+          </div>
+          <div class="stat-divider">·</div>
+          <div class="stat-pill">
+            <strong>42+</strong>
+            <span>Countries Represented</span>
+          </div>
+          <div class="stat-divider">·</div>
+          <div class="stat-pill">
+            <strong>450+</strong>
+            <span>Corporate Partners</span>
+          </div>
+          <div class="stat-divider">·</div>
+          <div class="stat-pill">
+            <strong>₹13 LPA</strong>
+            <span>Top Tier Placements</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="hero-decoration" aria-hidden="true">
+        <span>GIET</span>
+        <span>ALUMNI</span>
+        <span>GAZETTE</span>
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SEARCH + FILTER TOOLBAR
+    ====================================================== -->
+
+    <section class="news-toolbar">
+
+      <div class="news-search">
+
+        <span class="search-icon">⌕</span>
+
+        <input
+          type="search"
+          id="news-search-input"
+          placeholder="Search by name, company, breakthrough, or category..."
+          aria-label="Search alumni news"
+        >
+
+      </div>
+
+
+      <div class="filter-row" id="news-category-filters">
+
+        <button class="filter-btn active" data-category="all">
+          All Stories
+        </button>
+
+        <button class="filter-btn" data-category="Achievement">
+          Alumni Achievements
+        </button>
+
+        <button class="filter-btn" data-category="Career">
+          Career & Leadership
+        </button>
+
+        <button class="filter-btn" data-category="Campus">
+          Campus Milestones
+        </button>
+
+        <button class="filter-btn" data-category="Events">
+          Reunions & Events
+        </button>
+
+        <button class="filter-btn" data-category="Startups">
+          Startups & Ventures
+        </button>
+
+        <button class="filter-btn" data-category="Awards">
+          Honor & Awards
+        </button>
+
+        <button class="filter-btn" data-category="Research">
+          Research & Tech
+        </button>
+
+        <button class="filter-btn" data-category="Announcements">
+          Announcements
+        </button>
+
+        <button class="filter-btn" data-category="Saved">
+          Saved Stories
+        </button>
+
+      </div>
+
+
+      <button id="share-story-btn" class="share-story-btn">
+        + Share Your Story
+      </button>
+
+    </section>
+
+
+    <!-- =====================================================
+         FEATURED STORIES
+    ====================================================== -->
+
+    <section class="news-section featured-section" id="featured-stories">
+
+      <div class="section-heading">
+
+        <div class="heading-title-group">
+          <h2>Featured Stories</h2>
+          <span class="heading-badge">Curated Bi-Weekly · 14 Articles Active</span>
+        </div>
+
+        <p class="heading-description">
+          In-depth investigative reports, distinguished alumni profiles, and milestone achievements shaping our international community.
+        </p>
+
+      </div>
+
+
+      <div class="featured-layout">
+
+        <!-- LARGE FEATURE -->
+
+        <article
+          class="featured-main story-jump"
+          data-feature-target="stories-essays"
+        >
+
+          <div class="featured-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=85"
+              alt="Students and alumni collaborate"
+            >
+
+            <div class="slide-overlay">
+
+              <div class="slide-overlay-content">
+
+                <span class="featured-tag">LEAD EDITORIAL COVER</span>
+
+                <h3>
+                  From Campus Innovation Labs to Leading Multi-Million Dollar Global Programs
+                </h3>
+
+                <p>
+                  How five GIET engineering graduates built India's next-generation edge computing architecture, scaling from semester capstone projects into an internationally acclaimed venture.
+                </p>
+
+                <div class="featured-byline">
+                  <span>By Editorial Board · 7 min read · Volume 14 Edition</span>
+                </div>
+
+                <strong>
+                  Read Full Story →
+                </strong>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- SMALL FEATURES -->
+
+        <div class="featured-side">
+
+          <article
+            class="featured-small story-jump"
+            data-feature-target="campus-milestones"
+          >
+
+            <img
+              src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=1000&q=85"
+              alt="University campus"
+            >
+
+            <div class="small-overlay">
+
+              <div>
+                <small>CAMPUS ADVANCEMENT</small>
+
+                <h3>
+                  State-of-the-Art Autonomous Systems & Robotics Research Center Inaugurated
+                </h3>
+
+                <p class="small-excerpt">
+                  A ₹4.5 Crore collaborative research facility co-funded by distinguished alumni.
+                </p>
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article
+            class="featured-small story-jump"
+            data-feature-target="breakthroughs"
+          >
+
+            <img
+              src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=85"
+              alt="Innovation and teamwork"
+            >
+
+            <div class="small-overlay">
+
+              <div>
+                <small>STARTUP MILESTONES</small>
+
+                <h3>
+                  Alumni Founded Clean-Tech Venture Secures Pre-Series A Funding
+                </h3>
+
+                <p class="small-excerpt">
+                  Empowering rural agricultural micro-grids across Eastern India.
+                </p>
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         RECENT PLACEMENTS SPOTLIGHT
+    ====================================================== -->
+
+    <section class="placement-spotlight">
+
+      <div class="placement-spotlight-copy">
+
+        <span class="eyebrow">CAREER ACCELERATION</span>
+
+        <h2>
+          Where our alumni are
+          <em>going next.</em>
+        </h2>
+
+        <p>
+          From tier-1 silicon engineering and cloud computing giants to prestigious management consultancies, GIET graduates continue setting industry benchmarks across the globe.
+        </p>
+
+        <!-- Placement Stats Overview -->
+        <div class="placement-key-metrics">
+          <div class="metric-item">
+            <strong>₹13 LPA</strong>
+            <span>Highest Package</span>
+          </div>
+          <div class="metric-item">
+            <strong>280+</strong>
+            <span>Offers Extended</span>
+          </div>
+          <div class="metric-item">
+            <strong>40+</strong>
+            <span>Fortune 500 Recruiters</span>
+          </div>
+        </div>
+
+        <div class="recruiter-tags">
+          <span>Microsoft</span>
+          <span>Deloitte</span>
+          <span>Amazon</span>
+          <span>TCS</span>
+          <span>Capgemini</span>
+          <span>Infosys</span>
+        </div>
+
+        <button id="open-placement-directory">
+          View Complete Placement Directory ↓
+        </button>
+
+      </div>
+
+
+      <div class="placement-highlight-card">
+
+        <div class="placement-highlight-image">
+
+          <img
+            src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=85"
+            alt="Professional team"
+          >
+
+          <div class="placement-package">
+            ₹13 LPA
+          </div>
+
+        </div>
+
+        <div class="placement-highlight-content">
+
+          <span>FEATURED PLACEMENT SPOTLIGHT</span>
+
+          <h3>
+            Aarav Das
+          </h3>
+
+          <p>
+            B.Tech in CSE-AIML · Class of 2023–2027
+          </p>
+
+          <div class="role-designation">
+            Software Development Engineer — Cloud Infrastructure
+          </div>
+
+          <strong>
+            Microsoft Corporation
+          </strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LATEST FROM GIET
+    ====================================================== -->
+
+    <section class="news-section" id="latest-giet">
+
+      <div class="section-heading">
+
+        <div class="heading-title-group">
+          <h2>Latest from GIET</h2>
+          <span class="heading-badge">Live Gazette Feed · Moderated by Editorial Board</span>
+        </div>
+
+        <p class="heading-description">
+          Live submissions, verified peer publications, and official department announcements updated daily.
+        </p>
+
+      </div>
+
+
+      <div class="latest-layout">
+
+        <div id="news-grid" class="news-grid">
+
+          <!-- Default Pre-rendered Stories -->
+          <article class="news-card" data-story-id="story-101">
+            <div class="news-card-image">
+              <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80" alt="Robotics Journey" loading="lazy">
+            </div>
+            <div class="news-card-content">
+              <small>ACHIEVEMENT · 3 MIN READ</small>
+              <h3>From Campus Hackathon to Series-A: The AgroGrid Robotics Journey</h3>
+              <p>How four third-year roommates combined autonomous drones with micro-sensor grids to revolutionize crop yields across 800 rural districts.</p>
+              <button class="save-story" data-save-id="story-101">♡ Save Story</button>
+            </div>
+          </article>
+
+          <article class="news-card" data-story-id="story-102">
+            <div class="news-card-image">
+              <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80" alt="Cloud Microservices" loading="lazy">
+            </div>
+            <div class="news-card-content">
+              <small>CAREER · 4 MIN READ</small>
+              <h3>Scaling Distributed Cloud Microservices at Microsoft</h3>
+              <p>Reflections on navigating early-career software engineering, distributed systems, and the mental frameworks acquired during college.</p>
+              <button class="save-story" data-save-id="story-102">♡ Save Story</button>
+            </div>
+          </article>
+
+          <article class="news-card" data-story-id="story-103">
+            <div class="news-card-image">
+              <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1200&q=80" alt="Compute Center" loading="lazy">
+            </div>
+            <div class="news-card-content">
+              <small>CAMPUS · 3 MIN READ</small>
+              <h3>10,000 Sq. Ft. High-Performance AI Compute Center Inaugurated</h3>
+              <p>University leadership and distinguished alumni formally open state-of-the-art AI cluster equipped with enterprise NVIDIA accelerators.</p>
+              <button class="save-story" data-save-id="story-103">♡ Save Story</button>
+            </div>
+          </article>
+
+        </div>
+
+
+        <aside class="trending-panel">
+
+          <div class="trending-title">
+            TRENDING INSIGHTS & DISCUSSIONS
+          </div>
+
+          <ol class="trending-list">
+
+            <li>
+              <div>
+                <p>AI Infrastructure & Semiconductor Design Careers for 2027 Graduates</p>
+                <small>68 comments · 4 min read</small>
+              </div>
+            </li>
+
+            <li>
+              <div>
+                <p>Alumni Angel Network announces ₹1 Crore seed fund for student startups</p>
+                <small>142 upvotes · Campus Notice</small>
+              </div>
+            </li>
+
+            <li>
+              <div>
+                <p>GIET Global Chapter Meetups scheduled across Bangalore, London & Dallas</p>
+                <small>Events · Register Now</small>
+              </div>
+            </li>
+
+            <li>
+              <div>
+                <p>Industry Mentor Fellowship: Over 80 senior executive alumni open 1-on-1 slots</p>
+                <small>Mentorship Program</small>
+              </div>
+            </li>
+
+            <li>
+              <div>
+                <p>Department of Electrical Engineering receives National Accreditation honor</p>
+                <small>Official Commendation</small>
+              </div>
+            </li>
+
+          </ol>
+
+        </aside>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         STORIES & ESSAYS
+    ====================================================== -->
+
+    <section class="news-section image-story-section" id="stories-essays">
+
+      <div class="section-heading">
+
+        <div class="heading-title-group">
+          <h2>Stories & Essays</h2>
+          <span class="heading-badge">Long-Form Journalism · 4–8 Min Reads</span>
+        </div>
+
+        <p class="heading-description">
+          Personal memoirs, career transformations, technical reflections, and nostalgic letters penned by GIET alumni worldwide.
+        </p>
+
+      </div>
+
+
+      <div class="image-story-grid">
+
+        <article class="image-story-card">
+
+          <div class="image-story-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=85"
+              alt="Alumni working together"
+            >
+
+            <span class="card-badge">CAREER ESSAY</span>
+
+          </div>
+
+          <div class="image-story-content">
+
+            <small>CAREER CHRONICLE · 06 MIN READ</small>
+
+            <h3>
+              From Classroom to Silicon Valley: Demystifying the First 1,000 Days
+            </h3>
+
+            <p>
+              By Rashmi Ranjan Panda ('18), Senior Platform Architect. How mastering data structures in lab 3 laid the technical foundation for building high-concurrency distributed engines.
+            </p>
+
+            <button class="story-action" data-scroll-target="latest-giet">
+              Read Essay →
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <article class="image-story-card">
+
+          <div class="image-story-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=85"
+              alt="Friends and alumni"
+            >
+
+            <span class="card-badge">CAMPUS NOSTALGIA</span>
+
+          </div>
+
+          <div class="image-story-content">
+
+            <small>CAMPUS ESSAY · 04 MIN READ</small>
+
+            <h3>
+              The Late Nights at Gunupur: The Friendships that Built Companies
+            </h3>
+
+            <p>
+              By Priya Patnaik ('20), Co-founder of AgroTech Labs. A candid reflection on late-night canteen brainstorms that turned into sustainable tech ventures.
+            </p>
+
+            <button class="story-action" data-scroll-target="latest-giet">
+              Explore Story →
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <article class="image-story-card">
+
+          <div class="image-story-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1200&q=85"
+              alt="University community"
+            >
+
+            <span class="card-badge">GLOBAL PERSPECTIVE</span>
+
+          </div>
+
+          <div class="image-story-content">
+
+            <small>ALUMNI JOURNEY · 05 MIN READ</small>
+
+            <h3>
+              Across Three Continents: Carrying the GIET Spirit Worldwide
+            </h3>
+
+            <p>
+              By Debasish Jena ('16), Lead Renewable Energy Consultant in Frankfurt. Navigating international research grants and global sustainability transitions.
+            </p>
+
+            <button class="story-action" data-scroll-target="alumni-spotlight">
+              Meet Author →
+            </button>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ALUMNI SPOTLIGHT
+    ====================================================== -->
+
+    <section class="spotlight-section" id="alumni-spotlight">
+
+      <div class="spotlight-image">
+
+        <img
+          src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=1200&q=85"
+          alt="Alumni spotlight"
+        >
+
+      </div>
+
+      <div class="spotlight-content">
+
+        <span class="eyebrow">
+          DISTINGUISHED FELLOW SPOTLIGHT
+        </span>
+
+        <h2>
+          Anushka Palo
+        </h2>
+
+        <h3>
+          National Program Lead, Wooble Technologies
+        </h3>
+
+        <p class="spotlight-role">
+          B.Tech in Computer Science & Engineering · Former Data Science Club President
+        </p>
+
+        <blockquote>
+          “Every hackathon project we debugged until sunrise at GIET was not just coursework; it became our real-world blueprint for leading cross-functional engineering teams across the country.”
+        </blockquote>
+
+        <div class="spotlight-achievements">
+          <div>
+            <strong>1,500+</strong>
+            <span>Students Mentored</span>
+          </div>
+          <div>
+            <strong>12+</strong>
+            <span>National Hackathons Judged</span>
+          </div>
+          <div>
+            <strong>Forbes 30 Under 30</strong>
+            <span>Nominated Pioneer</span>
+          </div>
+        </div>
+
+        <button class="spotlight-button">
+          View Fellow Profile →
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         BREAKTHROUGHS
+    ====================================================== -->
+
+    <section class="news-section image-story-section" id="breakthroughs">
+
+      <div class="section-heading">
+
+        <div class="heading-title-group">
+          <h2>Breakthroughs & Innovations</h2>
+          <span class="heading-badge">R&D Dispatches · 8 Active Patents</span>
+        </div>
+
+        <p class="heading-description">
+          Patented technologies, high-concurrency software architectures, IEEE research papers, and disruptive tech ventures founded by alumni.
+        </p>
+
+      </div>
+
+
+      <div class="image-story-grid">
+
+        <article class="image-story-card">
+
+          <div class="image-story-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=85"
+              alt="Student technology project"
+            >
+
+            <span class="card-badge">AI & MACHINE LEARNING</span>
+
+          </div>
+
+          <div class="image-story-content">
+
+            <small>PATENT APPLIED · COMPUTING</small>
+
+            <h3>
+              Low-Power Edge Neural Network for Diagnostic Soil Analysis
+            </h3>
+
+            <p>
+              Engineered by third-year ECE & AIML cohorts in collaboration with agricultural alumni mentors. Successfully tested across 12 farming cooperatives.
+            </p>
+
+            <button class="story-action" data-scroll-target="latest-giet">
+              Read Research Summary →
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <article class="image-story-card">
+
+          <div class="image-story-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=85"
+              alt="Competition team"
+            >
+
+            <span class="card-badge">NATIONAL HONORS</span>
+
+          </div>
+
+          <div class="image-story-content">
+
+            <small>GRAND PRIX · TECH COMPETITIONS</small>
+
+            <h3>
+              Team GIET Secures 1st Place at National Smart Mobility Hackathon
+            </h3>
+
+            <p>
+              Outperforming 240 collegiate teams nationwide with an intelligent telematics algorithm reducing battery degradation in commercial electric vehicles.
+            </p>
+
+            <button class="story-action" data-scroll-target="latest-giet">
+              View Competition Details →
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <article class="image-story-card">
+
+          <div class="image-story-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=85"
+              alt="Research and innovation"
+            >
+
+            <span class="card-badge">SUSTAINABLE MATERIALS</span>
+
+          </div>
+
+          <div class="image-story-content">
+
+            <small>PEER-REVIEWED PUBLICATION · IEEE</small>
+
+            <h3>
+              Composite Eco-Concretes: Sustainable Urban Infrastructure Paper
+            </h3>
+
+            <p>
+              Published in the International Journal of Sustainable Engineering by Civil Engineering research fellows and industrial advisors.
+            </p>
+
+            <button class="story-action" data-scroll-target="latest-giet">
+              View Citation & Abstract →
+            </button>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CAMPUS MILESTONES
+    ====================================================== -->
+
+    <section class="news-section milestones-section" id="campus-milestones">
+
+      <div class="section-heading">
+
+        <div class="heading-title-group">
+          <h2>Campus Milestones</h2>
+          <span class="heading-badge">Campus Archives · Since 1997</span>
+        </div>
+
+        <p class="heading-description">
+          Documenting institutional expansion, world-class laboratory centers, student welfare endowments, and legacy reunions.
+        </p>
+
+      </div>
+
+
+      <div class="milestone-grid">
+
+        <article class="milestone-card">
+
+          <div class="milestone-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1200&q=85"
+              alt="Academic campus"
+            >
+
+            <span class="milestone-badge">INFRASTRUCTURE</span>
+
+          </div>
+
+          <div class="milestone-content">
+
+            <small>ACADEMIC EXCELLENCE</small>
+
+            <h3>
+              New 10,000 Sq. Ft. High-Performance Computing Cluster
+            </h3>
+
+            <p>
+              Equipped with enterprise GPUs and dedicated quantum computing simulators to support interdisciplinary PhD and postgraduate data engineering labs.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="milestone-card">
+
+          <div class="milestone-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=85"
+              alt="Campus event"
+            >
+
+            <span class="milestone-badge">GLOBAL CONCLAVE</span>
+
+          </div>
+
+          <div class="milestone-content">
+
+            <small>ALUMNI CONVENTION</small>
+
+            <h3>
+              Annual Global Alumni Homecoming: 2,400+ Delegates Convene
+            </h3>
+
+            <p>
+              Distinguished graduates from 14 batches returned to campus for mentorship roundtables, career recruitment fair booths, and endowed scholarship ceremonies.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="milestone-card">
+
+          <div class="milestone-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1200&q=85"
+              alt="Graduation celebration"
+            >
+
+            <span class="milestone-badge">SCHOLARSHIPS</span>
+
+          </div>
+
+          <div class="milestone-content">
+
+            <small>STUDENT WELFARE</small>
+
+            <h3>
+              Alumni Merit Endowment Crosses ₹2.2 Crore Corpus
+            </h3>
+
+            <p>
+              Directly financing 100% full-ride tuition scholarships for underprivileged rural STEM candidates demonstrating exceptional engineering aptitude.
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         THIS WEEK
+    ====================================================== -->
+
+    <section class="weekly-news-section">
+
+      <div class="section-heading">
+
+        <div class="heading-title-group">
+          <h2>This Week in Alumni News</h2>
+          <span class="heading-badge">Weekly Digest · Updated September 2026</span>
+        </div>
+
+        <p class="heading-description">
+          A rapid digest of executive promotions, venture fundings, startup seed rounds, and chapter gatherings over the last 7 days.
+        </p>
+
+      </div>
+
+
+      <div class="weekly-grid">
+
+        <div class="weekly-item">
+          <span>🎓</span>
+          <strong>14 Alumni</strong>
+          <p>Promoted to Director / VP</p>
+        </div>
+
+        <div class="weekly-item">
+          <span>🏆</span>
+          <strong>3 Fellowships</strong>
+          <p>Won in Global Competitions</p>
+        </div>
+
+        <div class="weekly-item">
+          <span>🚀</span>
+          <strong>2 Startups</strong>
+          <p>Completed Seed Funding Rounds</p>
+        </div>
+
+        <div class="weekly-item">
+          <span>💼</span>
+          <strong>18 Roles</strong>
+          <p>Posted Exclusively for GIET Alumni</p>
+        </div>
+
+        <div class="weekly-item">
+          <span>🌍</span>
+          <strong>Bangalore Meet</strong>
+          <p>Attended by 320+ Tech Alumni</p>
+        </div>
+
+        <div class="weekly-item">
+          <span>📚</span>
+          <strong>5 Papers</strong>
+          <p>Accepted into IEEE / Scopus</p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DIGITAL GAZETTE
+    ====================================================== -->
+
+    <section class="gazette-section">
+
+      <div class="gazette-cover">
+
+        <div class="gazette-cover-top">
+          OFFICIAL UNIVERSITY ARCHIVE · THE ALUMNI GAZETTE
+        </div>
+
+        <div class="gazette-cover-main">
+
+          <span>SEPTEMBER 2026 EDITION · VOLUME 14, ISSUE 3</span>
+
+          <h2>
+            Stories that
+            <em>move us forward.</em>
+          </h2>
+
+          <p>
+            An 84-page comprehensive journal documenting high-impact research, alumni executive interviews, venture showcases, and archival retrospective photographs.
+          </p>
+
+        </div>
+
+        <button id="read-gazette-btn">
+          📖 Read Full Digital Edition
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         NEWS + VIDEO
+    ====================================================== -->
+
+    <section class="news-section media-section">
+
+      <div class="section-heading">
+
+        <div class="heading-title-group">
+          <h2>News + Video</h2>
+          <span class="heading-badge">Multimedia Archive · 4K UHD Broadcasts</span>
+        </div>
+
+        <p class="heading-description">
+          Cinematic short documentaries, alumni keynote addresses, convocation footage, and panel discussions from our auditorium.
+        </p>
+
+      </div>
+
+
+      <article class="video-news-card">
+
+        <div class="video-thumbnail">
+
+          <img
+            src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1600&q=85"
+            alt="Alumni event"
+          >
+
+          <button id="watch-video-btn" class="play-button" aria-label="Play video highlights">
+            ▶
+          </button>
+
+        </div>
+
+
+        <div class="video-news-copy">
+
+          <span>DOCUMENTARY ARCHIVE</span>
+
+          <h3>
+            Alumni Conclave 2026: The Legacy of Innovation
+          </h3>
+
+          <p>
+            Watch emotional reunions, keynote addresses from industry pioneers, and the unveiling of the new Innovation Quadrangle at GIET University.
+          </p>
+
+          <button id="watch-video-text">
+            Watch Full 14-Minute Feature →
+          </button>
+
+        </div>
+
+      </article>
+
+    </section>
+
+
+    <!-- =====================================================
+         NEWS GALLERY (WITH CONTEXT POPUP)
+    ====================================================== -->
+
+    <section class="news-section gallery-section">
+
+      <div class="section-heading">
+
+        <div class="heading-title-group">
+          <h2>News Gallery</h2>
+          <span class="heading-badge">Photographic Archive · Click Any Photo to Read Context</span>
+        </div>
+
+        <p class="heading-description">
+          Visual chronicles of campus life, silver jubilee celebrations, convocations, and chapter meetups. Click any photo to read the full archival story.
+        </p>
+
+      </div>
+
+
+      <div class="gallery-grid">
+
+        <button
+          class="gallery-item"
+          type="button"
+          data-gallery-image="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1800&q=90"
+          data-gallery-title="Annual Alumni Homecoming Gala 2026"
+          data-gallery-tag="CAMPUS REUNION"
+          data-gallery-caption="Over 1,200 alumni gathered at the Central Amphitheatre celebrating three decades of engineering leadership, honoring founding professors, and establishing new career endowments for underprivileged STEM cohorts."
+          data-gallery-date="September 2026 · Main Amphitheatre, GIET Campus"
+        >
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=900&q=85" alt="Alumni event">
+          <div class="gallery-item-overlay">
+            <span>View Story ↗</span>
+          </div>
+        </button>
+
+        <button
+          class="gallery-item"
+          type="button"
+          data-gallery-image="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1800&q=90"
+          data-gallery-title="Convocation & Silver Jubilee Ceremony"
+          data-gallery-tag="CONVOCATION"
+          data-gallery-caption="Commemorating 25 graduating batches of engineers, technologists, and researchers with medals of honor presented by state education dignitaries and visiting academic chancellors."
+          data-gallery-date="August 2026 · University Convention Hall"
+        >
+          <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=900&q=85" alt="University event">
+          <div class="gallery-item-overlay">
+            <span>View Story ↗</span>
+          </div>
+        </button>
+
+        <button
+          class="gallery-item"
+          type="button"
+          data-gallery-image="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=90"
+          data-gallery-title="Inter-Batch Technical Mentorship Workshop"
+          data-gallery-tag="TECH WORKSHOP"
+          data-gallery-caption="Senior software engineers and engineering managers guiding third-year students on system architecture, cloud-native deployments, and modern artificial intelligence tooling."
+          data-gallery-date="July 2026 · Center for Innovation & Research"
+        >
+          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=85" alt="Students and alumni">
+          <div class="gallery-item-overlay">
+            <span>View Story ↗</span>
+          </div>
+        </button>
+
+        <button
+          class="gallery-item"
+          type="button"
+          data-gallery-image="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1800&q=90"
+          data-gallery-title="Bangalore Tech Chapter Alumni Dinner"
+          data-gallery-tag="METRO CHAPTER"
+          data-gallery-caption="The GIET Bangalore Alumni Chapter gathered over 300 engineering leads and startup founders for an evening of angel networking, cross-company collaboration, and student sponsorship."
+          data-gallery-date="June 2026 · The Leela Palace, Bengaluru"
+        >
+          <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=900&q=85" alt="Community gathering">
+          <div class="gallery-item-overlay">
+            <span>View Story ↗</span>
+          </div>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ALUMNI TIMELINE
+    ====================================================== -->
+
+    <section class="timeline-section">
+
+      <div class="section-heading">
+
+        <div class="heading-title-group">
+          <h2>Alumni Timeline</h2>
+          <span class="heading-badge">Chronological Dispatch · September 2026</span>
+        </div>
+
+        <p class="heading-description">
+          A running real-time ledger of notable alumni appointments, startup exits, academic honors, and student mentorship launches.
+        </p>
+
+      </div>
+
+
+      <div class="timeline">
+
+        <article class="timeline-item">
+
+          <time>18 SEP</time>
+
+          <div class="timeline-content">
+            <span class="timeline-icon">🏆</span>
+            <div>
+              <h3>Alumni Team Honored with National Clean-Tech Innovation Award</h3>
+              <p>Recognized by the Ministry of Science and Technology for scaling modular solar micro-inverters across 600 rural communities.</p>
+            </div>
+          </div>
+
+        </article>
+
+
+        <article class="timeline-item">
+
+          <time>15 SEP</time>
+
+          <div class="timeline-content">
+            <span class="timeline-icon">💼</span>
+            <div>
+              <h3>Batch of '27 Graduate Aarav Das Appointed SDE at Microsoft</h3>
+              <p>Joins the Azure Cognitive Services infrastructure engineering team headquartered in Hyderabad.</p>
+            </div>
+          </div>
+
+        </article>
+
+
+        <article class="timeline-item">
+
+          <time>12 SEP</time>
+
+          <div class="timeline-content">
+            <span class="timeline-icon">🚀</span>
+            <div>
+              <h3>Alumni-Founded DeepTech Enterprise Unveils Autonomous Drone Suite</h3>
+              <p>AeroGrid Systems announces general availability of its high-precision agricultural LiDAR scanning payloads.</p>
+            </div>
+          </div>
+
+        </article>
+
+
+        <article class="timeline-item">
+
+          <time>08 SEP</time>
+
+          <div class="timeline-content">
+            <span class="timeline-icon">🤝</span>
+            <div>
+              <h3>South India Alumni Chapter Meet Held in Bengaluru</h3>
+              <p>320 alumni across tech, aerospace, and finance shared industry roadmaps with upcoming graduates.</p>
+            </div>
+          </div>
+
+        </article>
+
+
+        <article class="timeline-item">
+
+          <time>05 SEP</time>
+
+          <div class="timeline-content">
+            <span class="timeline-icon">🎓</span>
+            <div>
+              <h3>Executive Alumni Mentorship Cohort Launches</h3>
+              <p>50 pre-final year students paired with VP and Principal Engineer alumni across FAANG and global firms.</p>
+            </div>
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ALUMNI MILESTONES
+    ====================================================== -->
+
+    <section class="milestone-icons-section">
+
+      <div class="section-heading">
+
+        <div class="heading-title-group">
+          <h2>Alumni Milestones</h2>
+          <span class="heading-badge">Quick Category Explorer</span>
+        </div>
+
+        <p class="heading-description">
+          Celebrate fellow graduates by milestone category. Filter our directory to connect with newly placed alumni, founders, and researchers.
+        </p>
+
+      </div>
+
+
+      <div class="milestone-icons">
+
+        <button type="button">
+          <span>🎓</span>
+          <strong>Graduation</strong>
+          <small>Class of 2026</small>
+        </button>
+
+        <button type="button">
+          <span>💼</span>
+          <strong>New Role</strong>
+          <small>Promotions & Moves</small>
+        </button>
+
+        <button type="button">
+          <span>🏆</span>
+          <strong>Honors</strong>
+          <small>National Awards</small>
+        </button>
+
+        <button type="button">
+          <span>🚀</span>
+          <strong>Startups</strong>
+          <small>Funded Ventures</small>
+        </button>
+
+        <button type="button">
+          <span>📚</span>
+          <strong>Research</strong>
+          <small>Peer Publications</small>
+        </button>
+
+        <button type="button">
+          <span>🌍</span>
+          <strong>Global</strong>
+          <small>International Roles</small>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PLACEMENT DIRECTORY (PERMANENTLY VISIBLE & PRE-RENDERED)
+    ====================================================== -->
+
+    <section id="placements" class="placement-directory">
+
+      <div class="section-heading">
+
+        <div class="heading-title-group">
+          <h2>Recent Placements Directory</h2>
+          <span class="heading-badge">Verified Placement Cell Data · 2026</span>
+        </div>
+
+        <p class="heading-description">
+          Comprehensive directory of verified student campus placements with verified package tiers, roles, and recruiting multinationals.
+        </p>
+
+      </div>
+
+
+      <div id="placement-grid" class="placement-grid">
+
+        <!-- Placement 1 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Aarav Das" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>CSE-AIML</small>
+            <h3>Aarav Das</h3>
+            <p>🎓 Artificial Intelligence & Machine Learning</p>
+            <p>📅 2023–2027</p>
+            <p>🏢 Microsoft</p>
+            <span class="package-badge">₹13 LPA</span>
+          </div>
+        </article>
+
+        <!-- Placement 2 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Ananya Mohanty" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>CSE</small>
+            <h3>Ananya Mohanty</h3>
+            <p>🎓 Computer Science & Engineering</p>
+            <p>📅 2023–2027</p>
+            <p>🏢 Deloitte</p>
+            <span class="package-badge">₹12 LPA</span>
+          </div>
+        </article>
+
+        <!-- Placement 3 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Ritwik Sahu" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>CSE-AIML</small>
+            <h3>Ritwik Sahu</h3>
+            <p>🎓 Artificial Intelligence & Machine Learning</p>
+            <p>📅 2022–2026</p>
+            <p>🏢 TCS</p>
+            <span class="package-badge">₹10.5 LPA</span>
+          </div>
+        </article>
+
+        <!-- Placement 4 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sneha Patnaik" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>IT</small>
+            <h3>Sneha Patnaik</h3>
+            <p>🎓 Information Technology</p>
+            <p>📅 2023–2027</p>
+            <p>🏢 Accenture</p>
+            <span class="package-badge">₹9 LPA</span>
+          </div>
+        </article>
+
+        <!-- Placement 5 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Aditya Rout" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>CSE</small>
+            <h3>Aditya Rout</h3>
+            <p>🎓 Computer Science & Engineering</p>
+            <p>📅 2022–2026</p>
+            <p>🏢 Infosys</p>
+            <span class="package-badge">₹8.5 LPA</span>
+          </div>
+        </article>
+
+        <!-- Placement 6 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/women/47.jpg" alt="Priya Behera" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>EE</small>
+            <h3>Priya Behera</h3>
+            <p>🎓 Electrical Engineering</p>
+            <p>📅 2023–2027</p>
+            <p>🏢 Wipro</p>
+            <span class="package-badge">₹7.5 LPA</span>
+          </div>
+        </article>
+
+        <!-- Placement 7 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/men/71.jpg" alt="Rahul Pradhan" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>ECE</small>
+            <h3>Rahul Pradhan</h3>
+            <p>🎓 Electronics & Communication Engineering</p>
+            <p>📅 2022–2026</p>
+            <p>🏢 Capgemini</p>
+            <span class="package-badge">₹7.2 LPA</span>
+          </div>
+        </article>
+
+        <!-- Placement 8 -->
+        <article class="placement-card">
+          <div class="placement-card-image">
+            <img src="https://randomuser.me/api/portraits/women/49.jpg" alt="Ishita Nayak" loading="lazy">
+          </div>
+          <div class="placement-card-content">
+            <small>CSE</small>
+            <h3>Ishita Nayak</h3>
+            <p>🎓 Computer Science & Engineering</p>
+            <p>📅 2023–2027</p>
+            <p>🏢 IBM</p>
+            <span class="package-badge">₹6.8 LPA</span>
+          </div>
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DONATION / SUPPORT
+    ====================================================== -->
+
+    <section class="support-section">
+
+      <div>
+
+        <span class="eyebrow">
+          GIVE BACK TO YOUR ALMA MATER
+        </span>
+
+        <h2>
+          Help the next generation
+          <em>move forward.</em>
+        </h2>
+
+        <p>
+          Your contributions endow student scholarships, upgrade experimental laboratories, sponsor national hackathon teams, and ensure no promising mind is held back by financial need.
+        </p>
+
+      </div>
+
+      <button id="donate-btn">
+        Support GIET Endowment Fund →
+      </button>
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       READER MODAL
+  ====================================================== -->
+
+  <div
+    id="reader-modal"
+    class="modal-overlay"
+    aria-hidden="true"
+  >
+
+    <div class="reader-modal">
+
+      <button
+        id="close-reader-modal"
+        class="modal-close"
+        aria-label="Close reader"
+      >
+        ×
+      </button>
+
+      <div id="reader-modal-body"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       GALLERY MODAL WITH CONTEXT BELOW IMAGE
+  ====================================================== -->
+
+  <div
+    id="gallery-modal"
+    class="modal-overlay"
+    aria-hidden="true"
+  >
+
+    <div class="gallery-modal-card">
+
+      <button id="close-gallery-modal" class="modal-close" aria-label="Close gallery preview">
+        ×
+      </button>
+
+      <div class="gallery-modal-image-wrap">
+        <img id="gallery-modal-image" src="" alt="Gallery preview">
+      </div>
+
+      <!-- Rich Context Written Below The Image -->
+      <div class="gallery-modal-caption-wrap" id="gallery-modal-caption-wrap">
+        <div class="gallery-caption-header">
+          <span class="gallery-tag-pill" id="gallery-modal-tag">MOMENT</span>
+          <span class="gallery-date-pill" id="gallery-modal-date">DATE</span>
+        </div>
+        <h3 id="gallery-modal-title">Event Title</h3>
+        <p id="gallery-modal-desc">Detailed context and story behind this photograph will appear here.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       VIDEO MODAL
+  ====================================================== -->
+
+  <div
+    id="video-modal"
+    class="modal-overlay"
+    aria-hidden="true"
+  >
+
+    <div class="video-modal">
+
+      <button id="close-video-modal" class="modal-close" aria-label="Close video player">
+        ×
+      </button>
+
+      <div class="video-placeholder">
+
+        <div>▶</div>
+
+        <h3>
+          Alumni Meet 2026 — Highlights
+        </h3>
+
+        <p>
+          Official video broadcast stream connects here.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       GAZETTE MODAL
+  ====================================================== -->
+
+  <div
+    id="gazette-modal"
+    class="modal-overlay"
+    aria-hidden="true"
+  >
+
+    <div class="gazette-modal">
+
+      <button id="close-gazette-modal" class="modal-close" aria-label="Close gazette view">
+        ×
+      </button>
+
+      <div class="gazette-reader">
+
+        <span>SEPTEMBER 2026 EDITION · VOLUME 14</span>
+
+        <h2>
+          The Alumni Gazette
+        </h2>
+
+        <div class="gazette-lines">
+
+          <p>
+            ✨ Lead Cover Feature: Edge AI Architecture for Smart Grids
+          </p>
+
+          <p>
+            🏛️ Campus Infrastructure: The 10,000 Sq. Ft. HPC Center
+          </p>
+
+          <p>
+            🚀 Venture Dispatch: 4 Alumni Startups Securing Angel Rounds
+          </p>
+
+          <p>
+            🤝 Career Milestones: Microsoft, Deloitte & Amazon Cohorts
+          </p>
+
+          <p>
+            📅 Upcoming Events: London & North American Chapter Reunions
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       SUBMISSION MODAL
+  ====================================================== -->
+
+  <div
+    id="submit-story-modal"
+    class="modal-overlay"
+    aria-hidden="true"
+  >
+
+    <div class="submit-modal">
+
+      <button
+        id="close-submit-modal"
+        class="modal-close"
+        aria-label="Close submission form"
+      >
+        ×
+      </button>
+
+      <div class="submit-header">
+
+        <span class="eyebrow">
+          ALUMNI NEWSROOM DESK
+        </span>
+
+        <h2>
+          Share Your Story
+        </h2>
+
+        <p>
+          Submit your career transition, breakthrough research, or student memory for review by the GIET alumni editorial board.
+        </p>
+
+      </div>
+
+
+      <form id="story-submission-form">
+
+        <label>
+          Story Title
+
+          <input
+            id="story-title"
+            type="text"
+            required
+            maxlength="150"
+            placeholder="e.g., Scaling My First Cloud Architecture at Amazon"
+          >
+
+        </label>
+
+
+        <label>
+          Category
+
+          <select id="story-category" required>
+
+            <option value="">
+              Select Category
+            </option>
+
+            <option value="News">
+              News & Announcements
+            </option>
+
+            <option value="Story">
+              Stories & Career Essays
+            </option>
+
+            <option value="Achievement">
+              Awards & Breakthroughs
+            </option>
+
+          </select>
+
+        </label>
+
+
+        <label>
+          Short Excerpt
+
+          <textarea
+            id="story-excerpt"
+            rows="3"
+            maxlength="300"
+            placeholder="A compelling 2-sentence summary that grabs readers' attention..."
+          ></textarea>
+
+        </label>
+
+
+        <label>
+          Image URL (Optional)
+
+          <input
+            id="story-image"
+            type="url"
+            placeholder="https://images.unsplash.com/..."
+          >
+
+        </label>
+
+
+        <div
+          id="story-image-preview"
+          class="story-image-preview"
+        ></div>
+
+
+        <label>
+          Full Article Body
+
+          <textarea
+            id="story-body"
+            rows="10"
+            required
+            placeholder="Share the full narrative, lessons learned, and advice for the GIET community..."
+          ></textarea>
+
+        </label>
+
+
+        <div class="submission-meta">
+
+          <span id="story-word-count">
+            0 words
+          </span>
+
+          <span id="story-reading-time">
+            0 min read
+          </span>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="submit-story-button"
+        >
+          Submit for Editorial Moderation →
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <div id="site-footer-container"></div>
+
+
+  <!-- =====================================================
+       SCRIPTS
+  ====================================================== -->
+
+  <script type="module" src="js/components.js"></script>
+  <script type="module" src="js/nav.js"></script>
+  <script type="module" src="js/pages/news.js"></script>
+
+</body>
+</html>
