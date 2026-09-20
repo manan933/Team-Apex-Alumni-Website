@@ -90,6 +90,11 @@ ol.trending-list,
 --------------------------------------------------------- */
 html {
   scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
 }
 
 body {
@@ -163,27 +168,33 @@ button {
 }
 
 /* ---------------------------------------------------------
-   SCROLL REVEAL ANIMATIONS (INTERSECTION OBSERVER)
+   SCROLL REVEAL (ACTIVE ON INTERSECTION OBSERVER)
 --------------------------------------------------------- */
+.js-scroll-reveal,
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(32px);
+  transform: translateY(28px);
   transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
+.js-scroll-reveal.revealed,
 .scroll-reveal.revealed {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
 
-.delay-1 { transition-delay: 0.1s; }
-.delay-2 { transition-delay: 0.2s; }
-.delay-3 { transition-delay: 0.3s; }
-.delay-4 { transition-delay: 0.4s; }
+@media (prefers-reduced-motion: reduce) {
+  .js-scroll-reveal,
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
 
 /* ---------------------------------------------------------
-   SECTION HEADINGS & INFORMATIVE DECKS (NO LEFT NUMBERS)
+   SECTION HEADINGS & INFORMATIVE DECKS
 --------------------------------------------------------- */
 .news-section {
   max-width: 1280px;
@@ -425,7 +436,6 @@ button {
 
 .news-search input {
   width: 100%;
-  box-sizing: border-box;
   padding: 18px 20px 18px 58px;
   background: var(--bg-surface);
   border: 1px solid var(--border-card);
@@ -898,6 +908,8 @@ button {
   flex-direction: column;
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .news-card:hover {
@@ -995,7 +1007,7 @@ button {
 }
 
 /* ---------------------------------------------------------
-   TRENDING INSIGHTS PANEL (NO NUMBERS)
+   TRENDING INSIGHTS PANEL
 --------------------------------------------------------- */
 .trending-panel {
   background: var(--bg-surface);
@@ -1082,6 +1094,8 @@ button {
   display: flex;
   flex-direction: column;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .image-story-card:hover {
@@ -1304,6 +1318,8 @@ button {
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .milestone-card:hover {
@@ -1395,6 +1411,8 @@ button {
   text-align: center;
   box-shadow: var(--shadow-sm);
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .weekly-item:hover {
@@ -1515,6 +1533,8 @@ button {
   box-shadow: var(--shadow-md);
   display: grid;
   grid-template-columns: 1.4fr 1fr;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .video-thumbnail {
@@ -1614,6 +1634,8 @@ button {
   position: relative;
   cursor: pointer;
   border: 1px solid var(--border-card);
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .gallery-item img {
@@ -1673,6 +1695,8 @@ button {
   display: flex;
   align-items: flex-start;
   gap: 28px;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .timeline-item::before {
@@ -1753,6 +1777,8 @@ button {
   gap: 8px;
   box-shadow: var(--shadow-sm);
   transition: all 0.25s ease;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .milestone-icons button:hover {
@@ -1810,6 +1836,8 @@ button {
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .placement-card:hover {
@@ -1931,7 +1959,7 @@ button {
 }
 
 /* ---------------------------------------------------------
-   MODAL OVERLAYS & DIALOGS (POINTER-EVENTS GUARD)
+   MODAL OVERLAYS & DIALOGS
 --------------------------------------------------------- */
 .modal-overlay {
   position: fixed;
@@ -1945,14 +1973,14 @@ button {
   padding: 20px;
   opacity: 0;
   visibility: hidden;
-  pointer-events: none !important; /* Crucial: Prevents invisible blocker */
+  pointer-events: none !important;
   transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
 }
 
 .modal-overlay.open {
   opacity: 1 !important;
   visibility: visible !important;
-  pointer-events: auto !important; /* Active when opened */
+  pointer-events: auto !important;
 }
 
 .modal-close {
@@ -2273,7 +2301,6 @@ button {
 #story-submission-form select,
 #story-submission-form textarea {
   width: 100%;
-  box-sizing: border-box;
   padding: 12px 16px;
   border: 1px solid var(--border-card);
   border-radius: var(--radius-sm);

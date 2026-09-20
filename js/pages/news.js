@@ -3,19 +3,43 @@
    World-Class Academic Journalism & Interactive Magazine Suite
 ========================================================= */
 
-import {
-  getSubmissions,
-  createSubmission
-} from "../storage-service.js";
+/* =========================================================
+   INTEGRATION HOOKS (SAFE FOR BOTH file:// AND HTTP HOSTING)
+========================================================= */
 
-import {
-  getCurrentUser,
-  onAuthStateChange
-} from "../auth.js";
+let getSubmissions = (typeof window !== "undefined" && window.getSubmissions) || null;
+let createSubmission = (typeof window !== "undefined" && window.createSubmission) || null;
+let getCurrentUser = (typeof window !== "undefined" && window.getCurrentUser) || null;
+let onAuthStateChange = (typeof window !== "undefined" && window.onAuthStateChange) || null;
+let showToast = (typeof window !== "undefined" && window.showToast) || null;
 
-import {
-  showToast
-} from "../nav.js";
+// Dynamically connect to services if hosted over HTTP/HTTPS
+if (typeof window !== "undefined" && window.location && window.location.protocol.startsWith("http")) {
+  import("../storage-service.js").then(module => {
+    if (module) {
+      if (typeof module.getSubmissions === "function") getSubmissions = module.getSubmissions;
+      if (typeof module.createSubmission === "function") createSubmission = module.createSubmission;
+      if (typeof loadStories === "function") loadStories();
+    }
+  }).catch(() => {});
+
+  import("../auth.js").then(module => {
+    if (module) {
+      if (typeof module.getCurrentUser === "function") getCurrentUser = module.getCurrentUser;
+      if (typeof module.onAuthStateChange === "function") {
+        onAuthStateChange = module.onAuthStateChange;
+        if (typeof setupAuthListener === "function") setupAuthListener();
+      }
+    }
+  }).catch(() => {});
+
+  import("../nav.js").then(module => {
+    if (module && typeof module.showToast === "function") {
+      showToast = module.showToast;
+    }
+  }).catch(() => {});
+}
+
 
 /* =========================================================
    FALLBACK INITIAL DEMO STORIES (ALWAYS POPULATED)
@@ -212,7 +236,7 @@ function notify(message) {
     }
   }
 
-  // Graceful standalone toast fallback
+  // Standalone toast fallback
   const existing = document.querySelector(".news-toast");
   if (existing) existing.remove();
 
@@ -262,7 +286,22 @@ function scrollToId(id) {
 
 let scrollObserver = null;
 
+function isElementInViewport(el) {
+  const rect = el.getBoundingClientRect();
+  return (
+    rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.bottom > 0
+  );
+}
+
 function initScrollAnimations() {
+  const targets = document.querySelectorAll(
+    ".featured-main, .featured-small, .placement-spotlight-copy, .placement-highlight-card, " +
+    ".news-card, .trending-panel, .image-story-card, .spotlight-image, .spotlight-content, " +
+    ".milestone-card, .weekly-item, .gazette-cover, .video-news-card, .gallery-item, " +
+    ".timeline-item, .milestone-icons button, .placement-card, .support-section > div"
+  );
+
   if ("IntersectionObserver" in window) {
     if (!scrollObserver) {
       scrollObserver = new IntersectionObserver(
@@ -275,28 +314,23 @@ function initScrollAnimations() {
           });
         },
         {
-          threshold: 0.1,
-          rootMargin: "0px 0px -40px 0px"
+          threshold: 0.08,
+          rootMargin: "0px 0px -20px 0px"
         }
       );
     }
 
-    const targets = document.querySelectorAll(
-      ".featured-main, .featured-small, .placement-spotlight-copy, .placement-highlight-card, " +
-      ".news-card, .trending-panel, .image-story-card, .spotlight-image, .spotlight-content, " +
-      ".milestone-card, .weekly-item, .gazette-cover, .video-news-card, .gallery-item, " +
-      ".timeline-item, .milestone-icons button, .placement-card, .support-section > div"
-    );
-
     targets.forEach(el => {
-      if (!el.classList.contains("scroll-reveal")) {
-        el.classList.add("scroll-reveal");
+      el.classList.add("js-scroll-reveal");
+      el.classList.add("scroll-reveal");
+      if (isElementInViewport(el)) {
+        requestAnimationFrame(() => el.classList.add("revealed"));
+      } else {
+        scrollObserver.observe(el);
       }
-      scrollObserver.observe(el);
     });
   } else {
-    // If browser does not support IntersectionObserver, reveal immediately
-    document.querySelectorAll(".scroll-reveal").forEach(el => el.classList.add("revealed"));
+    targets.forEach(el => el.classList.add("revealed"));
   }
 }
 
@@ -396,7 +430,7 @@ function renderStories() {
 
     return `
       <article
-        class="news-card scroll-reveal"
+        class="news-card"
         data-story-id="${escapeHtml(id)}"
       >
         <div class="news-card-image">
@@ -474,7 +508,15 @@ function renderStories() {
 
   // Refresh scroll observer on newly injected cards
   if (scrollObserver) {
-    grid.querySelectorAll(".news-card").forEach(el => scrollObserver.observe(el));
+    grid.querySelectorAll(".news-card").forEach(el => {
+      el.classList.add("js-scroll-reveal");
+      el.classList.add("scroll-reveal");
+      if (isElementInViewport(el)) {
+        el.classList.add("revealed");
+      } else {
+        scrollObserver.observe(el);
+      }
+    });
   }
 }
 
@@ -606,7 +648,7 @@ function openReader(story) {
 
     setSavedStories(saved);
     renderStories();
-    openReader(story); // Refresh state in reader
+    openReader(story);
   });
 
   modal.classList.add("open");
@@ -634,10 +676,9 @@ function setupFilters() {
 
       activeCategory = button.dataset.category || "all";
 
-      // Render stories immediately
       renderStories();
 
-      // Smooth scroll so the user clearly sees the filtered stories in #latest-giet
+      // Smooth scroll so the user sees the filtered feed in #latest-giet
       scrollToId("latest-giet");
     });
   });
@@ -676,7 +717,6 @@ function setupHero() {
 ========================================================= */
 
 function setupFeaturedStories() {
-  // Lead Cover Article Click -> Open in Reader Modal
   document.querySelectorAll(".featured-main").forEach(card => {
     card.addEventListener("click", () => {
       const story = allStories.find(s => s.id === "lead-editorial") || allStories[0];
@@ -686,7 +726,6 @@ function setupFeaturedStories() {
     });
   });
 
-  // Side features jump to respective sections
   document.querySelectorAll(".featured-small.story-jump").forEach(card => {
     card.addEventListener("click", () => {
       const target = card.dataset.featureTarget;
@@ -742,7 +781,7 @@ function renderPlacements() {
   if (!grid) return;
 
   grid.innerHTML = placementData.map(student => `
-    <article class="placement-card scroll-reveal">
+    <article class="placement-card">
       <div class="placement-card-image">
         <img
           src="${student.image}"
@@ -867,7 +906,6 @@ function setupMilestones() {
     button.addEventListener("click", () => {
       const milestoneTarget = button.dataset.milestone || button.querySelector("strong")?.textContent?.trim();
 
-      // Find matching filter button
       const filterBtn = Array.from(document.querySelectorAll(".filter-btn")).find(
         btn => (btn.dataset.category || "").toLowerCase() === (milestoneTarget || "").toLowerCase()
       );
@@ -907,11 +945,8 @@ function setupSubmission() {
   openButton?.addEventListener("click", () => {
     const user = typeof getCurrentUser === "function" ? getCurrentUser() : null;
 
-    // Check authentication if getCurrentUser is available
     if (typeof getCurrentUser === "function" && !user) {
-      notify("Please sign in with your alumni credentials to submit a story.");
-      // Optional: prompt or still allow opening with guest placeholder
-      return;
+      notify("Contributing as Alumnus Guest. Sign in anytime to link your verified profile.");
     }
 
     modal?.classList.add("open");
@@ -1006,7 +1041,6 @@ function setupSubmissionForm() {
       if (typeof createSubmission === "function") {
         await createSubmission(storyData);
       } else {
-        // Local simulation fallback
         allStories.unshift({ ...storyData, id: `story-${Date.now()}` });
         renderStories();
       }
@@ -1050,7 +1084,6 @@ function purgeStrayNumbers() {
 ========================================================= */
 
 function setupModalEvents() {
-  // Backdrop click to close
   document.querySelectorAll(".modal-overlay").forEach(modal => {
     modal.addEventListener("click", event => {
       if (event.target === modal) {
@@ -1061,7 +1094,6 @@ function setupModalEvents() {
     });
   });
 
-  // Global Escape key
   document.addEventListener("keydown", event => {
     if (event.key === "Escape") {
       document.querySelectorAll(".modal-overlay.open").forEach(modal => {
@@ -1114,16 +1146,13 @@ function init() {
   loadStories();
   initScrollAnimations();
 
-  // "View Complete Placement Directory" button
   document.getElementById("open-placement-directory")?.addEventListener("click", () => {
     scrollToId("placements");
   });
 
-  // Reader close button
   document.getElementById("close-reader-modal")?.addEventListener("click", closeReader);
 }
 
-// Guarantee execution regardless of when the module loads
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", init);
 } else {
