@@ -17,6 +17,7 @@ const videos = [
     youtubeId: 'Ks-_Mh1QhMc',
     title: 'Words of Experience — Presence & Leadership',
     category: 'Interviews',
+    imageOverride: 'videos images/interview 1.jpeg',
     description: 'Distinguished alumna Dr. Priya Mehta explores how confident executive presence and body language reshape career trajectories in today\'s hybrid work landscape.',
     addedAt: '2026-08-15'
   },
@@ -33,6 +34,7 @@ const videos = [
     youtubeId: 'aircAruvnKk',
     title: 'From GIET to Industry — Understanding Neural Networks',
     category: 'Interviews',
+    imageOverride: 'videos images/interview 2.jpeg',
     description: 'Apex alumnus and DeepMind researcher Rohan Verma breaks down foundational AI concepts for a broad alumni audience — no PhD required.',
     addedAt: '2026-06-30'
   },
@@ -151,7 +153,7 @@ function renderGrid() {
 }
 
 function buildCardHTML(v, idx) {
-  const thumbUrl = `https://img.youtube.com/vi/${encodeURIComponent(v.youtubeId)}/hqdefault.jpg`;
+  const thumbUrl = v.imageOverride || `https://img.youtube.com/vi/${encodeURIComponent(v.youtubeId)}/hqdefault.jpg`;
   const featuredClass = '';
   const dateLabel = formatDate(v.addedAt);
 

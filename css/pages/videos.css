@@ -41,6 +41,10 @@
   padding-left: var(--space-6);
 }
 
+.vg-hero-heading::before {
+  display: none !important;
+}
+
 
 .vg-hero-subtitle {
   font-size: clamp(var(--text-base), 1.8vw, var(--text-lg));
