@@ -272,23 +272,57 @@ textarea:focus-visible {
 }
 
 /* ---------------------------------------------------------
-   HERO SECTION
+   HERO SECTION (ALUMNI GAZETTE WITH PHOTO BACKDROP)
 --------------------------------------------------------- */
 .news-hero {
-  background: linear-gradient(135deg, var(--bg-navy) 0%, var(--bg-navy-dark) 100%);
-  color: var(--text-heading-light);
-  padding: 100px 24px 90px;
   position: relative;
+  background-color: var(--bg-navy-dark);
+  color: var(--text-heading-light);
+  padding: 120px 24px 100px;
   overflow: hidden;
   border-bottom: 4px solid var(--gold-rich);
 }
 
+/* Layer 1: High-Resolution Photo Layer with Balanced Navy Tint */
+.news-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(180deg, rgba(11, 25, 44, 0.68) 0%, rgba(5, 14, 26, 0.84) 100%),
+    url('media_1790265674738.jpg');
+  background-position: center 22%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Layer 2: Foreground Content (Always on Top) */
 .news-hero .hero-copy {
   max-width: 960px;
   margin: 0 auto;
   text-align: center;
   position: relative;
+  z-index: 3;
+}
+
+.hero-decoration {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 40px;
+  font-family: var(--font-crest, 'Cinzel', Georgia, serif);
+  font-size: clamp(4rem, 14vw, 13rem);
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.03);
+  letter-spacing: 0.1em;
+  user-select: none;
+  pointer-events: none;
   z-index: 2;
+  white-space: nowrap;
 }
 
 .hero-label {
@@ -304,11 +338,12 @@ textarea:focus-visible {
 .hero-copy h1 {
   font-family: var(--font-display);
   color: #FFFFFF;
-  font-size: clamp(2.4rem, 5.5vw, 4.6rem);
+  font-size: clamp(2.4rem, 5.5vw, 4.4rem);
   font-weight: 400;
   line-height: 1.15;
   letter-spacing: -0.04em;
   margin: 0 0 24px;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6); /* Adds pop over photo */
 }
 
 .hero-copy h1 em {
@@ -320,11 +355,12 @@ textarea:focus-visible {
 
 .hero-intro {
   font-family: var(--font-ui);
-  color: var(--text-body-light);
-  font-size: 1.2rem;
-  max-width: 720px;
-  margin: 0 auto 36px;
-  line-height: 1.65;
+  color: #F8FAFC;
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  max-width: 740px;
+  margin: 0 auto 38px;
+  line-height: 1.68;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }
 
 .hero-scroll-btn {
@@ -332,18 +368,20 @@ textarea:focus-visible {
   background: var(--gold-bright);
   color: var(--bg-navy);
   font-weight: 800;
-  font-size: 0.95rem;
-  padding: 14px 34px;
+  font-size: 0.96rem;
+  padding: 15px 36px;
   border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  box-shadow: 0 8px 24px rgba(251, 191, 36, 0.35);
 }
 
 .hero-scroll-btn:hover {
-  transform: translateY(-3px) scale(1.02);
   background: #FCD34D;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(251, 191, 36, 0.5);
 }
 
 .hero-stats-strip {
@@ -351,13 +389,14 @@ textarea:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  margin-top: 48px;
-  padding: 16px 24px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  margin-top: 52px;
+  padding: 16px 28px;
+  background: rgba(11, 25, 44, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-full);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   flex-wrap: wrap;
 }
 
@@ -370,41 +409,42 @@ textarea:focus-visible {
 .stat-pill strong {
   font-family: var(--font-display);
   color: var(--gold-bright);
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 700;
 }
 
 .stat-pill span {
   font-family: var(--font-label);
-  color: var(--text-muted-light);
+  color: #E2E8F0;
   font-size: 0.82rem;
   font-weight: 600;
 }
 
 .stat-divider {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.25);
   font-size: 1.2rem;
 }
 
-.hero-decoration {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  gap: 40px;
-  font-family: var(--font-crest);
-  font-size: clamp(4rem, 14vw, 13rem);
-  font-weight: 800;
-  color: rgba(255, 255, 255, 0.03);
-  letter-spacing: 0.1em;
-  -webkit-user-select: none;
-  user-select: none;
-  pointer-events: none;
-  z-index: 1;
-  white-space: nowrap;
-}
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .news-hero {
+    padding: 85px 18px 70px;
+  }
 
+  .news-hero::before {
+    background-position: center 15%; /* Raises focal point on vertical mobile screens */
+  }
+
+  .hero-stats-strip {
+    border-radius: var(--radius-md);
+    gap: 12px;
+    padding: 14px 18px;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+}
 /* ---------------------------------------------------------
    SEARCH & FILTER TOOLBAR
 --------------------------------------------------------- */
