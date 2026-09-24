@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Giving &amp; Philanthropy — Apex University Alumni</title>
-  <meta name="description" content="Support university endowments, student scholarships, and research grants through alumni giving programs." />
+  <meta name="description" content="Support university endowments, need-blind student scholarships, and research grants through the Apex University alumni giving program." />
   
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
@@ -16,8 +16,10 @@
   <!-- Site Header -->
   <header class="site-header">
     <div class="container header-inner">
-      <a href="index.html" class="brand">
-        <div class="brand-crest">Ω</div>
+      <a href="index.html" class="brand" aria-label="Apex University Alumni Network Home">
+        <div class="brand-crest">
+          <img src="giet-logo.webp?v=3" alt="Apex University Crest" class="brand-logo-img" />
+        </div>
         <div class="brand-info">
           <span class="brand-title">Apex University</span>
           <span class="brand-subtitle">Alumni Network</span>
@@ -50,11 +52,13 @@
   <!-- Mobile Drawer -->
   <div class="mobile-drawer-backdrop"></div>
   <div class="mobile-drawer">
-    <div class="brand">
-      <div class="brand-crest">Ω</div>
+    <div class="brand" style="color: #fff;">
+      <div class="brand-crest">
+        <img src="giet-logo.webp?v=3" alt="Apex University Logo" class="brand-logo-img" />
+      </div>
       <div class="brand-info">
-        <span class="brand-title">Apex University</span>
-        <span class="brand-subtitle">Alumni Network</span>
+        <span class="brand-title" style="color: #fff;">Apex University</span>
+        <span class="brand-subtitle" style="color: var(--color-accent);">Alumni Network</span>
       </div>
     </div>
     <div class="mobile-nav-links">
@@ -73,12 +77,15 @@
     <section class="section-cream giving-hero-section">
       <div class="container">
         <div class="giving-hero-content">
-          <span class="section-tag">The Apex Endowment &amp; Philanthropy</span>
+          <div class="hero-impact-pill">
+            <span class="pill-dot"></span>
+            <span>2025–2026 Academic Year Impact: 47 Fellowships Funded &bull; 12 Frontier Labs Equipped</span>
+          </div>
           <h1 class="giving-hero-title">
             Investing in the Scholars, Discoveries &amp; Legacies of Tomorrow
           </h1>
           <p class="giving-hero-subtitle">
-            Alumni philanthropy underwrites 100% of need-blind undergraduate financial aid, frontier laboratory research grants, and endowed faculty chairs.
+            Alumni philanthropy underwrites 100% of need-blind undergraduate financial aid, frontier laboratory research grants, and endowed faculty chairs. Your benefaction ensures our university remains a beacon of transformative opportunity.
           </p>
         </div>
 
@@ -88,17 +95,22 @@
             <span class="metric-val">84%</span>
             <span class="metric-label">Scholars on Aid</span>
           </div>
-          <div class="metric-divider"></div>
+          <div class="metric-divider" aria-hidden="true"></div>
           <div class="metric-pill">
             <span class="metric-val">$42.8M</span>
             <span class="metric-label">Active Endowment</span>
           </div>
-          <div class="metric-divider"></div>
+          <div class="metric-divider" aria-hidden="true"></div>
           <div class="metric-pill">
             <span class="metric-val">100%</span>
             <span class="metric-label">To Direct Funds</span>
           </div>
-          <div class="metric-divider"></div>
+          <div class="metric-divider" aria-hidden="true"></div>
+          <div class="metric-pill">
+            <span class="metric-val" id="metric-donors-count">218+</span>
+            <span class="metric-label">Alumni Patrons</span>
+          </div>
+          <div class="metric-divider" aria-hidden="true"></div>
           <div class="metric-pill">
             <span class="metric-val">501(c)(3)</span>
             <span class="metric-label">Tax Deductible</span>
@@ -119,58 +131,72 @@
                 <span class="giving-step-num">01</span>
                 <div>
                   <h2 class="giving-card-title">Choose Your Giving Circle</h2>
-                  <p class="giving-card-desc">Select an institutional tier or specify a custom endowment contribution.</p>
+                  <p class="giving-card-desc">Select an established giving identity or specify a tailored endowment contribution.</p>
                 </div>
               </div>
 
               <!-- Frequency Toggle -->
               <div class="frequency-toggle-group">
-                <button type="button" class="freq-btn active" data-freq="one-time">One-Time Gift</button>
+                <button type="button" class="freq-btn active" data-freq="one-time">One-Time Benefaction</button>
                 <button type="button" class="freq-btn" data-freq="annual">Annual Recurring Fellow</button>
               </div>
 
-              <!-- Tier Cards Grid -->
+              <!-- Tier Cards Grid (4 Distinct Identities) -->
               <div class="donation-tiers-grid" id="tiers-grid">
+                <!-- Tier 1: Century Club ($100) -->
                 <div class="tier-card" data-amount="100" data-tier="Century Club">
                   <div class="tier-top">
+                    <span class="tier-identity">Friend Level</span>
                     <span class="tier-label">Century Club</span>
                     <div class="tier-amount">$100</div>
                   </div>
-                  <p class="tier-desc">Subsidizes student research symposium travel &amp; foundational laboratory texts.</p>
+                  <p class="tier-desc">Subsidizes student research symposium travel, scholarly texts, and lab materials.</p>
                 </div>
 
+                <!-- Tier 2: Dean's Circle ($500) -->
                 <div class="tier-card active tier-card-featured" data-amount="500" data-tier="Dean's Circle">
                   <span class="badge badge-accent tier-popular-badge">Most Popular</span>
                   <div class="tier-top">
+                    <span class="tier-identity">Patron Level</span>
                     <span class="tier-label">Dean's Circle</span>
                     <div class="tier-amount">$500</div>
                   </div>
-                  <p class="tier-desc">Funds 1 semester undergraduate research fellowship in advanced engineering.</p>
+                  <p class="tier-desc">Funds 1 full semester undergraduate research fellowship and compute equipment.</p>
                 </div>
 
+                <!-- Tier 3: President's Council ($2,500) -->
                 <div class="tier-card" data-amount="2500" data-tier="President's Council">
                   <div class="tier-top">
+                    <span class="tier-identity">Champion Level</span>
                     <span class="tier-label">President's Council</span>
                     <div class="tier-amount">$2,500</div>
                   </div>
                   <p class="tier-desc">Endows an annual named graduate student fellowship &amp; sustainability grant.</p>
                 </div>
 
+                <!-- Tier 4: Founder's Trust ($10,000) -->
                 <div class="tier-card" data-amount="10000" data-tier="Founder's Trust">
                   <div class="tier-top">
+                    <span class="tier-identity">Founder Level</span>
                     <span class="tier-label">Founder's Trust</span>
                     <div class="tier-amount">$10,000</div>
                   </div>
-                  <p class="tier-desc">Establishes permanent campus laboratory fixtures &amp; named scholarship legacy.</p>
+                  <p class="tier-desc">Establishes permanent campus laboratory fixtures, named scholarship legacy, &amp; permanent medallion.</p>
                 </div>
               </div>
 
               <!-- Custom Amount Box -->
               <div class="custom-amount-box">
-                <label for="custom-amount-input" class="custom-amount-label">Or Enter a Custom Amount (USD)</label>
+                <label for="custom-amount-input" class="custom-amount-label">Or Specify a Custom Contribution (USD)</label>
                 <div class="custom-amount-input-wrap">
                   <span class="currency-symbol">$</span>
-                  <input type="number" id="custom-amount-input" class="custom-amount-input" placeholder="Other amount (e.g. 1500)" min="10" step="10" />
+                  <input type="number" id="custom-amount-input" class="custom-amount-input" placeholder="Enter amount (e.g. 1500)" min="10" step="10" />
+                </div>
+                <div class="custom-amount-hints">
+                  <span>Common:</span>
+                  <button type="button" class="amount-chip" data-chip="250">$250</button>
+                  <button type="button" class="amount-chip" data-chip="1200">$1,200</button>
+                  <button type="button" class="amount-chip" data-chip="5000">$5,000</button>
                 </div>
               </div>
 
@@ -188,16 +214,16 @@
                   <label class="fund-option active">
                     <input type="radio" name="fund" value="Undergraduate Need-Blind Financial Aid" checked />
                     <div class="fund-option-content">
-                      <div class="fund-option-title">Undergraduate Need-Blind Financial Aid</div>
-                      <div class="fund-option-desc">Ensures the most talented minds can attend Apex regardless of economic background.</div>
+                      <div class="fund-option-title">Undergraduate Need-Blind Scholarship Fund</div>
+                      <div class="fund-option-desc">Ensures the most talented minds can attend Apex regardless of socio-economic background.</div>
                     </div>
                   </label>
 
                   <label class="fund-option">
-                    <input type="radio" name="fund" value="Quantum &amp; Autonomous Robotics Labs" />
+                    <input type="radio" name="fund" value="Quantum, AI &amp; Robotics Discovery Labs" />
                     <div class="fund-option-content">
-                      <div class="fund-option-title">Quantum &amp; Autonomous Robotics Discovery Lab</div>
-                      <div class="fund-option-desc">Equips student teams with state-of-the-art compute clusters and robotic test rigs.</div>
+                      <div class="fund-option-title">Quantum, AI &amp; Autonomous Robotics Discovery Labs</div>
+                      <div class="fund-option-desc">Equips student researchers with cutting-edge compute clusters and physical test rigs.</div>
                     </div>
                   </label>
 
@@ -205,7 +231,7 @@
                     <input type="radio" name="fund" value="Global Climate &amp; Clean Energy Initiative" />
                     <div class="fund-option-content">
                       <div class="fund-option-title">Global Climate &amp; Clean Energy Initiative</div>
-                      <div class="fund-option-desc">Accelerates cross-disciplinary research into grid decarbonization and bio-materials.</div>
+                      <div class="fund-option-desc">Accelerates interdisciplinary research into grid decarbonization, biomaterials, and storage.</div>
                     </div>
                   </label>
 
@@ -213,15 +239,15 @@
                     <input type="radio" name="fund" value="Alumni Venture Catalyst Micro-Grants" />
                     <div class="fund-option-content">
                       <div class="fund-option-title">Alumni Venture Catalyst &amp; Founder Micro-Grants</div>
-                      <div class="fund-option-desc">Provides non-dilutive pre-seed funding for graduating student founders.</div>
+                      <div class="fund-option-desc">Provides non-dilutive pre-seed funding for graduating student innovators and startup founders.</div>
                     </div>
                   </label>
 
                   <label class="fund-option">
                     <input type="radio" name="fund" value="Dean's Strategic Excellence Fund" />
                     <div class="fund-option-content">
-                      <div class="fund-option-title">Dean's Strategic Excellence Fund (Unrestricted)</div>
-                      <div class="fund-option-desc">Allocated flexibly to urgent academic initiatives, visiting scholars, and student welfare.</div>
+                      <div class="fund-option-title">Dean's Strategic Excellence Fund (Where Most Needed)</div>
+                      <div class="fund-option-desc">Allocated flexibly by academic deans to urgent research initiatives, visiting scholars, and student emergency aid.</div>
                     </div>
                   </label>
                 </div>
@@ -231,17 +257,21 @@
               <div class="impact-preview-banner" id="impact-preview-banner">
                 <div class="impact-preview-icon">🏛️</div>
                 <div class="impact-preview-body">
-                  <div class="impact-preview-amount" id="impact-preview-amount">$500 Gift Selected</div>
+                  <div class="impact-preview-amount" id="impact-preview-amount">$500 Gift Selected &bull; Dean's Circle</div>
                   <div class="impact-preview-text" id="impact-preview-text">
-                    Your gift directly underwrites 1 semester of specialized research laboratory equipment for an undergraduate scholar in the Financial Aid program.
+                    Your gift directly underwrites 1 full semester of specialized laboratory equipment and stipend for an undergraduate scholar in the Financial Aid program.
                   </div>
                 </div>
               </div>
 
               <!-- Action Button -->
               <button type="button" class="btn btn-accent btn-block btn-lg" id="open-gift-modal-btn">
-                Complete Institutional Gift (<span id="btn-gift-amount">$500</span>) &rarr;
+                Proceed to Secure Contribution (<span id="btn-gift-amount">$500</span>) &rarr;
               </button>
+              <div class="giving-secure-footnote">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <span>Encrypted 256-Bit SSL &bull; Official Apex Office of Philanthropic Giving &bull; 501(c)(3) Verified</span>
+              </div>
             </div>
           </div>
 
@@ -252,13 +282,13 @@
             <div class="campaign-progress-card">
               <div class="campaign-header">
                 <span class="campaign-badge">2026 Annual Campaign</span>
-                <span class="campaign-deadline">Closing June 30, 2026</span>
+                <span class="campaign-deadline">Active through June 30, 2026</span>
               </div>
               <h3 class="campaign-title">The Horizon Fund for Transformative Education</h3>
               <div class="campaign-stats-row">
                 <div>
                   <div class="campaign-stat-val" id="campaign-total-raised">$3,842,500</div>
-                  <div class="campaign-stat-sub">Raised of $5,000,000 goal</div>
+                  <div class="campaign-stat-sub">Raised of $5,000,000 institutional goal</div>
                 </div>
                 <div class="campaign-pct" id="campaign-pct">76.8%</div>
               </div>
@@ -289,6 +319,31 @@
               </div>
             </div>
 
+            <!-- Corporate Matching Employer Search Widget -->
+            <div class="corporate-match-card">
+              <div class="match-card-top">
+                <div class="match-icon">🏢</div>
+                <div>
+                  <h4 class="match-card-title">Double Your Impact: Employer Matching</h4>
+                  <p class="match-card-desc">Over 1,200 employers match gifts dollar-for-dollar. Search your company below.</p>
+                </div>
+              </div>
+              <div class="match-search-wrap">
+                <input type="text" id="employer-search-input" class="match-search-input" placeholder="Type company name (e.g. Google, Microsoft, Apple, TCS)..." autocomplete="off" />
+                <div id="employer-results" class="match-dropdown-results" hidden></div>
+              </div>
+              <div id="match-callout" class="match-callout-banner" hidden>
+                <div class="match-callout-status">
+                  <span class="match-check">✓</span>
+                  <strong id="match-company-name">Google</strong>
+                  <span class="match-ratio-badge" id="match-ratio-badge">100% Match Verified</span>
+                </div>
+                <p id="match-details-text" class="match-details-text">
+                  Your current contribution will be matched 1:1, doubling your impact to <strong id="match-doubled-amount">$1,000</strong>. An institutional match form will be generated automatically.
+                </p>
+              </div>
+            </div>
+
             <!-- Alumni Patron Editorial Quote -->
             <div class="patron-quote-card">
               <div class="patron-quote-mark">&ldquo;</div>
@@ -310,14 +365,14 @@
                 <div class="trust-icon">✓</div>
                 <div>
                   <strong>501(c)(3) Official Tax Exemption</strong>
-                  <p>All contributions are tax-deductible to the maximum extent permissible under federal and international law.</p>
+                  <p>All contributions are tax-deductible to the maximum extent permissible under federal and international law. EIN 04-2194820.</p>
                 </div>
               </div>
               <div class="trust-item">
-                <div class="trust-icon">🏢</div>
+                <div class="trust-icon">📜</div>
                 <div>
-                  <strong>Corporate Gift Matching</strong>
-                  <p>Over 1,200 employers match gifts dollar-for-dollar. Request an institutional verification receipt at checkout.</p>
+                  <strong>Endowment Governance &amp; Audits</strong>
+                  <p>Invested conservatively under the Board of Trustees Endowment Mandate with annual published transparency reports.</p>
                 </div>
               </div>
             </div>
@@ -325,8 +380,80 @@
           </div>
         </div>
 
-        <!-- Section: 2026 Donor Honor Roll -->
-        <div class="donor-honor-roll-section">
+        <!-- Section: Interactive Endowment Legacy Calculator -->
+        <div class="legacy-calc-section">
+          <div class="legacy-calc-card">
+            <div class="legacy-calc-header">
+              <div class="calc-badge">Perpetual Impact Engine</div>
+              <h3 class="legacy-calc-title">Endowment Perpetuity Calculator: The 25-Year Horizon</h3>
+              <p class="legacy-calc-desc">
+                University endowments function as perpetual trusts: the principal is invested in perpetuity, while an annual 5% disbursement funds scholarships and research year after year.
+              </p>
+            </div>
+
+            <div class="legacy-calc-grid">
+              <div class="calc-controls-col">
+                <div class="calc-control-group">
+                  <div class="calc-label-row">
+                    <label for="legacy-slider" class="calc-label">Endowed Principal Gift:</label>
+                    <span class="calc-current-value" id="calc-principal-display">$5,000</span>
+                  </div>
+                  <input type="range" id="legacy-slider" class="calc-slider" min="1000" max="50000" step="500" value="5000" />
+                  <div class="slider-ticks">
+                    <span>$1k</span>
+                    <span>$10k</span>
+                    <span>$25k</span>
+                    <span>$50k</span>
+                  </div>
+                </div>
+
+                <div class="calc-preset-chips">
+                  <span>Quick Presets:</span>
+                  <button type="button" class="preset-chip" data-calc="1000">$1,000</button>
+                  <button type="button" class="preset-chip active" data-calc="5000">$5,000</button>
+                  <button type="button" class="preset-chip" data-calc="10000">$10,000</button>
+                  <button type="button" class="preset-chip" data-calc="25000">$25,000</button>
+                </div>
+
+                <div class="calc-note-box">
+                  <span class="calc-note-icon">💡</span>
+                  <p>
+                    <strong>The Perpetuity Guarantee:</strong> Your initial principal remains 100% intact forever. After 25 years, a $5,000 endowment has generated $6,250 in grants while the endowment pool continues to grow.
+                  </p>
+                </div>
+              </div>
+
+              <div class="calc-outputs-col">
+                <div class="calc-metric-box metric-payout">
+                  <span class="calc-metric-label">Annual Perpetual Disbursement (5%)</span>
+                  <div class="calc-metric-value" id="calc-annual-payout">$250 / yr</div>
+                  <span class="calc-metric-sub">Distributed every single academic year</span>
+                </div>
+
+                <div class="calc-metrics-row">
+                  <div class="calc-metric-box">
+                    <span class="calc-metric-label">10-Year Cumulative Yield</span>
+                    <div class="calc-metric-value" id="calc-10yr-yield">$2,500</div>
+                    <span class="calc-metric-sub" id="calc-10yr-sub">~5 Student Research Fellowships</span>
+                  </div>
+
+                  <div class="calc-metric-box">
+                    <span class="calc-metric-label">25-Year Cumulative Yield</span>
+                    <div class="calc-metric-value" id="calc-25yr-yield">$6,250</div>
+                    <span class="calc-metric-sub" id="calc-25yr-sub">~12+ Endowed Scholars Funded</span>
+                  </div>
+                </div>
+
+                <button type="button" class="btn btn-outline btn-block btn-sm" id="calc-apply-btn">
+                  Adopt This Endowed Level ($<span id="calc-btn-amount">5,000</span>) in Form &uarr;
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: 2026 Donor Honor Roll (Recognition Wall) -->
+        <div class="donor-honor-roll-section" id="recognition-wall">
           <div class="honor-roll-header">
             <div>
               <span class="section-tag">Recognition &amp; Gratitude</span>
@@ -335,17 +462,48 @@
                 Gratefully acknowledging the alumni, families, and foundations whose benefaction anchors our collegiate mission.
               </p>
             </div>
-            <!-- Filter Pills -->
-            <div class="honor-roll-filters" id="honor-roll-filters">
-              <button class="honor-pill active" data-filter="all">All Benefactors</button>
-              <button class="honor-pill" data-filter="endowment">Endowments ($2,500+)</button>
-              <button class="honor-pill" data-filter="recent">Recent Contributions</button>
+            
+            <div class="honor-stats-badge">
+              <span class="badge-num" id="honor-total-count">8</span>
+              <span class="badge-text">Benefactors Cataloged</span>
             </div>
           </div>
 
-          <!-- Dynamic Honor Roll Tags Cloud -->
+          <!-- Multi-Filter Toolbar -->
+          <div class="honor-toolbar">
+            <!-- Filter Pills by Tier -->
+            <div class="honor-roll-filters" id="honor-roll-filters">
+              <button class="honor-pill active" data-filter="all">All Benefactors</button>
+              <button class="honor-pill" data-filter="endowment">Endowments ($2,500+)</button>
+              <button class="honor-pill" data-filter="dean">Dean's Circle ($500+)</button>
+              <button class="honor-pill" data-filter="century">Century Club</button>
+              <button class="honor-pill" data-filter="recent">Recent Contributions</button>
+            </div>
+
+            <!-- Class Year & Search Controls -->
+            <div class="honor-search-controls">
+              <select id="class-year-filter" class="honor-select" aria-label="Filter by Class Year">
+                <option value="all">All Classes &amp; Affiliations</option>
+                <option value="08">Class of '08</option>
+                <option value="12">Class of '12</option>
+                <option value="15">Class of '15</option>
+                <option value="16">Class of '16</option>
+                <option value="18">Class of '18</option>
+                <option value="19">Class of '19</option>
+                <option value="23">Class of '23</option>
+                <option value="parent">Parents &amp; Friends</option>
+              </select>
+
+              <div class="honor-search-input-wrap">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="honor-search-input" class="honor-search-input" placeholder="Search patron name, fund, or dedication..." />
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Honor Roll Grid -->
           <div class="donor-tags-cloud" id="donor-honor-roll-list">
-            <!-- Rendered by JS -->
+            <!-- Rendered dynamically by js/pages/donate.js -->
           </div>
         </div>
 
@@ -372,7 +530,7 @@
           </div>
           <div class="gift-summary-right">
             <span class="gift-summary-label">Designated Pillar</span>
-            <div class="gift-summary-fund" id="modal-summary-fund">Undergraduate Need-Blind Financial Aid</div>
+            <div class="gift-summary-fund" id="modal-summary-fund">Undergraduate Need-Blind Scholarship Fund</div>
           </div>
         </div>
 
@@ -392,9 +550,34 @@
           <input type="email" id="donor-email" class="form-input" placeholder="e.g. maya.lin@alumni.apex.edu" required />
         </div>
 
-        <div class="form-group">
-          <label for="donor-dedication" class="form-label">Dedication / In Honor Of (Optional)</label>
-          <input type="text" id="donor-dedication" class="form-input" placeholder="e.g. In memory of Dean Sarah Holloway" />
+        <!-- Dedication Selector -->
+        <div class="form-group dedication-group">
+          <label class="form-label">Gift Dedication (Optional)</label>
+          <div class="dedication-pill-selector">
+            <label class="dedication-pill active">
+              <input type="radio" name="dedicationType" value="none" checked />
+              <span>None</span>
+            </label>
+            <label class="dedication-pill">
+              <input type="radio" name="dedicationType" value="honor" />
+              <span>In Honor Of</span>
+            </label>
+            <label class="dedication-pill">
+              <input type="radio" name="dedicationType" value="memory" />
+              <span>In Memory Of</span>
+            </label>
+          </div>
+
+          <div id="dedication-details" class="dedication-details-box" hidden>
+            <div class="form-group" style="margin-bottom: var(--space-3);">
+              <label for="donor-honoree-name" class="form-label" id="honoree-label">Honoree Full Name</label>
+              <input type="text" id="donor-honoree-name" class="form-input" placeholder="e.g. Prof. David Montgomery or Dean Sarah Holloway" />
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="donor-honoree-email" class="form-label">Notification Email (Optional)</label>
+              <input type="email" id="donor-honoree-email" class="form-input" placeholder="Send an official acknowledgment note to honoree or family" />
+            </div>
+          </div>
         </div>
 
         <div class="form-group" style="margin-bottom: var(--space-4);">
@@ -425,10 +608,12 @@
 
   <!-- Digital Endowment Certificate / Receipt Modal -->
   <div class="modal-overlay" id="receipt-modal" role="dialog" aria-modal="true" aria-labelledby="receipt-modal-title">
-    <div class="modal-content receipt-modal-box">
+    <div class="modal-content receipt-modal-box" id="printable-certificate">
       <div class="receipt-seal-header">
-        <div class="receipt-crest">Ω</div>
-        <div class="receipt-uni-name">Apex University &bull; Office of the Endowment</div>
+        <div class="receipt-crest">
+          <img src="giet-logo.webp?v=3" alt="Apex Crest Seal" class="receipt-crest-img" />
+        </div>
+        <div class="receipt-uni-name">Apex University &bull; Office of the University Endowment</div>
         <h2 class="receipt-title" id="receipt-modal-title">Certificate of Benefaction</h2>
         <div class="receipt-serial" id="receipt-serial-num">REC-2026-ENDOW-8491</div>
       </div>
@@ -441,17 +626,22 @@
         <div class="receipt-card">
           <div class="receipt-card-tier" id="receipt-tier-name">Dean's Circle</div>
           <div class="receipt-card-amount" id="receipt-amount-display">$500.00 USD</div>
-          <div class="receipt-card-fund" id="receipt-fund-display">Undergraduate Need-Blind Financial Aid</div>
-          <div class="receipt-date" id="receipt-date-display">September 11, 2026</div>
+          <div class="receipt-card-fund" id="receipt-fund-display">Undergraduate Need-Blind Scholarship Fund</div>
+          <div class="receipt-date" id="receipt-date-display">September 24, 2026</div>
+          <div class="receipt-dedication" id="receipt-dedication-display" hidden></div>
         </div>
 
         <p class="receipt-tax-note">
-          Official 501(c)(3) tax identification: <strong>EIN 04-2194820</strong>. A formal PDF tax acknowledgment has been cataloged.
+          Official 501(c)(3) tax identification: <strong>EIN 04-2194820</strong>. A formal PDF tax acknowledgment has been cataloged in the University Registry.
         </p>
       </div>
 
       <div class="receipt-footer">
-        <button type="button" class="btn btn-primary btn-block" id="close-receipt-btn">Done &bull; View on Honor Roll</button>
+        <button type="button" class="btn btn-outline" id="print-receipt-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 5px;"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Print / Save Certificate as PDF
+        </button>
+        <button type="button" class="btn btn-primary" id="close-receipt-btn">Done &bull; View on Honor Roll</button>
       </div>
     </div>
   </div>
@@ -462,14 +652,16 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="brand" style="color: #fff;">
-            <div class="brand-crest">Ω</div>
+            <div class="brand-crest">
+              <img src="giet-logo.webp?v=3" alt="Apex University Crest" class="brand-logo-img" />
+            </div>
             <div class="brand-info">
               <span class="brand-title" style="color: #fff;">Apex University</span>
-              <span class="brand-subtitle">Alumni Network</span>
+              <span class="brand-subtitle" style="color: var(--color-accent);">Alumni Network</span>
             </div>
           </div>
           <p class="footer-desc">
-            Empowering lifelong connections between our global alumni body and current student cohorts through mentorship, chapters, and community initiatives.
+            Empowering lifelong connections between our global alumni body and current student cohorts through mentorship, chapters, and philanthropic endowments.
           </p>
         </div>
 
@@ -498,7 +690,7 @@
         <div>
           <h4 class="footer-heading">Stay Connected</h4>
           <p style="font-size: var(--text-sm); color: var(--color-text-inverse-muted); margin-bottom: var(--space-3);">
-            Receive our quarterly alumni bulletin and regional chapter invitations.
+            Receive our quarterly alumni bulletin, endowment reports, and regional chapter invitations.
           </p>
           <form class="newsletter-form">
             <div class="newsletter-input-group">
@@ -510,7 +702,7 @@
       </div>
 
       <div class="footer-bottom">
-        <div>&copy; 2026 Apex University Alumni Association. All rights reserved.</div>
+        <div>&copy; 2026 Apex University Alumni Association &bull; Office of the University Endowment. All rights reserved.</div>
         <div class="social-links">
           <a href="#" class="social-link" aria-label="LinkedIn">LinkedIn</a>
           <a href="#" class="social-link" aria-label="YouTube">YouTube</a>
