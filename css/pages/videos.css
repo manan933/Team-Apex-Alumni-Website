@@ -41,17 +41,6 @@
   padding-left: var(--space-6);
 }
 
-/* Gold left-border accent on the h1 */
-.vg-hero-heading::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.12em;
-  bottom: 0.12em;
-  width: 3px;
-  background: linear-gradient(to bottom, var(--color-accent), var(--color-accent-hover));
-  border-radius: 2px;
-}
 
 .vg-hero-subtitle {
   font-size: clamp(var(--text-base), 1.8vw, var(--text-lg));
@@ -560,9 +549,6 @@
     padding-left: var(--space-4);
   }
 
-  .vg-hero-heading::before {
-    width: 2px;
-  }
 
   .vg-hero-subtitle {
     font-size: var(--text-base);
