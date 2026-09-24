@@ -4,13 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GIET University Alumni Network — Official Global Community</title>
-  <meta name="description" content="Official alumni network of Apex University. Connect with 28,000+ leaders, researchers, and innovators across 50+ countries. Explore the interactive alumni constellation." />
+  <meta name="description" content="Official alumni network of GIET University. Connect with 28,000+ leaders, researchers, and innovators across 50+ countries. Reconnect, mentor, and explore the global directory." />
   
   <!-- Open Graph / Meta -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Apex University Alumni Network — Ad Astra Per Aspera" />
-  <meta property="og:description" content="Connecting generations of excellence across 50+ countries. Official alumni network of Apex University." />
+  <meta property="og:title" content="GIET University Alumni Network — Official Global Community" />
+  <meta property="og:description" content="Connecting generations of excellence across 50+ countries. Official alumni network of GIET University." />
   
+  <!-- Google Fonts Preconnect & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+
   <!-- CSS Design System (Foundation & Home Page) -->
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
@@ -45,7 +50,6 @@
       </nav>
 
       <div class="header-actions">
-        <!-- Search Trigger is auto-injected by js/nav.js (⌘K Quick Search) -->
         <div id="nav-auth-container">
           <a href="login.html" class="btn btn-outline btn-sm">Alumni Login</a>
         </div>
@@ -107,7 +111,7 @@
           <path d="M72 136H84C88 126 92 110 92 98C84 98 76 90 76 78C76 64 88 54 100 54C112 54 124 64 124 78C124 90 116 98 108 98C108 110 112 126 116 136H128V144H106C106 136 104 124 104 114H96C96 124 94 136 94 144H72V136Z" fill="currentColor" opacity="0.85"/>
           <path d="M100 24L103 33H112L105 39L108 48L100 42L92 48L95 39L88 33H97L100 24Z" fill="currentColor"/>
           <!-- Latin Inscription Arc Representation -->
-          <text font-family="Newsreader, serif" font-size="8.5" font-weight="600" letter-spacing="2.8" fill="currentColor" text-anchor="middle">
+          <text font-family="'Cinzel', 'Playfair Display', serif" font-size="8.5" font-weight="600" letter-spacing="2.8" fill="currentColor" text-anchor="middle">
             <textPath href="#seal-text-path" startOffset="50%">
               AD ASTRA PER ASPERA &bull; GIET UNIVERSITY 
             </textPath>
@@ -135,10 +139,10 @@
 
           <div class="hero-actions-wrap reveal reveal-delay-3">
             <a href="directory.html" class="btn btn-primary btn-lg">Explore Alumni Directory &rarr;</a>
-            <button class="btn btn-outline btn-lg" onclick="document.getElementById('cmd-palette-trigger')?.click();">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-              Quick Search 
-            </button>
+            <a href="signup.html" class="btn btn-outline btn-lg">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+              Join Network
+            </a>
           </div>
 
           <!-- Academic Seal Micro-Credential -->
@@ -260,11 +264,6 @@
       </div>
     </div>
 
-    <!-- ======================================================================
-         3. INTERACTIVE ALUMNI CONSTELLATION & LIVING NETWORK
-         System Contract: #constellation-canvas, #constellation-tooltip, #constellation-filters
-         ====================================================================== -->
-    
 
     <!-- ======================================================================
          4. GENERATIONS OF EXCELLENCE TIMELINE EXPLORER
@@ -538,7 +537,7 @@
       </div>
 
       <div class="footer-bottom">
-        <div>&copy; 2026 Apex University Alumni Association. All rights reserved. &bull; Official Institutional Portal</div>
+        <div>&copy; 2026 GIET University Alumni Association. All rights reserved. &bull; Official Institutional Portal</div>
         <div class="social-links">
           <a href="#" class="social-link" aria-label="LinkedIn">LinkedIn</a>
           <a href="#" class="social-link" aria-label="YouTube">YouTube</a>

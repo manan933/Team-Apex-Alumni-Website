@@ -16,7 +16,7 @@ It has undergone a **complete frontend transformation** from a generic starter c
 - **No AI Slop / Vibe-Coding:** Strictly NO excessive glassmorphism, NO random gradient blobs, NO glowing neon borders, NO over-rounded bouncy cards, NO SaaS-dashboard aesthetics.
 - **Editorial & Human-Centered:** Alumni are presented as distinguished people (editorial portraits, pull quotes, rich career trajectories, verified credentials), not database rows.
 - **Light Mode Only:** Warm cream (`#FAF8F4`), crisp white card surfaces (`#FFFFFF`), deep collegiate navy (`#0B192C`), and polished heritage gold (`#D4AF37`).
-- **Typography-Led:** Google Fonts **Newsreader** (editorial serif heading) + **Plus Jakarta Sans** (clean modern UI sans-serif).
+- **Typography-Led:** Google Fonts **Playfair Display** (majestic academic display serif) + **Inter** (gold-standard crisp UI sans-serif) + **Cinzel** (classical Roman inscriptions & seal).
 - **Pure Native Stack:** HTML5, CSS3 Custom Properties, Vanilla JavaScript with native **ES Modules** (`type="module"`). NO React, NO Vue, NO Tailwind, NO Bootstrap, NO build tools or bundlers.
 
 ---
@@ -37,8 +37,8 @@ The project has a team of 6 (1 Team Leader + 5 Assigned Developers). To prevent 
 ### 🔒 Read-Only Shared Foundation Files (Team Leader Only):
 - `css/tokens.css` — Central design tokens
 - `css/base.css` — Global reset, typography, containers, `.reveal` animations
-- `css/components.css` — Nav header, mobile drawer, buttons, badges, modals, toasts, footer, ⌘K search palette
-- `js/nav.js` — Global navigation controller, auth listener, toast system (`showToast(msg, type)`), and ⌘K Command Palette
+- `css/components.css` — Nav header, mobile drawer, buttons, badges, modals, toasts, footer
+- `js/nav.js` — Global navigation controller, auth listener, toast system (`showToast(msg, type)`), scroll reveals
 - `js/auth.js` — Authentication state machine (Firebase Auth + seamless localStorage mock)
 - `js/storage-service.js` — Asynchronous data layer (Firestore + localStorage mock)
 - `js/firebase-config.js` — Firebase initialization & mock mode detector
@@ -101,14 +101,11 @@ When placeholder credentials exist, the app operates 100% locally using `localSt
 ## 4. Frontend Architecture & Features Implemented
 
 1. **Design Tokens & System (`css/tokens.css`, `css/base.css`, `css/components.css`):**
-   - Palette: `--color-cream: #FAF8F4`, `--color-cream-deep: #F5F0E8`, `--color-border-warm: #E8E1D9`, `--color-primary: #0B192C`, `--color-accent: #D4AF37`.
-   - Constellation Node Palette: Tech (`#3B82F6`), Bio (`#10B981`), VC (`#F59E0B`), Energy (`#EC4899`).
    - Editorial typography: Google Fonts Newsreader serif (-0.035em letter spacing, `text-wrap: balance`) paired with Plus Jakarta Sans.
-   - Global Quick Search (⌘K Command Palette): Available on all pages, auto-injected into masthead, live debounced index search with direct profile deep-links.
+   - Clean, accessible navigation across all devices without pop-up modals.
 
 2. **Home Page (`index.html`, `css/pages/home.css`, `js/pages/home.js`):**
-   - **Hero:** Spatial alumni cards, continuous marquee ticker of alumni roles, Newsreader masthead, ⌘K trigger.
-   - **Living Network Constellation:** 60fps native HTML5 Canvas physics simulation connecting alumni nodes by discipline, real-time hover inspection tooltip linking to profiles, category filter pills (`All`, `AI & Tech`, `Biotech`, `Venture`, `Energy`), and viewport pause via `IntersectionObserver`.
+   - **Hero:** Spatial alumni cards, continuous marquee ticker of alumni roles, Newsreader masthead, direct CTA to Directory and Join Network.
    - **Stats Bar:** Animated numbers (`stat-total-alumni`, `stat-countries`, `stat-chapters`, `stat-years`).
    - **Generations of Excellence:** Interactive timeline exploring alumni impact across eras (`2016–Present`, `2005–2015`, `1980–2004`).
    - **Geographic Footprint:** Regional alumni hub exploration cards (San Francisco, London, Boston, Tokyo).
@@ -168,8 +165,8 @@ python -m http.server 8080
 
 - [x] All 11 pages updated and styled with pure HTML/CSS/JS (no frameworks)
 - [x] Warm ivory cream light-mode design tokens enforced
-- [x] Global ⌘K Quick Search active across all pages
-- [x] 60fps HTML5 Canvas constellation visualizer implemented
+- [x] Command Palette (⌘K) removed across all pages per user request
+- [x] Living Alumni Constellation Canvas removed per user request
 - [x] Directory multi-mode switcher and discovery chips implemented
 - [x] Dual-mode public profile and self-service editor implemented
 - [x] Giving & Philanthropy portal with live honor roll and digital receipt implemented

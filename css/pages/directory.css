@@ -1,32 +1,125 @@
 /* ==========================================================================
-   PAGE: ALUMNI DIRECTORY (directory.html)
-   Discovery Engine: Editorial Cards, Dense Table, Quick Discovery Chips
+   GIET UNIVERSITY ALUMNI NETWORK — ALUMNI DIRECTORY & TALENT INDEX
+   File: css/pages/directory.css
+   Style: Editorial Academic Prestigious / Tech Review UI
+   Palette: Warm Ivory Cream (#FAF8F4), Deep Navy (#0B192C), Radiant Gold (#D4AF37)
    ========================================================================== */
 
-/* Directory Header */
+/* --------------------------------------------------------------------------
+   1. EDITORIAL DIRECTORY MASTHEAD & HERO
+   -------------------------------------------------------------------------- */
 .directory-header {
-  padding-top: var(--space-14);
-  padding-bottom: var(--space-10);
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-12);
   border-bottom: 1px solid var(--color-border-warm);
+  background: linear-gradient(180deg, #FAF8F4 0%, #F5EFE6 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.directory-header::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -80px;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0) 70%);
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.directory-header-content {
+  max-width: 920px;
+  position: relative;
+  z-index: 1;
+}
+
+.directory-badge-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.directory-verified-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.6875rem;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent-hover);
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
 }
 
 .directory-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.25rem, 5vw, var(--text-5xl));
+  font-size: clamp(2.25rem, 5vw, 3.6rem);
   color: var(--color-primary);
-  line-height: 1.15;
-  margin-bottom: var(--space-2);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-3);
+  text-wrap: balance;
 }
 
 .directory-subtitle {
-  font-size: var(--text-lg);
+  font-size: clamp(1rem, 1.8vw, var(--text-lg));
   color: var(--color-text-secondary);
-  max-width: 680px;
-  line-height: var(--leading-normal);
-  margin-bottom: var(--space-6);
+  max-width: 760px;
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-8);
 }
 
-/* Quick Discovery Preset Chips */
+/* Micro Metric Strip */
+.directory-stats-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--color-border);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 2px 10px rgba(11, 25, 44, 0.04);
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+}
+
+.directory-stat-badge {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.directory-stat-badge .stat-num {
+  font-family: var(--font-heading);
+  font-weight: var(--font-bold);
+  font-size: 1.15rem;
+  color: var(--color-primary);
+}
+
+.directory-stat-badge .stat-desc {
+  font-size: 0.75rem;
+  font-weight: var(--font-semibold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.directory-stat-divider {
+  color: var(--color-accent);
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* --------------------------------------------------------------------------
+   2. QUICK DISCOVERY PRESET CHIPS
+   -------------------------------------------------------------------------- */
 .discovery-chips-bar {
   display: flex;
   align-items: center;
@@ -35,18 +128,22 @@
 }
 
 .chips-label {
-  font-size: var(--text-xs);
+  font-size: 0.6875rem;
   font-weight: var(--font-bold);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.09em;
   color: var(--color-text-muted);
-  margin-right: var(--space-1);
+  margin-right: var(--space-2);
 }
 
 .discovery-chip {
-  padding: 0.35rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.42rem 0.85rem;
   font-size: var(--text-xs);
   font-weight: var(--font-semibold);
+  font-family: var(--font-sans);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
@@ -54,29 +151,54 @@
   cursor: pointer;
   white-space: nowrap;
   transition: all var(--transition-fast);
-}
-
-.discovery-chip:hover,
-.discovery-chip.active {
-  background: var(--color-primary);
-  color: #fff;
-  border-color: var(--color-primary);
   box-shadow: var(--shadow-xs);
 }
 
-/* Toolbar & Filter Section */
+.discovery-chip .chip-icon {
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
+.discovery-chip:hover {
+  border-color: var(--color-accent);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.discovery-chip.active {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(11, 25, 44, 0.22);
+}
+
+.discovery-chip.active .chip-icon {
+  color: var(--color-accent);
+}
+
+/* --------------------------------------------------------------------------
+   3. STICKY FILTER TOOLBAR & CONTROLS
+   -------------------------------------------------------------------------- */
 .directory-toolbar-section {
-  padding-top: var(--space-8);
-  padding-bottom: var(--space-20);
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-24);
+  position: relative;
 }
 
 .filter-bar {
-  background-color: var(--color-surface);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   padding: var(--space-5);
-  box-shadow: var(--shadow-xs);
+  box-shadow: 0 4px 20px rgba(11, 25, 44, 0.05);
   margin-bottom: var(--space-6);
+  position: sticky;
+  top: calc(var(--header-height) + 8px);
+  z-index: 40;
+  transition: all var(--transition-normal);
 }
 
 .filter-row-top {
@@ -98,56 +220,101 @@
   transform: translateY(-50%);
   color: var(--color-text-muted);
   pointer-events: none;
+  transition: color var(--transition-fast);
 }
 
 .search-input {
   width: 100%;
-  padding: 0.75rem 1rem 0.75rem 2.75rem;
+  height: 48px;
+  padding: 0.75rem 2.85rem 0.75rem 3rem;
   font-size: var(--text-base);
   font-family: var(--font-sans);
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
   border-radius: var(--radius-xs);
-  background-color: var(--color-bg-main);
+  background-color: var(--color-bg-alt);
   color: var(--color-text-primary);
   transition: all var(--transition-fast);
 }
 
 .search-input:focus {
   outline: none;
-  background-color: var(--color-surface);
+  background-color: #FFFFFF;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px var(--color-accent-subtle);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
 }
 
-/* View Mode Switcher */
-.view-mode-switcher {
+.search-box:focus-within .search-icon {
+  color: var(--color-accent-hover);
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(15, 23, 42, 0.08);
+  border: none;
+  color: var(--color-text-muted);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: all var(--transition-fast);
+}
+
+.search-clear-btn:hover {
+  background: var(--color-primary);
+  color: #FFFFFF;
+}
+
+/* View Mode Switcher (Cards vs Table) */
+.view-mode-switcher {
+  display: inline-flex;
   background: var(--color-bg-alt);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xs);
-  padding: 2px;
-  gap: 2px;
+  padding: 3px;
+  gap: 3px;
+  flex-shrink: 0;
 }
 
 .view-mode-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
-  padding: 0.45rem 0.75rem;
+  gap: 6px;
+  padding: 0.55rem 0.95rem;
   font-size: var(--text-xs);
   font-weight: var(--font-semibold);
+  font-family: var(--font-sans);
   color: var(--color-text-muted);
   border-radius: var(--radius-xs);
+  border: none;
+  background: transparent;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
-.view-mode-btn.active {
-  background: var(--color-surface);
+.view-mode-btn:hover {
   color: var(--color-primary);
-  box-shadow: var(--shadow-xs);
 }
 
+.view-mode-btn.active {
+  background: #FFFFFF;
+  color: var(--color-primary);
+  box-shadow: 0 1px 4px rgba(11, 25, 44, 0.1);
+  font-weight: var(--font-bold);
+}
+
+.view-mode-btn svg {
+  flex-shrink: 0;
+}
+
+/* Filter Dropdown Controls */
 .filter-controls {
   display: grid;
   grid-template-columns: repeat(4, 1fr) auto;
@@ -156,41 +323,67 @@
 }
 
 .filter-select {
-  padding: 0.55rem 0.85rem;
-  font-size: var(--text-sm);
+  width: 100%;
+  height: 42px;
+  padding: 0.45rem 2.25rem 0.45rem 0.85rem;
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  font-family: var(--font-sans);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xs);
-  background-color: var(--color-bg-main);
+  background-color: var(--color-bg-alt);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
   color: var(--color-text-primary);
   cursor: pointer;
   transition: all var(--transition-fast);
+  appearance: none;
+  -webkit-appearance: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.filter-select:hover {
+  border-color: var(--color-accent);
+  background-color: #FFFFFF;
 }
 
 .filter-select:focus {
   outline: none;
-  background-color: var(--color-surface);
+  background-color: #FFFFFF;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px var(--color-accent-subtle);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
 }
 
 .clear-filters-btn {
-  padding: 0.55rem 0.85rem;
+  height: 42px;
+  padding: 0 1rem;
   font-size: var(--text-xs);
-  font-weight: var(--font-semibold);
-  color: var(--color-danger);
-  background: var(--color-danger-bg);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  font-weight: var(--font-bold);
+  font-family: var(--font-sans);
+  color: #B91C1C;
+  background: #FEE2E2;
+  border: 1px solid rgba(185, 28, 28, 0.2);
   border-radius: var(--radius-xs);
   cursor: pointer;
   white-space: nowrap;
   transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
 
 .clear-filters-btn:hover {
-  background: #fee2e2;
+  background: #FECACA;
+  color: #991B1B;
 }
 
-/* Filter Summary Bar */
+/* --------------------------------------------------------------------------
+   4. ACTIVE FILTER TAGS & SUMMARY COUNTER BAR
+   -------------------------------------------------------------------------- */
 .filter-summary-bar {
   display: flex;
   align-items: center;
@@ -198,45 +391,107 @@
   margin-bottom: var(--space-6);
   padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--color-border);
+  gap: var(--space-4);
+  flex-wrap: wrap;
 }
 
 .results-count {
-  font-size: var(--text-sm);
-  font-weight: var(--font-medium);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--color-text-muted);
 }
 
-/* Mode 1: Directory Cards Grid */
+.active-filter-tags {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.active-filter-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-surface);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.6875rem;
+  font-weight: var(--font-medium);
+  color: var(--color-primary);
+  box-shadow: 0 1px 3px rgba(11, 25, 44, 0.04);
+  animation: fadeInTag 0.2s ease-out;
+}
+
+@keyframes fadeInTag {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.active-filter-tag .tag-label {
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  font-size: 0.625rem;
+  letter-spacing: 0.04em;
+}
+
+.active-filter-tag .tag-remove-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  line-height: 1;
+  transition: color var(--transition-fast);
+}
+
+.active-filter-tag .tag-remove-btn:hover {
+  color: var(--color-danger);
+}
+
+/* --------------------------------------------------------------------------
+   5. MODE 1: EDITORIAL ALUMNI CARDS GRID
+   -------------------------------------------------------------------------- */
 .directory-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
   gap: var(--space-6);
 }
 
-/* Editorial Alumni Card */
+/* Prestige Editorial Card */
 .alumni-card {
-  background: var(--color-surface);
+  background: #FFFFFF;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.28s ease, 
+              border-color 0.28s ease;
   position: relative;
+  box-shadow: 0 2px 8px rgba(11, 25, 44, 0.04);
 }
 
 .alumni-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--color-accent);
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(11, 25, 44, 0.09), 0 0 0 1px rgba(212, 175, 55, 0.4);
+  border-color: rgba(212, 175, 55, 0.5);
 }
 
+/* Card Photo Framing */
 .alumni-card-photo-wrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 4.6;
-  background-color: var(--color-bg-alt);
+  aspect-ratio: 4 / 4.8;
+  background-color: var(--color-primary-dark);
   overflow: hidden;
 }
 
@@ -245,79 +500,173 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform var(--transition-slow);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .alumni-card:hover .alumni-card-photo {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
+/* Subtle Vignette Gradient Overlay */
+.alumni-card-photo-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 25, 44, 0) 55%, rgba(11, 25, 44, 0.65) 100%);
+  pointer-events: none;
+}
+
+/* Class Year Top-Left Badge */
+.alumni-card-batch-badge {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 2;
+  background: rgba(11, 25, 44, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  font-size: 0.6875rem;
+  font-weight: var(--font-bold);
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  letter-spacing: 0.04em;
+}
+
+/* Verified Gold Seal */
 .alumni-badge-verified {
   position: absolute;
   top: var(--space-3);
   right: var(--space-3);
-  width: 26px;
-  height: 26px;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background: var(--color-accent);
+  background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 100%);
   color: var(--color-primary-dark);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  border: 1.5px solid #FFFFFF;
 }
 
+/* Organization Pill Overlay on Photo Bottom */
+.alumni-card-company-tag {
+  position: absolute;
+  bottom: var(--space-3);
+  left: var(--space-3);
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--color-primary);
+  font-size: 0.6875rem;
+  font-weight: var(--font-bold);
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  max-width: calc(100% - 24px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Body Content */
 .alumni-card-body {
   padding: var(--space-5);
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  background: #FFFFFF;
 }
 
 .alumni-name {
   font-family: var(--font-sans);
-  font-size: var(--text-base);
+  font-size: 1.1rem;
   font-weight: var(--font-bold);
   color: var(--color-primary);
-  margin-bottom: 2px;
+  margin-bottom: 3px;
   line-height: var(--leading-snug);
+  transition: color var(--transition-fast);
+}
+
+.alumni-card:hover .alumni-name {
+  color: var(--color-accent-hover);
 }
 
 .alumni-role {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   color: var(--color-text-secondary);
-  line-height: var(--leading-normal);
-  margin-bottom: var(--space-3);
+  line-height: 1.35;
+  margin-bottom: var(--space-4);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.alumni-meta-list {
+/* Card Meta Pill Items */
+.alumni-card-meta-row {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2);
   margin-top: auto;
   padding-top: var(--space-3);
   border-top: 1px solid var(--color-border-subtle);
+  flex-wrap: wrap;
 }
 
-.alumni-meta-item {
-  font-size: var(--text-xs);
+.alumni-discipline-tag {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: var(--font-semibold);
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+  background: var(--color-cream-deep);
+  color: var(--color-primary);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  white-space: nowrap;
+}
+
+.alumni-location-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.6875rem;
   color: var(--color-text-muted);
+  white-space: nowrap;
 }
 
-.alumni-meta-item + .alumni-meta-item::before {
-  content: '•';
-  margin-right: var(--space-2);
-  color: var(--color-border);
+/* Card Bottom Action Cue */
+.alumni-card-footer-cue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-3);
+  padding-top: var(--space-2);
+  font-size: 0.75rem;
+  font-weight: var(--font-bold);
+  color: var(--color-accent-hover);
+  opacity: 0.85;
+  transition: all var(--transition-fast);
 }
 
-/* Mode 2: Dense Table View */
+.alumni-card:hover .alumni-card-footer-cue {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+/* --------------------------------------------------------------------------
+   6. MODE 2: DENSE DIRECTORY TABLE VIEW
+   -------------------------------------------------------------------------- */
 .directory-table-container {
-  background: var(--color-surface);
+  background: #FFFFFF;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   overflow-x: auto;
-  box-shadow: var(--shadow-xs);
+  box-shadow: 0 2px 12px rgba(11, 25, 44, 0.04);
 }
 
 .dense-directory-table {
@@ -328,25 +677,26 @@
 }
 
 .dense-directory-table th {
-  background-color: var(--color-bg-alt);
-  padding: var(--space-3) var(--space-4);
-  font-size: var(--text-xs);
+  background-color: #FAF8F4;
+  padding: var(--space-4) var(--space-5);
+  font-size: 0.6875rem;
   font-weight: var(--font-bold);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--color-text-muted);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1.5px solid var(--color-border);
+  white-space: nowrap;
 }
 
 .dense-directory-table td {
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-4) var(--space-5);
   border-bottom: 1px solid var(--color-border-subtle);
   color: var(--color-text-secondary);
   vertical-align: middle;
 }
 
 .dense-directory-table tr:hover td {
-  background-color: var(--color-cream);
+  background-color: #F8F5EE;
 }
 
 .dense-graduate-cell {
@@ -355,113 +705,355 @@
   gap: var(--space-3);
 }
 
+.dense-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
 .dense-avatar {
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   border-radius: var(--radius-xs);
   object-fit: cover;
-  flex-shrink: 0;
+  border: 1px solid var(--color-border);
+}
+
+.dense-avatar-verified {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-primary-dark);
+  font-size: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #FFFFFF;
 }
 
 .dense-name {
   font-weight: var(--font-bold);
   color: var(--color-primary);
+  font-size: var(--text-sm);
+  line-height: 1.2;
 }
 
-/* Modal Specifics */
+.dense-sub-badge {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   7. EXECUTIVE DOSSIER QUICK PREVIEW MODAL
+   -------------------------------------------------------------------------- */
 .directory-modal-content {
-  max-width: 640px;
+  max-width: 680px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(11, 25, 44, 0.28);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  position: relative;
+  background: #FFFFFF;
+  animation: modalScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalScaleUp {
+  from { opacity: 0; transform: scale(0.96) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-close-icon-btn {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(11, 25, 44, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+  font-size: 1.35rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.modal-close-icon-btn:hover {
+  background: var(--color-primary);
+  transform: rotate(90deg);
+}
+
+/* Dossier Header Banner */
+.dossier-hero-banner {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: radial-gradient(circle at 60% 30%, #173356 0%, #0B192C 100%);
   overflow: hidden;
 }
 
-.alumni-modal-header {
-  position: relative;
-  width: 100%;
-  height: 250px;
-  background-color: var(--color-primary);
-}
-
-.alumni-modal-photo {
+.dossier-hero-photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0.88;
 }
 
-.alumni-modal-body {
-  padding: var(--space-6);
+.dossier-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 25, 44, 0.2) 0%, rgba(11, 25, 44, 0.85) 100%);
 }
 
-.alumni-modal-name {
+.dossier-banner-badges {
+  position: absolute;
+  bottom: var(--space-4);
+  left: var(--space-6);
+  right: var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.dossier-fellow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 100%);
+  color: var(--color-primary-dark);
+  font-size: 0.6875rem;
+  font-weight: var(--font-bold);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.dossier-batch-badge {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #FFFFFF;
+  font-size: 0.6875rem;
+  font-weight: var(--font-bold);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+/* Dossier Body */
+.dossier-body {
+  padding: var(--space-6) var(--space-8);
+}
+
+.dossier-name {
   font-family: var(--font-heading);
-  font-size: var(--text-2xl);
+  font-size: 1.85rem;
   font-weight: var(--font-bold);
   color: var(--color-primary);
+  line-height: 1.2;
   margin-bottom: var(--space-1);
 }
 
-.alumni-modal-headline {
-  font-size: var(--text-base);
+.dossier-role-title {
+  font-size: 1rem;
   color: var(--color-text-secondary);
-  margin-bottom: var(--space-4);
+  line-height: 1.4;
+  margin-bottom: var(--space-5);
 }
 
-.alumni-modal-bio {
+/* Quotation Bio Excerpt */
+.dossier-bio-quote {
+  font-family: var(--font-sans);
   font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
-  color: var(--color-text-secondary);
-  background-color: var(--color-cream);
-  border-left: 3px solid var(--color-accent);
-  padding: var(--space-4);
-  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
-  margin-bottom: var(--space-6);
   font-style: italic;
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-primary);
+  background: #FAF8F4;
+  border-left: 3.5px solid var(--color-accent);
+  padding: var(--space-4) var(--space-5);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin-bottom: var(--space-6);
+  position: relative;
 }
 
-.alumni-modal-grid {
+/* 4-Cell Credential Matrix */
+.dossier-credentials-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-4);
+  gap: var(--space-3);
   margin-bottom: var(--space-6);
 }
 
-.modal-grid-item {
+.dossier-cred-cell {
+  background: #FAF8F4;
+  border: 1px solid var(--color-border-warm);
+  border-radius: var(--radius-xs);
+  padding: var(--space-3) var(--space-4);
   display: flex;
   flex-direction: column;
 }
 
-.alumni-info-label {
-  font-size: var(--text-xs);
-  font-weight: var(--font-semibold);
+.dossier-cred-label {
+  font-size: 0.625rem;
+  font-weight: var(--font-bold);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--color-text-muted);
   margin-bottom: 2px;
 }
 
-.alumni-info-val {
-  font-size: var(--text-sm);
-  font-weight: var(--font-medium);
+.dossier-cred-val {
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
   color: var(--color-primary);
+  line-height: 1.3;
 }
 
-/* Responsive Media Queries */
+/* Modal Bottom Actions */
+.dossier-actions-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.dossier-linkedin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0A66C2;
+  border-color: rgba(10, 102, 194, 0.3);
+}
+
+.dossier-linkedin-btn:hover {
+  background: #0A66C2;
+  color: #FFFFFF;
+}
+
+/* --------------------------------------------------------------------------
+   8. EMPTY STATE ILLUMINATION
+   -------------------------------------------------------------------------- */
+.directory-empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--space-16) var(--space-6);
+  background: #FAF8F4;
+  border: 1.5px dashed var(--color-border-warm);
+  border-radius: var(--radius-md);
+  margin: var(--space-4) 0;
+}
+
+.empty-state-crest {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto var(--space-4);
+  background: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(11, 25, 44, 0.06);
+  color: var(--color-accent);
+}
+
+.directory-empty-title {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+.directory-empty-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  max-width: 480px;
+  margin: 0 auto var(--space-5);
+  line-height: var(--leading-normal);
+}
+
+/* --------------------------------------------------------------------------
+   9. RESPONSIVE BREAKPOINTS
+   -------------------------------------------------------------------------- */
 @media (max-width: 992px) {
   .filter-controls {
     grid-template-columns: 1fr 1fr;
   }
+
+  .directory-stats-strip {
+    gap: var(--space-3);
+  }
+
+  .directory-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
+  .directory-header {
+    padding-top: var(--space-10);
+    padding-bottom: var(--space-8);
+  }
+
+  .filter-bar {
+    top: var(--header-height);
+    padding: var(--space-4);
+  }
+
   .filter-row-top {
     flex-direction: column;
     align-items: stretch;
   }
+
+  .view-mode-switcher {
+    width: 100%;
+    justify-content: center;
+  }
+
   .filter-controls {
     grid-template-columns: 1fr;
   }
-  .alumni-modal-grid {
+
+  .directory-stats-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .directory-stat-divider {
+    display: none;
+  }
+
+  .dossier-credentials-grid {
     grid-template-columns: 1fr;
   }
+
+  .dossier-actions-strip {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dossier-actions-strip .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
   .directory-grid {
     grid-template-columns: 1fr;
   }

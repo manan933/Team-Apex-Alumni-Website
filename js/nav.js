@@ -1,13 +1,12 @@
 /**
  * ==========================================================================
  * NAVIGATION & GLOBAL UI LOGIC
- * Sticky nav shrink, mobile drawer, dynamic auth state dropdown, toasts,
- * and Global Quick Search (⌘K Command Palette) across all pages
+ * Sticky nav shrink, mobile drawer, dynamic auth state dropdown, toasts
  * ==========================================================================
  */
 
 import { onAuthStateChange, logout } from './auth.js';
-import { subscribeNewsletter, getAlumni } from './storage-service.js';
+import { subscribeNewsletter } from './storage-service.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initStickyHeader();
@@ -16,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initAuthUI();
   initNewsletter();
   initScrollReveals();
-  initCommandPalette();
 });
 
 /**
@@ -47,6 +45,8 @@ function initMobileDrawer() {
   const backdrop = document.querySelector('.mobile-drawer-backdrop');
 
   if (!toggleBtn || !drawer || !backdrop) return;
+  if (toggleBtn.dataset.navBound === 'true') return;
+  toggleBtn.dataset.navBound = 'true';
 
   const toggle = (open) => {
     const shouldOpen = typeof open === 'boolean' ? open : !drawer.classList.contains('open');
@@ -270,209 +270,7 @@ function initScrollReveals() {
   elements.forEach(el => observer.observe(el));
 }
 
-/**
- * ==========================================================================
- * GLOBAL ⌘K QUICK SEARCH & COMMAND PALETTE
- * Accessible from ANY page using ⌘K / Ctrl+K or clicking the search trigger
- * ==========================================================================
- */
-function initCommandPalette() {
-  // 1. Inject Search Trigger Button into Header if not already present
-  const headerActions = document.querySelector('.header-actions');
-  if (headerActions && !document.getElementById('cmd-palette-trigger')) {
-    const searchBtn = document.createElement('button');
-    searchBtn.id = 'cmd-palette-trigger';
-    searchBtn.className = 'header-search-btn';
-    searchBtn.setAttribute('aria-label', 'Open global search');
-    searchBtn.innerHTML = `
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"></circle>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-      </svg>
-      <span>Search</span>
-    `;
-    headerActions.insertBefore(searchBtn, headerActions.firstChild);
-  }
-
-  // 2. Inject Command Palette Modal Backdrop into Body
-  let paletteBackdrop = document.getElementById('cmd-palette-backdrop');
-  if (!paletteBackdrop) {
-    paletteBackdrop = document.createElement('div');
-    paletteBackdrop.id = 'cmd-palette-backdrop';
-    paletteBackdrop.className = 'cmd-palette-backdrop';
-    paletteBackdrop.setAttribute('role', 'dialog');
-    paletteBackdrop.setAttribute('aria-modal', 'true');
-    paletteBackdrop.innerHTML = `
-      <div class="cmd-palette-modal">
-        <div class="cmd-palette-input-wrap">
-          <svg class="cmd-palette-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input type="text" id="cmd-palette-input" class="cmd-palette-input" placeholder="Search alumni, batches, companies, stories, pages..." autocomplete="off" />
-          <span class="cmd-kbd">ESC</span>
-        </div>
-        <div id="cmd-palette-results" class="cmd-palette-results">
-          <!-- Dynamically populated results -->
-        </div>
-        <div class="cmd-footer">
-          <span>Tip: Press <strong>ESC</strong> to dismiss, <strong>ENTER</strong> to select</span>
-          <span>Apex Alumni Global Index</span>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(paletteBackdrop);
-  }
-
-  // Ensure command palette trigger exists in the masthead header-actions
-  
-
-  const input = document.getElementById('cmd-palette-input');
-  const resultsContainer = document.getElementById('cmd-palette-results');
-
-  let allAlumniData = [];
-  let isDataLoaded = false;
-
-  const loadSearchData = async () => {
-    if (!isDataLoaded) {
-      allAlumniData = await getAlumni();
-      isDataLoaded = true;
-    }
-  };
-
-  const openPalette = async () => {
-    paletteBackdrop.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    await loadSearchData();
-    if (input) {
-      input.value = '';
-      input.focus();
-      renderDefaultSearchResults();
-    }
-  };
-
-  const closePalette = () => {
-    paletteBackdrop.classList.remove('open');
-    document.body.style.overflow = '';
-  };
-
-  // Keyboard shortcut: ⌘K or Ctrl+K or /
-  window.addEventListener('keydown', (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-      e.preventDefault();
-      if (paletteBackdrop.classList.contains('open')) {
-        closePalette();
-      } else {
-        openPalette();
-      }
-    } else if (e.key === 'Escape' && paletteBackdrop.classList.contains('open')) {
-      closePalette();
-    }
-  });
-
-  document.querySelectorAll('.cmd-palette-trigger, #cmd-palette-trigger, #cmd-search-btn').forEach(btn => {
-    btn.addEventListener('click', openPalette);
-  });
-
-  paletteBackdrop.addEventListener('click', (e) => {
-    if (e.target === paletteBackdrop) closePalette();
-  });
-
-  const renderDefaultSearchResults = () => {
-    if (!resultsContainer) return;
-    resultsContainer.innerHTML = `
-      <div class="cmd-group-label">Quick Navigation</div>
-      <a href="directory.html" class="cmd-item">
-        <div class="cmd-item-left">
-          <div class="cmd-item-avatar" style="display:flex;align-items:center;justify-content:center;background:var(--color-accent-light);color:var(--color-primary-dark);font-weight:bold;">Ω</div>
-          <div>
-            <div class="cmd-item-title">Alumni Directory</div>
-            <div class="cmd-item-sub">Explore all 28,000+ verified graduates worldwide</div>
-          </div>
-        </div>
-        <span class="badge badge-subtle">Directory</span>
-      </a>
-      <a href="news.html" class="cmd-item">
-        <div class="cmd-item-left">
-          <div class="cmd-item-avatar" style="display:flex;align-items:center;justify-content:center;background:var(--color-cream);color:var(--color-primary);">📰</div>
-          <div>
-            <div class="cmd-item-title">University Gazette &amp; Stories</div>
-            <div class="cmd-item-sub">Read breakthroughs, research narratives &amp; milestones</div>
-          </div>
-        </div>
-        <span class="badge badge-subtle">Gazette</span>
-      </a>
-      <div class="cmd-group-label" style="margin-top:var(--space-2);">Featured Alumni Profiles</div>
-      ${allAlumniData.slice(0, 3).map(a => `
-        <a href="profile.html?id=${a.uid}" class="cmd-item">
-          <div class="cmd-item-left">
-            <img src="${a.photoURL}" alt="${escapeHTML(a.name)}" class="cmd-item-avatar" />
-            <div>
-              <div class="cmd-item-title">${escapeHTML(a.name)}</div>
-              <div class="cmd-item-sub">${escapeHTML(a.jobTitle)} at ${escapeHTML(a.company)} &bull; Class of '${String(a.gradYear).slice(-2)}</div>
-            </div>
-          </div>
-          <span class="badge badge-accent">View Profile &rarr;</span>
-        </a>
-      `).join('')}
-    `;
-  };
-
-  if (input) {
-    input.addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase().trim();
-      if (!q) {
-        renderDefaultSearchResults();
-        return;
-      }
-
-      const matches = allAlumniData.filter(a => 
-        (a.name && a.name.toLowerCase().includes(q)) ||
-        (a.company && a.company.toLowerCase().includes(q)) ||
-        (a.jobTitle && a.jobTitle.toLowerCase().includes(q)) ||
-        (a.city && a.city.toLowerCase().includes(q)) ||
-        (a.degree && a.degree.toLowerCase().includes(q)) ||
-        (a.industry && a.industry.toLowerCase().includes(q))
-      ).slice(0, 6);
-
-      if (!matches.length) {
-        resultsContainer.innerHTML = `
-          <div style="padding: var(--space-8) var(--space-4); text-align: center; color: var(--color-text-muted);">
-            <div style="font-size: var(--text-base); color: var(--color-primary); font-weight: var(--font-semibold); margin-bottom: 4px;">No alumni matching "${escapeHTML(q)}"</div>
-            <p style="font-size: var(--text-xs); margin-bottom: var(--space-4);">Try searching by company (e.g. Google, SpaceX), industry, or graduation year.</p>
-            <a href="directory.html?search=${encodeURIComponent(q)}" class="btn btn-outline btn-sm">Explore Directory with "${escapeHTML(q)}" &rarr;</a>
-          </div>
-        `;
-        return;
-      }
-
-      resultsContainer.innerHTML = `
-        <div class="cmd-group-label">Matching Alumni (${matches.length})</div>
-        ${matches.map(a => `
-          <a href="profile.html?id=${a.uid}" class="cmd-item">
-            <div class="cmd-item-left">
-              <img src="${a.photoURL}" alt="${escapeHTML(a.name)}" class="cmd-item-avatar" />
-              <div>
-                <div class="cmd-item-title">${escapeHTML(a.name)}</div>
-                <div class="cmd-item-sub">${escapeHTML(a.jobTitle)} at <strong>${escapeHTML(a.company)}</strong> &bull; Class of '${String(a.gradYear).slice(-2)}</div>
-              </div>
-            </div>
-            <span class="badge badge-accent">Profile &rarr;</span>
-          </a>
-        `).join('')}
-        <div style="padding: var(--space-3); text-align: center; border-top: 1px solid var(--color-border-subtle);">
-          <a href="directory.html?search=${encodeURIComponent(q)}" style="font-size: var(--text-xs); font-weight: var(--font-semibold); color: var(--color-primary-light);">
-            See all search results in Directory &rarr;
-          </a>
-        </div>
-      `;
-    });
-  }
-}
-
-/**
- * Global Toast Notifications
- */
+// Global Toast Notifications
 export function showToast(message, type = 'info') {
   let container = document.querySelector('.toast-container');
   if (!container) {
@@ -495,6 +293,10 @@ export function showToast(message, type = 'info') {
     toast.classList.remove('show');
     setTimeout(() => toast.remove(), 300);
   }, 3500);
+}
+
+if (typeof window !== 'undefined') {
+  window.showToast = showToast;
 }
 
 function escapeHTML(str) {

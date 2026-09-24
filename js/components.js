@@ -85,6 +85,9 @@ function setupHeaderInteractions() {
   const backdrop = document.querySelector('.mobile-drawer-backdrop');
 
   if (toggleBtn && drawer && backdrop) {
+    if (toggleBtn.dataset.navBound === 'true') return;
+    toggleBtn.dataset.navBound = 'true';
+
     const toggle = (open) => {
       const shouldOpen = typeof open === 'boolean' ? open : !drawer.classList.contains('open');
       drawer.classList.toggle('open', shouldOpen);

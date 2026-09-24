@@ -8,10 +8,10 @@
 --------------------------------------------------------- */
 :root {
   /* Typography Scale */
-  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
-  --font-ui: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-label: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-crest: "Cinzel", Georgia, serif;
+  --font-display: var(--font-heading);
+  --font-ui: var(--font-sans);
+  --font-label: var(--font-sans);
+  --font-crest: var(--font-crest, 'Cinzel', Georgia, serif);
 
   /* Surface & Background Colors */
   --bg-page: #FAF8F4;              /* Institutional Warm Ivory Cream */

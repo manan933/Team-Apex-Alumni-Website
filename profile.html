@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alumni Profile — Apex University Global Network</title>
-  <meta name="description" content="View the distinguished academic and professional record, career trajectory, and research publications of Apex University alumni." />
+  <title>Alumni Profile — GIET University Global Network</title>
+  <meta name="description" content="View the distinguished academic and professional record, career trajectory, and research publications of GIET University alumni." />
+
+  <!-- Google Fonts Preconnect & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
 
   <!-- CSS Design System -->
   <link rel="stylesheet" href="css/tokens.css" />
@@ -19,9 +24,9 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="brand">
-        <div class="brand-crest">Ω</div>
+        <div class="brand-crest"><img src="giet-logo.webp" alt="GIET University Crest" class="brand-logo-img" /></div>
         <div class="brand-info">
-          <span class="brand-title">Apex University</span>
+          <span class="brand-title">GIET University</span>
           <span class="brand-subtitle">Alumni Network</span>
         </div>
       </a>
@@ -47,11 +52,11 @@
   <!-- Mobile Drawer -->
   <div class="mobile-drawer-backdrop"></div>
   <div class="mobile-drawer">
-    <div class="brand">
-      <div class="brand-crest">Ω</div>
+    <div class="brand" style="color: #fff;">
+      <div class="brand-crest"><img src="giet-logo.webp" alt="GIET University Logo" class="brand-logo-img" /></div>
       <div class="brand-info">
-        <span class="brand-title">Apex University</span>
-        <span class="brand-subtitle">Alumni Network</span>
+        <span class="brand-title" style="color: #fff;">GIET University</span>
+        <span class="brand-subtitle" style="color: var(--color-accent);">Alumni Network</span>
       </div>
     </div>
     <div class="mobile-nav-links">
@@ -124,9 +129,9 @@
                 <a id="pub-linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
                   Connect on LinkedIn &rarr;
                 </a>
-                <button class="btn btn-outline btn-sm" onclick="document.getElementById('cmd-palette-trigger')?.click();">
-                  Search Related Alumni (⌘K)
-                </button>
+                <a href="directory.html" class="btn btn-outline btn-sm">
+                  Explore Directory &rarr;
+                </a>
               </div>
             </div>
           </div>
@@ -167,7 +172,7 @@
                 <div class="timeline-step">
                   <div class="timeline-marker"></div>
                   <div class="timeline-step-content">
-                    <span class="timeline-step-date">Apex University Legacy</span>
+                    <span class="timeline-step-date">GIET University Legacy</span>
                     <h3 class="timeline-step-title" id="timeline-edu-degree">Ph.D. in Biomedical Engineering</h3>
                     <p class="timeline-step-desc">Doctoral dissertation focused on biocompatible lipid nanoparticles, published in leading Nature Bioengineering journals.</p>
                   </div>
@@ -198,9 +203,9 @@
             
             <!-- Institutional Record Badge -->
             <div class="institutional-record-card">
-              <div class="crest-seal">Ω</div>
+              <div class="crest-seal"><img src="giet-logo.webp" alt="GIET Seal" style="width:36px;height:36px;object-fit:contain;" /></div>
               <h3 class="record-title">Official Alumni Record</h3>
-              <p class="record-sub">Apex University Academic Registry</p>
+              <p class="record-sub">GIET University Academic Registry</p>
               
               <div class="record-details-list">
                 <div class="record-detail-row">
@@ -410,9 +415,9 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="brand" style="color: #fff;">
-            <div class="brand-crest">Ω</div>
+            <div class="brand-crest"><img src="giet-logo.webp" alt="GIET University Logo" class="brand-logo-img" /></div>
             <div class="brand-info">
-              <span class="brand-title" style="color: #fff;">Apex University</span>
+              <span class="brand-title" style="color: #fff;">GIET University</span>
               <span class="brand-subtitle">Alumni Network</span>
             </div>
           </div>
@@ -458,7 +463,7 @@
       </div>
 
       <div class="footer-bottom">
-        <div>&copy; 2026 Apex University Alumni Association. All rights reserved.</div>
+        <div>&copy; 2026 GIET University Alumni Association. All rights reserved.</div>
         <div class="social-links">
           <a href="#" class="social-link" aria-label="LinkedIn">LinkedIn</a>
           <a href="#" class="social-link" aria-label="YouTube">YouTube</a>

@@ -23,8 +23,9 @@ No Bootstrap, no Tailwind, no React, no build tools or bundlers. Native browser 
 | Warm Cream Surface | `#FAF8F4` (`--color-cream`) |
 | Warm Divider | `#E8E1D9` (`--color-border-warm`) |
 | Constellation Tokens | `--color-node-tech` (`#3B82F6`), `--color-node-bio` (`#10B981`), `--color-node-vc` (`#F59E0B`), `--color-node-energy` (`#EC4899`) |
-| Heading Font | **Newsreader** (Google Fonts, serif) |
-| UI Font | **Plus Jakarta Sans** (Google Fonts, sans-serif) |
+| Heading Font | **Playfair Display** (Google Fonts, serif) |
+| UI & Body Font | **Inter** (Google Fonts, sans-serif) |
+| Academic Seal Font | **Cinzel** (Google Fonts, serif) |
 | Monospace | **JetBrains Mono** / System Mono |
 
 All design tokens live in [`css/tokens.css`](css/tokens.css). Never hardcode colors or sizes — always use `var(--token-name)`.
@@ -71,7 +72,7 @@ Team-Apex-Alumni-Website/
 │   ├── auth.js            ← 🔒 READ-ONLY (Auth session state)
 │   ├── nav.js             ← 🔒 READ-ONLY (Header, mobile drawer, ⌘K Command Palette, toasts)
 │   └── pages/
-│       ├── home.js        ← Guy 1 ONLY (Constellation canvas, timeline, stats)
+│       ├── home.js        ← Guy 1 ONLY (Timeline, stats, stories, spotlight)
 │       ├── videos.js      ← Guy 2 ONLY (Video filters & theater player)
 │       ├── donate.js      ← Guy 3 ONLY (Giving tiers, calculator, receipt, honor roll)
 │       ├── events.js      ← Guy 4 ONLY (Events calendar & RSVP system)
@@ -152,14 +153,13 @@ If `js/firebase-config.js` contains placeholder keys, the entire application ope
 
 | Page | File | Status & Key Features |
 |---|---|---|
-| **Home** | `index.html` | **Complete**: Native HTML5 60fps Canvas Constellation Visualizer, Marquee Ticker, Generations Timeline, Regional Hubs, Editorial Spotlight & Gazette. |
+| **Home** | `index.html` | **Complete**: Editorial Hero with verified credentials, Marquee Ticker, Animated Stats Bar, Generations Timeline, Regional Hubs, Editorial Spotlight & Gazette. |
 | **Directory** | `directory.html` | **Complete**: Multi-Mode Switcher (Editorial Cards vs Dense Table), Natural Discovery Chips, Deep Debounced Search, Filter Reset, Quick Profile Detail Modal. |
 | **Profile** | `profile.html` | **Complete**: Dual-Mode Architecture: Public Editorial Profile (`?id=alumni-xxx`) with Career Journey Timeline, Academic Registry Seal, Related Alumni Fellows + Self-Service Live Editor. |
 | **Donate** | `donate.html` | **Complete**: Giving Circles, Dynamic Impact Engine, Fund Designation Switcher, Simulated Endowment Gift Modal, Digital Certificate Receipt, Live 2026 Donor Honor Roll. |
 | **News** | `news.html` | **Complete**: Journalistic Magazine Feed, Category Pills, Full Article Reader Modal, Authenticated Story Submission Flow, Author Profile Linking. |
 | **Videos** | `videos.html` | **Complete**: Cinema Theater Mode Modal Player, YouTube embed integration, Category Filtering, Clean Typography. |
 | **Events** | `events.html` | **Complete**: Upcoming Gathering Cards, Interactive RSVP Modal Flow, LocalStorage persistence, Celebratory Toast. |
-| **Global ⌘K Search** | `js/nav.js` | **Complete**: Universal `⌘K` / `Ctrl+K` Command Palette across every page, instant live typing search across all alumni, batches, and disciplines. |
 | **Auth** | `login.html`, `signup.html` | **Complete**: Academic Masthead, Tab Switcher, Form Validation, Forgot Password Modal, Mock Auth integration. |
 | **Admin** | `admin.html` | **Complete**: Staff Role Gating, Pending Stories Moderation Queue, Live Approve & Publish / Reject Actions, Demo Shortcut. |
 | **404** | `404.html` | **Complete**: Editorial "Lost in the Archive" layout with navigation return paths. |
