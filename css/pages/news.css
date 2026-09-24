@@ -1,3 +1,4 @@
+@ -1,2493 +1,2493 @@
 /* =========================================================
    GIET ALUMNI GAZETTE & NEWS STYLESHEET
    High-Contrast Typography, Smooth CSS Animations & Gallery Modal
@@ -280,7 +281,12 @@ button {
    HERO SECTION
 --------------------------------------------------------- */
 .news-hero {
-  <img src="" alt: ;
+  background: linear-gradient(135deg, var(--bg-navy) 0%, var(--bg-navy-dark) 100%);
+  color: var(--text-heading-light);
+  padding: 100px 24px 90px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 4px solid var(--gold-rich);
 }
 
 .news-hero .hero-copy {
