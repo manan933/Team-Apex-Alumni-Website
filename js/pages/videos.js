@@ -71,6 +71,7 @@ const videos = [
     youtubeId: 'L_LUpnjgPso',
     title: 'A Day at GIET — Exploring New Innovation Labs',
     category: 'Campus Life',
+    imageOverride: 'videos images/campus1.jpg',
     description: 'Take a guided video tour of Apex University\'s newly unveiled STEM Innovation Complex, collaborative maker studios, and expanded campus green spaces.',
     addedAt: '2026-02-20'
   },
