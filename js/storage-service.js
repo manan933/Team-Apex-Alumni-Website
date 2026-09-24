@@ -23,8 +23,18 @@ function initLocalMockDB() {
   if (!localStorage.getItem(STORAGE_KEYS.SUBMISSIONS)) {
     localStorage.setItem(STORAGE_KEYS.SUBMISSIONS, JSON.stringify(INITIAL_SUBMISSIONS));
   }
-  if (!localStorage.getItem(STORAGE_KEYS.VIDEOS)) {
+  const storedVideos = localStorage.getItem(STORAGE_KEYS.VIDEOS);
+  if (!storedVideos) {
     localStorage.setItem(STORAGE_KEYS.VIDEOS, JSON.stringify(INITIAL_VIDEOS));
+  } else if (storedVideos.includes('dQw4w9WgXcQ')) {
+    // Automatically sanitize and migrate any existing Rick Astley placeholder in localStorage
+    try {
+      const parsed = JSON.parse(storedVideos);
+      const migrated = parsed.map(v => v.youtubeId === 'dQw4w9WgXcQ' ? { ...v, youtubeId: 'vpW2sGlCtaE' } : v);
+      localStorage.setItem(STORAGE_KEYS.VIDEOS, JSON.stringify(migrated));
+    } catch (_) {
+      localStorage.setItem(STORAGE_KEYS.VIDEOS, JSON.stringify(INITIAL_VIDEOS));
+    }
   }
   if (!localStorage.getItem(STORAGE_KEYS.SUBSCRIBERS)) {
     localStorage.setItem(STORAGE_KEYS.SUBSCRIBERS, JSON.stringify([]));
@@ -205,6 +215,9 @@ export async function getVideos(category = null) {
   if (isMockMode) {
     const raw = localStorage.getItem(STORAGE_KEYS.VIDEOS);
     let list = raw ? JSON.parse(raw) : INITIAL_VIDEOS;
+    if (list && Array.isArray(list)) {
+      list = list.map(v => v.youtubeId === 'dQw4w9WgXcQ' ? { ...v, youtubeId: 'vpW2sGlCtaE' } : v);
+    }
     if (category && category !== 'All') {
       list = list.filter(v => v.category === category);
     }

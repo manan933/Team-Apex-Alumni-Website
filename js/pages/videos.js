@@ -54,7 +54,7 @@ const videos = [
   },
   {
     id: 'v-006',
-    youtubeId: 'dQw4w9WgXcQ',
+    youtubeId: 'vpW2sGlCtaE',
     title: 'GIET Reunita — Highlights of a Landmark Evening',
     category: 'Reunions',
     description: 'Relive the most memorable moments from our sold-out annual alumni gala, including the Outstanding Alumni Award ceremony and live performances.',

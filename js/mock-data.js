@@ -264,7 +264,7 @@ export const INITIAL_VIDEOS = [
   {
     id: "video-001",
     title: "Annual Alumni Gala: 45 Years of Academic Excellence",
-    youtubeId: "dQw4w9WgXcQ", // Safe placeholder embed
+    youtubeId: "vpW2sGlCtaE", // UPenn Commencement Address keynote
     description: "Highlights from our prestigious annual homecoming gala celebrating international alumni achievements and scholarships.",
     category: "Reunions",
     addedAt: "2026-06-12"
