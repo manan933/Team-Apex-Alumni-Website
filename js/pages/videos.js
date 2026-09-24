@@ -26,6 +26,7 @@ const videos = [
     youtubeId: 'iG9CE55wbtY',
     title: 'Annual Celebration — The Creativity Forum',
     category: 'Events',
+    imageOverride: 'videos images/event1.jpg',
     description: 'A panel of Apex alumni leaders revisit the landmark debate on transformative education and lifelong learning in the age of AI.',
     addedAt: '2026-07-22'
   },
@@ -43,6 +44,7 @@ const videos = [
     youtubeId: '8jPQjjsBbIc',
     title: 'Avyat — Distinguished Speaker Series',
     category: 'Events',
+    imageOverride: 'videos images/event2.jpeg',
     description: 'MIT\'s celebrated communication masterclass, hosted at Apex University\'s annual Distinguished Speakers Weekend. A must-watch for every alumnus.',
     addedAt: '2026-05-18'
   },
@@ -75,6 +77,7 @@ const videos = [
     youtubeId: 'bTqVqk7FSmY',
     title: 'Alumni Meet — Singapore Regional Summit',
     category: 'Events',
+    imageOverride: 'videos images/event3.jpg',
     description: 'Full recap of the Singapore alumni chapter\'s annual summit: networking sessions, startup pitches, a cultural evening, and the chapter leadership handover.',
     addedAt: '2026-01-14'
   }
