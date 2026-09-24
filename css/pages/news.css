@@ -280,12 +280,7 @@ button {
    HERO SECTION
 --------------------------------------------------------- */
 .news-hero {
-  background: linear-gradient(135deg, var(--bg-navy) 0%, var(--bg-navy-dark) 100%);
-  color: var(--text-heading-light);
-  padding: 100px 24px 90px;
-  position: relative;
-  overflow: hidden;
-  border-bottom: 4px solid var(--gold-rich);
+  <img src="" alt: ;
 }
 
 .news-hero .hero-copy {
