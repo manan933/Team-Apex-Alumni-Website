@@ -53,6 +53,7 @@ const videos = [
     youtubeId: 'UF8uR6Z6KLc',
     title: 'Batch Reunion — Connecting the Dots',
     category: 'Reunions',
+    imageOverride: 'videos images/reunioun1.jpg',
     description: 'The iconic commencement address that inspired a generation of Apex graduates — replayed at our 45th Foundation Anniversary gala celebration.',
     addedAt: '2026-04-10'
   },
@@ -61,6 +62,7 @@ const videos = [
     youtubeId: 'vpW2sGlCtaE',
     title: 'GIET Reunita — Highlights of a Landmark Evening',
     category: 'Reunions',
+    imageOverride: 'videos images/reunioun2.jpg',
     description: 'Relive the most memorable moments from our sold-out annual alumni gala, including the Outstanding Alumni Award ceremony and live performances.',
     addedAt: '2026-03-05'
   },
