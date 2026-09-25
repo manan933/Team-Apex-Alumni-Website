@@ -81,7 +81,7 @@ const videos = [
     title: 'Learnathon 4.0 - AI and ML Hackathon',
     category: 'Events',
     imageOverride: 'videos images/event3.jpg',
-    description: 'Full recap of the Singapore alumni chapter\'s annual summit: networking sessions, startup pitches, a cultural evening, and the chapter leadership handover.',
+    description: 'Learnathon 4.0 was an intensive four-day artificial intelligence and machine learning hackathon and workshop.',
     addedAt: '2026-01-14'
   }
 ];
