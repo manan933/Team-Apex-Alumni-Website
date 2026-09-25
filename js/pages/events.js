@@ -70,7 +70,7 @@ const PAST_EVENTS_DATA = [
     mediaType: 'YouTube',
     mediaCategory: 'Video Showcase',
     mediaUrl: 'https://youtu.be/GHpgeeI9b2A?si=Kxt3-Tc586XRedLa',
-    embedUrl: 'https://www.youtube-nocookie.com/embed/GHpgeeI9b2A'
+    embedUrl: 'GHpgeeI9b2A'
   },
   {
     id: 'past-event-4',
