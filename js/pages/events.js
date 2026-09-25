@@ -429,6 +429,27 @@ function openMediaModal(event) {
     mediaModalBadge.textContent = event.mediaType === 'Instagram' ? 'Instagram Reel' : 'Video Recording';
   }
 
+  if (mediaExternalLink) {
+    mediaExternalLink.href = event.mediaUrl;
+    mediaExternalLink.textContent = event.mediaType === 'Instagram' ? 'Open Reel on Instagram ↗' : 'Watch on YouTube ↗';
+  }
+
+  // Reveal the modal FIRST, before building any media markup.
+  //
+  // Root cause of "audio plays but no picture": the modal starts out with
+  // the `hidden` attribute, which CSS maps to `display: none !important`
+  // (see .modal-overlay[hidden] in events.css). The old code built the
+  // iframe's HTML (and so created + started loading the YouTube player)
+  // while the modal — and therefore the iframe's container — was still
+  // display:none, i.e. 0x0. YouTube's player still opens its connection and
+  // plays audio in that state, but it initializes its video surface against
+  // a zero-size viewport and never gets a real paint, so the picture stays
+  // invisible even after the modal is shown moments later. Making the modal
+  // visible before the iframe exists guarantees it has real, non-zero
+  // layout dimensions the moment the player initializes.
+  mediaModal.removeAttribute('hidden');
+  document.body.style.overflow = 'hidden';
+
   if (mediaModalBody) {
     if (event.mediaType === 'YouTube' && event.embedUrl) {
       mediaModalBody.innerHTML = `
@@ -477,14 +498,6 @@ function openMediaModal(event) {
       `;
     }
   }
-
-  if (mediaExternalLink) {
-    mediaExternalLink.href = event.mediaUrl;
-    mediaExternalLink.textContent = event.mediaType === 'Instagram' ? 'Open Reel on Instagram ↗' : 'Watch on YouTube ↗';
-  }
-
-  mediaModal.removeAttribute('hidden');
-  document.body.style.overflow = 'hidden';
 
   if (closeMediaModalBtn) {
     closeMediaModalBtn.focus();
