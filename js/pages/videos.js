@@ -68,7 +68,7 @@ const videos = [
   },
   {
     id: 'v-007',
-    youtubeId: 'L_LUpnjgPso',
+    youtubeId: 'ItJLjh2TT6A',
     title: 'A Day at GIET — Exploring New Innovation Labs',
     category: 'Campus Life',
     imageOverride: 'videos images/campus1.jpg',
