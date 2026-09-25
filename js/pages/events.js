@@ -434,7 +434,7 @@ function openMediaModal(event) {
       mediaModalBody.innerHTML = `
         <div class="media-video-container">
           <iframe 
-           src="https://www.youtube-nocookie.com/embed/${escapeHTML(event.embedUrl)}?autoplay=1&rel=0&modestbranding=1" 
+           src="${escapeHTML(getYouTubeEmbedSrc(event.embedUrl))}" 
             title="${escapeHTML(event.title)}" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
             allowfullscreen>
@@ -554,6 +554,27 @@ function initEventsPage() {
       closeMediaModal();
     }
   });
+}
+
+/**
+ * Utility: Normalizes the dataset's `embedUrl` value into a playable
+ * youtube-nocookie embed URL.
+ *
+ * Root cause of the playback bug: PAST_EVENTS_DATA stores `embedUrl` in two
+ * different shapes — sometimes a bare video ID (e.g. "kbz_m7rsxtg"), and
+ * sometimes an already-complete embed URL
+ * (e.g. "https://www.youtube-nocookie.com/embed/DLVOemFDeX4"). The modal code
+ * always assumed a bare ID and prepended the embed prefix, so entries that
+ * already contained a full URL produced a malformed, double-prefixed iframe
+ * src (e.g. ".../embed/https://www.youtube-nocookie.com/embed/DLVOemFDeX4"),
+ * which the browser/YouTube cannot load. This helper extracts the real video
+ * ID from either shape before building the src, so both formats work.
+ */
+function getYouTubeEmbedSrc(embedUrl) {
+  if (!embedUrl) return '';
+  const idFromFullUrl = embedUrl.match(/embed\/([a-zA-Z0-9_-]+)/);
+  const videoId = idFromFullUrl ? idFromFullUrl[1] : embedUrl;
+  return `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
 }
 
 /**
