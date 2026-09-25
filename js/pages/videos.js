@@ -77,7 +77,7 @@ const videos = [
   },
   {
     id: 'v-008',
-    youtubeId: 'bTqVqk7FSmY',
+    youtubeId: 'tX-XiPhS3Dg',
     title: 'Learnathon 4.0 - AI and ML Hackathon',
     category: 'Events',
     imageOverride: 'videos images/event3.jpg',
