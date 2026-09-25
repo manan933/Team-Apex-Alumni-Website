@@ -3,389 +3,502 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alumni Events &amp; Reunions — GIET University</title>
-  <meta name="description" content="Discover upcoming reunions, regional chapter meetups, webinars, and homecoming events for GIET University alumni." />
+  <title>Alumni Events &amp; Reunions — Apex University</title>
+  <meta name="description" content="Explore past highlights, live recordings, and upcoming campus reunions and festivals for Apex University alumni." />
   
-  <!-- Google Fonts Preconnect & Stylesheet -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
-
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/pages/events.css" />
 </head>
 <body>
-  <div id="site-header-container"></div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-crest">Ω</div>
+        <div class="brand-info">
+          <span class="brand-title">Apex University</span>
+          <span class="brand-subtitle">Alumni Network</span>
+        </div>
+      </a>
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="directory.html" class="nav-link">Alumni Directory</a>
+        <a href="videos.html" class="nav-link">Videos</a>
+        <a href="news.html" class="nav-link">News &amp; Stories</a>
+        <a href="events.html" class="nav-link active">Events</a>
+        <a href="donate.html" class="nav-link">Donate</a>
+      </nav>
+      <div class="header-actions">
+        <div id="nav-auth-container">
+          <a href="login.html" class="btn btn-outline btn-sm">Alumni Login</a>
+        </div>
+        <button class="mobile-toggle" aria-label="Toggle navigation menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer-backdrop"></div>
+  <div class="mobile-drawer">
+    <div class="brand">
+      <div class="brand-crest">Ω</div>
+      <div class="brand-info">
+        <span class="brand-title">Apex University</span>
+        <span class="brand-subtitle">Alumni Network</span>
+      </div>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="directory.html" class="mobile-nav-link">Alumni Directory</a>
+      <a href="videos.html" class="mobile-nav-link">Videos</a>
+      <a href="news.html" class="mobile-nav-link">News &amp; Stories</a>
+      <a href="events.html" class="mobile-nav-link active">Events</a>
+      <a href="donate.html" class="mobile-nav-link">Donate</a>
+    </div>
+    <div id="mobile-auth-container"></div>
+  </div>
 
   <main class="main-content">
     <!-- Hero / Events Introduction -->
     <section class="events-hero-section section-cream">
       <div class="container">
         <div class="events-hero-content">
-          <span class="section-tag">Gatherings &amp; Chapters</span>
           <h1 class="events-hero-title">Alumni Events &amp; Reunions</h1>
           <p class="events-hero-desc">
-            From homecoming weekends on campus and scholarly symposia to intimate regional chapter dinners across London, San Francisco, Tokyo, and Nairobi. Reconnect with fellow alumni wherever you are.
+            Connect with fellow graduates, faculty, and current students through university gatherings, cultural celebrations, academic symposiums, and milestone reunions. Explore our past event highlights or browse upcoming campus occasions.
           </p>
-          
-          <!-- Institutional Metadata Strip -->
-          <div class="events-stats-strip">
-            <div class="events-stat-item">
-              <span class="events-stat-number">18</span>
-              <span class="events-stat-label">Global Chapters</span>
-            </div>
-            <div class="events-stat-divider" aria-hidden="true"></div>
-            <div class="events-stat-item">
-              <span class="events-stat-number">12+</span>
-              <span class="events-stat-label">Annual Gatherings</span>
-            </div>
-            <div class="events-stat-divider" aria-hidden="true"></div>
-            <div class="events-stat-item">
-              <span class="events-stat-number">4,500+</span>
-              <span class="events-stat-label">Alumni Attendees</span>
-            </div>
-            <div class="events-stat-divider" aria-hidden="true"></div>
-            <div class="events-stat-item">
-              <span class="events-stat-number">100%</span>
-              <span class="events-stat-label">Community Driven</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- Upcoming Gatherings & Filter Section -->
-    <section class="section" id="upcoming-events-section">
+    <!-- SECTION 1: Past Events -->
+    <section class="section" id="past-events-section">
       <div class="container">
-        <div class="events-filter-header">
+        <div class="events-section-header">
           <div>
-            <h2 class="events-section-heading">Upcoming Gatherings</h2>
-            <p class="events-section-sub">Browse scheduled homecomings, dinners, webinars, and panels open for alumni registration.</p>
-          </div>
-          
-          <!-- Category Filter Tabs -->
-          <div class="events-filter-bar" role="tablist" aria-label="Event categories">
-            <button type="button" role="tab" class="event-filter-tab active" data-category="all" aria-selected="true">
-              All Gatherings
-            </button>
-            <button type="button" role="tab" class="event-filter-tab" data-category="Class Reunions &amp; Homecomings" aria-selected="false">
-              Class Reunions &amp; Homecomings
-            </button>
-            <button type="button" role="tab" class="event-filter-tab" data-category="Regional Chapter Dinners" aria-selected="false">
-              Regional Chapter Dinners
-            </button>
-            <button type="button" role="tab" class="event-filter-tab" data-category="Virtual Symposia &amp; Webinars" aria-selected="false">
-              Virtual Symposia &amp; Webinars
-            </button>
-            <button type="button" role="tab" class="event-filter-tab" data-category="Career &amp; Founder Panels" aria-selected="false">
-              Career &amp; Founder Panels
-            </button>
+            <h2 class="events-section-title">Past Events</h2>
+            <p class="events-section-sub">Revisit highlights, live recordings, and commemorative media from our previous alumni gatherings and reunions.</p>
           </div>
         </div>
 
-        <!-- Events Container with Pre-rendered Cards & Photographic Banners -->
-        <div id="events-list" class="events-grid" aria-live="polite">
-          <article class="event-card" data-event-id="event-homecoming-2026">
+        <!-- Past Events Container (Populated / Managed dynamically with Page 1 pre-rendered) -->
+        <div id="past-events-list" class="events-grid" aria-live="polite">
+          <!-- Card 1: Alumni Cultural Gathering -->
+          <article class="event-card" data-event-id="past-event-1">
             <div class="event-card-img-wrap">
-              <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80" alt="Annual Homecoming &amp; Innovation Gala" class="event-card-img" loading="lazy" />
-              <span class="event-card-badge-floating badge badge-accent">Class Reunions &amp; Homecomings</span>
-              <div class="event-card-date-floating event-date-badge" aria-label="Date: OCT 24, 2026">
-                <span class="event-date-month">OCT</span>
-                <span class="event-date-day">24</span>
+              <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Alumni Cultural Gathering" class="event-card-img" loading="lazy" />
+              <span class="event-card-badge-floating badge badge-accent">Recorded Media</span>
+              <div class="event-card-date-floating event-date-badge" aria-label="Date: MAR 15, 2026">
+                <span class="event-date-month">MAR</span>
+                <span class="event-date-day">15</span>
               </div>
             </div>
             <div class="event-card-body">
-              <h3 class="event-card-title">Annual Homecoming &amp; Innovation Gala</h3>
-              <p class="event-card-desc">Celebrate decades of academic excellence and visionary research. Reconnect with classmates under the grand pavilion with dinner, student innovation showcases, and distinguished alumni awards.</p>
+              <h3 class="event-card-title">Alumni Cultural Gathering</h3>
+              <p class="event-card-desc">An evening celebrating artistic performances, music, and dramatic arts by current students and returning alumni cohorts.</p>
               <div class="event-meta-list">
                 <div class="event-meta-item">
                   <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  <span>5:30 PM – 10:00 PM EDT</span>
+                  <span>6:00 PM – 9:30 PM</span>
                 </div>
                 <div class="event-meta-item">
                   <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  <span>Campus Quadrangle • Boston, MA</span>
+                  <span>University Auditorium &amp; Amphitheatre</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  <span>Guest: Alumni Cultural Committee &amp; Faculty</span>
                 </div>
               </div>
             </div>
             <div class="event-card-actions">
-              <button type="button" class="btn btn-outline btn-sm view-schedule-btn" data-event-id="event-homecoming-2026">View Schedule / Speakers</button>
-              <button type="button" class="btn btn-primary btn-sm reserve-place-btn" data-event-id="event-homecoming-2026">Reserve Place &rarr;</button>
+              <button type="button" class="btn btn-outline btn-sm view-media-btn" data-event-id="past-event-1">
+                View Event Media &rarr;
+              </button>
             </div>
           </article>
 
-          <article class="event-card" data-event-id="event-london-dinner-2026">
+          <!-- Card 2: Annual Alumni Meet -->
+          <article class="event-card" data-event-id="past-event-2">
             <div class="event-card-img-wrap">
-              <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80" alt="London Regional Chapter Autumn Dinner" class="event-card-img" loading="lazy" />
-              <span class="event-card-badge-floating badge badge-subtle">Regional Chapter Dinners</span>
-              <div class="event-card-date-floating event-date-badge" aria-label="Date: NOV 12, 2026">
-                <span class="event-date-month">NOV</span>
-                <span class="event-date-day">12</span>
+              <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Annual Alumni Meet" class="event-card-img" loading="lazy" />
+              <span class="event-card-badge-floating badge badge-accent">Recorded Media</span>
+              <div class="event-card-date-floating event-date-badge" aria-label="Date: FEB 20, 2026">
+                <span class="event-date-month">FEB</span>
+                <span class="event-date-day">20</span>
               </div>
             </div>
             <div class="event-card-body">
-              <h3 class="event-card-title">London Regional Chapter Autumn Dinner</h3>
-              <p class="event-card-desc">Gather with European-based alumni and visiting faculty in the historic library of the Royal Society for an evening of cross-border fellowship, drinks, and academic discussion.</p>
+              <h3 class="event-card-title">Annual Alumni Meet</h3>
+              <p class="event-card-desc">Our flagship gathering celebrating university milestones, alumni achievements, and collaborative community mentorship initiatives.</p>
               <div class="event-meta-list">
                 <div class="event-meta-item">
                   <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  <span>6:30 PM – 10:00 PM GMT</span>
+                  <span>10:00 AM – 4:00 PM</span>
                 </div>
                 <div class="event-meta-item">
                   <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  <span>The Royal Society • London, UK</span>
+                  <span>Apex Grand Conference Center</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  <span>Guest: Chancellor &amp; Distinguished Alumni Panel</span>
                 </div>
               </div>
             </div>
             <div class="event-card-actions">
-              <button type="button" class="btn btn-outline btn-sm view-schedule-btn" data-event-id="event-london-dinner-2026">View Schedule / Speakers</button>
-              <button type="button" class="btn btn-primary btn-sm reserve-place-btn" data-event-id="event-london-dinner-2026">Reserve Place &rarr;</button>
+              <button type="button" class="btn btn-outline btn-sm view-media-btn" data-event-id="past-event-2">
+                View Event Media &rarr;
+              </button>
             </div>
           </article>
 
-          <article class="event-card" data-event-id="event-virtual-office-hours-2026">
+          <!-- Card 3: Campus Reunion Highlights -->
+          <article class="event-card" data-event-id="past-event-3">
             <div class="event-card-img-wrap">
-              <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="Virtual Tech &amp; Founder Office Hours" class="event-card-img" loading="lazy" />
-              <span class="event-card-badge-floating badge badge-primary">Virtual Symposia &amp; Webinars</span>
-              <div class="event-card-date-floating event-date-badge" aria-label="Date: DEC 05, 2026">
+              <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Campus Reunion Highlights" class="event-card-img" loading="lazy" />
+              <span class="event-card-badge-floating badge badge-accent">Recorded Media</span>
+              <div class="event-card-date-floating event-date-badge" aria-label="Date: JAN 18, 2026">
+                <span class="event-date-month">JAN</span>
+                <span class="event-date-day">18</span>
+              </div>
+            </div>
+            <div class="event-card-body">
+              <h3 class="event-card-title">Campus Reunion Highlights</h3>
+              <p class="event-card-desc">Milestone reunion welcoming alumni back to campus for department walkthroughs, laboratory tours, and celebratory campus moments.</p>
+              <div class="event-meta-list">
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>11:00 AM – 3:30 PM</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>Central Campus Quadrangle</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  <span>Guest: Class Coordinators &amp; Association Board</span>
+                </div>
+              </div>
+            </div>
+            <div class="event-card-actions">
+              <button type="button" class="btn btn-outline btn-sm view-media-btn" data-event-id="past-event-3">
+                View Event Media &rarr;
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 4: Alumni Talk & Leadership Panel -->
+          <article class="event-card" data-event-id="past-event-4">
+            <div class="event-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Alumni Talk &amp; Leadership Panel" class="event-card-img" loading="lazy" />
+              <span class="event-card-badge-floating badge badge-accent">Recorded Media</span>
+              <div class="event-card-date-floating event-date-badge" aria-label="Date: DEC 10, 2025">
                 <span class="event-date-month">DEC</span>
-                <span class="event-date-day">05</span>
+                <span class="event-date-day">10</span>
               </div>
             </div>
             <div class="event-card-body">
-              <h3 class="event-card-title">Virtual Tech &amp; Founder Office Hours</h3>
-              <p class="event-card-desc">An intimate digital gathering designed for alumni founders, engineers, and researchers to discuss emerging AI architectures, startup fundraising, and product engineering.</p>
+              <h3 class="event-card-title">Alumni Talk &amp; Leadership Panel</h3>
+              <p class="event-card-desc">An insightful panel discussion highlighting career trajectories, technological disruptions, and emerging leadership opportunities.</p>
               <div class="event-meta-list">
                 <div class="event-meta-item">
                   <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  <span>11:00 AM – 1:00 PM EST (Global Live Stream)</span>
+                  <span>4:00 PM – 6:30 PM</span>
                 </div>
                 <div class="event-meta-item">
                   <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  <span>Online Global Live Stream</span>
+                  <span>Science &amp; Technology Lecture Hall</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  <span>Guest: Industry Leaders &amp; Research Fellows</span>
                 </div>
               </div>
             </div>
             <div class="event-card-actions">
-              <button type="button" class="btn btn-outline btn-sm view-schedule-btn" data-event-id="event-virtual-office-hours-2026">View Schedule / Speakers</button>
-              <button type="button" class="btn btn-primary btn-sm reserve-place-btn" data-event-id="event-virtual-office-hours-2026">Reserve Place &rarr;</button>
+              <button type="button" class="btn btn-outline btn-sm view-media-btn" data-event-id="past-event-4">
+                View Event Media &rarr;
+              </button>
             </div>
           </article>
+
+          <!-- Card 5: Grand Alumni Reunion Gala -->
+          <article class="event-card" data-event-id="past-event-5">
+            <div class="event-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Grand Alumni Reunion Gala" class="event-card-img" loading="lazy" />
+              <span class="event-card-badge-floating badge badge-accent">Recorded Media</span>
+              <div class="event-card-date-floating event-date-badge" aria-label="Date: NOV 15, 2025">
+                <span class="event-date-month">NOV</span>
+                <span class="event-date-day">15</span>
+              </div>
+            </div>
+            <div class="event-card-body">
+              <h3 class="event-card-title">Grand Alumni Reunion Gala</h3>
+              <p class="event-card-desc">An elegant evening of dining, live music fellowship, and commemorative reflections marking university milestones and achievements.</p>
+              <div class="event-meta-list">
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>7:00 PM – 10:30 PM</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>Heritage Ballroom, University Club</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  <span>Guest: Alumni Association Executive Board</span>
+                </div>
+              </div>
+            </div>
+            <div class="event-card-actions">
+              <button type="button" class="btn btn-outline btn-sm view-media-btn" data-event-id="past-event-5">
+                View Event Media &rarr;
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 6: Student-Alumni Spotlight -->
+          <article class="event-card" data-event-id="past-event-6">
+            <div class="event-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Student-Alumni Spotlight" class="event-card-img" loading="lazy" />
+              <span class="event-card-badge-floating badge badge-accent">Recorded Media</span>
+              <div class="event-card-date-floating event-date-badge" aria-label="Date: OCT 28, 2025">
+                <span class="event-date-month">OCT</span>
+                <span class="event-date-day">28</span>
+              </div>
+            </div>
+            <div class="event-card-body">
+              <h3 class="event-card-title">Student-Alumni Spotlight</h3>
+              <p class="event-card-desc">Candid moments and reflections connecting senior alumni mentors with student project teams and young researchers.</p>
+              <div class="event-meta-list">
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>2:00 PM – 5:00 PM</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>Innovation &amp; Design Atrium</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  <span>Guest: Student Mentorship Circle</span>
+                </div>
+              </div>
+            </div>
+            <div class="event-card-actions">
+              <button type="button" class="btn btn-outline btn-sm view-media-btn" data-event-id="past-event-6">
+                View Event Media &rarr;
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Past Events Pagination Controls -->
+        <div id="past-events-pagination" class="pagination-wrapper">
+          <nav class="pagination-nav" aria-label="Past events navigation">
+            <button type="button" class="pagination-btn pagination-prev" aria-label="Previous past events page" disabled>&larr; Previous</button>
+            <div class="pagination-pages">
+              <button type="button" class="page-number active" aria-current="page" data-page="1">1</button>
+              <button type="button" class="page-number" data-page="2">2</button>
+            </div>
+            <button type="button" class="pagination-btn pagination-next" aria-label="Next past events page">Next &rarr;</button>
+          </nav>
         </div>
       </div>
     </section>
 
-    <!-- Chapter Section -->
-    <section class="section section-alt" id="chapters-section">
+    <!-- SECTION 2: Upcoming Events -->
+    <section class="section section-alt" id="upcoming-events-section">
       <div class="container">
-        <div class="chapters-header">
-          <div class="chapters-header-text">
-            <span class="section-tag">Global Presence</span>
-            <h2 class="events-section-heading">Find Your Local Chapter</h2>
-            <p class="events-section-sub">
-              GIET University maintains <strong>18 active global alumni chapters</strong> spanning North America, Europe, Asia-Pacific, Latin America, and Africa. Connect with regional chapter leadership or attend your city's next informal gathering.
-            </p>
-          </div>
-
-          <!-- Chapter Region Filter Tabs -->
-          <div class="chapter-region-tabs" role="tablist" aria-label="Chapter regions">
-            <button type="button" class="chapter-tab active" data-region="all">All Regions (18)</button>
-            <button type="button" class="chapter-tab" data-region="Americas">Americas</button>
-            <button type="button" class="chapter-tab" data-region="Europe">Europe</button>
-            <button type="button" class="chapter-tab" data-region="Asia-Pacific">Asia-Pacific</button>
-            <button type="button" class="chapter-tab" data-region="Middle East &amp; Africa">Middle East &amp; Africa</button>
+        <div class="events-section-header">
+          <div>
+            <h2 class="events-section-title">Upcoming Events</h2>
+            <p class="events-section-sub">Mark your calendar for upcoming campus festivals, leadership summits, and alumni gatherings.</p>
           </div>
         </div>
 
-        <!-- 18 Chapters Grid -->
-        <div id="chapters-grid" class="chapters-grid" aria-live="polite">
-          <!-- Populated dynamically via js/pages/events.js -->
+        <!-- Upcoming Events Container (Pre-rendered) -->
+        <div id="upcoming-events-list" class="events-grid" aria-live="polite">
+          <!-- Upcoming Event 1: Shurjan 5.0 -->
+          <article class="event-card" data-event-id="upcoming-event-1">
+            <div class="event-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Shurjan 5.0" class="event-card-img" loading="lazy" />
+              <span class="event-card-badge-floating badge badge-primary">Upcoming Gathering</span>
+              <div class="event-card-date-floating event-date-badge" aria-label="Date: NOV 20-22, 2026">
+                <span class="event-date-month">NOV</span>
+                <span class="event-date-day">20</span>
+              </div>
+            </div>
+            <div class="event-card-body">
+              <h3 class="event-card-title">Shurjan 5.0</h3>
+              <p class="event-card-desc">The 5th edition of Apex University's flagship annual cultural and technical festival. Features inter-batch hackathons, music performances, startup pitch competitions, and alumni reunions.</p>
+              <div class="event-meta-list">
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>9:00 AM – 9:00 PM Daily (Nov 20–22, 2026)</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>Apex University Main Campus &amp; Stadium</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  <span>Organizer: Student Council &amp; Festival Directorate</span>
+                </div>
+              </div>
+            </div>
+            <div class="event-card-actions">
+              <span class="upcoming-status-badge">
+                <span class="status-dot" aria-hidden="true"></span>
+                Open to All Alumni &amp; Students
+              </span>
+            </div>
+          </article>
+
+          <!-- Upcoming Event 2: Ayayakt 6.0 -->
+          <article class="event-card" data-event-id="upcoming-event-2">
+            <div class="event-card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Ayayakt 6.0" class="event-card-img" loading="lazy" />
+              <span class="event-card-badge-floating badge badge-primary">Upcoming Gathering</span>
+              <div class="event-card-date-floating event-date-badge" aria-label="Date: JAN 15-17, 2027">
+                <span class="event-date-month">JAN</span>
+                <span class="event-date-day">15</span>
+              </div>
+            </div>
+            <div class="event-card-body">
+              <h3 class="event-card-title">Ayayakt 6.0</h3>
+              <p class="event-card-desc">The 6th annual leadership and technology conclave uniting global alumni innovators, founders, policy experts, and academic leaders for keynote dialogues and collaborative masterclasses.</p>
+              <div class="event-meta-list">
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>10:00 AM – 6:00 PM (Jan 15–17, 2027)</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span>Grand Innovation Hall &amp; Apex Convention Center</span>
+                </div>
+                <div class="event-meta-item">
+                  <svg class="event-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  <span>Organizer: Apex Leadership Forum &amp; Alumni Board</span>
+                </div>
+              </div>
+            </div>
+            <div class="event-card-actions">
+              <span class="upcoming-status-badge">
+                <span class="status-dot" aria-hidden="true"></span>
+                Program Schedule Announced
+              </span>
+            </div>
+          </article>
         </div>
 
-        <div class="chapters-cta-box">
-          <div class="chapters-cta-text">
-            <h3 class="chapters-cta-title">Don't see your city listed?</h3>
-            <p class="chapters-cta-desc">Alumni in emerging regional hubs are welcome to establish an affiliated city circle or informal dinner table.</p>
-          </div>
-          <a href="mailto:chapters@apexalumni.org" class="btn btn-primary btn-sm">Inquire with Chapters Office</a>
+        <!-- Upcoming Events Pagination Controls (Clean 1 page display) -->
+        <div id="upcoming-events-pagination" class="pagination-wrapper">
+          <nav class="pagination-nav" aria-label="Upcoming events navigation">
+            <button type="button" class="pagination-btn pagination-prev" aria-label="Previous upcoming events page" disabled>&larr; Previous</button>
+            <div class="pagination-pages">
+              <button type="button" class="page-number active" aria-current="page" data-page="1">1</button>
+            </div>
+            <button type="button" class="pagination-btn pagination-next" aria-label="Next upcoming events page" disabled>Next &rarr;</button>
+          </nav>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Event Details / Schedule Modal -->
-  <div id="schedule-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="schedule-modal-title" hidden>
-    <div class="modal-content modal-content-lg">
+  <!-- Lightweight Media Viewer Modal -->
+  <div id="media-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="media-modal-title" hidden>
+    <div class="modal-content modal-content-media">
       <div class="modal-header">
         <div>
-          <span id="schedule-modal-category" class="badge badge-accent">Category</span>
-          <h3 class="modal-title" id="schedule-modal-title">Event Schedule &amp; Details</h3>
+          <span id="media-modal-badge" class="badge badge-accent">Event Media</span>
+          <h3 class="modal-title" id="media-modal-title">Event Media Viewer</h3>
         </div>
-        <button type="button" id="close-schedule-modal" class="modal-close-btn" aria-label="Close dialog">&times;</button>
+        <button type="button" id="close-media-modal" class="modal-close-btn" aria-label="Close dialog">&times;</button>
       </div>
-      <div class="modal-body" id="schedule-modal-body">
-        <!-- Content injected dynamically -->
+      <div class="modal-body" id="media-modal-body">
+        <!-- Injected dynamically via js/pages/events.js -->
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline btn-sm" id="schedule-modal-close-btn">Close</button>
-        <button type="button" class="btn btn-primary btn-sm" id="schedule-modal-reserve-btn">Reserve Place</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- RSVP Form Modal -->
-  <div id="rsvp-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="rsvp-modal-title" hidden>
-    <div class="modal-content modal-content-md">
-      <div class="modal-header">
-        <div>
-          <span class="badge badge-accent">Registration</span>
-          <h3 class="modal-title" id="rsvp-modal-title">Reserve Your Place</h3>
-        </div>
-        <button type="button" id="close-rsvp-modal" class="modal-close-btn" aria-label="Close dialog">&times;</button>
-      </div>
-      <form id="rsvp-form" novalidate>
-        <div class="modal-body">
-          <div class="rsvp-event-summary">
-            <span id="rsvp-event-name" class="rsvp-event-name">Event Title</span>
-            <span id="rsvp-event-loc" class="rsvp-event-loc">Location • Time</span>
-          </div>
-
-          <div class="form-group">
-            <label for="rsvp-name" class="form-label">Full Name <span class="required">*</span></label>
-            <input type="text" id="rsvp-name" name="name" class="form-control" placeholder="e.g. Dr. Jane Doe" required autocomplete="name" />
-            <span class="form-error" id="rsvp-name-error" style="display: none;">Please enter your full name.</span>
-          </div>
-
-          <div class="form-group">
-            <label for="rsvp-email" class="form-label">Email Address <span class="required">*</span></label>
-            <input type="email" id="rsvp-email" name="email" class="form-control" placeholder="you@alumni.org" required autocomplete="email" />
-            <span class="form-error" id="rsvp-email-error" style="display: none;">Please enter a valid email address.</span>
-          </div>
-
-          <div class="form-row-2">
-            <div class="form-group">
-              <label for="rsvp-batch" class="form-label">Class Year</label>
-              <input type="number" id="rsvp-batch" name="gradYear" class="form-control" placeholder="e.g. 2018" min="1940" max="2030" />
-            </div>
-
-            <div class="form-group">
-              <label for="rsvp-guests" class="form-label">Total Guests <span class="required">*</span></label>
-              <select id="rsvp-guests" name="guests" class="form-control" required>
-                <option value="1">1 (Alumnus only)</option>
-                <option value="2">2 (Alumnus + 1 Guest)</option>
-                <option value="3">3 (Alumnus + 2 Guests)</option>
-                <option value="4">4 (Alumnus + 3 Guests)</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline btn-sm" id="cancel-rsvp-btn">Cancel</button>
-          <button type="submit" class="btn btn-primary btn-sm" id="submit-rsvp-btn">Confirm Reservation</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Alumni Boarding Pass / Reservation Ticket Modal -->
-  <div id="ticket-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="ticket-modal-title" hidden>
-    <div class="modal-content modal-content-ticket">
-      <div class="ticket-wrapper" id="ticket-printable-area">
-        <!-- Ticket Header -->
-        <div class="ticket-header">
-          <div class="ticket-brand">
-            <div class="ticket-crest"><img src="giet-logo.webp" alt="GIET Crest" style="width:24px;height:24px;object-fit:contain;" /></div>
-            <div class="ticket-brand-text">
-              <span class="ticket-institution">GIET University Alumni Network</span>
-              <span class="ticket-pass-type">Official Gathering Pass &bull; Institutional Guest</span>
-            </div>
-          </div>
-          <div class="ticket-status-badge">
-            <span class="ticket-badge-pill">Confirmed</span>
-          </div>
-        </div>
-
-        <!-- Ticket Body -->
-        <div class="ticket-body">
-          <div class="ticket-event-info">
-            <span class="ticket-label">Event / Gathering</span>
-            <h3 class="ticket-event-title" id="ticket-event-title">Annual Homecoming &amp; Innovation Gala</h3>
-          </div>
-
-          <div class="ticket-grid">
-            <div class="ticket-grid-item">
-              <span class="ticket-label">Attendee Name</span>
-              <span class="ticket-val" id="ticket-attendee-name">—</span>
-            </div>
-            <div class="ticket-grid-item">
-              <span class="ticket-label">Class Year</span>
-              <span class="ticket-val" id="ticket-class-year">—</span>
-            </div>
-            <div class="ticket-grid-item">
-              <span class="ticket-label">Date &amp; Time</span>
-              <span class="ticket-val" id="ticket-date-time">—</span>
-            </div>
-            <div class="ticket-grid-item">
-              <span class="ticket-label">Venue / Location</span>
-              <span class="ticket-val" id="ticket-location">—</span>
-            </div>
-            <div class="ticket-grid-item">
-              <span class="ticket-label">Guests Admitted</span>
-              <span class="ticket-val" id="ticket-guest-count">1</span>
-            </div>
-            <div class="ticket-grid-item">
-              <span class="ticket-label">Reservation ID</span>
-              <span class="ticket-val ticket-code" id="ticket-reservation-id">APX-2026-0000</span>
-            </div>
-          </div>
-
-          <!-- Perforated Divider -->
-          <div class="ticket-perforation" aria-hidden="true">
-            <div class="perforation-notch-left"></div>
-            <div class="perforation-line"></div>
-            <div class="perforation-notch-right"></div>
-          </div>
-
-          <!-- Barcode / Stub Section -->
-          <div class="ticket-stub-section">
-            <div class="ticket-barcode-block" aria-label="Visual barcode verification placeholder">
-              <div class="ticket-barcode-lines">
-                <span></span><span></span><span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span><span></span><span></span>
-              </div>
-              <span class="ticket-barcode-num" id="ticket-barcode-num">APX-82910-2026</span>
-            </div>
-            <p class="ticket-notice">
-              Please present this official digital pass or a printed copy upon arrival at check-in. Valid university ID or government ID may be requested.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Ticket Actions -->
-      <div class="ticket-actions modal-footer">
-        <button type="button" class="btn btn-outline btn-sm" id="print-ticket-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right: 4px;">
-            <polyline points="6 9 6 2 18 2 18 9"></polyline>
-            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-            <rect x="6" y="14" width="12" height="8"></rect>
-          </svg>
-          Print / Save Pass
-        </button>
-        <button type="button" class="btn btn-primary btn-sm" id="close-ticket-btn">Done</button>
+      <div class="modal-footer" id="media-modal-footer">
+        <a href="#" id="media-external-link" class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer">
+          Open in New Tab &nearr;
+        </a>
+        <button type="button" class="btn btn-outline btn-sm" id="media-modal-close-btn">Close</button>
       </div>
     </div>
   </div>
 
   <!-- Persistent Site Footer -->
-  
- <div id="site-footer-container"></div>
-  <script type="module" src="js/components.js"></script>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand" style="color: #fff;">
+            <div class="brand-crest">Ω</div>
+            <div class="brand-info">
+              <span class="brand-title" style="color: #fff;">Apex University</span>
+              <span class="brand-subtitle">Alumni Network</span>
+            </div>
+          </div>
+          <p class="footer-desc">
+            Empowering lifelong connections between our global alumni body and current student cohorts through mentorship, chapters, and community initiatives.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Explore</h4>
+          <ul class="footer-links">
+            <li><a href="directory.html" class="footer-link">Alumni Directory</a></li>
+            <li><a href="news.html" class="footer-link">News &amp; Stories</a></li>
+            <li><a href="videos.html" class="footer-link">Video Highlights</a></li>
+            <li><a href="events.html" class="footer-link">Upcoming Events</a></li>
+            <li><a href="donate.html" class="footer-link">Ways to Give</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Member Portal</h4>
+          <ul class="footer-links">
+            <li><a href="login.html" class="footer-link">Alumni Sign In</a></li>
+            <li><a href="signup.html" class="footer-link">Join Network</a></li>
+            <li><a href="profile.html" class="footer-link">Update My Profile</a></li>
+            <li><a href="news.html#submit" class="footer-link">Submit a Story</a></li>
+            <li><a href="admin.html" class="footer-link">Staff Administration</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Stay Connected</h4>
+          <p style="font-size: var(--text-sm); color: var(--color-text-inverse-muted); margin-bottom: var(--space-3);">
+            Receive our quarterly alumni bulletin and regional chapter invitations.
+          </p>
+          <form class="newsletter-form">
+            <div class="newsletter-input-group">
+              <input type="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email for alumni newsletter" />
+              <button type="submit" class="btn btn-accent btn-sm">Join</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Apex University Alumni Association. All rights reserved.</div>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="LinkedIn">LinkedIn</a>
+          <a href="#" class="social-link" aria-label="YouTube">YouTube</a>
+          <a href="#" class="social-link" aria-label="X Twitter">X (Twitter)</a>
+          <a href="#" class="social-link" aria-label="Instagram">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <script type="module" src="js/nav.js"></script>
   <script type="module" src="js/pages/events.js"></script>
 </body>
