@@ -450,14 +450,25 @@ function openMediaModal(event) {
   mediaModal.removeAttribute('hidden');
   document.body.style.overflow = 'hidden';
 
+  // Force a synchronous layout flush right here, before any media markup is
+  // created. This guarantees the browser has already computed the modal's
+  // real, non-zero dimensions from the CSS at the moment the iframe element
+  // is inserted, rather than relying on the next paint cycle to catch up.
+  void mediaModal.offsetHeight;
+
   if (mediaModalBody) {
-    if (event.mediaType === 'YouTube' && event.embedUrl) {
+    if (event.mediaType === 'YouTube' && (event.mediaUrl || event.embedUrl)) {
+      const embedSrc = getYouTubeEmbedSrc(event);
       mediaModalBody.innerHTML = `
         <div class="media-video-container">
           <iframe 
-           src="${escapeHTML(getYouTubeEmbedSrc(event.embedUrl))}" 
+           src="${escapeHTML(embedSrc)}" 
             title="${escapeHTML(event.title)}" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            width="100%"
+            height="100%"
+            frameborder="0"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
             allowfullscreen>
           </iframe>
         </div>
@@ -570,23 +581,70 @@ function initEventsPage() {
 }
 
 /**
- * Utility: Normalizes the dataset's `embedUrl` value into a playable
- * youtube-nocookie embed URL.
+ * Utility: Extracts a clean YouTube video ID from any supported URL shape,
+ * or returns a bare ID unchanged.
  *
- * Root cause of the playback bug: PAST_EVENTS_DATA stores `embedUrl` in two
- * different shapes — sometimes a bare video ID (e.g. "kbz_m7rsxtg"), and
- * sometimes an already-complete embed URL
- * (e.g. "https://www.youtube-nocookie.com/embed/DLVOemFDeX4"). The modal code
- * always assumed a bare ID and prepended the embed prefix, so entries that
- * already contained a full URL produced a malformed, double-prefixed iframe
- * src (e.g. ".../embed/https://www.youtube-nocookie.com/embed/DLVOemFDeX4"),
- * which the browser/YouTube cannot load. This helper extracts the real video
- * ID from either shape before building the src, so both formats work.
+ * Handles:
+ *   https://www.youtube.com/watch?v=ID
+ *   https://youtu.be/ID
+ *   https://www.youtube.com/live/ID
+ *   https://www.youtube.com/shorts/ID
+ *   https://www.youtube.com/embed/ID  /  https://www.youtube-nocookie.com/embed/ID
+ *   a bare ID with no URL at all (e.g. "kbz_m7rsxtg")
+ *
+ * Uses real URL parsing (not fragile string concatenation) so every shape
+ * — including the "?si=..." tracking params on every URL in this dataset —
+ * resolves to the same clean ID.
  */
-function getYouTubeEmbedSrc(embedUrl) {
-  if (!embedUrl) return '';
-  const idFromFullUrl = embedUrl.match(/embed\/([a-zA-Z0-9_-]+)/);
-  const videoId = idFromFullUrl ? idFromFullUrl[1] : embedUrl;
+function extractYouTubeId(url) {
+  if (!url) return '';
+  const trimmed = String(url).trim();
+
+  // Not an absolute URL at all -> treat as a bare video ID.
+  if (!/^https?:\/\//i.test(trimmed)) {
+    return /^[a-zA-Z0-9_-]{6,}$/.test(trimmed) ? trimmed : '';
+  }
+
+  try {
+    const parsed = new URL(trimmed);
+    const host = parsed.hostname.replace(/^www\.|^m\./gi, '');
+    const path = parsed.pathname;
+
+    if (host === 'youtu.be') {
+      return path.split('/').filter(Boolean)[0] || '';
+    }
+
+    if (host === 'youtube.com' || host === 'youtube-nocookie.com') {
+      if (path === '/watch') {
+        return parsed.searchParams.get('v') || '';
+      }
+      const match = path.match(/^\/(?:live|shorts|embed)\/([^/?#]+)/);
+      if (match) return match[1];
+    }
+  } catch (err) {
+    return '';
+  }
+
+  return '';
+}
+
+/**
+ * Utility: Builds the playable youtube-nocookie embed URL for an event.
+ *
+ * Root cause of the original playback bug: PAST_EVENTS_DATA's `embedUrl`
+ * field mixed two shapes — bare IDs and already-complete embed URLs — and
+ * the modal code always assumed a bare ID, producing a malformed,
+ * double-prefixed src for entries that already held a full URL.
+ *
+ * This now derives the ID from the authoritative `mediaUrl` field (which
+ * consistently holds a real, shareable YouTube URL for every event — watch,
+ * youtu.be, live, or shorts) using extractYouTubeId() above, falling back to
+ * `embedUrl` only if `mediaUrl` can't be parsed. Either path always yields
+ * one clean ID and one correctly-formed embed URL.
+ */
+function getYouTubeEmbedSrc(event) {
+  const videoId = extractYouTubeId(event.mediaUrl) || extractYouTubeId(event.embedUrl);
+  if (!videoId) return '';
   return `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
 }
 
