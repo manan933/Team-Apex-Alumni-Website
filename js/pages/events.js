@@ -36,7 +36,7 @@ const PAST_EVENTS_DATA = [
     mediaType: 'YouTube',
     mediaCategory: 'Live Stream Recording',
     mediaUrl: 'https://www.youtube.com/live/kbz_m7rsxtg?si=nW83l1oNnK6KRcpw',
-    embedUrl: 'https://www.youtube-nocookie.com/embed/kbz_m7rsxtg'
+    embedUrl: 'kbz_m7rsxtg'
   },
   {
     id: 'past-event-2',
