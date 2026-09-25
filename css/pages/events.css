@@ -451,9 +451,8 @@
 .media-video-container {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* 16:9 ratio */
-  height: 0;
-  min-height: 200px; /* safety net: never collapses to 0 height even if the padding-bottom aspect-ratio trick is ever bypassed */
+  aspect-ratio: 16 / 9;
+  min-height: 200px; /* fallback for browsers without aspect-ratio support so it never collapses to 0 height */
   overflow: hidden;
   border-radius: var(--radius-md);
   background-color: #000;
@@ -463,8 +462,7 @@
 .media-video-container iframe {
   display: block;
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
@@ -509,7 +507,7 @@
 .media-instagram-header {
   display: flex;
   align-items: center;
-  gap: var(--space-3),
+  gap: var(--space-3);
   text-align: left;
   margin-bottom: var(--space-4);
 }
