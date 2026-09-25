@@ -380,8 +380,9 @@
   width: 100%;
   max-width: 760px;
   max-height: 90vh;
-  display: flex;
-  flex-direction: column;
+  height: auto !important; /* neutralizes any fixed height the shared .modal-content class (components.css) may set for other, shorter modals on this site */
+  display: flex !important;
+  flex-direction: column !important;
   overflow: hidden;
   position: relative;
   animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -435,6 +436,9 @@
 .modal-body {
   padding: var(--space-6);
   overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: block !important; /* guards against a shared .modal-content rule forcing e.g. flex/grid centering, which would shrink this to its content's intrinsic size instead of the full modal width */
 }
 
 .modal-footer {
@@ -449,10 +453,11 @@
 
 /* Video Container (16:9 Aspect Ratio) */
 .media-video-container {
-  position: relative;
-  width: 100%;
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
   aspect-ratio: 16 / 9;
-  min-height: 200px; /* fallback for browsers without aspect-ratio support so it never collapses to 0 height */
+  min-height: 200px !important; /* fallback for browsers without aspect-ratio support so it never collapses to 0 height */
   overflow: hidden;
   border-radius: var(--radius-md);
   background-color: #000;
@@ -460,12 +465,14 @@
 }
 
 .media-video-container iframe {
-  display: block;
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
   border: 0;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 /* Media Metadata & Descriptions */
