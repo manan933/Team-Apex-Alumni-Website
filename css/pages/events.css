@@ -403,9 +403,15 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  gap: var(--space-3);
   padding: var(--space-4) var(--space-6);
   border-bottom: 1px solid var(--color-border);
   background: var(--color-cream);
+}
+
+.modal-header > div {
+  min-width: 0; /* lets this column actually shrink/wrap instead of forcing the row wider than the modal */
+  flex: 1 1 auto;
 }
 
 .modal-title {
@@ -414,6 +420,7 @@
   color: var(--color-primary);
   margin-top: 0.25rem;
   margin-bottom: 0;
+  overflow-wrap: break-word; /* long event titles wrap instead of expanding the row */
 }
 
 .modal-close-btn {
@@ -426,11 +433,20 @@
   cursor: pointer;
   padding: 0.25rem;
   border-radius: var(--radius-sm);
-  transition: color var(--transition-fast);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+  flex-shrink: 0; /* never gets squeezed out of the row by a long title */
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
 .modal-close-btn:hover {
   color: var(--color-primary);
+  background-color: rgba(11, 25, 44, 0.06);
 }
 
 .modal-body {
