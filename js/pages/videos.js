@@ -78,7 +78,7 @@ const videos = [
   {
     id: 'v-008',
     youtubeId: 'bTqVqk7FSmY',
-    title: 'Alumni Meet — Singapore Regional Summit',
+    title: 'Learnathon 4.0 - AI and ML Hackathon',
     category: 'Events',
     imageOverride: 'videos images/event3.jpg',
     description: 'Full recap of the Singapore alumni chapter\'s annual summit: networking sessions, startup pitches, a cultural evening, and the chapter leadership handover.',
