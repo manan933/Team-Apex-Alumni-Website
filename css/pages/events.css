@@ -405,6 +405,7 @@
   justify-content: space-between;
   gap: var(--space-3);
   padding: var(--space-4) var(--space-6);
+  padding-right: calc(var(--space-6) + 2.75rem); /* keeps title text clear of the floating close button, which no longer takes up row space */
   border-bottom: 1px solid var(--color-border);
   background: var(--color-cream);
 }
@@ -423,32 +424,42 @@
   overflow-wrap: break-word; /* long event titles wrap instead of expanding the row */
 }
 
+/* Close button: floats as an independent overlay pinned to the modal card
+   itself (top-right corner), the same way the reference Videos-page player
+   shows its own close control directly on top of the video -- it is NOT
+   part of the header's flex row, so nothing about header content, an
+   unknown shared .modal-content rule, or long titles can ever squeeze,
+   clip, or hide it again. It sits above the header AND the video, at the
+   highest stacking position in the modal. */
 .modal-close-btn {
   appearance: none;
-  background-color: rgba(11, 25, 44, 0.08);
-  border: none;
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1;
-  color: #0b192c; /* explicit Oxford Navy — guaranteed visible on the cream header regardless of what --color-text-muted resolves to in tokens.css */
-  cursor: pointer;
-  padding: 0.25rem;
-  border-radius: 50%;
-  transition: color var(--transition-fast), background-color var(--transition-fast);
-  flex-shrink: 0; /* never gets squeezed out of the row by a long title */
+  position: absolute !important;
+  top: var(--space-3) !important;
+  right: var(--space-3) !important;
+  z-index: 50 !important;
+  width: 2.25rem;
+  height: 2.25rem;
   min-width: 2.25rem;
   min-height: 2.25rem;
-  display: inline-flex;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  background-color: rgba(11, 25, 44, 0.72); /* Oxford Navy, translucent -- reads clearly over either the cream header or the black video */
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+  display: flex !important;
   align-items: center;
   justify-content: center;
-  position: relative;
-  z-index: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
 }
 
 .modal-close-btn:hover,
 .modal-close-btn:focus-visible {
-  color: #ffffff;
-  background-color: #0b192c;
+  background-color: rgba(11, 25, 44, 0.95);
+  transform: scale(1.08);
   outline: none;
 }
 
