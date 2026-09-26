@@ -34,7 +34,7 @@ const PAST_EVENTS_DATA = [
     description: 'An evening celebrating artistic performances, music, and dramatic arts by current students and returning alumni cohorts.',
     coverImage: 'eventImages/convocation.png',
     mediaType: 'YouTube',
-    mediaCategory: '',
+    
     mediaUrl: 'https://www.youtube.com/live/kbz_m7rsxtg?si=nW83l1oNnK6KRcpw',
     embedUrl: 'kbz_m7rsxtg'
   },
@@ -46,12 +46,12 @@ const PAST_EVENTS_DATA = [
     year: '2026',
     dateDisplay: 'Friday, February 20, 2026',
     time: '10:00 AM – 4:00 PM',
-    location: 'avyakt.jpeg',
+    location: 'Mechanical Audi',
     speaker: 'Guest: Chancellor & Distinguished Alumni Panel',
     description: 'Our flagship gathering celebrating university milestones, alumni achievements, and collaborative community mentorship initiatives.',
-    coverImage: '',
+    coverImage: 'avyakt.jpeg',
     mediaType: 'YouTube',
-    mediaCategory: '',
+  
     mediaUrl: 'https://youtube.com/shorts/DLVOemFDeX4?si=o2GzIdJ5ImCDWT2a',
     embedUrl: 'https://www.youtube-nocookie.com/embed/DLVOemFDeX4'
   },
@@ -68,7 +68,7 @@ const PAST_EVENTS_DATA = [
     description: 'Milestone reunion welcoming alumni back to campus for department walkthroughs, laboratory tours, and celebratory campus moments.',
     coverImage: 'eventImages/shurjan.png',
     mediaType: 'YouTube',
-    mediaCategory: '',
+    
     mediaUrl: 'https://youtu.be/GHpgeeI9b2A?si=Kxt3-Tc586XRedLa',
     embedUrl: 'GHpgeeI9b2A'
   },
@@ -83,9 +83,9 @@ const PAST_EVENTS_DATA = [
     location: 'Science & Technology Lecture Hall',
     speaker: 'Guest: Industry Leaders & Research Fellows',
     description: 'An insightful panel discussion highlighting career trajectories, technological disruptions, and emerging leadership opportunities.',
-    coverImage: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80',
+    coverImage: 'videos images/event1.jpg',
     mediaType: 'YouTube',
-    mediaCategory: '',
+    
     mediaUrl: 'https://youtu.be/kxIuh21ZP6o?si=1ah2fa5D9MZqHylJ',
     embedUrl: 'https://www.youtube-nocookie.com/embed/kxIuh21ZP6o'
   },
@@ -102,7 +102,7 @@ const PAST_EVENTS_DATA = [
     description: 'An elegant evening of dining, live music fellowship, and commemorative reflections marking university milestones and achievements.',
     coverImage: 'eventImages/shurjan1.png',
     mediaType: 'YouTube',
-    mediaCategory: '',
+   
     mediaUrl: 'https://www.youtube.com/live/qBfPCK69Q3A?si=AF8K98herAXEtjRi',
     embedUrl: 'https://www.youtube-nocookie.com/embed/qBfPCK69Q3A'
   },
@@ -119,7 +119,7 @@ const PAST_EVENTS_DATA = [
     description: 'Candid moments and reflections connecting senior alumni mentors with student project teams and young researchers.',
     coverImage: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80',
     mediaType: 'Instagram',
-    mediaCategory: '',
+   
     mediaUrl: 'https://www.instagram.com/reel/DQih0tEj3Az/?stkn=M2pjeXlrMTh0ZmQw',
     embedUrl: null
   },
@@ -136,7 +136,7 @@ const PAST_EVENTS_DATA = [
     description: 'A heartwarming look back at memorable campus traditions, nostalgic walks, and timeless bonds forged at Apex University.',
     coverImage: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80',
     mediaType: 'Instagram',
-    mediaCategory: '',
+   
     mediaUrl: 'https://www.instagram.com/reel/DQOqtFDj1Rf/?stkn=dXRtb2l6YXV5M3Jt',
     embedUrl: null
   }
@@ -159,7 +159,7 @@ const UPCOMING_EVENTS_DATA = [
     speaker: 'Organizer: Student Council & Festival Directorate',
     description: "The 5th edition of Apex University's flagship annual cultural and technical festival. Features inter-batch hackathons, music performances, startup pitch competitions, and alumni reunions.",
     coverImage: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80',
-    badgeText: '',
+    
     statusNote: 'Open to All Alumni & Students'
   },
   {
@@ -174,7 +174,7 @@ const UPCOMING_EVENTS_DATA = [
     speaker: 'Organizer: Apex Leadership Forum & Alumni Board',
     description: 'The 6th annual leadership and technology conclave uniting global alumni innovators, founders, policy experts, and academic leaders for keynote dialogues and collaborative masterclasses.',
     coverImage: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=800&q=80',
-    badgeText: '',
+   
     statusNote: 'Program Schedule Announced'
   }
 ];
