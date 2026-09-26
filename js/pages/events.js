@@ -122,7 +122,26 @@ const PAST_EVENTS_DATA = [
    
     mediaUrl: 'https://youtube.com/shorts/HPYQtSiylQk?si=adheOadD2iKB0vj6',
     embedUrl: 'https://www.youtube-nocookie.com/embed/HPYQtSiylQk'
-  };
+  },
+   {
+   id: 'past-event-7',
+    title: 'Campus Moments & Memories',
+    month: 'SEP',
+    day: '19',
+    year: '2025',
+    dateDisplay: 'Friday, September 19, 2025',
+    time: '3:00 PM – 7:00 PM',
+    location: 'Student Union & Old Courtyard',
+    speaker: 'Guest: Alumni Heritage Society',
+    description: 'A heartwarming look back at memorable campus traditions, nostalgic walks, and timeless bonds forged at Apex University.',
+    coverImage: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80',
+    mediaType: 'Instagram',
+   
+    mediaUrl: 'https://www.instagram.com/reel/DQOqtFDj1Rf/?stkn=dXRtb2l6YXV5M3Jt',
+    embedUrl: null
+  }
+];
+
   
     
 
