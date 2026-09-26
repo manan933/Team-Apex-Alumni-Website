@@ -108,39 +108,23 @@ const PAST_EVENTS_DATA = [
   },
   {
     id: 'past-event-6',
-    title: 'Student-Alumni Spotlight',
+    title: 'Open Stage Show',
     month: 'OCT',
     day: '28',
     year: '2025',
     dateDisplay: 'Tuesday, October 28, 2025',
     time: '2:00 PM – 5:00 PM',
-    location: 'Innovation & Design Atrium',
+    location: 'Infront of CSE Buildiong',
     speaker: 'Guest: Student Mentorship Circle',
     description: 'Candid moments and reflections connecting senior alumni mentors with student project teams and young researchers.',
-    coverImage: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80',
+    coverImage: 'videos images/campus1.jpg',
     mediaType: 'Instagram',
    
-    mediaUrl: 'https://www.instagram.com/reel/DQih0tEj3Az/?stkn=M2pjeXlrMTh0ZmQw',
-    embedUrl: null
-  },
-  {
-    id: 'past-event-7',
-    title: 'Campus Moments & Memories',
-    month: 'SEP',
-    day: '19',
-    year: '2025',
-    dateDisplay: 'Friday, September 19, 2025',
-    time: '3:00 PM – 7:00 PM',
-    location: 'Student Union & Old Courtyard',
-    speaker: 'Guest: Alumni Heritage Society',
-    description: 'A heartwarming look back at memorable campus traditions, nostalgic walks, and timeless bonds forged at Apex University.',
-    coverImage: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80',
-    mediaType: 'Instagram',
-   
-    mediaUrl: 'https://www.instagram.com/reel/DQOqtFDj1Rf/?stkn=dXRtb2l6YXV5M3Jt',
-    embedUrl: null
-  }
-];
+    mediaUrl: 'https://youtube.com/shorts/HPYQtSiylQk?si=adheOadD2iKB0vj6',
+    embedUrl: 'https://www.youtube-nocookie.com/embed/HPYQtSiylQk'
+  };
+  
+    
 
 /**
  * Upcoming Events Dataset
