@@ -414,10 +414,98 @@ function scrollToSection(sectionId) {
    -------------------------------------------------------------------------- */
 
 /**
+ * Guarantees the media modal's backdrop, card, and close button render and
+ * are clickable, WITHOUT depending on events.css at all.
+ *
+ * This exists because repeated testing has shown the video itself plays
+ * correctly (proving events.js reaches production), but the surrounding
+ * modal chrome (dark backdrop, card, close button) has not been appearing
+ * on the live deployment -- which points to the deployed events.css being
+ * out of sync with what's been fixed here. Rather than depend on that file
+ * loading correctly, this injects one small <style> tag directly into
+ * <head> at runtime, with !important on every rule, so these five things
+ * are guaranteed regardless of what any other stylesheet does:
+ *   1. The modal is a full-screen, centered, dark, blurred backdrop.
+ *   2. The video card itself has a real visible box (white, rounded, shadowed).
+ *   3. The close (x) button floats top-right, high-contrast, always on top.
+ *   4. None of this depends on any class defined in components.css/base.css.
+ *   5. It only runs once (checked via the injected <style>'s id).
+ */
+function ensureMediaModalRuntimeStyles() {
+  if (document.getElementById('media-modal-runtime-fix')) return;
+
+  const style = document.createElement('style');
+  style.id = 'media-modal-runtime-fix';
+  style.textContent = `
+    #media-modal:not([hidden]) {
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 999999 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background: rgba(6, 13, 23, 0.82) !important;
+      padding: 16px !important;
+      box-sizing: border-box !important;
+    }
+    #media-modal[hidden] {
+      display: none !important;
+    }
+    #media-modal .modal-content-media,
+    #media-modal .modal-content {
+      position: relative !important;
+      width: 100% !important;
+      max-width: 760px !important;
+      max-height: 90vh !important;
+      overflow: hidden !important;
+      overflow-y: auto !important;
+      border-radius: 12px !important;
+      background: #ffffff !important;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4) !important;
+      box-sizing: border-box !important;
+    }
+    #close-media-modal {
+      position: absolute !important;
+      top: 12px !important;
+      right: 12px !important;
+      z-index: 1000000 !important;
+      width: 40px !important;
+      height: 40px !important;
+      min-width: 40px !important;
+      min-height: 40px !important;
+      border-radius: 50% !important;
+      background: rgba(11, 25, 44, 0.85) !important;
+      color: #ffffff !important;
+      border: 2px solid rgba(255, 255, 255, 0.9) !important;
+      font-size: 24px !important;
+      font-weight: 700 !important;
+      line-height: 1 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4) !important;
+      padding: 0 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+    #close-media-modal:hover,
+    #close-media-modal:focus {
+      background: rgba(11, 25, 44, 1) !important;
+      outline: none !important;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+/**
  * Opens the lightweight Media Viewer Modal for a specific past event
  */
 function openMediaModal(event) {
   if (!mediaModal || !event) return;
+
+  ensureMediaModalRuntimeStyles();
 
   lastFocusedElement = document.activeElement;
 
@@ -558,9 +646,11 @@ function initEventsPage() {
   // Modal Close Handlers
   if (closeMediaModalBtn) {
     closeMediaModalBtn.addEventListener('click', closeMediaModal);
+    closeMediaModalBtn.onclick = closeMediaModal; // redundant second wiring path -- belt and suspenders
   }
   if (mediaModalCloseBtn) {
     mediaModalCloseBtn.addEventListener('click', closeMediaModal);
+    mediaModalCloseBtn.onclick = closeMediaModal; // redundant second wiring path
   }
 
   // Backdrop click closes modal
