@@ -49,7 +49,7 @@ const PAST_EVENTS_DATA = [
     location: 'Mechanical Audi',
     speaker: 'Guest: Chancellor & Distinguished Alumni Panel',
     description: 'Our flagship gathering celebrating university milestones, alumni achievements, and collaborative community mentorship initiatives.',
-    coverImage: 'avyakt.jpeg',
+    coverImage: 'eventImages/avyakt.jpeg',
     mediaType: 'YouTube',
   
     mediaUrl: 'https://youtube.com/shorts/DLVOemFDeX4?si=o2GzIdJ5ImCDWT2a',
