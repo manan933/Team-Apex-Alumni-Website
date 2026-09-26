@@ -215,7 +215,7 @@ function createPastEventCardHTML(event) {
     <article class="event-card" data-event-id="${escapeHTML(event.id)}">
       <div class="event-card-img-wrap">
         <img src="${escapeHTML(event.coverImage)}" alt="${escapeHTML(event.title)}" class="event-card-img" loading="lazy" />
-        <span class="event-card-badge-floating badge badge-accent">${escapeHTML(event.mediaCategory || 'Recorded Media')}</span>
+        
         <div class="event-card-date-floating event-date-badge" aria-label="Date: ${escapeHTML(event.month)} ${escapeHTML(event.day)}, ${escapeHTML(event.year)}">
           <span class="event-date-month">${escapeHTML(event.month)}</span>
           <span class="event-date-day">${escapeHTML(event.day)}</span>
@@ -256,7 +256,7 @@ function createUpcomingEventCardHTML(event) {
     <article class="event-card" data-event-id="${escapeHTML(event.id)}">
       <div class="event-card-img-wrap">
         <img src="${escapeHTML(event.coverImage)}" alt="${escapeHTML(event.title)}" class="event-card-img" loading="lazy" />
-        <span class="event-card-badge-floating badge badge-primary">${escapeHTML(event.badgeText || 'Upcoming Gathering')}</span>
+       
         <div class="event-card-date-floating event-date-badge" aria-label="Date: ${escapeHTML(event.month)} ${escapeHTML(event.day)}, ${escapeHTML(event.year)}">
           <span class="event-date-month">${escapeHTML(event.month)}</span>
           <span class="event-date-day">${escapeHTML(event.day)}</span>
