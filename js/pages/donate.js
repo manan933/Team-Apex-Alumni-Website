@@ -9,7 +9,7 @@
         "currentRole": "Lead Specialist",
         "organization": "ZTE Telecom India Pvt. Ltd.",
         "location": "Hyderabad, India",
-        "photo": "donateImages/nagendra-subudhi.jpeg",
+        "photo": 'donateImages/nagendra-subudhi.jpeg',
         "linkedin": "",
         "donationType": "Alumni Contribution",
         "donationItem": "Alumni Endowment Fund",
