@@ -185,7 +185,7 @@ const GIET_DONOR_DATASET = [
 const STORAGE_KEY_DONATIONS = 'alumni_network_donations';
 const STORAGE_KEY_NOTIFIED = 'giet_notified_donation_ids';
 
-const DEFAULT_AVATAR_PATH = 'data/assets/donors/default-avatar.svg';
+const DEFAULT_AVATAR_PATH = 'donateImages/default-avatar.svg';
 
 // State management
 let currentDonorsList = [...GIET_DONOR_DATASET];
@@ -229,23 +229,9 @@ async function initGivingPage() {
 /**
  * Load dataset from JSON or fallback array + user stored donations
  */
-async function loadDonorsDataset() {
-  let baseDonors = [...GIET_DONOR_DATASET];
-  try {
-    const res = await fetch('data/assets/donors/donors.json');
-    if (res.ok) {
-      const fetched = await res.json();
-      if (Array.isArray(fetched) && fetched.length > 0) {
-        baseDonors = fetched;
-      }
-    }
-  } catch (err) {
-    console.info('Using primary GIET donor dataset.');
-  }
-
+function loadDonorsDataset() {
   const storedUserDonations = getStoredUserDonations();
-  currentDonorsList = [...storedUserDonations, ...baseDonors];
-
+  currentDonorsList = [...storedUserDonations, ...GIET_DONOR_DATASET];
   populateYearFilterDropdown(currentDonorsList);
 }
 
