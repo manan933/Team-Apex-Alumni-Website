@@ -269,7 +269,7 @@ function resolveDonorPhotoPath(photoName) {
   if (photoName.startsWith('http://') || photoName.startsWith('https://') || photoName.startsWith('data:')) {
     return photoName;
   }
-  return `data/assets/donors/photos/${photoName}`;
+  return `donateImages/${photoName}`;
 }
 
 /**
