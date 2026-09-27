@@ -39,7 +39,7 @@ const GIET_DONOR_DATASET = [
     currentRole: "Alumni Benefactor",
     organization: "GIET University, Gunupur",
     location: "Gunupur, Odisha, India",
-    photo: "donateImages/alumni-rep-1.jpeg",
+    photo: "alumni-rep-1.jpeg",
     donationType: "Alumni Contribution",
     donationItem: "Alumni Student Contributions",
     verified: true
@@ -54,7 +54,7 @@ const GIET_DONOR_DATASET = [
     currentRole: "Alumni Benefactor",
     organization: "GIET University, Gunupur",
     location: "Gunupur, Odisha, India",
-    photo: "donateImages/alumni-rep-2.jpeg",
+    photo: "alumni-rep-2.jpeg",
     donationType: "Equipment",
     donationItem: "CCTV Cameras & Surveillance",
     verified: true
