@@ -24,7 +24,7 @@ const GIET_DONOR_DATASET = [
     currentRole: "Lead Specialist",
     organization: "ZTE Telecom India Pvt. Ltd.",
     location: "Hyderabad, India",
-    photo: "donateImages/nagendra-subudhi.jpeg",
+    photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_Jgl3gF6A8EVXsOsjEXMCav-Ddu1d8YgYLD36Jq8Jqw&s=10",
     donationType: "Alumni Contribution",
     donationItem: "Alumni Endowment Fund",
     verified: true
