@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Giving &amp; Philanthropy — Apex University Alumni</title>
-  <meta name="description" content="Support university endowments, need-blind student scholarships, and research grants through the Apex University alumni giving program." />
+  <meta name="description" content="Support university endowments, student scholarships, and research grants through alumni giving programs." />
   
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
@@ -13,79 +13,18 @@
 </head>
 <body>
 
-  <!-- Site Header -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="brand" aria-label="Apex University Alumni Network Home">
-        <div class="brand-crest">
-          <img src="giet-logo.webp?v=3" alt="Apex University Crest" class="brand-logo-img" />
-        </div>
-        <div class="brand-info">
-          <span class="brand-title">Apex University</span>
-          <span class="brand-subtitle">Alumni Network</span>
-        </div>
-      </a>
-      <nav class="nav-links" aria-label="Primary Navigation">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="directory.html" class="nav-link">Alumni Directory</a>
-        <a href="videos.html" class="nav-link">Videos</a>
-        <a href="news.html" class="nav-link">News &amp; Stories</a>
-        <a href="events.html" class="nav-link">Events</a>
-        <a href="donate.html" class="nav-link active">Donate</a>
-      </nav>
-      <div class="header-actions">
-        <button class="cmd-palette-trigger" id="cmd-search-btn" aria-label="Search alumni network">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <span class="cmd-placeholder">Search directory...</span>
-          <kbd class="cmd-badge">⌘K</kbd>
-        </button>
-        <div id="nav-auth-container">
-          <a href="login.html" class="btn btn-outline btn-sm">Alumni Login</a>
-        </div>
-        <button class="mobile-toggle" aria-label="Toggle navigation menu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Mobile Drawer -->
-  <div class="mobile-drawer-backdrop"></div>
-  <div class="mobile-drawer">
-    <div class="brand" style="color: #fff;">
-      <div class="brand-crest">
-        <img src="giet-logo.webp?v=3" alt="Apex University Logo" class="brand-logo-img" />
-      </div>
-      <div class="brand-info">
-        <span class="brand-title" style="color: #fff;">Apex University</span>
-        <span class="brand-subtitle" style="color: var(--color-accent);">Alumni Network</span>
-      </div>
-    </div>
-    <div class="mobile-nav-links">
-      <a href="index.html" class="mobile-nav-link">Home</a>
-      <a href="directory.html" class="mobile-nav-link">Alumni Directory</a>
-      <a href="videos.html" class="mobile-nav-link">Videos</a>
-      <a href="news.html" class="mobile-nav-link">News &amp; Stories</a>
-      <a href="events.html" class="mobile-nav-link">Events</a>
-      <a href="donate.html" class="mobile-nav-link active">Donate</a>
-    </div>
-    <div id="mobile-auth-container"></div>
-  </div>
+  <div id="site-header-container"></div>
 
   <main class="main-content">
     <!-- Masthead Editorial Header -->
     <section class="section-cream giving-hero-section">
       <div class="container">
         <div class="giving-hero-content">
-          <div class="hero-impact-pill">
-            <span class="pill-dot"></span>
-            <span>2025–2026 Academic Year Impact: 47 Fellowships Funded &bull; 12 Frontier Labs Equipped</span>
-          </div>
           <h1 class="giving-hero-title">
             Investing in the Scholars, Discoveries &amp; Legacies of Tomorrow
           </h1>
           <p class="giving-hero-subtitle">
-            Alumni philanthropy underwrites 100% of need-blind undergraduate financial aid, frontier laboratory research grants, and endowed faculty chairs. Your benefaction ensures our university remains a beacon of transformative opportunity.
+            Alumni philanthropy underwrites 100% of need-blind undergraduate financial aid, frontier laboratory research grants, and endowed faculty chairs.
           </p>
         </div>
 
@@ -95,22 +34,17 @@
             <span class="metric-val">84%</span>
             <span class="metric-label">Scholars on Aid</span>
           </div>
-          <div class="metric-divider" aria-hidden="true"></div>
+          <div class="metric-divider"></div>
           <div class="metric-pill">
             <span class="metric-val">$42.8M</span>
             <span class="metric-label">Active Endowment</span>
           </div>
-          <div class="metric-divider" aria-hidden="true"></div>
+          <div class="metric-divider"></div>
           <div class="metric-pill">
             <span class="metric-val">100%</span>
             <span class="metric-label">To Direct Funds</span>
           </div>
-          <div class="metric-divider" aria-hidden="true"></div>
-          <div class="metric-pill">
-            <span class="metric-val" id="metric-donors-count">218+</span>
-            <span class="metric-label">Alumni Patrons</span>
-          </div>
-          <div class="metric-divider" aria-hidden="true"></div>
+          <div class="metric-divider"></div>
           <div class="metric-pill">
             <span class="metric-val">501(c)(3)</span>
             <span class="metric-label">Tax Deductible</span>
@@ -122,132 +56,239 @@
     <!-- Main Giving Experience -->
     <section class="section">
       <div class="container">
-        <div class="giving-layout-grid">
+        
+        <!-- Section: GIET University Our Donors Card Grid Section (Reference Layout) -->
+        <section class="new-giet-donor-section" id="our-donors-section" style="margin-top: 0; margin-bottom: var(--space-12);">
+          <div class="giet-donors-header">
+            <h2 class="giet-donors-title">Our Donors</h2>
+            <p class="giet-donors-subtitle">
+              Giving is an investment in possibilities. Every contribution to GIET University helps empower students, strengthen education, support innovation, and create opportunities that extend far beyond the classroom.
+            </p>
+          </div>
+
+          <!-- 3-Column Responsive Donor Cards Grid matching Reference Design -->
+          <div class="giet-donor-cards-grid" id="donor-honor-roll-list" role="list">
+            <!-- Card 1: Nagendra Kumar Subudhi -->
+            <div class="giet-donor-card" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View donation details for Nagendra Kumar Subudhi" data-donor-id="1" data-index="0">
+              <div class="giet-donor-photo-wrap">
+                <img src="data/assets/donors/photos/nagendra-subudhi.png" alt="Nagendra Kumar Subudhi" class="giet-donor-photo" onerror="this.src='data/assets/donors/default-avatar.svg'" />
+                <span class="giet-donor-badge" title="Verified Contribution" aria-label="Verified Contribution">✓</span>
+              </div>
+              <h3 class="giet-donor-name">Nagendra Kumar Subudhi</h3>
+              <div class="giet-donor-amount-pill" data-target-amount="100000">₹1,00,000</div>
+              <div class="giet-donor-item-box">Alumni Endowment Fund</div>
+              <div class="giet-donor-divider"></div>
+              <div class="giet-donor-meta-info">
+                <div class="giet-meta-batch">Batch 2021-22</div>
+                <div class="giet-meta-org">ZTE Telecom India Pvt. Ltd.</div>
+                <div class="giet-meta-location">📍 Hyderabad, India</div>
+              </div>
+            </div>
+
+            <!-- Card 2: GIET Alumni Association -->
+            <div class="giet-donor-card" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View donation details for GIET Alumni Association" data-donor-id="2" data-index="1">
+              <div class="giet-donor-photo-wrap">
+                <img src="data/assets/donors/photos/alumni-rep-1.jpg" alt="GIET Alumni Association" class="giet-donor-photo" onerror="this.src='data/assets/donors/default-avatar.svg'" />
+                <span class="giet-donor-badge" title="Verified Contribution" aria-label="Verified Contribution">✓</span>
+              </div>
+              <h3 class="giet-donor-name">GIET Alumni Association</h3>
+              <div class="giet-donor-amount-pill" data-target-amount="1150000">₹11,50,000</div>
+              <div class="giet-donor-item-box">Alumni Student Contributions</div>
+              <div class="giet-donor-divider"></div>
+              <div class="giet-donor-meta-info">
+                <div class="giet-meta-batch">Batch 2018-19</div>
+                <div class="giet-meta-org">GIET University, Gunupur</div>
+                <div class="giet-meta-location">📍 Gunupur, Odisha, India</div>
+              </div>
+            </div>
+
+            <!-- Card 3: GIET Alumni Association -->
+            <div class="giet-donor-card" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View donation details for GIET Alumni Association" data-donor-id="3" data-index="2">
+              <div class="giet-donor-photo-wrap">
+                <img src="data/assets/donors/photos/alumni-rep-2.jpg" alt="GIET Alumni Association" class="giet-donor-photo" onerror="this.src='data/assets/donors/default-avatar.svg'" />
+                <span class="giet-donor-badge" title="Verified Contribution" aria-label="Verified Contribution">✓</span>
+              </div>
+              <h3 class="giet-donor-name">GIET Alumni Association</h3>
+              <div class="giet-donor-amount-pill" data-target-amount="962200">₹9,62,200</div>
+              <div class="giet-donor-item-box">CCTV Cameras &amp; Surveillance</div>
+              <div class="giet-donor-divider"></div>
+              <div class="giet-donor-meta-info">
+                <div class="giet-meta-batch">Batch 2019-20</div>
+                <div class="giet-meta-org">GIET University, Gunupur</div>
+                <div class="giet-meta-location">📍 Gunupur, Odisha, India</div>
+              </div>
+            </div>
+
+            <!-- Card 4: GIET Alumni Association -->
+            <div class="giet-donor-card" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View donation details for GIET Alumni Association" data-donor-id="4" data-index="3">
+              <div class="giet-donor-photo-wrap">
+                <img src="data/assets/donors/photos/alumni-rep-3.jpg" alt="GIET Alumni Association" class="giet-donor-photo" onerror="this.src='data/assets/donors/default-avatar.svg'" />
+                <span class="giet-donor-badge" title="Verified Contribution" aria-label="Verified Contribution">✓</span>
+              </div>
+              <h3 class="giet-donor-name">GIET Alumni Association</h3>
+              <div class="giet-donor-amount-pill" data-target-amount="138200">₹1,38,200</div>
+              <div class="giet-donor-item-box">Water Purifier &amp; Cooler</div>
+              <div class="giet-donor-divider"></div>
+              <div class="giet-donor-meta-info">
+                <div class="giet-meta-batch">Batch 2020-21</div>
+                <div class="giet-meta-org">GIET University, Gunupur</div>
+                <div class="giet-meta-location">📍 Gunupur, Odisha, India</div>
+              </div>
+            </div>
+
+            <!-- Card 5: GIET Alumni Association -->
+            <div class="giet-donor-card" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View donation details for GIET Alumni Association" data-donor-id="5" data-index="4">
+              <div class="giet-donor-photo-wrap">
+                <img src="data/assets/donors/photos/alumni-rep-4.jpg" alt="GIET Alumni Association" class="giet-donor-photo" onerror="this.src='data/assets/donors/default-avatar.svg'" />
+                <span class="giet-donor-badge" title="Verified Contribution" aria-label="Verified Contribution">✓</span>
+              </div>
+              <h3 class="giet-donor-name">GIET Alumni Association</h3>
+              <div class="giet-donor-amount-pill" data-target-amount="288266">₹2,88,266</div>
+              <div class="giet-donor-item-box">Digital Classroom Projector</div>
+              <div class="giet-donor-divider"></div>
+              <div class="giet-donor-meta-info">
+                <div class="giet-meta-batch">Batch 2022-23</div>
+                <div class="giet-meta-org">GIET University, Gunupur</div>
+                <div class="giet-meta-location">📍 Gunupur, Odisha, India</div>
+              </div>
+            </div>
+
+            <!-- Card 6: Rajesh Pattnaik -->
+            <div class="giet-donor-card" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View donation details for Rajesh Pattnaik" data-donor-id="6" data-index="5">
+              <div class="giet-donor-photo-wrap">
+                <img src="data/assets/donors/photos/donor-6.jpg" alt="Rajesh Pattnaik" class="giet-donor-photo" onerror="this.src='data/assets/donors/default-avatar.svg'" />
+                <span class="giet-donor-badge" title="Verified Contribution" aria-label="Verified Contribution">✓</span>
+              </div>
+              <h3 class="giet-donor-name">Rajesh Pattnaik</h3>
+              <div class="giet-donor-amount-pill" data-target-amount="25000">₹25,000</div>
+              <div class="giet-donor-item-box">Student Scholarship Fund</div>
+              <div class="giet-donor-divider"></div>
+              <div class="giet-donor-meta-info">
+                <div class="giet-meta-batch">Batch 2015-16</div>
+                <div class="giet-meta-org">Tata Consultancy Services</div>
+                <div class="giet-meta-location">📍 Bhubaneswar, India</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- GIET University Donation Form Section -->
+        <div class="giving-layout-grid" style="grid-template-columns: 1fr; max-width: 860px; margin: 0 auto;">
           
-          <!-- Column 1: Interactive Giving Configuration -->
+          <!-- Interactive Giving Configuration for GIET University -->
           <div class="giving-config-col">
             <div class="giving-form-card">
+              
+              <!-- Main Section Heading -->
               <div class="giving-card-header">
+                <div>
+                  <h2 class="giving-card-title">Make a Donation</h2>
+                  <p class="giving-card-desc">Support GIET University's academic excellence, student scholarships, and campus development initiatives by choosing your contribution amount and purpose below.</p>
+                </div>
+              </div>
+
+              <!-- Step 01: Amount Selection (INR) -->
+              <div class="giving-card-header" style="margin-top: var(--space-6); margin-bottom: var(--space-4);">
                 <span class="giving-step-num">01</span>
                 <div>
-                  <h2 class="giving-card-title">Choose Your Giving Circle</h2>
-                  <p class="giving-card-desc">Select an established giving identity or specify a tailored endowment contribution.</p>
+                  <h3 class="giving-card-title" style="font-size: var(--text-lg);">Choose Your Donation Amount</h3>
+                  <p class="giving-card-desc">Select a contribution amount in Indian Rupees (₹) or enter a custom amount.</p>
                 </div>
               </div>
 
-              <!-- Frequency Toggle -->
-              <div class="frequency-toggle-group">
-                <button type="button" class="freq-btn active" data-freq="one-time">One-Time Benefaction</button>
-                <button type="button" class="freq-btn" data-freq="annual">Annual Recurring Fellow</button>
-              </div>
-
-              <!-- Tier Cards Grid (4 Distinct Identities) -->
+              <!-- Fixed INR Contribution Cards Grid -->
               <div class="donation-tiers-grid" id="tiers-grid">
-                <!-- Tier 1: Century Club ($100) -->
-                <div class="tier-card" data-amount="100" data-tier="Century Club">
+                <div class="tier-card" data-amount="5000" data-tier="₹5,000 Contribution">
                   <div class="tier-top">
-                    <span class="tier-identity">Friend Level</span>
-                    <span class="tier-label">Century Club</span>
-                    <div class="tier-amount">$100</div>
+                    <span class="tier-label">Contribution</span>
+                    <div class="tier-amount">₹5,000</div>
                   </div>
-                  <p class="tier-desc">Subsidizes student research symposium travel, scholarly texts, and lab materials.</p>
+                  <p class="tier-desc">Supports student learning materials &amp; campus library resources.</p>
                 </div>
 
-                <!-- Tier 2: Dean's Circle ($500) -->
-                <div class="tier-card active tier-card-featured" data-amount="500" data-tier="Dean's Circle">
-                  <span class="badge badge-accent tier-popular-badge">Most Popular</span>
+                <div class="tier-card tier-card-featured" data-amount="15000" data-tier="₹15,000 Contribution">
+                  <span class="badge badge-accent tier-popular-badge">Popular</span>
                   <div class="tier-top">
-                    <span class="tier-identity">Patron Level</span>
-                    <span class="tier-label">Dean's Circle</span>
-                    <div class="tier-amount">$500</div>
+                    <span class="tier-label">Contribution</span>
+                    <div class="tier-amount">₹15,000</div>
                   </div>
-                  <p class="tier-desc">Funds 1 full semester undergraduate research fellowship and compute equipment.</p>
+                  <p class="tier-desc">Subsidizes student innovation projects &amp; academic equipment.</p>
                 </div>
 
-                <!-- Tier 3: President's Council ($2,500) -->
-                <div class="tier-card" data-amount="2500" data-tier="President's Council">
+                <div class="tier-card" data-amount="25000" data-tier="₹25,000 Contribution">
                   <div class="tier-top">
-                    <span class="tier-identity">Champion Level</span>
-                    <span class="tier-label">President's Council</span>
-                    <div class="tier-amount">$2,500</div>
+                    <span class="tier-label">Contribution</span>
+                    <div class="tier-amount">₹25,000</div>
                   </div>
-                  <p class="tier-desc">Endows an annual named graduate student fellowship &amp; sustainability grant.</p>
+                  <p class="tier-desc">Underwrites student merit scholarships &amp; laboratory aid.</p>
                 </div>
 
-                <!-- Tier 4: Founder's Trust ($10,000) -->
-                <div class="tier-card" data-amount="10000" data-tier="Founder's Trust">
+                <div class="tier-card" data-amount="50000" data-tier="₹50,000 Contribution">
                   <div class="tier-top">
-                    <span class="tier-identity">Founder Level</span>
-                    <span class="tier-label">Founder's Trust</span>
-                    <div class="tier-amount">$10,000</div>
+                    <span class="tier-label">Contribution</span>
+                    <div class="tier-amount">₹50,000</div>
                   </div>
-                  <p class="tier-desc">Establishes permanent campus laboratory fixtures, named scholarship legacy, &amp; permanent medallion.</p>
+                  <p class="tier-desc">Supports campus infrastructure &amp; smart classroom technology.</p>
                 </div>
               </div>
 
-              <!-- Custom Amount Box -->
+              <!-- Custom Amount Box (INR) -->
               <div class="custom-amount-box">
-                <label for="custom-amount-input" class="custom-amount-label">Or Specify a Custom Contribution (USD)</label>
+                <label for="custom-amount-input" class="custom-amount-label">Or Enter a Custom Amount (₹ INR)</label>
                 <div class="custom-amount-input-wrap">
-                  <span class="currency-symbol">$</span>
-                  <input type="number" id="custom-amount-input" class="custom-amount-input" placeholder="Enter amount (e.g. 1500)" min="10" step="10" />
-                </div>
-                <div class="custom-amount-hints">
-                  <span>Common:</span>
-                  <button type="button" class="amount-chip" data-chip="250">$250</button>
-                  <button type="button" class="amount-chip" data-chip="1200">$1,200</button>
-                  <button type="button" class="amount-chip" data-chip="5000">$5,000</button>
+                  <span class="currency-symbol">₹</span>
+                  <input type="number" id="custom-amount-input" class="custom-amount-input" placeholder="Enter custom amount (e.g. 10000)" min="100" step="500" />
                 </div>
               </div>
 
-              <!-- Fund Designation Selector -->
+              <!-- Step 02: Support Category -->
               <div class="fund-designation-section">
                 <div class="giving-card-header" style="margin-bottom: var(--space-4);">
                   <span class="giving-step-num">02</span>
                   <div>
-                    <h3 class="giving-card-title" style="font-size: var(--text-lg);">Direct Your Support</h3>
-                    <p class="giving-card-desc">Choose which university pillar receives 100% of your allocated gift.</p>
+                    <h3 class="giving-card-title" style="font-size: var(--text-lg);">Choose Your Support Category</h3>
+                    <p class="giving-card-desc">Direct 100% of your gift towards an official GIET University initiative.</p>
                   </div>
                 </div>
 
                 <div class="fund-options-list" id="fund-options-list">
                   <label class="fund-option active">
-                    <input type="radio" name="fund" value="Undergraduate Need-Blind Financial Aid" checked />
+                    <input type="radio" name="fund" value="Alumni Endowment Fund" checked />
                     <div class="fund-option-content">
-                      <div class="fund-option-title">Undergraduate Need-Blind Scholarship Fund</div>
-                      <div class="fund-option-desc">Ensures the most talented minds can attend Apex regardless of socio-economic background.</div>
+                      <div class="fund-option-title">Alumni Endowment Fund</div>
+                      <div class="fund-option-desc">Supports long-term academic development, research grants, and university institutional growth.</div>
                     </div>
                   </label>
 
                   <label class="fund-option">
-                    <input type="radio" name="fund" value="Quantum, AI &amp; Robotics Discovery Labs" />
+                    <input type="radio" name="fund" value="Student Scholarship Fund" />
                     <div class="fund-option-content">
-                      <div class="fund-option-title">Quantum, AI &amp; Autonomous Robotics Discovery Labs</div>
-                      <div class="fund-option-desc">Equips student researchers with cutting-edge compute clusters and physical test rigs.</div>
+                      <div class="fund-option-title">Student Scholarship Fund</div>
+                      <div class="fund-option-desc">Provides financial assistance and merit-based aid for deserving GIET University students.</div>
                     </div>
                   </label>
 
                   <label class="fund-option">
-                    <input type="radio" name="fund" value="Global Climate &amp; Clean Energy Initiative" />
+                    <input type="radio" name="fund" value="Alumni Student Contributions" />
                     <div class="fund-option-content">
-                      <div class="fund-option-title">Global Climate &amp; Clean Energy Initiative</div>
-                      <div class="fund-option-desc">Accelerates interdisciplinary research into grid decarbonization, biomaterials, and storage.</div>
+                      <div class="fund-option-title">Alumni Student Contributions</div>
+                      <div class="fund-option-desc">Direct contribution towards student welfare programs, mentorship events, and learning facilities.</div>
                     </div>
                   </label>
 
                   <label class="fund-option">
-                    <input type="radio" name="fund" value="Alumni Venture Catalyst Micro-Grants" />
+                    <input type="radio" name="fund" value="Smart Classroom Tech &amp; Equipment" />
                     <div class="fund-option-content">
-                      <div class="fund-option-title">Alumni Venture Catalyst &amp; Founder Micro-Grants</div>
-                      <div class="fund-option-desc">Provides non-dilutive pre-seed funding for graduating student innovators and startup founders.</div>
+                      <div class="fund-option-title">Smart Classroom Tech &amp; Equipment</div>
+                      <div class="fund-option-desc">Equips GIET classrooms and computer labs with digital projectors, IT infrastructure, and campus surveillance.</div>
                     </div>
                   </label>
 
                   <label class="fund-option">
-                    <input type="radio" name="fund" value="Dean's Strategic Excellence Fund" />
+                    <input type="radio" name="fund" value="Campus Amenities &amp; Infrastructure" />
                     <div class="fund-option-content">
-                      <div class="fund-option-title">Dean's Strategic Excellence Fund (Where Most Needed)</div>
-                      <div class="fund-option-desc">Allocated flexibly by academic deans to urgent research initiatives, visiting scholars, and student emergency aid.</div>
+                      <div class="fund-option-title">Campus Amenities &amp; Infrastructure</div>
+                      <div class="fund-option-desc">Supports water purifiers, coolers, student common rooms, and campus facility upgrades.</div>
                     </div>
                   </label>
                 </div>
@@ -255,256 +296,46 @@
 
               <!-- Dynamic Impact Calculator Banner -->
               <div class="impact-preview-banner" id="impact-preview-banner">
-                <div class="impact-preview-icon">🏛️</div>
+                <div class="impact-preview-icon">🎓</div>
                 <div class="impact-preview-body">
-                  <div class="impact-preview-amount" id="impact-preview-amount">$500 Gift Selected &bull; Dean's Circle</div>
+                  <div class="impact-preview-amount" id="impact-preview-amount">Select a Donation Amount</div>
                   <div class="impact-preview-text" id="impact-preview-text">
-                    Your gift directly underwrites 1 full semester of specialized laboratory equipment and stipend for an undergraduate scholar in the Financial Aid program.
+                    Select a contribution card above or enter a custom amount to support GIET University.
                   </div>
+                </div>
+              </div>
+
+              <!-- Part 1 — Introduction: Your Support Shapes the Future -->
+              <div class="support-intro-block">
+                <h3 class="flow-card-title">Your Support Shapes the Future</h3>
+                <p class="flow-card-desc">Every contribution helps strengthen the GIET community and create opportunities for students.</p>
+              </div>
+
+              <!-- Part 2 — Impact Flow -->
+              <div class="impact-flow-diagram">
+                <div class="flow-step">
+                  <span class="flow-step-title">ALUMNI</span>
+                  <span class="flow-step-sub">Give Back</span>
+                </div>
+                <div class="flow-arrow" aria-hidden="true">&rarr;</div>
+                <div class="flow-step">
+                  <span class="flow-step-title">CONTRIBUTION</span>
+                  <span class="flow-step-sub">Support GIET</span>
+                </div>
+                <div class="flow-arrow" aria-hidden="true">&rarr;</div>
+                <div class="flow-step">
+                  <span class="flow-step-title">IMPACT</span>
+                  <span class="flow-step-sub">Build the Future</span>
                 </div>
               </div>
 
               <!-- Action Button -->
               <button type="button" class="btn btn-accent btn-block btn-lg" id="open-gift-modal-btn">
-                Proceed to Secure Contribution (<span id="btn-gift-amount">$500</span>) &rarr;
+                Proceed to Donate <span id="btn-gift-amount"></span> &rarr;
               </button>
-              <div class="giving-secure-footnote">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                <span>Encrypted 256-Bit SSL &bull; Official Apex Office of Philanthropic Giving &bull; 501(c)(3) Verified</span>
-              </div>
             </div>
           </div>
 
-          <!-- Column 2: Institutional Impact & Annual Campaign -->
-          <div class="giving-impact-col">
-            
-            <!-- 2026 Annual Campaign Progress Card -->
-            <div class="campaign-progress-card">
-              <div class="campaign-header">
-                <span class="campaign-badge">2026 Annual Campaign</span>
-                <span class="campaign-deadline">Active through June 30, 2026</span>
-              </div>
-              <h3 class="campaign-title">The Horizon Fund for Transformative Education</h3>
-              <div class="campaign-stats-row">
-                <div>
-                  <div class="campaign-stat-val" id="campaign-total-raised">$3,842,500</div>
-                  <div class="campaign-stat-sub">Raised of $5,000,000 institutional goal</div>
-                </div>
-                <div class="campaign-pct" id="campaign-pct">76.8%</div>
-              </div>
-
-              <!-- Visual Progress Bar -->
-              <div class="campaign-bar-track">
-                <div class="campaign-bar-fill" id="campaign-bar-fill" style="width: 76.8%;"></div>
-              </div>
-
-              <!-- Allocation Distribution -->
-              <div class="allocation-legend">
-                <div class="allocation-item">
-                  <span class="alloc-dot dot-aid"></span>
-                  <span class="alloc-text">45% Student Aid</span>
-                </div>
-                <div class="allocation-item">
-                  <span class="alloc-dot dot-research"></span>
-                  <span class="alloc-text">30% Research Labs</span>
-                </div>
-                <div class="allocation-item">
-                  <span class="alloc-dot dot-campus"></span>
-                  <span class="alloc-text">15% Innovation</span>
-                </div>
-                <div class="allocation-item">
-                  <span class="alloc-dot dot-grants"></span>
-                  <span class="alloc-text">10% Venture</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Corporate Matching Employer Search Widget -->
-            <div class="corporate-match-card">
-              <div class="match-card-top">
-                <div class="match-icon">🏢</div>
-                <div>
-                  <h4 class="match-card-title">Double Your Impact: Employer Matching</h4>
-                  <p class="match-card-desc">Over 1,200 employers match gifts dollar-for-dollar. Search your company below.</p>
-                </div>
-              </div>
-              <div class="match-search-wrap">
-                <input type="text" id="employer-search-input" class="match-search-input" placeholder="Type company name (e.g. Google, Microsoft, Apple, TCS)..." autocomplete="off" />
-                <div id="employer-results" class="match-dropdown-results" hidden></div>
-              </div>
-              <div id="match-callout" class="match-callout-banner" hidden>
-                <div class="match-callout-status">
-                  <span class="match-check">✓</span>
-                  <strong id="match-company-name">Google</strong>
-                  <span class="match-ratio-badge" id="match-ratio-badge">100% Match Verified</span>
-                </div>
-                <p id="match-details-text" class="match-details-text">
-                  Your current contribution will be matched 1:1, doubling your impact to <strong id="match-doubled-amount">$1,000</strong>. An institutional match form will be generated automatically.
-                </p>
-              </div>
-            </div>
-
-            <!-- Alumni Patron Editorial Quote -->
-            <div class="patron-quote-card">
-              <div class="patron-quote-mark">&ldquo;</div>
-              <blockquote class="patron-quote-text">
-                My undergraduate degree was made possible exclusively through an alumni scholarship endowment. Contributing each year isn't philanthropy—it is honoring the perpetual continuum that gave us our start.
-              </blockquote>
-              <div class="patron-profile-meta">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=160&auto=format&fit=crop&q=80" alt="Dr. Elena Rostova" class="patron-avatar" />
-                <div>
-                  <div class="patron-name">Dr. Elena Rostova ('12)</div>
-                  <div class="patron-title">VP of Molecular Therapeutics &bull; Genovate &bull; Founder's Trust Patron</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tax & Trust Box -->
-            <div class="trust-box">
-              <div class="trust-item">
-                <div class="trust-icon">✓</div>
-                <div>
-                  <strong>501(c)(3) Official Tax Exemption</strong>
-                  <p>All contributions are tax-deductible to the maximum extent permissible under federal and international law. EIN 04-2194820.</p>
-                </div>
-              </div>
-              <div class="trust-item">
-                <div class="trust-icon">📜</div>
-                <div>
-                  <strong>Endowment Governance &amp; Audits</strong>
-                  <p>Invested conservatively under the Board of Trustees Endowment Mandate with annual published transparency reports.</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Section: Interactive Endowment Legacy Calculator -->
-        <div class="legacy-calc-section">
-          <div class="legacy-calc-card">
-            <div class="legacy-calc-header">
-              <div class="calc-badge">Perpetual Impact Engine</div>
-              <h3 class="legacy-calc-title">Endowment Perpetuity Calculator: The 25-Year Horizon</h3>
-              <p class="legacy-calc-desc">
-                University endowments function as perpetual trusts: the principal is invested in perpetuity, while an annual 5% disbursement funds scholarships and research year after year.
-              </p>
-            </div>
-
-            <div class="legacy-calc-grid">
-              <div class="calc-controls-col">
-                <div class="calc-control-group">
-                  <div class="calc-label-row">
-                    <label for="legacy-slider" class="calc-label">Endowed Principal Gift:</label>
-                    <span class="calc-current-value" id="calc-principal-display">$5,000</span>
-                  </div>
-                  <input type="range" id="legacy-slider" class="calc-slider" min="1000" max="50000" step="500" value="5000" />
-                  <div class="slider-ticks">
-                    <span>$1k</span>
-                    <span>$10k</span>
-                    <span>$25k</span>
-                    <span>$50k</span>
-                  </div>
-                </div>
-
-                <div class="calc-preset-chips">
-                  <span>Quick Presets:</span>
-                  <button type="button" class="preset-chip" data-calc="1000">$1,000</button>
-                  <button type="button" class="preset-chip active" data-calc="5000">$5,000</button>
-                  <button type="button" class="preset-chip" data-calc="10000">$10,000</button>
-                  <button type="button" class="preset-chip" data-calc="25000">$25,000</button>
-                </div>
-
-                <div class="calc-note-box">
-                  <span class="calc-note-icon">💡</span>
-                  <p>
-                    <strong>The Perpetuity Guarantee:</strong> Your initial principal remains 100% intact forever. After 25 years, a $5,000 endowment has generated $6,250 in grants while the endowment pool continues to grow.
-                  </p>
-                </div>
-              </div>
-
-              <div class="calc-outputs-col">
-                <div class="calc-metric-box metric-payout">
-                  <span class="calc-metric-label">Annual Perpetual Disbursement (5%)</span>
-                  <div class="calc-metric-value" id="calc-annual-payout">$250 / yr</div>
-                  <span class="calc-metric-sub">Distributed every single academic year</span>
-                </div>
-
-                <div class="calc-metrics-row">
-                  <div class="calc-metric-box">
-                    <span class="calc-metric-label">10-Year Cumulative Yield</span>
-                    <div class="calc-metric-value" id="calc-10yr-yield">$2,500</div>
-                    <span class="calc-metric-sub" id="calc-10yr-sub">~5 Student Research Fellowships</span>
-                  </div>
-
-                  <div class="calc-metric-box">
-                    <span class="calc-metric-label">25-Year Cumulative Yield</span>
-                    <div class="calc-metric-value" id="calc-25yr-yield">$6,250</div>
-                    <span class="calc-metric-sub" id="calc-25yr-sub">~12+ Endowed Scholars Funded</span>
-                  </div>
-                </div>
-
-                <button type="button" class="btn btn-outline btn-block btn-sm" id="calc-apply-btn">
-                  Adopt This Endowed Level ($<span id="calc-btn-amount">5,000</span>) in Form &uarr;
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Section: 2026 Donor Honor Roll (Recognition Wall) -->
-        <div class="donor-honor-roll-section" id="recognition-wall">
-          <div class="honor-roll-header">
-            <div>
-              <span class="section-tag">Recognition &amp; Gratitude</span>
-              <h2 class="honor-roll-title">2026 Donor Honor Roll</h2>
-              <p class="honor-roll-subtitle">
-                Gratefully acknowledging the alumni, families, and foundations whose benefaction anchors our collegiate mission.
-              </p>
-            </div>
-            
-            <div class="honor-stats-badge">
-              <span class="badge-num" id="honor-total-count">8</span>
-              <span class="badge-text">Benefactors Cataloged</span>
-            </div>
-          </div>
-
-          <!-- Multi-Filter Toolbar -->
-          <div class="honor-toolbar">
-            <!-- Filter Pills by Tier -->
-            <div class="honor-roll-filters" id="honor-roll-filters">
-              <button class="honor-pill active" data-filter="all">All Benefactors</button>
-              <button class="honor-pill" data-filter="endowment">Endowments ($2,500+)</button>
-              <button class="honor-pill" data-filter="dean">Dean's Circle ($500+)</button>
-              <button class="honor-pill" data-filter="century">Century Club</button>
-              <button class="honor-pill" data-filter="recent">Recent Contributions</button>
-            </div>
-
-            <!-- Class Year & Search Controls -->
-            <div class="honor-search-controls">
-              <select id="class-year-filter" class="honor-select" aria-label="Filter by Class Year">
-                <option value="all">All Classes &amp; Affiliations</option>
-                <option value="08">Class of '08</option>
-                <option value="12">Class of '12</option>
-                <option value="15">Class of '15</option>
-                <option value="16">Class of '16</option>
-                <option value="18">Class of '18</option>
-                <option value="19">Class of '19</option>
-                <option value="23">Class of '23</option>
-                <option value="parent">Parents &amp; Friends</option>
-              </select>
-
-              <div class="honor-search-input-wrap">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" id="honor-search-input" class="honor-search-input" placeholder="Search patron name, fund, or dedication..." />
-              </div>
-            </div>
-          </div>
-
-          <!-- Dynamic Honor Roll Grid -->
-          <div class="donor-tags-cloud" id="donor-honor-roll-list">
-            <!-- Rendered dynamically by js/pages/donate.js -->
-          </div>
         </div>
 
       </div>
@@ -516,8 +347,8 @@
     <div class="modal-content donation-modal-box">
       <div class="modal-header">
         <div>
-          <span class="badge badge-accent" id="modal-tier-badge">Dean's Circle</span>
-          <h2 class="modal-title" id="donation-modal-title" style="margin-top: 6px;">Institutional Gift Confirmation</h2>
+          <span class="badge badge-accent" id="modal-tier-badge">₹15,000 Contribution</span>
+          <h2 class="modal-title" id="donation-modal-title" style="margin-top: 6px;">GIET Donation Confirmation</h2>
         </div>
         <button class="modal-close" id="close-donation-modal" aria-label="Close modal">&times;</button>
       </div>
@@ -525,194 +356,161 @@
       <form id="donation-form" class="donation-form">
         <div class="modal-gift-summary">
           <div class="gift-summary-left">
-            <span class="gift-summary-label">Gift Amount</span>
-            <div class="gift-summary-amount" id="modal-summary-amount">$500.00</div>
+            <span class="gift-summary-label">Donation Amount</span>
+            <div class="gift-summary-amount" id="modal-summary-amount">₹15,000</div>
           </div>
           <div class="gift-summary-right">
-            <span class="gift-summary-label">Designated Pillar</span>
-            <div class="gift-summary-fund" id="modal-summary-fund">Undergraduate Need-Blind Scholarship Fund</div>
+            <span class="gift-summary-label">Selected Purpose</span>
+            <div class="gift-summary-fund" id="modal-summary-fund">Alumni Endowment Fund</div>
           </div>
         </div>
 
         <div class="form-row-2">
           <div class="form-group">
             <label for="donor-full-name" class="form-label">Full Name <span class="required">*</span></label>
-            <input type="text" id="donor-full-name" class="form-input" placeholder="e.g. Maya Lin" required />
+            <input type="text" id="donor-full-name" class="form-input" placeholder="e.g. Nagendra Kumar Subudhi" required />
           </div>
           <div class="form-group">
-            <label for="donor-grad-year" class="form-label">Class Year or Affiliation</label>
-            <input type="text" id="donor-grad-year" class="form-input" placeholder="e.g. Class of '16 or Parent" />
+            <label for="donor-grad-year" class="form-label">Batch / Graduation Year</label>
+            <input type="text" id="donor-grad-year" class="form-input" placeholder="e.g. 2021-22" />
           </div>
         </div>
 
         <div class="form-group">
-          <label for="donor-email" class="form-label">Official Email (for Tax Receipt) <span class="required">*</span></label>
-          <input type="email" id="donor-email" class="form-input" placeholder="e.g. maya.lin@alumni.apex.edu" required />
+          <label for="donor-email" class="form-label">Official Email <span class="required">*</span></label>
+          <input type="email" id="donor-email" class="form-input" placeholder="e.g. nagendra@giet.edu" required />
         </div>
 
-        <!-- Dedication Selector -->
-        <div class="form-group dedication-group">
-          <label class="form-label">Gift Dedication (Optional)</label>
-          <div class="dedication-pill-selector">
-            <label class="dedication-pill active">
-              <input type="radio" name="dedicationType" value="none" checked />
-              <span>None</span>
-            </label>
-            <label class="dedication-pill">
-              <input type="radio" name="dedicationType" value="honor" />
-              <span>In Honor Of</span>
-            </label>
-            <label class="dedication-pill">
-              <input type="radio" name="dedicationType" value="memory" />
-              <span>In Memory Of</span>
-            </label>
-          </div>
-
-          <div id="dedication-details" class="dedication-details-box" hidden>
-            <div class="form-group" style="margin-bottom: var(--space-3);">
-              <label for="donor-honoree-name" class="form-label" id="honoree-label">Honoree Full Name</label>
-              <input type="text" id="donor-honoree-name" class="form-input" placeholder="e.g. Prof. David Montgomery or Dean Sarah Holloway" />
-            </div>
-            <div class="form-group" style="margin-bottom: 0;">
-              <label for="donor-honoree-email" class="form-label">Notification Email (Optional)</label>
-              <input type="email" id="donor-honoree-email" class="form-input" placeholder="Send an official acknowledgment note to honoree or family" />
-            </div>
-          </div>
+        <div class="form-group">
+          <label for="donor-dedication" class="form-label">Organization / Company (Optional)</label>
+          <input type="text" id="donor-dedication" class="form-input" placeholder="e.g. ZTE Telecom India Pvt. Ltd." />
         </div>
 
         <div class="form-group" style="margin-bottom: var(--space-4);">
           <label class="checkbox-label" style="display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); cursor: pointer;">
             <input type="checkbox" id="donor-anonymous" />
-            <span>List this contribution as <strong>Anonymous</strong> on the public 2026 Honor Roll</span>
+            <span>List this contribution as <strong>Anonymous</strong> on the donor honor roll</span>
           </label>
         </div>
 
         <div class="form-payment-stub">
-          <span class="payment-stub-label">Simulated Academic Payment Gateway</span>
+          <span class="payment-stub-label">GIET Alumni Contribution Portal</span>
           <div class="payment-pills">
-            <span class="payment-pill active">Direct Institutional Wire</span>
-            <span class="payment-pill">Credit / Debit Match</span>
-            <span class="payment-pill">Endowment Transfer</span>
+            <span class="payment-pill active">Online UPI / NetBanking</span>
+            <span class="payment-pill">Direct Bank Transfer</span>
+            <span class="payment-pill">Alumni Association Fund</span>
           </div>
         </div>
 
         <div class="modal-footer" style="padding: 0; margin-top: var(--space-6); display: flex; gap: var(--space-3); justify-content: flex-end;">
           <button type="button" class="btn btn-outline" id="cancel-donation-btn">Cancel</button>
           <button type="submit" class="btn btn-accent" id="submit-donation-btn">
-            Seal Contribution (<span id="modal-btn-amount">$500</span>)
+            Confirm Donation (<span id="modal-btn-amount">₹15,000</span>)
           </button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Digital Endowment Certificate / Receipt Modal -->
+  <!-- Digital Certificate / Receipt Modal -->
   <div class="modal-overlay" id="receipt-modal" role="dialog" aria-modal="true" aria-labelledby="receipt-modal-title">
-    <div class="modal-content receipt-modal-box" id="printable-certificate">
+    <div class="modal-content receipt-modal-box">
       <div class="receipt-seal-header">
-        <div class="receipt-crest">
-          <img src="giet-logo.webp?v=3" alt="Apex Crest Seal" class="receipt-crest-img" />
-        </div>
-        <div class="receipt-uni-name">Apex University &bull; Office of the University Endowment</div>
-        <h2 class="receipt-title" id="receipt-modal-title">Certificate of Benefaction</h2>
-        <div class="receipt-serial" id="receipt-serial-num">REC-2026-ENDOW-8491</div>
+        <div class="receipt-crest">GIET</div>
+        <div class="receipt-uni-name">GIET University &bull; Alumni Philanthropy Office</div>
+        <h2 class="receipt-title" id="receipt-modal-title">Contribution Receipt</h2>
+        <div class="receipt-serial" id="receipt-serial-num">GIET-DON-2026-8491</div>
       </div>
 
       <div class="receipt-body">
         <p class="receipt-decree">
-          This certifies that <strong id="receipt-donor-name">Alumnus</strong> has formally contributed to the perpetual scholastic enrichment of Apex University through the:
+          This certifies that <strong id="receipt-donor-name">Alumnus</strong> has formally contributed to the growth and development of GIET University through the:
         </p>
 
         <div class="receipt-card">
-          <div class="receipt-card-tier" id="receipt-tier-name">Dean's Circle</div>
-          <div class="receipt-card-amount" id="receipt-amount-display">$500.00 USD</div>
-          <div class="receipt-card-fund" id="receipt-fund-display">Undergraduate Need-Blind Scholarship Fund</div>
-          <div class="receipt-date" id="receipt-date-display">September 24, 2026</div>
-          <div class="receipt-dedication" id="receipt-dedication-display" hidden></div>
+          <div class="receipt-card-tier" id="receipt-tier-name">₹15,000 Contribution</div>
+          <div class="receipt-card-amount" id="receipt-amount-display">₹15,000</div>
+          <div class="receipt-card-fund" id="receipt-fund-display">Alumni Endowment Fund</div>
+          <div class="receipt-date" id="receipt-date-display">September 2026</div>
         </div>
 
         <p class="receipt-tax-note">
-          Official 501(c)(3) tax identification: <strong>EIN 04-2194820</strong>. A formal PDF tax acknowledgment has been cataloged in the University Registry.
+          Official GIET University Alumni Network Receipt. Thank you for empowering future generations.
         </p>
       </div>
 
       <div class="receipt-footer">
-        <button type="button" class="btn btn-outline" id="print-receipt-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 5px;"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-          Print / Save Certificate as PDF
-        </button>
-        <button type="button" class="btn btn-primary" id="close-receipt-btn">Done &bull; View on Honor Roll</button>
+        <button type="button" class="btn btn-primary btn-block" id="close-receipt-btn">Done &bull; View Our Donors</button>
       </div>
     </div>
   </div>
 
-  <!-- Persistent Site Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="brand" style="color: #fff;">
-            <div class="brand-crest">
-              <img src="giet-logo.webp?v=3" alt="Apex University Crest" class="brand-logo-img" />
-            </div>
-            <div class="brand-info">
-              <span class="brand-title" style="color: #fff;">Apex University</span>
-              <span class="brand-subtitle" style="color: var(--color-accent);">Alumni Network</span>
-            </div>
+  <!-- Interactive Donor Details Modal -->
+  <div class="modal-overlay" id="donor-details-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="donor-modal-name">
+    <div class="modal-content donor-details-card">
+      <button class="modal-close" id="close-donor-modal" aria-label="Close modal">&times;</button>
+      <div class="donor-modal-header">
+        <img id="donor-modal-photo" class="donor-modal-avatar" src="data/assets/donors/default-avatar.svg" alt="Donor portrait" />
+        <div class="donor-modal-head-info">
+          <div class="donor-modal-title-wrap">
+            <h3 id="donor-modal-name" class="donor-modal-name"></h3>
+            <span id="donor-modal-badge" class="verified-badge-pill" hidden data-tooltip="Verified Contribution">✓ Verified</span>
           </div>
-          <p class="footer-desc">
-            Empowering lifelong connections between our global alumni body and current student cohorts through mentorship, chapters, and philanthropic endowments.
-          </p>
-        </div>
-
-        <div>
-          <h4 class="footer-heading">Explore</h4>
-          <ul class="footer-links">
-            <li><a href="directory.html" class="footer-link">Alumni Directory</a></li>
-            <li><a href="news.html" class="footer-link">News &amp; Stories</a></li>
-            <li><a href="videos.html" class="footer-link">Video Highlights</a></li>
-            <li><a href="events.html" class="footer-link">Upcoming Events</a></li>
-            <li><a href="donate.html" class="footer-link">Ways to Give</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="footer-heading">Member Portal</h4>
-          <ul class="footer-links">
-            <li><a href="login.html" class="footer-link">Alumni Sign In</a></li>
-            <li><a href="signup.html" class="footer-link">Join Network</a></li>
-            <li><a href="profile.html" class="footer-link">Update My Profile</a></li>
-            <li><a href="news.html#submit" class="footer-link">Submit a Story</a></li>
-            <li><a href="admin.html" class="footer-link">Staff Administration</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="footer-heading">Stay Connected</h4>
-          <p style="font-size: var(--text-sm); color: var(--color-text-inverse-muted); margin-bottom: var(--space-3);">
-            Receive our quarterly alumni bulletin, endowment reports, and regional chapter invitations.
-          </p>
-          <form class="newsletter-form">
-            <div class="newsletter-input-group">
-              <input type="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email for alumni newsletter" />
-              <button type="submit" class="btn btn-accent btn-sm">Join</button>
-            </div>
-          </form>
+          <p id="donor-modal-role-org" class="donor-modal-sub"></p>
         </div>
       </div>
-
-      <div class="footer-bottom">
-        <div>&copy; 2026 Apex University Alumni Association &bull; Office of the University Endowment. All rights reserved.</div>
-        <div class="social-links">
-          <a href="#" class="social-link" aria-label="LinkedIn">LinkedIn</a>
-          <a href="#" class="social-link" aria-label="YouTube">YouTube</a>
-          <a href="#" class="social-link" aria-label="X Twitter">X (Twitter)</a>
-          <a href="#" class="social-link" aria-label="Instagram">Instagram</a>
+      <div class="donor-modal-body">
+        <div class="donor-modal-stat-grid">
+          <div class="donor-modal-stat">
+            <span class="stat-lbl">Contribution Amount</span>
+            <span id="donor-modal-amount" class="stat-val"></span>
+          </div>
+          <div class="donor-modal-stat">
+            <span class="stat-lbl">Contribution Type</span>
+            <span id="donor-modal-type" class="stat-val"></span>
+          </div>
+        </div>
+        <div class="donor-modal-fields">
+          <div class="donor-field-item" id="field-purpose-wrap">
+            <span class="field-lbl">Donation Purpose / Item</span>
+            <span id="donor-modal-purpose" class="field-val"></span>
+          </div>
+          <div class="donor-field-item" id="field-batch-wrap">
+            <span class="field-lbl">Batch / Year</span>
+            <span id="donor-modal-batch" class="field-val"></span>
+          </div>
+          <div class="donor-field-item" id="field-dept-wrap">
+            <span class="field-lbl">Department / Discipline</span>
+            <span id="donor-modal-dept" class="field-val"></span>
+          </div>
+          <div class="donor-field-item" id="field-location-wrap">
+            <span class="field-lbl">Location</span>
+            <span id="donor-modal-location" class="field-val"></span>
+          </div>
         </div>
       </div>
     </div>
-  </footer>
+  </div>
 
+  <!-- Real-Time Verified Recent Gift Notification Toast (Hidden on page load) -->
+  <div id="recent-donor-toast" class="recent-donor-toast toast-hidden" hidden role="status" aria-live="polite">
+    <button id="close-donor-toast" class="toast-close-btn" aria-label="Dismiss notification">&times;</button>
+    <div class="toast-header-tag">
+      <span class="toast-tag-pulse"></span>
+      <span class="toast-tag-text">RECENT GIFT &bull; Verified</span>
+    </div>
+    <div class="toast-content-body">
+      <img id="toast-donor-photo" class="toast-avatar" src="data/assets/donors/default-avatar.svg" alt="Recent Donor" />
+      <div class="toast-info">
+        <h4 id="toast-donor-name" class="toast-name"></h4>
+        <p id="toast-donor-meta" class="toast-meta"></p>
+        <div id="toast-donor-amount" class="toast-amount"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="site-footer-container"></div>
+  <script type="module" src="js/components.js"></script>
   <script type="module" src="js/nav.js"></script>
   <script type="module" src="js/pages/donate.js"></script>
 </body>
