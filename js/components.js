@@ -121,6 +121,12 @@ function setupHeaderInteractions() {
     }
   });
 
+  // 4. Donate-Only Search Option Requirement
+  const isDonatePage = currentPath === 'donate.html';
+  document.querySelectorAll('.header-search-btn, .mobile-search-btn').forEach(btn => {
+    btn.style.display = isDonatePage ? '' : 'none';
+  });
+
   // 4. Dynamic Auth State in Header & Mobile Drawer
   setupAuthUI();
 }
