@@ -24,7 +24,7 @@ const GIET_DONOR_DATASET = [
     currentRole: "Lead Specialist",
     organization: "ZTE Telecom India Pvt. Ltd.",
     location: "Hyderabad, India",
-    photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_Jgl3gF6A8EVXsOsjEXMCav-Ddu1d8YgYLD36Jq8Jqw&s=10",
+    photo: "nagendra-subudhi.jpeg",
     donationType: "Alumni Contribution",
     donationItem: "Alumni Endowment Fund",
     verified: true
@@ -69,7 +69,7 @@ const GIET_DONOR_DATASET = [
     currentRole: "Alumni Benefactor",
     organization: "GIET University, Gunupur",
     location: "Gunupur, Odisha, India",
-    photo: "donateImages/alumni-rep-3.jpeg",
+    photo: "alumni-rep-3.jpeg",
     donationType: "Equipment",
     donationItem: "Water Purifier & Cooler",
     verified: true
@@ -84,7 +84,7 @@ const GIET_DONOR_DATASET = [
     currentRole: "Alumni Benefactor",
     organization: "GIET University, Gunupur",
     location: "Gunupur, Odisha, India",
-    photo: "donateImages/alumni-rep-4.jpeg",
+    photo: "alumni-rep-4.jpeg",
     donationType: "Equipment",
     donationItem: "Digital Classroom Projector",
     verified: true
@@ -99,7 +99,7 @@ const GIET_DONOR_DATASET = [
     currentRole: "Senior Systems Engineer",
     organization: "Tata Consultancy Services",
     location: "Bhubaneswar, India",
-    photo: "donateImages/donor-6.jpeg",
+    photo: "donor-6.jpeg",
     donationType: "Alumni Contribution",
     donationItem: "Student Scholarship Fund",
     verified: true
@@ -114,7 +114,7 @@ const GIET_DONOR_DATASET = [
     currentRole: "Cloud Solutions Architect",
     organization: "Infosys Ltd.",
     location: "Bengaluru, India",
-    photo: "donateImages/donor-7.jpeg",
+    photo: "donor-7.jpeg",
     donationType: "Alumni Contribution",
     donationItem: "Laboratory Innovation Grant",
     verified: true
@@ -129,7 +129,7 @@ const GIET_DONOR_DATASET = [
     currentRole: "Lead Embedded Engineer",
     organization: "Wipro Technologies",
     location: "Hyderabad, India",
-    photo: "donor-8.jpg",
+    photo: "donor-8.jpeg",
     donationType: "Alumni Contribution",
     donationItem: "Campus Library Resource Fund",
     verified: true
@@ -229,9 +229,23 @@ async function initGivingPage() {
 /**
  * Load dataset from JSON or fallback array + user stored donations
  */
-function loadDonorsDataset() {
+async function loadDonorsDataset() {
+  let baseDonors = [...GIET_DONOR_DATASET];
+  try {
+    const res = await fetch('data/assets/donors/donors.json');
+    if (res.ok) {
+      const fetched = await res.json();
+      if (Array.isArray(fetched) && fetched.length > 0) {
+        baseDonors = fetched;
+      }
+    }
+  } catch (err) {
+    console.info('Using primary GIET donor dataset.');
+  }
+
   const storedUserDonations = getStoredUserDonations();
-  currentDonorsList = [...storedUserDonations, ...GIET_DONOR_DATASET];
+  currentDonorsList = [...storedUserDonations, ...baseDonors];
+
   populateYearFilterDropdown(currentDonorsList);
 }
 
