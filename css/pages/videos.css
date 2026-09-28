@@ -110,7 +110,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-6);
-  align-items: start;
+  align-items: stretch;
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
@@ -305,6 +305,12 @@
   letter-spacing: -0.01em;
   margin-bottom: var(--space-2);
   transition: color var(--transition-fast);
+  /* Clamp to 2 lines so variable-length titles don't change card height */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .video-card:hover .video-card-title {
