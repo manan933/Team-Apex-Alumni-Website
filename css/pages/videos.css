@@ -293,7 +293,8 @@
   letter-spacing: 0.1em;
   color: var(--color-accent-hover);
   margin-bottom: var(--space-2);
-  display: inline-block;
+  display: none;
+  /* hidden — category data kept in JS for filter functionality */
 }
 
 .video-card-title {
