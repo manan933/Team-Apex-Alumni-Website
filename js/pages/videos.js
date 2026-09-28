@@ -83,6 +83,15 @@ const videos = [
     imageOverride: 'videos images/event3.jpg',
     description: 'Learnathon 4.0 was an intensive four-day artificial intelligence and machine learning hackathon and workshop.',
     addedAt: '2026-01-14'
+  },
+  {
+    id: 'v-009',
+    youtubeId: 'PLACEHOLDER_YOUTUBE_ID', // TODO: Replace with the actual Learnathon 5.0 YouTube video ID
+    title: 'Learnathon 5.0',
+    category: 'Events',
+    // imageOverride: 'videos images/PLACEHOLDER_EVENT_IMAGE.jpg', // TODO: Uncomment & set path if you have a local thumbnail
+    description: 'PLACEHOLDER: Add a short description of Learnathon 5.0 here.', // TODO: Replace with real description
+    addedAt: '2026-09-28' // TODO: Update to the actual event/publish date
   }
 ];
 
