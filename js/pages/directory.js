@@ -447,21 +447,9 @@ function renderAlumniGrid() {
     card.className = 'alumni-card';
     card.setAttribute('data-uid', alumnus.uid);
 
-    const verifiedBadge = alumnus.verified ? `
-      <div class="alumni-badge-verified" title="Verified GIET Fellow">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-      </div>
-    ` : '';
-
-    const batchBadge = alumnus.gradYear ? `
-      <span class="alumni-card-batch-badge">Class of '${String(alumnus.gradYear).slice(-2)}</span>
-    ` : '';
-
-    const companyTag = alumnus.company ? `
-      <div class="alumni-card-company-tag">${escapeHTML(alumnus.company)}</div>
-    ` : '';
+    const roleText = alumnus.jobTitle && alumnus.company 
+      ? `${alumnus.jobTitle} at ${alumnus.company}` 
+      : (alumnus.jobTitle || alumnus.company || 'Alumni Member');
 
     const disciplineTag = alumnus.industry 
       ? escapeHTML(alumnus.industry.split('&')[0].trim())
@@ -472,15 +460,14 @@ function renderAlumniGrid() {
     card.innerHTML = `
       <div class="alumni-card-photo-wrapper">
         <img src="${escapeHTML(alumnus.photoURL)}" alt="${escapeHTML(alumnus.name)}" class="alumni-card-photo" loading="lazy" />
-        ${batchBadge}
-        ${verifiedBadge}
-        ${companyTag}
       </div>
       <div class="alumni-card-body">
         <h3 class="alumni-name">${escapeHTML(alumnus.name)}</h3>
-        <div class="alumni-role">${escapeHTML(alumnus.jobTitle || 'Alumni Member')}</div>
+        <div class="alumni-role">${escapeHTML(roleText)}</div>
         <div class="alumni-card-meta-row">
-          <span class="alumni-discipline-tag">${disciplineTag}</span>
+          <span class="alumni-meta-item">${disciplineTag}</span>
+          ${alumnus.gradYear ? `<span class="alumni-meta-divider">&bull;</span><span class="alumni-meta-item">Class of ${escapeHTML(String(alumnus.gradYear))}</span>` : ''}
+          <span class="alumni-meta-divider">&bull;</span>
           <span class="alumni-location-tag">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -526,20 +513,14 @@ function renderAlumniTable() {
     const tr = document.createElement('tr');
     tr.style.cursor = 'pointer';
 
-    const verifiedIcon = a.verified ? `
-      <span class="dense-avatar-verified" title="Verified Fellow">✓</span>
-    ` : '';
-
     tr.innerHTML = `
       <td>
         <div class="dense-graduate-cell">
           <div class="dense-avatar-wrap">
             <img src="${escapeHTML(a.photoURL)}" alt="${escapeHTML(a.name)}" class="dense-avatar" loading="lazy" />
-            ${verifiedIcon}
           </div>
           <div>
             <div class="dense-name">${escapeHTML(a.name)}</div>
-            <div class="dense-sub-badge">${a.verified ? 'Verified Fellow' : 'Alumnus'}</div>
           </div>
         </div>
       </td>
@@ -550,7 +531,7 @@ function renderAlumniTable() {
       <td>${escapeHTML(a.degree || 'Degree Record')}</td>
       <td>Class of '${String(a.gradYear).slice(-2)}</td>
       <td>${escapeHTML([a.city, a.country].filter(Boolean).join(', ') || 'Global')}</td>
-      <td><span class="alumni-discipline-tag">${escapeHTML(a.industry ? a.industry.split('&')[0].trim() : 'General')}</span></td>
+      <td>${escapeHTML(a.industry ? a.industry.split('&')[0].trim() : 'General')}</td>
       <td>
         <a href="profile.html?id=${a.uid}" class="btn btn-outline btn-sm" onclick="event.stopPropagation();">
           Dossier &rarr;
@@ -582,13 +563,6 @@ window.openAlumniModal = function(uid) {
   body.innerHTML = `
     <div class="dossier-hero-banner">
       <img src="${escapeHTML(alumnus.photoURL)}" alt="${escapeHTML(alumnus.name)}" class="dossier-hero-photo" />
-      <div class="dossier-banner-overlay"></div>
-      <div class="dossier-banner-badges">
-        <span class="dossier-fellow-badge">
-          ${alumnus.verified ? '✓ Verified Fellow' : 'GIET Graduate'}
-        </span>
-        <span class="dossier-batch-badge">Class of ${escapeHTML(String(alumnus.gradYear))}</span>
-      </div>
     </div>
 
     <div class="dossier-body">
