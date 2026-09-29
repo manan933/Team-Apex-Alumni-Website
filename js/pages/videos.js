@@ -89,7 +89,7 @@ const videos = [
     youtubeId: 'PLACEHOLDER_YOUTUBE_ID', // TODO: Replace with the actual Learnathon 5.0 YouTube video ID
     title: 'Learnathon 5.0',
     category: 'Events',
-    imageOverride: 'eventImages/LEARNATHON 5.0.jpg',
+    imageOverride: 'videos images/LEARNATHON 5.0.jpg',
     description: 'PLACEHOLDER: Add a short description of Learnathon 5.0 here.', // TODO: Replace with real description
     addedAt: '2026-09-28' // TODO: Update to the actual event/publish date
   }
