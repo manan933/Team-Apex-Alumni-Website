@@ -20,14 +20,15 @@ let allAlumni = [];
 let filteredAlumni = [];
 let currentViewMode = 'grid'; // 'grid' | 'table'
 let searchDebounceTimer = null;
+let currentPage = 1;
+const itemsPerPage = 6;
 
 let filterState = {
   search: '',
   batch: '',
   company: '',
   industry: '',
-  degree: '',
-  preset: ''
+  degree: ''
 };
 
 function escapeHTML(str) {
@@ -45,8 +46,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     checkURLParams();
     populateFilterDropdowns();
     bindFilterEvents();
-    bindDiscoveryChips();
     bindViewModeSwitcher();
+    bindPaginationEvents();
     initDetailModal();
     applyFilters();
   } catch (err) {
@@ -147,6 +148,7 @@ function bindFilterEvents() {
       clearTimeout(searchDebounceTimer);
       searchDebounceTimer = setTimeout(() => {
         filterState.search = val.toLowerCase();
+        currentPage = 1;
         applyFilters();
       }, 150);
     });
@@ -158,6 +160,7 @@ function bindFilterEvents() {
       filterState.search = '';
       toggleClearSearchBtn(false);
       searchInput.focus();
+      currentPage = 1;
       applyFilters();
     });
   }
@@ -174,6 +177,7 @@ function bindFilterEvents() {
     if (el) {
       el.addEventListener('change', (e) => {
         filterState[key] = e.target.value;
+        currentPage = 1;
         applyFilters();
       });
     }
@@ -201,35 +205,13 @@ function resetAllFilters() {
     if (el) el.value = '';
   });
 
-  document.querySelectorAll('.discovery-chip').forEach(c => c.classList.remove('active'));
-  filterState = { search: '', batch: '', company: '', industry: '', degree: '', preset: '' };
+  filterState = { search: '', batch: '', company: '', industry: '', degree: '' };
+  currentPage = 1;
   applyFilters();
 }
 
 /**
- * Bind Quick Discovery preset chip buttons
- */
-function bindDiscoveryChips() {
-  const chips = document.querySelectorAll('.discovery-chip');
-  chips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      const isAlreadyActive = chip.classList.contains('active');
-      chips.forEach(c => c.classList.remove('active'));
-
-      if (isAlreadyActive) {
-        filterState.preset = '';
-      } else {
-        chip.classList.add('active');
-        filterState.preset = chip.getAttribute('data-chip');
-      }
-
-      applyFilters();
-    });
-  });
-}
-
-/**
- * Bind View Mode switcher (Editorial Cards vs Dense Table)
+ * Bind View Mode switcher (Cards vs Dense Table)
  */
 function bindViewModeSwitcher() {
   const gridBtn = document.getElementById('view-mode-grid');
@@ -244,7 +226,7 @@ function bindViewModeSwitcher() {
       tableBtn.classList.remove('active');
       gridContainer.style.display = 'grid';
       tableContainer.style.display = 'none';
-      renderAlumniGrid();
+      applyFilters();
     });
 
     tableBtn.addEventListener('click', () => {
@@ -253,13 +235,13 @@ function bindViewModeSwitcher() {
       gridBtn.classList.remove('active');
       gridContainer.style.display = 'none';
       tableContainer.style.display = 'block';
-      renderAlumniTable();
+      applyFilters();
     });
   }
 }
 
 /**
- * Filter data across all criteria
+ * Filter data across all criteria and apply pagination
  */
 function applyFilters() {
   filteredAlumni = allAlumni.filter(a => {
@@ -280,57 +262,42 @@ function applyFilters() {
     const matchesIndustry = !filterState.industry || a.industry === filterState.industry;
     const matchesDegree = !filterState.degree || a.degree === filterState.degree;
 
-    // 3. Preset chip exploration match
-    let matchesPreset = true;
-    if (filterState.preset) {
-      if (filterState.preset === 'notable') matchesPreset = a.verified === true;
-      else if (filterState.preset === 'ai') {
-        matchesPreset = (a.industry && a.industry.includes('Technology')) || 
-                        (a.jobTitle && /AI|Machine Learning|Deep Learning|Robotics/i.test(a.jobTitle));
-      }
-      else if (filterState.preset === 'biotech') {
-        matchesPreset = (a.industry && a.industry.includes('Biotechnology')) || 
-                        (a.degree && /Biotech|Medicine|Bio/i.test(a.degree));
-      }
-      else if (filterState.preset === 'climate') {
-        matchesPreset = (a.industry && a.industry.includes('Energy')) || 
-                        (a.bio && /Renewable|Clean|Solar|Climate/i.test(a.bio));
-      }
-      else if (filterState.preset === 'finance') {
-        matchesPreset = (a.industry && (a.industry.includes('Finance') || a.industry.includes('Capital'))) ||
-                        (a.company && /Capital|Venture|Partners|Securities/i.test(a.company));
-      }
-      else if (filterState.preset === 'bayarea') {
-        matchesPreset = (a.city && (a.city.includes('San Francisco') || a.city.includes('Palo Alto') || a.city.includes('Mountain View')));
-      }
-      else if (filterState.preset === 'london') {
-        matchesPreset = (a.city && a.city.includes('London'));
-      }
-      else if (filterState.preset === 'batch2018') {
-        matchesPreset = a.gradYear === 2018;
-      }
-    }
-
-    return matchesSearch && matchesBatch && matchesCompany && matchesIndustry && matchesDegree && matchesPreset;
+    return matchesSearch && matchesBatch && matchesCompany && matchesIndustry && matchesDegree;
   });
 
-  if (currentViewMode === 'grid') {
-    renderAlumniGrid();
-  } else {
-    renderAlumniTable();
+  const totalPages = Math.ceil(filteredAlumni.length / itemsPerPage) || 1;
+  if (currentPage > totalPages) {
+    currentPage = 1;
   }
 
-  renderResultsCounter();
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const pageAlumni = filteredAlumni.slice(startIndex, endIndex);
+
+  if (currentViewMode === 'grid') {
+    renderAlumniGrid(pageAlumni);
+  } else {
+    renderAlumniTable(pageAlumni);
+  }
+
+  renderResultsCounter(startIndex, endIndex);
   renderActiveFilterTags();
+  renderPagination(totalPages);
 }
 
 /**
  * Results Counter & Reset Button State
  */
-function renderResultsCounter() {
+function renderResultsCounter(startIndex = 0, endIndex = 0) {
   const countSpan = document.getElementById('results-count');
   if (countSpan) {
-    countSpan.textContent = `Showing ${filteredAlumni.length} of ${allAlumni.length} verified alumni`;
+    if (filteredAlumni.length === 0) {
+      countSpan.textContent = 'No alumni match your criteria';
+    } else {
+      const from = startIndex + 1;
+      const to = Math.min(endIndex, filteredAlumni.length);
+      countSpan.textContent = `Showing ${from}–${to} of ${filteredAlumni.length} alumni`;
+    }
   }
 
   const hasActiveFilters = Object.values(filterState).some(val => val !== '');
@@ -395,14 +362,12 @@ function renderActiveFilterTags() {
         const searchInput = document.getElementById('search-name');
         if (searchInput) searchInput.value = '';
         toggleClearSearchBtn(false);
-      } else if (tag.key === 'preset') {
-        filterState.preset = '';
-        document.querySelectorAll('.discovery-chip').forEach(c => c.classList.remove('active'));
       } else {
         filterState[tag.key] = '';
         const sel = document.getElementById(`filter-${tag.key}`);
         if (sel) sel.value = '';
       }
+      currentPage = 1;
       applyFilters();
     });
 
@@ -411,13 +376,15 @@ function renderActiveFilterTags() {
 }
 
 /**
- * Render Editorial Alumni Card Grid
+ * Render Editorial Alumni Card Grid (Compact Framing)
  */
-function renderAlumniGrid() {
+function renderAlumniGrid(alumniList = null) {
   const grid = document.getElementById('directory-grid');
   if (!grid) return;
 
   grid.innerHTML = '';
+
+  const listToRender = alumniList !== null ? alumniList : filteredAlumni;
 
   if (filteredAlumni.length === 0) {
     grid.innerHTML = `
@@ -430,7 +397,7 @@ function renderAlumniGrid() {
         </div>
         <h3 class="directory-empty-title">No Alumni Records Match Your Criteria</h3>
         <p class="directory-empty-desc">
-          We couldn't find any verified profiles matching your current search or filter combinations. Try broadening your keywords or selecting one of our preset domain chips.
+          We couldn't find any profiles matching your current search or filter combinations. Try clearing some filters.
         </p>
         <button type="button" class="btn btn-outline btn-sm" id="empty-reset-btn">
           Reset All Filters &rarr;
@@ -442,7 +409,7 @@ function renderAlumniGrid() {
     return;
   }
 
-  filteredAlumni.forEach(alumnus => {
+  listToRender.forEach(alumnus => {
     const card = document.createElement('article');
     card.className = 'alumni-card';
     card.setAttribute('data-uid', alumnus.uid);
@@ -491,11 +458,13 @@ function renderAlumniGrid() {
 /**
  * Render Dense Executive Directory Table
  */
-function renderAlumniTable() {
+function renderAlumniTable(alumniList = null) {
   const tbody = document.getElementById('directory-table-body');
   if (!tbody) return;
 
   tbody.innerHTML = '';
+
+  const listToRender = alumniList !== null ? alumniList : filteredAlumni;
 
   if (filteredAlumni.length === 0) {
     tbody.innerHTML = `
@@ -509,7 +478,7 @@ function renderAlumniTable() {
     return;
   }
 
-  filteredAlumni.forEach(a => {
+  listToRender.forEach(a => {
     const tr = document.createElement('tr');
     tr.style.cursor = 'pointer';
 
@@ -542,6 +511,92 @@ function renderAlumniTable() {
     tr.addEventListener('click', () => openAlumniModal(a.uid));
     tbody.appendChild(tr);
   });
+}
+
+/**
+ * Render dynamic pagination controls
+ */
+function renderPagination(totalPages) {
+  const paginationNav = document.getElementById('directory-pagination');
+  const numbersContainer = document.getElementById('pagination-numbers');
+  const prevBtn = document.getElementById('pagination-prev');
+  const nextBtn = document.getElementById('pagination-next');
+
+  if (!paginationNav || !numbersContainer || !prevBtn || !nextBtn) return;
+
+  if (totalPages <= 1) {
+    paginationNav.style.display = 'none';
+    return;
+  }
+
+  paginationNav.style.display = 'flex';
+  numbersContainer.innerHTML = '';
+
+  prevBtn.disabled = (currentPage === 1);
+  nextBtn.disabled = (currentPage === totalPages);
+
+  for (let i = 1; i <= totalPages; i++) {
+    if (totalPages > 7) {
+      if (i !== 1 && i !== totalPages && Math.abs(i - currentPage) > 1) {
+        if (i === 2 && currentPage > 3) {
+          const dots = document.createElement('span');
+          dots.className = 'pagination-ellipsis';
+          dots.textContent = '…';
+          numbersContainer.appendChild(dots);
+        } else if (i === totalPages - 1 && currentPage < totalPages - 2) {
+          const dots = document.createElement('span');
+          dots.className = 'pagination-ellipsis';
+          dots.textContent = '…';
+          numbersContainer.appendChild(dots);
+        }
+        continue;
+      }
+    }
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `pagination-number-btn ${i === currentPage ? 'active' : ''}`;
+    btn.textContent = String(i);
+    btn.setAttribute('aria-label', `Page ${i}`);
+    if (i === currentPage) {
+      btn.setAttribute('aria-current', 'page');
+    }
+    btn.addEventListener('click', () => goToPage(i));
+    numbersContainer.appendChild(btn);
+  }
+}
+
+function goToPage(page) {
+  currentPage = page;
+  applyFilters();
+  const mainEl = document.getElementById('directory-main');
+  if (mainEl) {
+    const headerOffset = 90;
+    const topPos = mainEl.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+    window.scrollTo({ top: Math.max(0, topPos), behavior: 'smooth' });
+  }
+}
+
+function bindPaginationEvents() {
+  const prevBtn = document.getElementById('pagination-prev');
+  const nextBtn = document.getElementById('pagination-next');
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 1) {
+        goToPage(currentPage - 1);
+      }
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      const totalPages = Math.ceil(filteredAlumni.length / itemsPerPage);
+      if (currentPage < totalPages) {
+        goToPage(currentPage + 1);
+      }
+    });
+  }
 }
 
 /**

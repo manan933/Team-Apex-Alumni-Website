@@ -89,87 +89,128 @@
       </div>
     </section>
 
-    <!-- Interactive Directory Toolbar & Search -->
-    <section class="directory-toolbar-section">
-      <div class="container">
+    <!-- Directory Section with Left Sidebar & Results Main Area -->
+    <section class="directory-section">
+      <div class="container directory-layout">
         
-        <div class="filter-bar">
-          <div class="filter-row-top">
-            <div class="search-box">
-              <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-              <input type="text" id="search-name" class="search-input" placeholder="Search by name, company, role, degree, or research keyword..." autocomplete="off" aria-label="Search alumni directory" />
-              <button type="button" id="clear-search-btn" class="search-clear-btn" aria-label="Clear search input" style="display: none;">&times;</button>
+        <!-- Left Filter Sidebar -->
+        <aside class="directory-sidebar" aria-label="Search and Directory Filters">
+          <div class="sidebar-sticky-inner">
+            
+            <div class="sidebar-header">
+              <h2 class="sidebar-title">Filter Records</h2>
+              <button id="clear-filters-btn" class="clear-filters-btn" style="display: none;">
+                Reset &times;
+              </button>
             </div>
 
-            <!-- View Mode Switcher (Editorial vs Dense Table) -->
+            <!-- Search Box in Sidebar -->
+            <div class="sidebar-search-group">
+              <label for="search-name" class="sidebar-label">Search Directory</label>
+              <div class="search-box">
+                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="search-name" class="search-input" placeholder="Search name, company..." autocomplete="off" aria-label="Search alumni directory" />
+                <button type="button" id="clear-search-btn" class="search-clear-btn" aria-label="Clear search input" style="display: none;">&times;</button>
+              </div>
+            </div>
+
+            <!-- Filter Controls in Sidebar -->
+            <div class="sidebar-filter-group">
+              <div class="filter-field">
+                <label for="filter-batch" class="sidebar-label">Graduation Batch</label>
+                <select id="filter-batch" class="filter-select" aria-label="Filter by graduation year">
+                  <option value="">All Batches</option>
+                </select>
+              </div>
+
+              <div class="filter-field">
+                <label for="filter-company" class="sidebar-label">Organization</label>
+                <select id="filter-company" class="filter-select" aria-label="Filter by company">
+                  <option value="">All Organizations</option>
+                </select>
+              </div>
+
+              <div class="filter-field">
+                <label for="filter-industry" class="sidebar-label">Industry Domain</label>
+                <select id="filter-industry" class="filter-select" aria-label="Filter by industry">
+                  <option value="">All Domains</option>
+                </select>
+              </div>
+
+              <div class="filter-field">
+                <label for="filter-degree" class="sidebar-label">Degree Program</label>
+                <select id="filter-degree" class="filter-select" aria-label="Filter by degree program">
+                  <option value="">All Degrees</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Active Filters Tags in Sidebar -->
+            <div id="active-filter-tags" class="active-filter-tags"></div>
+
+          </div>
+        </aside>
+
+        <!-- Main Results Column -->
+        <div class="directory-main" id="directory-main">
+          
+          <!-- Top Results Bar: Counter & View Mode Switcher -->
+          <div class="directory-results-bar">
+            <span id="results-count" class="results-count">Loading alumni records...</span>
+
             <div class="view-mode-switcher" role="radiogroup" aria-label="Display view options">
-              <button class="view-mode-btn active" id="view-mode-grid" title="Editorial Portrait Cards">
+              <button class="view-mode-btn active" id="view-mode-grid" title="Cards View">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                 <span>Cards</span>
               </button>
-              <button class="view-mode-btn" id="view-mode-table" title="Dense Directory Table">
+              <button class="view-mode-btn" id="view-mode-table" title="Table View">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
                 <span>Table</span>
               </button>
             </div>
           </div>
 
-          <!-- Filter Dropdown Controls -->
-          <div class="filter-controls">
-            <select id="filter-batch" class="filter-select" aria-label="Filter by graduation year">
-              <option value="">Graduation Batch (All)</option>
-            </select>
-
-            <select id="filter-company" class="filter-select" aria-label="Filter by company">
-              <option value="">Company / Institution (All)</option>
-            </select>
-
-            <select id="filter-industry" class="filter-select" aria-label="Filter by industry">
-              <option value="">Industry Domain (All)</option>
-            </select>
-
-            <select id="filter-degree" class="filter-select" aria-label="Filter by degree program">
-              <option value="">Degree &amp; Program (All)</option>
-            </select>
-
-            <button id="clear-filters-btn" class="clear-filters-btn" style="display: none;">
-              Reset All Filters &times;
-            </button>
+          <!-- Mode 1: Editorial Cards Grid -->
+          <div id="directory-grid" class="directory-grid">
+            <!-- Populated dynamically by js/pages/directory.js -->
           </div>
-        </div>
 
-        <!-- Filter Summary & Count Bar -->
-        <div class="filter-summary-bar">
-          <span id="results-count" class="results-count">Loading alumni records...</span>
-          <div id="active-filter-tags" class="active-filter-tags"></div>
-        </div>
+          <!-- Mode 2: Dense Table View -->
+          <div id="directory-table-container" class="directory-table-container" style="display: none;">
+            <table class="dense-directory-table">
+              <thead>
+                <tr>
+                  <th>Graduate</th>
+                  <th>Role &amp; Organization</th>
+                  <th>Academic Degree</th>
+                  <th>Grad Year</th>
+                  <th>Location</th>
+                  <th>Domain</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="directory-table-body">
+                <!-- Dynamically populated rows -->
+              </tbody>
+            </table>
+          </div>
 
-        <!-- Mode 1: Editorial Cards Grid -->
-        <div id="directory-grid" class="directory-grid">
-          <!-- Populated dynamically by js/pages/directory.js -->
-        </div>
+          <!-- Pagination Controls -->
+          <nav class="directory-pagination" id="directory-pagination" aria-label="Alumni directory pagination">
+            <button type="button" class="pagination-btn pagination-prev" id="pagination-prev" aria-label="Previous page">
+              &larr; Prev
+            </button>
+            <div class="pagination-numbers" id="pagination-numbers">
+              <!-- Dynamically populated page buttons -->
+            </div>
+            <button type="button" class="pagination-btn pagination-next" id="pagination-next" aria-label="Next page">
+              Next &rarr;
+            </button>
+          </nav>
 
-        <!-- Mode 2: Dense Table View -->
-        <div id="directory-table-container" class="directory-table-container" style="display: none;">
-          <table class="dense-directory-table">
-            <thead>
-              <tr>
-                <th>Graduate</th>
-                <th>Role &amp; Organization</th>
-                <th>Academic Degree</th>
-                <th>Grad Year</th>
-                <th>Location</th>
-                <th>Domain</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="directory-table-body">
-              <!-- Dynamically populated rows -->
-            </tbody>
-          </table>
         </div>
 
       </div>
