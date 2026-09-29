@@ -574,6 +574,7 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     padding-bottom: var(--space-2);
+    -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
@@ -584,14 +585,18 @@
 
   .category-pill {
     font-size: var(--text-xs);
-    padding: 0.38rem 0.85rem;
+    min-height: 38px;
+    padding: 0.45rem 1rem;
+    display: inline-flex;
+    align-items: center;
     flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* Grid: single column on mobile */
   .videos-grid {
     grid-template-columns: 1fr;
-    gap: var(--space-4);
+    gap: var(--space-5);
   }
 
   /* Remove featured treatment on mobile — all cards equal */

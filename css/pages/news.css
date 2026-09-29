@@ -2564,6 +2564,10 @@ textarea:focus-visible {
   .submit-modal,
   .gallery-modal-caption-wrap {
     padding: 24px 18px;
+    max-height: 90vh;
+    max-height: 90dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .filter-row {
@@ -2572,6 +2576,7 @@ textarea:focus-visible {
     padding-bottom: 8px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   .filter-row::-webkit-scrollbar {
@@ -2580,6 +2585,11 @@ textarea:focus-visible {
 
   .filter-btn {
     white-space: nowrap;
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 16px;
+    -webkit-tap-highlight-color: transparent;
   }
 }
 

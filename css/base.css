@@ -18,6 +18,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -31,6 +32,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Selection Highlight */
@@ -321,3 +323,49 @@ ul, ol {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* --- Mobile Ergonomics & Responsive Gutters --- */
+@media (max-width: 768px) {
+  .container,
+  .container-narrow,
+  .container-content,
+  .container-wide {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+
+  .section {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+  }
+
+  .section-compact {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
+  }
+
+  .section-header {
+    margin-bottom: var(--space-6);
+  }
+}
+
+@media (max-width: 480px) {
+  .container,
+  .container-narrow,
+  .container-content,
+  .container-wide {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .section {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
+  }
+
+  .section-tag {
+    font-size: 0.6875rem;
+    margin-bottom: var(--space-2);
+  }
+}
+

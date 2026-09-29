@@ -604,6 +604,22 @@
 
   .events-grid {
     grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .event-card-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2);
+  }
+
+  .event-card-actions .btn,
+  .view-media-btn {
+    width: 100%;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .modal-body {
@@ -614,4 +630,26 @@
   .modal-footer {
     padding: var(--space-3) var(--space-4);
   }
+
+  #rsvp-modal .modal-content {
+    max-height: 90vh;
+    max-height: 90dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
+
+@media (max-width: 480px) {
+  .events-hero-section h1 {
+    font-size: clamp(1.75rem, 6vw, 2.25rem);
+  }
+
+  .event-card-title {
+    font-size: 1.15rem;
+  }
+
+  .event-card-body {
+    padding: var(--space-4);
+  }
+}
+
