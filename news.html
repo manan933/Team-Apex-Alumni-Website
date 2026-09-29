@@ -281,41 +281,58 @@
         </div>
       </div>
       <div class="latest-layout">
-        <div id="news-grid" class="news-grid">
-          <!-- Pre-rendered Default Stories (Updated live by news.js) -->
-          <article class="news-card" data-story-id="story-101">
-            <div class="news-card-image">
-              <img src="images/news/smart-bin-hackathon.jpg" alt="GIET Smart IoT Hackathon Team" loading="lazy">
-            </div>
-            <div class="news-card-content">
-              <small>ACHIEVEMENT · 3 MIN READ</small>
-              <h3>From Campus Hackathon to Series-A: The Smart IoT & Clean Campus Venture</h3>
-              <p>How a team of GIET engineering students engineered an intelligent Smart Bin telemetry system and route optimization engine for sustainable urban campuses.</p>
-              <button class="save-story" data-save-id="story-101">♡ Save Story</button>
-            </div>
-          </article>
-          <article class="news-card" data-story-id="story-102">
-            <div class="news-card-image">
-              <img src="images/news/education-excellence-award.png" alt="GIET University Education Excellence Award" loading="lazy">
-            </div>
-            <div class="news-card-content">
-              <small>AWARDS · 4 MIN READ</small>
-              <h3>GIET University Conferred with National Education Excellence Award</h3>
-              <p>University leadership formally recognized by Hon'ble Union Minister Shri Ramdas Athawale for pioneering higher education, pedagogy, and academic innovation.</p>
-              <button class="save-story" data-save-id="story-102">♡ Save Story</button>
-            </div>
-          </article>
-          <article class="news-card" data-story-id="story-103">
-            <div class="news-card-image">
-              <img src="images/news/annual-convocation-2026.jpg" alt="GIET University 3rd Annual Convocation" loading="lazy">
-            </div>
-            <div class="news-card-content">
-              <small>CAMPUS · 3 MIN READ</small>
-              <h3>GIET University Welcomes 2025 Graduating Batch to 3rd Annual Convocation</h3>
-              <p>Graduating engineers, researchers, and alumni gather at Gunupur campus for the convocation ceremony on 16 October 2026.</p>
-              <button class="save-story" data-save-id="story-103">♡ Save Story</button>
-            </div>
-          </article>
+        <div class="news-feed-column">
+          <div id="news-grid" class="news-grid">
+            <!-- Pre-rendered Default Stories (Updated live by news.js) -->
+            <article class="news-card" data-story-id="story-101">
+              <div class="news-card-image">
+                <img src="images/news/smart-bin-hackathon.jpg" alt="GIET Smart IoT Hackathon Team" loading="lazy">
+              </div>
+              <div class="news-card-content">
+                <small>ACHIEVEMENT · 3 MIN READ</small>
+                <h3>From Campus Hackathon to Series-A: The Smart IoT & Clean Campus Venture</h3>
+                <p>How a team of GIET engineering students engineered an intelligent Smart Bin telemetry system and route optimization engine for sustainable urban campuses.</p>
+                <button class="save-story" data-save-id="story-101">♡ Save Story</button>
+              </div>
+            </article>
+            <article class="news-card" data-story-id="story-102">
+              <div class="news-card-image">
+                <img src="images/news/education-excellence-award.png" alt="GIET University Education Excellence Award" loading="lazy">
+              </div>
+              <div class="news-card-content">
+                <small>AWARDS · 4 MIN READ</small>
+                <h3>GIET University Conferred with National Education Excellence Award</h3>
+                <p>University leadership formally recognized by Hon'ble Union Minister Shri Ramdas Athawale for pioneering higher education, pedagogy, and academic innovation.</p>
+                <button class="save-story" data-save-id="story-102">♡ Save Story</button>
+              </div>
+            </article>
+            <article class="news-card" data-story-id="story-103">
+              <div class="news-card-image">
+                <img src="images/news/annual-convocation-2026.jpg" alt="GIET University 3rd Annual Convocation" loading="lazy">
+              </div>
+              <div class="news-card-content">
+                <small>CAMPUS · 3 MIN READ</small>
+                <h3>GIET University Welcomes 2025 Graduating Batch to 3rd Annual Convocation</h3>
+                <p>Graduating engineers, researchers, and alumni gather at Gunupur campus for the convocation ceremony on 16 October 2026.</p>
+                <button class="save-story" data-save-id="story-103">♡ Save Story</button>
+              </div>
+            </article>
+            <article class="news-card" data-story-id="story-104">
+              <div class="news-card-image">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=85" alt="Clean-Tech Venture" loading="lazy">
+              </div>
+              <div class="news-card-content">
+                <small>STARTUPS · 3 MIN READ</small>
+                <h3>Alumni Founded Clean-Tech Venture Secures Pre-Series A Funding</h3>
+                <p>Empowering rural agricultural micro-grids across Eastern India with modular solar inverters and battery intelligence.</p>
+                <button class="save-story" data-save-id="story-104">♡ Save Story</button>
+              </div>
+            </article>
+          </div>
+          <!-- Pagination Navigation for Latest from GIET -->
+          <nav class="news-pagination" id="news-pagination" aria-label="Latest news pagination">
+            <!-- Dynamically populated by news.js -->
+          </nav>
         </div>
         <aside class="trending-panel">
           <div class="trending-title">

@@ -341,6 +341,8 @@ function initScrollAnimations() {
 let allStories = [...defaultEditorialStories];
 let activeCategory = "all";
 let searchTerm = "";
+const STORIES_PER_PAGE = 4;
+let currentStoriesPage = 1;
 
 function normalizeCategory(category) {
   const value = String(category || "").toLowerCase();
@@ -406,6 +408,8 @@ function renderStories() {
   const grid = document.getElementById("news-grid");
   if (!grid) return;
 
+  const paginationNav = document.getElementById("news-pagination");
+
   const filtered = allStories.filter(
     story => categoryMatches(story, activeCategory) && matchesSearch(story)
   );
@@ -417,10 +421,26 @@ function renderStories() {
         <p>No published dispatches match "${escapeHtml(searchTerm || activeCategory)}". Try choosing another category or clearing your search.</p>
       </div>
     `;
+    if (paginationNav) {
+      paginationNav.innerHTML = "";
+      paginationNav.style.display = "none";
+    }
     return;
   }
 
-  grid.innerHTML = filtered.map(story => {
+  // Calculate pagination boundaries (4 stories max per page)
+  const totalPages = Math.ceil(filtered.length / STORIES_PER_PAGE) || 1;
+  if (currentStoriesPage > totalPages) {
+    currentStoriesPage = totalPages;
+  }
+  if (currentStoriesPage < 1) {
+    currentStoriesPage = 1;
+  }
+
+  const startIndex = (currentStoriesPage - 1) * STORIES_PER_PAGE;
+  const paginatedStories = filtered.slice(startIndex, startIndex + STORIES_PER_PAGE);
+
+  grid.innerHTML = paginatedStories.map(story => {
     const id = story.id || story.createdAt || Math.random().toString();
     const isSaved = getSavedStories().includes(String(id));
     const image =
@@ -472,6 +492,8 @@ function renderStories() {
     `;
   }).join("");
 
+  renderNewsPagination(filtered.length, totalPages);
+
   // Attach card click handlers for full reader modal
   grid.querySelectorAll(".news-card").forEach(card => {
     card.addEventListener("click", event => {
@@ -518,6 +540,93 @@ function renderStories() {
       }
     });
   }
+}
+
+/* =========================================================
+   PAGINATION CONTROLS RENDERER (MAX 4 STORIES PER PAGE)
+========================================================= */
+
+function renderNewsPagination(totalCount, totalPages) {
+  const paginationNav = document.getElementById("news-pagination");
+  if (!paginationNav) return;
+
+  if (totalPages <= 1) {
+    paginationNav.innerHTML = "";
+    paginationNav.style.display = "none";
+    return;
+  }
+
+  paginationNav.style.display = "flex";
+
+  let pagesHtml = "";
+
+  // Previous Button
+  pagesHtml += `
+    <button 
+      class="pagination-btn pagination-prev" 
+      ${currentStoriesPage === 1 ? "disabled" : ""} 
+      data-page="${currentStoriesPage - 1}"
+      aria-label="Previous page of stories"
+    >
+      ← Prev
+    </button>
+  `;
+
+  // Numbered Page Buttons
+  for (let i = 1; i <= totalPages; i++) {
+    pagesHtml += `
+      <button 
+        class="pagination-btn pagination-num ${i === currentStoriesPage ? "active" : ""}" 
+        data-page="${i}"
+        aria-label="Go to page ${i}"
+        ${i === currentStoriesPage ? 'aria-current="page"' : ""}
+      >
+        ${i}
+      </button>
+    `;
+  }
+
+  // Next Button
+  pagesHtml += `
+    <button 
+      class="pagination-btn pagination-next" 
+      ${currentStoriesPage === totalPages ? "disabled" : ""} 
+      data-page="${currentStoriesPage + 1}"
+      aria-label="Next page of stories"
+    >
+      Next →
+    </button>
+  `;
+
+  // Info Summary
+  pagesHtml += `
+    <span class="pagination-info">
+      Page ${currentStoriesPage} of ${totalPages} (${totalCount} stories)
+    </span>
+  `;
+
+  paginationNav.innerHTML = pagesHtml;
+
+  // Add click listeners to pagination buttons
+  paginationNav.querySelectorAll(".pagination-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const page = parseInt(btn.dataset.page, 10);
+      if (!isNaN(page) && page >= 1 && page <= totalPages && page !== currentStoriesPage) {
+        currentStoriesPage = page;
+        renderStories();
+
+        const section = document.getElementById("latest-giet");
+        if (section) {
+          const navOffset = 90;
+          const elementPosition = section.getBoundingClientRect().top + window.pageYOffset;
+          window.scrollTo({
+            top: elementPosition - navOffset,
+            behavior: "smooth"
+          });
+        }
+      }
+    });
+  });
 }
 
 /* =========================================================
@@ -675,6 +784,7 @@ function setupFilters() {
       button.classList.add("active");
 
       activeCategory = button.dataset.category || "all";
+      currentStoriesPage = 1;
 
       renderStories();
 
@@ -697,6 +807,7 @@ function setupSearch() {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
       searchTerm = event.target.value.trim();
+      currentStoriesPage = 1;
       renderStories();
     }, 180);
   });
@@ -772,6 +883,7 @@ function setupTrendingPanel() {
       if (searchInput && topic) {
         searchInput.value = topic;
         searchTerm = topic;
+        currentStoriesPage = 1;
         renderStories();
         scrollToId("latest-giet");
         notify(`Filtered stories matching: "${topic}"`);
@@ -1050,6 +1162,7 @@ function setupSubmissionForm() {
         await createSubmission(storyData);
       } else {
         allStories.unshift({ ...storyData, id: `story-${Date.now()}` });
+        currentStoriesPage = 1;
         renderStories();
       }
 
