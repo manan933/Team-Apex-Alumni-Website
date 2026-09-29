@@ -58,20 +58,20 @@ h1 {
 
 h2 {
   font-size: clamp(1.85rem, 3.8vw, var(--text-4xl));
+  font-weight: var(--font-bold);
   letter-spacing: -0.025em;
 }
 
 h3 {
-  font-size: var(--text-xl);
-  font-family: var(--font-sans);
-  font-weight: var(--font-bold);
+  font-size: clamp(1.35rem, 2.2vw, var(--text-2xl));
+  font-weight: var(--font-semibold);
   letter-spacing: -0.015em;
 }
 
 h4 {
   font-size: var(--text-lg);
-  font-family: var(--font-sans);
   font-weight: var(--font-semibold);
+  letter-spacing: -0.01em;
 }
 
 p {

@@ -1428,22 +1428,23 @@
    BALANCED HEADINGS (Clean, Modern & Not Awkward)
    ========================================================================== */
 
-/* 1. Only section titles (like "OUR PROUD ALUMNI") get uppercase */
+/* 1. Section titles across homepage in dignified editorial heading */
 .section-title {
-  font-family: var(--font-sans) !important;
-  font-weight: 800 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.05em !important;
+  font-family: var(--font-heading) !important;
+  font-size: clamp(1.85rem, 3.5vw, var(--text-4xl)) !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+  letter-spacing: -0.02em !important;
   color: var(--color-primary, #0B192C) !important;
 }
 
-/* 2. Hero Headline: Modern, balanced size that fits in 2 clean lines */
+/* 2. Hero Headline: Stately Playfair Display serif editorial hero */
 .hero-headline {
-  font-family: var(--font-sans) !important;
-  font-size: clamp(2rem, 3.4vw, 3rem) !important; /* Elegant size */
-  font-weight: 800 !important;
-  text-transform: none !important;                /* Natural capitalization */
-  letter-spacing: -0.02em !important;             /* Crisp modern spacing */
+  font-family: var(--font-heading) !important;
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem) !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+  letter-spacing: -0.025em !important;
   line-height: 1.15 !important;
   color: var(--color-primary, #0B192C) !important;
 }

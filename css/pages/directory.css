@@ -406,9 +406,10 @@
 }
 
 .alumni-name {
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  font-weight: var(--font-bold);
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   color: var(--color-primary);
   margin-bottom: 2px;
   line-height: var(--leading-snug);
@@ -733,8 +734,8 @@
 
 /* Quotation Bio Excerpt */
 .dossier-bio-quote {
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
   font-style: italic;
   line-height: var(--leading-relaxed);
   color: var(--color-text-primary);

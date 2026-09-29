@@ -23,12 +23,12 @@ No Bootstrap, no Tailwind, no React, no build tools or bundlers. Native browser 
 | Warm Cream Surface | `#FAF8F4` (`--color-cream`) |
 | Warm Divider | `#E8E1D9` (`--color-border-warm`) |
 | Constellation Tokens | `--color-node-tech` (`#3B82F6`), `--color-node-bio` (`#10B981`), `--color-node-vc` (`#F59E0B`), `--color-node-energy` (`#EC4899`) |
-| Heading Font | **Playfair Display** (Google Fonts, serif) |
-| UI & Body Font | **Inter** (Google Fonts, sans-serif) |
-| Academic Seal Font | **Cinzel** (Google Fonts, serif) |
-| Monospace | **JetBrains Mono** / System Mono |
+| Heading & Masthead Font | **Playfair Display** (Google Fonts, serif: `var(--font-heading)`) — All page hero titles, section titles, card titles, quotes |
+| UI & Body Font | **Inter** (Google Fonts, sans-serif: `var(--font-sans)`) — All body copy, inputs, filters, badges, buttons, nav |
+| Academic Seal & Motto | **Cinzel** (Google Fonts, serif: `var(--font-crest)`) — University crests, medallions, Latin inscriptions |
+| Monospace | **JetBrains Mono** / System Mono (`var(--font-mono)`) |
 
-All design tokens live in [`css/tokens.css`](css/tokens.css). Never hardcode colors or sizes — always use `var(--token-name)`.
+All design tokens live in [`css/tokens.css`](css/tokens.css). Every HTML page must include the identical Google Fonts link tag. Never override headings with `!important` sans-serif fonts.
 
 ---
 

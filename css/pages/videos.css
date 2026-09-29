@@ -298,12 +298,12 @@
 }
 
 .video-card-title {
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
-  font-weight: var(--font-bold);
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--color-primary);
   line-height: var(--leading-snug);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   margin-bottom: var(--space-2);
   transition: color var(--transition-fast);
   /* Clamp to 2 lines so variable-length titles don't change card height */
@@ -604,8 +604,8 @@
   }
 
   .video-card--featured .video-card-title {
-    font-family: var(--font-sans);
-    font-size: var(--text-base);
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
   }
 
   /* Smaller play button on mobile */

@@ -158,8 +158,8 @@
 }
 
 .profile-subheading {
-  font-family: var(--font-sans);
-  font-size: var(--text-lg);
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
   font-weight: var(--font-bold);
   color: var(--color-primary);
   margin-bottom: var(--space-6);
@@ -288,7 +288,7 @@
 }
 
 .related-title {
-  font-family: var(--font-sans);
+  font-family: var(--font-heading);
   font-size: var(--text-base);
   font-weight: var(--font-bold);
   color: var(--color-primary);
