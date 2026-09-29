@@ -59,36 +59,36 @@ const defaultEditorialStories = [
   },
   {
     id: "story-101",
-    title: "From Campus Hackathon to Series-A: The AgroGrid Robotics Journey",
+    title: "From Campus Hackathon to Series-A: The Smart IoT & Clean Campus Venture",
     category: "Achievement",
-    excerpt: "How four third-year roommates combined autonomous drones with micro-sensor grids to revolutionize crop yields across 800 rural districts.",
-    body: "What began as a chaotic 36-hour weekend sprint during the 2023 GIET Innovation Hackathon soon turned into our life's calling. Armed with Arduino boards, open-source computer vision libraries, and invaluable guidance from our electronics professors, we created an autonomous low-power drone payload capable of detecting crop diseases with 94% accuracy. Fast forward three years, AgroGrid has deployed across 800 rural clusters, securing ₹8 Crore in institutional seed funding.",
-    authorName: "Subhashree Ray",
+    excerpt: "How a team of GIET engineering students engineered an intelligent Smart Bin telemetry system and route optimization engine for sustainable urban campuses.",
+    body: "What began as an intensive sprint during the GIET Campus Innovation Hackathon transformed into an enterprise-grade IoT deployment. The student team engineered a network of smart sensor-enabled waste bins integrated with automated route optimization algorithms to streamline campus waste management in real-time. The project received top commendations from faculty mentors and industry jury members, opening pathways for commercial pilot trials across regional municipal clusters.",
+    authorName: "Student Innovation Team",
     authorUid: "usr-101",
-    authorRole: "Co-Founder & CEO, AgroGrid Robotics (Class of '22)",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80"
+    authorRole: "IoT & Smart Systems Cohort (Class of '25)",
+    image: "images/news/smart-bin-hackathon.jpg"
   },
   {
     id: "story-102",
-    title: "Scaling Distributed Cloud Microservices at Microsoft",
-    category: "Career",
-    excerpt: "Reflections on navigating early-career software engineering, distributed systems, and the mental frameworks acquired during college.",
-    body: "Stepping into Microsoft's Azure cloud infrastructure team was an exhilarating shift in scale. Operating across millions of concurrent queries per second demands exceptional technical discipline. The rigorous foundation in data structures, networking protocols, and distributed systems taught at GIET University gave me the exact resilience needed to build fault-tolerant cloud backends for enterprise customers worldwide.",
-    authorName: "Aarav Das",
+    title: "GIET University Conferred with National Education Excellence Award",
+    category: "Achievement",
+    excerpt: "University leadership formally recognized by Hon'ble Union Minister Shri Ramdas Athawale for pioneering higher education, pedagogy, and academic innovation.",
+    body: "In a landmark recognition of academic distinction, GIET University was honored with the National Education Excellence Award, presented personally by the Hon'ble Union Minister of State, Government of India, Shri Ramdas Athawale. The commendation celebrates the university's continuous leadership in engineering pedagogy, world-class laboratory infrastructure, and its track record of nurturing globally competitive graduates.",
+    authorName: "GIET Communications Directorate",
     authorUid: "usr-102",
-    authorRole: "Software Development Engineer, Microsoft (Class of '23)",
-    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80"
+    authorRole: "University Media & Institutional Relations",
+    image: "images/news/education-excellence-award.png"
   },
   {
     id: "story-103",
-    title: "10,000 Sq. Ft. High-Performance AI Compute Center Inaugurated",
+    title: "GIET University Welcomes 2025 Graduating Batch to 3rd Annual Convocation",
     category: "Campus",
-    excerpt: "University leadership and distinguished alumni formally open state-of-the-art AI cluster equipped with enterprise NVIDIA accelerators.",
-    body: "GIET University has achieved yet another milestone in cutting-edge research infrastructure. Formally inaugurated in partnership with distinguished alumni leaders from Silicon Valley, the new 10,000 sq. ft. AI Compute Center houses dedicated enterprise GPU nodes, quantum computing simulators, and petabyte-scale research data arrays to support doctoral and undergraduate engineering breakthroughs.",
-    authorName: "GIET Editorial Board",
+    excerpt: "Graduating engineers, researchers, and alumni gather at Gunupur campus for the convocation ceremony on 16 October 2026.",
+    body: "GIET University warmly welcomes the graduating cohort to its 3rd Annual Convocation ceremony scheduled for 16 October 2026 at the Gunupur campus. The ceremony will celebrate the academic triumphs of undergraduate and postgraduate scholars across all engineering disciplines, with degrees conferred by university chancellors and global alumni guest speakers. Registration for graduating students closes on 30 September 2026.",
+    authorName: "Office of Academic Affairs",
     authorUid: "admin",
-    authorRole: "University Gazette Staff",
-    image: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1200&q=80"
+    authorRole: "Convocation Secretariat",
+    image: "images/news/annual-convocation-2026.jpg"
   },
   {
     id: "story-104",
