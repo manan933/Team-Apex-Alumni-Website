@@ -78,6 +78,39 @@ const featuredEditorialArchive = [
     authorUid: "admin",
     authorRole: "Convocation Secretariat",
     image: "images/news/annual-convocation-2026.jpg"
+  },
+  {
+    id: "essay-isro-space",
+    title: "Pioneering the Cosmos: From Gunupur Laboratories to Space Launch Technologies",
+    category: "Research",
+    excerpt: "GIET engineering faculty and student researchers showcase space exploration milestones, scale rocket telemetry, and ISRO Chandrayaan-3 mission modules at the university technological pavilion.",
+    body: "In a remarkable showcase of aerospace enthusiasm and applied physics, GIET University hosted a landmark Space Science & Rocketry Exposition celebrating India's historic achievements with ISRO. Featuring intricately engineered scale replicas of the Polar Satellite Launch Vehicle (PSLV), Small Satellite Launch Vehicle (SSLV), and Chandrayaan-3 lunar trajectory modules, the pavilion served as an interactive masterclass for undergraduate researchers. Faculty members and visiting space scientists led symposium sessions on advanced propulsion dynamics, orbital mechanics, and satellite telemetry, inspiring student engineers to target research frontiers in aerospace and telecommunications.",
+    authorName: "Aerospace & Applied Physics Research Circle",
+    authorUid: "usr-space-research",
+    authorRole: "School of Engineering & Space Sciences",
+    image: "images/news/giet-isro-space-exhibition.png"
+  },
+  {
+    id: "essay-van-mahotsav",
+    title: "Van Mahotsav 2026: Nurturing a Greener Campus for Future Generations",
+    category: "Campus",
+    excerpt: "University leadership, student volunteers, and regional forestry dignitaries unite under 'Plant a Tree, Protect the Future', planting over 500 saplings across Gunupur green corridors.",
+    body: "GIET University Gunupur commemorated Van Mahotsav 2026 with a mass tree plantation drive under the theme 'Plant a Tree, Protect the Future'. Joined by regional forest conservators, police dignitaries, NSS volunteers, and undergraduate cohorts, the initiative saw the plantation of over 500 indigenous fruit-bearing and shade trees across the sprawling green campus. The drive reflects GIET's enduring commitment to environmental sustainability, climate resilience, and eco-conscious campus stewardship.",
+    authorName: "Green Campus Initiative & NSS Directorate",
+    authorUid: "usr-green-campus",
+    authorRole: "Environmental Sustainability Committee",
+    image: "images/news/giet-van-mahotsav-plantation.png"
+  },
+  {
+    id: "essay-yoga-day",
+    title: "Harmony of Mind & Body: International Yoga Day 2026 at Gunupur",
+    category: "Events",
+    excerpt: "Under the global theme 'Yoga for One Earth, One Health', hundreds of students, faculty, and alumni gather on campus to embrace mindfulness, endurance, and balanced living.",
+    body: "As the morning sun crested the scenic Gunupur hills, hundreds of students, faculty deans, and alumni gathered at the GIET University Basketball Arena to celebrate International Yoga Day 2026. Aligned with the global charter 'Yoga for One Earth, One Health', the mass practice was guided by certified yoga masters conducting asanas, pranayama, and guided meditation. The event reaffirmed GIET's holistic philosophy that academic and technical brilliance thrive best when anchored in physical wellness and mental clarity.",
+    authorName: "GIET Wellness & Athletics Council",
+    authorUid: "usr-wellness",
+    authorRole: "Directorate of Student Wellbeing",
+    image: "images/news/giet-international-yoga-day.png"
   }
 ];
 
@@ -889,9 +922,30 @@ function setupStoryActions() {
   document.querySelectorAll(".story-action").forEach(button => {
     button.addEventListener("click", event => {
       event.stopPropagation();
+      const storyId = button.dataset.storyId;
+      if (storyId) {
+        const story = findStoryById(storyId);
+        if (story) {
+          openReader(story);
+          return;
+        }
+      }
       const target = button.dataset.scrollTarget;
       if (target) {
         scrollToId(target);
+      }
+    });
+  });
+
+  document.querySelectorAll(".image-story-card").forEach(card => {
+    card.addEventListener("click", event => {
+      if (event.target.closest(".story-action")) return;
+      const storyId = card.dataset.storyId;
+      if (storyId) {
+        const story = findStoryById(storyId);
+        if (story) {
+          openReader(story);
+        }
       }
     });
   });
