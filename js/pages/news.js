@@ -48,14 +48,14 @@ if (typeof window !== "undefined" && window.location && window.location.protocol
 const defaultEditorialStories = [
   {
     id: "lead-editorial",
-    title: "From Campus Innovation Labs to Leading Multi-Million Dollar Global Programs",
+    title: "GIET University Conferred with National Education Excellence Award",
     category: "Achievement",
-    excerpt: "How five GIET engineering graduates built India's next-generation edge computing architecture, scaling from semester capstone projects into an internationally acclaimed venture.",
-    body: "When we initially configured our first prototype in Lab 4 during our fifth semester, we faced dozens of hardware bottlenecks and compiler discrepancies. With constant mentorship from GIET faculty and our alumni mentors in Bengaluru, we iterated until the telemetry was sub-millimeter accurate. Today, our enterprise has scaled across three continents with over 45 full-time engineers, powering mission-critical infrastructure in smart cities, renewable micro-grids, and edge robotics.",
+    excerpt: "University leadership formally recognized by Hon'ble Union Minister Shri Ramdas Athawale for pioneering higher education, pedagogy, and academic innovation.",
+    body: "In a landmark recognition of academic distinction, GIET University was honored with the National Education Excellence Award, presented personally by the Hon'ble Union Minister of State, Government of India, Shri Ramdas Athawale. The commendation celebrates the university's continuous leadership in engineering pedagogy, world-class laboratory infrastructure, and its track record of nurturing globally competitive graduates.",
     authorName: "GIET Editorial Board",
     authorUid: "usr-editorial",
-    authorRole: "Senior Tech Fellows",
-    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=85"
+    authorRole: "University Media Directorate",
+    image: "images/news/education-excellence-award.png"
   },
   {
     id: "story-101",
@@ -131,13 +131,13 @@ const defaultEditorialStories = [
 
 const placementData = [
   {
-    name: "Aarav Das",
-    department: "CSE-AIML",
-    branch: "Artificial Intelligence & Machine Learning",
-    year: "2023–2027",
-    company: "Microsoft",
-    package: "₹13 LPA",
-    image: "https://randomuser.me/api/portraits/men/32.jpg"
+    name: "Mr. Pramod Kumar Bag",
+    department: "Alumni Leadership",
+    branch: "Manager (Process Safety Coordinator)",
+    year: "Batch: 2015–2019",
+    company: "ArcelorMittal Nippon Steel India",
+    package: "Executive Role",
+    image: "images/news/pramod-kumar-bag-placement.png"
   },
   {
     name: "Ananya Mohanty",
@@ -728,6 +728,14 @@ function setupFeaturedStories() {
 
   document.querySelectorAll(".featured-small.story-jump").forEach(card => {
     card.addEventListener("click", () => {
+      const storyId = card.dataset.storyId;
+      if (storyId) {
+        const story = allStories.find(s => String(s.id) === String(storyId));
+        if (story) {
+          openReader(story);
+          return;
+        }
+      }
       const target = card.dataset.featureTarget;
       if (target) {
         scrollToId(target);
