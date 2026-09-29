@@ -42,10 +42,10 @@ if (typeof window !== "undefined" && window.location && window.location.protocol
 
 
 /* =========================================================
-   FALLBACK INITIAL DEMO STORIES (ALWAYS POPULATED)
+   FEATURED STORIES ARCHIVE (FOR HERO & FEATURED BANNER)
 ========================================================= */
 
-const defaultEditorialStories = [
+const featuredEditorialArchive = [
   {
     id: "lead-editorial",
     title: "GIET University Conferred with National Education Excellence Award",
@@ -69,17 +69,6 @@ const defaultEditorialStories = [
     image: "images/news/smart-bin-hackathon.jpg"
   },
   {
-    id: "story-102",
-    title: "GIET University Conferred with National Education Excellence Award",
-    category: "Achievement",
-    excerpt: "University leadership formally recognized by Hon'ble Union Minister Shri Ramdas Athawale for pioneering higher education, pedagogy, and academic innovation.",
-    body: "In a landmark recognition of academic distinction, GIET University was honored with the National Education Excellence Award, presented personally by the Hon'ble Union Minister of State, Government of India, Shri Ramdas Athawale. The commendation celebrates the university's continuous leadership in engineering pedagogy, world-class laboratory infrastructure, and its track record of nurturing globally competitive graduates.",
-    authorName: "GIET Communications Directorate",
-    authorUid: "usr-102",
-    authorRole: "University Media & Institutional Relations",
-    image: "images/news/education-excellence-award.png"
-  },
-  {
     id: "story-103",
     title: "GIET University Welcomes 2025 Graduating Batch to 3rd Annual Convocation",
     category: "Campus",
@@ -89,39 +78,68 @@ const defaultEditorialStories = [
     authorUid: "admin",
     authorRole: "Convocation Secretariat",
     image: "images/news/annual-convocation-2026.jpg"
-  },
+  }
+];
+
+/* =========================================================
+   AUTHENTIC EDITORIAL STORIES (LATEST FROM GIET - 100% REAL IMAGES)
+========================================================= */
+
+const defaultEditorialStories = [
   {
-    id: "story-104",
-    title: "Alumni Founded Clean-Tech Venture Secures Pre-Series A Funding",
+    id: "story-giet-tejas",
+    title: 'GIET University Hosts DPIIT & Startup Odisha "TEJAS" Entrepreneurial Summit',
     category: "Startups",
-    excerpt: "Empowering rural agricultural micro-grids across Eastern India with modular solar inverters and battery intelligence.",
-    body: "Founded by graduates of the Electrical and Mechanical engineering departments, Solaro Technologies has successfully raised ₹4.5 Crore in Pre-Series A capital. The startup's proprietary solid-state micro-inverter architecture has driven energy independence for more than 120 agricultural co-operatives in southern Odisha and eastern Andhra Pradesh.",
-    authorName: "Priya Patnaik",
-    authorUid: "usr-104",
-    authorRole: "Co-Founder, Solaro Tech (Class of '20)",
-    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=85"
+    excerpt: "Transforming entrepreneurial journeys across Rayagada district in collaboration with AIC-GIETU Foundation, STPI, IIT Bhubaneswar, and PhonePe.",
+    body: "In a landmark entrepreneurial milestone for southern Odisha, GIET University Gunupur hosted the high-impact TEJAS summit (Transforming Entrepreneurial Journeys Across States & Districts) organized under DPIIT (#startupindia) and Startup Odisha. Convening startup founders, angel investors, regional innovators, and ecosystem leaders from STPI, IIT Bhubaneswar, and PhonePe, the summit positioned GIET University's AIC-GIETU Foundation incubator at the forefront of grassroots venture creation and student entrepreneurship across Rayagada district.",
+    authorName: "AIC-GIETU Incubation Center",
+    authorUid: "usr-tejas",
+    authorRole: "Directorate of Innovation & Entrepreneurship",
+    image: "images/news/giet-tejas-startup-odisha.png"
   },
   {
-    id: "story-105",
-    title: "Team GIET Secures 1st Place at National Smart Mobility Hackathon",
-    category: "Awards",
-    excerpt: "Outperforming 240 collegiate teams nationwide with an intelligent telematics algorithm reducing battery degradation in commercial EVs.",
-    body: "In a landmark achievement for student innovation, a team of four GIET undergraduates claimed first prize and a ₹5 Lakh cash commendation at the National Smart Mobility Hackathon in New Delhi. The team's machine learning model optimizes battery thermal management and charging cycles in real time.",
-    authorName: "Ritwik Sahu",
-    authorUid: "usr-105",
-    authorRole: "Student Lead, Robotics Society (Class of '26)",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=85"
+    id: "story-giet-learnathon",
+    title: "GIET University Concludes National Hackathon LEARNATHON 5.0",
+    category: "Achievement",
+    excerpt: "Student innovators sprint across four intensive days under 'Learn · Build · Hack' to develop AI, cloud, and IoT solutions.",
+    body: "The grand finale of LEARNATHON 5.0 was celebrated at GIET University Gunupur following a rigorous four-day innovation hackathon. Organized in collaboration with the Incubatee Innovation Foundation and Quality Thought Future Skill Foundation, student teams pitched industry-vetted prototypes across artificial intelligence, healthcare tech, and smart mobility. Distinguished enterprise architects and alumni tech mentors praised the high standard of technical execution from participating cohorts.",
+    authorName: "Student Innovation Council",
+    authorUid: "usr-learnathon",
+    authorRole: "GIET Learnathon Core Committee",
+    image: "images/news/giet-learnathon-hackathon.png"
   },
   {
-    id: "story-106",
-    title: "Low-Power Edge Neural Network for Diagnostic Soil Analysis",
+    id: "story-giet-pharmacist",
+    title: "School of Pharmacy Observes World Pharmacist Day 2026: Mission Swastha Bharat",
     category: "Research",
-    excerpt: "Engineered by third-year ECE & AIML cohorts in collaboration with agricultural alumni mentors. Successfully tested across 12 farming cooperatives.",
-    body: "Published in IEEE Access, this collaborative research paper presents an ultra-low-power TinyML architecture for instant soil nutrient estimation without cloud connectivity. Tested in high-salinity coastal terrains, the device delivers laboratory-grade soil chemistry telemetry within 90 seconds.",
-    authorName: "Dr. K. R. Mohapatra & Fellows",
-    authorUid: "usr-research",
-    authorRole: "Research Director, Department of ECE",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=85"
+    excerpt: "Faculty and researchers lead symposium on 'Empowering Pharmacists for Healthier Futures' and combating Antimicrobial Resistance (AMR) with FIP.",
+    body: "In association with the International Pharmaceutical Federation (FIP), the School of Pharmacy at GIET University Gunupur commemorated World Pharmacist Day 2026. The symposium centered on the critical mission 'Swastha Bharat: Combating Antimicrobial Resistance (AMR)' and celebrated the indispensable role of pharmaceutical scientists in advancing clinical trials, novel drug formulations, and public health education.",
+    authorName: "School of Pharmacy Faculty Board",
+    authorUid: "usr-pharmacist",
+    authorRole: "Department of Pharmaceutical Sciences",
+    image: "images/news/giet-world-pharmacist-day.png"
+  },
+  {
+    id: "story-giet-nss",
+    title: "GIET NSS Bureau Spearheads Mega Blood Donation Camp on NSS Day",
+    category: "Campus",
+    excerpt: "Over 300 units of blood collected as students, faculty, and alumni unite under 'Share Life, Donate Blood' at the campus MBA Auditorium.",
+    body: "Marking NSS Day on 24 September 2026, the National Service Scheme (NSS) unit of GIET University organized an extensive Mega Blood Donation Camp at the campus MBA Auditorium. Carrying the noble banner 'Share Life, Donate Blood', the camp witnessed enthusiastic participation from undergraduate scholars, university leadership, and alumni donors, demonstrating GIET's steadfast commitment to civic duty and regional humanitarian care.",
+    authorName: "Office of Student Affairs & NSS",
+    authorUid: "usr-nss",
+    authorRole: "GIET NSS Volunteer Brigade",
+    image: "images/news/giet-nss-blood-donation-camp.png"
+  },
+  {
+    id: "story-giet-sports",
+    title: "GIET University Celebrates National Sports Day to Champion Athletic Discipline",
+    category: "Events",
+    excerpt: "Honoring the legacy of Major Dhyan Chand with intra-university sports tournaments and wellness initiatives under 'Sports Build Character'.",
+    body: "GIET University Gunupur commemorated National Sports Day with high energy across its outdoor stadiums and sports complexes, echoing the vision that 'Sports build character, discipline, and a healthier tomorrow.' Faculty deans and athletic directors inaugurated tournaments in basketball, cricket, badminton, and track events, paying tribute to hockey legend Major Dhyan Chand while reaffirming the university's dedication to holistic student wellness.",
+    authorName: "GIET Sports Council",
+    authorUid: "usr-sports",
+    authorRole: "Directorate of Physical Education & Athletics",
+    image: "images/news/giet-national-sports-day.png"
   }
 ];
 
@@ -344,6 +362,14 @@ let searchTerm = "";
 const STORIES_PER_PAGE = 4;
 let currentStoriesPage = 1;
 
+function findStoryById(id) {
+  return (
+    allStories.find(s => String(s.id) === String(id)) ||
+    featuredEditorialArchive.find(s => String(s.id) === String(id)) ||
+    null
+  );
+}
+
 function normalizeCategory(category) {
   const value = String(category || "").toLowerCase();
   if (value.includes("achievement")) return "Achievement";
@@ -446,7 +472,7 @@ function renderStories() {
     const image =
       story.image ||
       story.imageUrl ||
-      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80";
+      "images/news/giet-tejas-startup-odisha.png";
 
     return `
       <article
@@ -500,7 +526,7 @@ function renderStories() {
       if (event.target.closest(".save-story")) {
         return;
       }
-      const story = allStories.find(item => String(item.id) === String(card.dataset.storyId));
+      const story = findStoryById(card.dataset.storyId);
       if (story) {
         openReader(story);
       }
@@ -719,7 +745,7 @@ function openReader(story) {
         <div class="reader-author-header">
           <img
             class="reader-author-avatar"
-            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=180&q=80"
+            src="${escapeHtml(story.authorAvatar || "giet-logo.webp")}"
             alt="${escapeHtml(authorName)}"
           >
           <div>
@@ -830,7 +856,7 @@ function setupHero() {
 function setupFeaturedStories() {
   document.querySelectorAll(".featured-main").forEach(card => {
     card.addEventListener("click", () => {
-      const story = allStories.find(s => s.id === "lead-editorial") || allStories[0];
+      const story = findStoryById("lead-editorial") || allStories[0];
       if (story) {
         openReader(story);
       }
@@ -841,7 +867,7 @@ function setupFeaturedStories() {
     card.addEventListener("click", () => {
       const storyId = card.dataset.storyId;
       if (storyId) {
-        const story = allStories.find(s => String(s.id) === String(storyId));
+        const story = findStoryById(storyId);
         if (story) {
           openReader(story);
           return;
@@ -1148,7 +1174,7 @@ function setupSubmissionForm() {
       title,
       category,
       excerpt: excerpt || title,
-      image: image || "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80",
+      image: image || "images/news/giet-tejas-startup-odisha.png",
       body,
       status: "pending",
       createdAt: new Date().toISOString(),
