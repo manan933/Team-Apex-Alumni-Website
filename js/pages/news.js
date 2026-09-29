@@ -1090,9 +1090,9 @@ function setupGazette() {
 
 function setupSpotlight() {
   document.querySelector(".spotlight-button")?.addEventListener("click", () => {
-    notify("Opening Anushka Palo's distinguished fellow profile...");
+    notify("Opening Shakti Prasad Pattnaik's distinguished alumni profile...");
     setTimeout(() => {
-      window.location.href = "profile.html?id=usr-anushka-palo";
+      window.location.href = "profile.html?id=usr-shakti-prasad-pattnaik";
     }, 600);
   });
 }
