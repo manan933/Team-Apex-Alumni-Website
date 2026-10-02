@@ -64,7 +64,9 @@
 .brand-crest {
   width: 48px;
   height: 48px;
-  background: transparent;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1043,4 +1045,138 @@
   #nav-auth-container .btn-outline {
     display: none !important;
   }
-}
+}
+
+/* ==========================================================================
+   PWA INSTALL BANNER & OFFLINE TOAST
+   ========================================================================== */
+.pwa-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  width: min(92vw, 440px);
+  background: rgba(11, 25, 44, 0.96);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  z-index: var(--z-toast);
+  opacity: 0;
+  visibility: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pwa-banner.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.pwa-banner-inner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pwa-banner-icon img {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.pwa-banner-text {
+  flex: 1;
+}
+
+.pwa-banner-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+
+.pwa-banner-desc {
+  font-size: 0.76rem;
+  color: #94A3B8;
+  margin-top: 2px;
+  line-height: 1.35;
+}
+
+.pwa-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pwa-close-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  font-size: 1.4rem;
+  line-height: 1;
+  padding: 4px;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.pwa-close-btn:hover {
+  color: #FFFFFF;
+}
+
+/* Offline / Online Network Toast */
+.pwa-toast {
+  position: fixed;
+  top: 86px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-30px);
+  padding: 10px 22px;
+  border-radius: 9999px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: var(--color-primary-dark);
+  border: 1px solid var(--color-border-dark);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-toast);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.pwa-toast.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.pwa-toast-success {
+  background: #064E3B;
+  border-color: #10B981;
+}
+
+.pwa-toast-warning {
+  background: #78350F;
+  border-color: #F59E0B;
+}
+
+@media (max-width: 480px) {
+  .pwa-banner {
+    bottom: 12px;
+    width: calc(100% - 24px);
+    padding: 12px 14px;
+  }
+  .pwa-banner-desc {
+    display: none;
+  }
+}
+

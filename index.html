@@ -16,6 +16,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
 
+  <!-- PWA Manifest & Meta Tags -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0B192C" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="GIET Alumni" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+
   <!-- CSS Design System (Foundation & Home Page) -->
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
@@ -32,7 +41,7 @@
     <div class="container header-inner">
       <a href="index.html" class="brand" aria-label="GIET University Alumni Network Home">
         <div class="brand-crest">
-          <img src="giet-logo.webp?v=3" alt="GIET University Logo" class="brand-logo-img" />
+          <img src="giet-logo.webp" alt="GIET University Logo" class="brand-logo-img" />
         </div>
         <div class="brand-info">
           <span class="brand-title">GIET University</span>
@@ -66,7 +75,7 @@
   <div class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
     <div class="brand">
       <div class="brand-crest">
-        <img src="giet-logo.webp?v=3" alt="GIET University Logo" class="brand-logo-img" />
+        <img src="giet-logo.webp" alt="GIET University Logo" class="brand-logo-img" />
       </div>
       <div class="brand-info">
         <span class="brand-title">GIET University</span>
@@ -472,7 +481,7 @@
         <div class="footer-brand">
           <div class="brand" style="color: #fff;">
             <div class="brand-crest">
-              <img src="giet-logo.webp?v=3" alt="GIET University Logo" class="brand-logo-img" />
+              <img src="giet-logo.webp" alt="GIET University Logo" class="brand-logo-img" />
             </div>
             <div class="brand-info">
               <span class="brand-title" style="color: #fff;">GIET University</span>
@@ -536,6 +545,7 @@
   </footer>
 
   <!-- Scripts -->
+  <script type="module" src="js/pwa.js"></script>
   <script type="module" src="js/nav.js"></script>
   <script type="module" src="js/pages/home.js"></script>
 </body>

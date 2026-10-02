@@ -10,6 +10,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
 
+  <!-- PWA Manifest & Meta Tags -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0B192C" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="GIET Alumni" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/components.css" />
@@ -23,7 +32,9 @@
   <div class="mobile-drawer-backdrop"></div>
   <div class="mobile-drawer">
     <div class="brand">
-      <div class="brand-crest">Ω</div>
+      <div class="brand-crest">
+        <img src="giet-logo.webp" alt="GIET University Crest" class="brand-logo-img" />
+      </div>
       <div class="brand-info">
         <span class="brand-title">GIET University</span>
         <span class="brand-subtitle">Alumni Network</span>
@@ -408,7 +419,8 @@
 
   <!-- Persistent Site Footer -->
   <div id="site-footer-container"></div>
- <script type="module" src="js/components.js"></script>
+  <script type="module" src="js/pwa.js"></script>
+  <script type="module" src="js/components.js"></script>
   <script type="module" src="js/nav.js"></script>
   <script type="module" src="js/pages/events.js"></script>
 </body>

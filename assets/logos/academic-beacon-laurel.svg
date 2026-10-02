@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="gold-pillar-3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF0BD" />
+      <stop offset="30%" stop-color="#D4AF37" />
+      <stop offset="70%" stop-color="#A17A10" />
+      <stop offset="100%" stop-color="#E5C158" />
+    </linearGradient>
+    <linearGradient id="gold-laurel-3" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8A6506" />
+      <stop offset="50%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#FFF5CE" />
+    </linearGradient>
+    <filter id="shadow-3" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.28" />
+    </filter>
+  </defs>
+
+  <g filter="url(#shadow-3)">
+    <!-- Central Apex Pinnacle (Upward Arrow / Beacon) -->
+    <polygon points="250,55 305,150 275,150 275,340 225,340 225,150 195,150" fill="url(#gold-pillar-3)" />
+
+    <!-- Supporting Left Modern Fluted Pillar -->
+    <path d="M 160 190 L 195 190 L 195 340 L 160 340 Z" fill="url(#gold-laurel-3)" opacity="0.9" />
+
+    <!-- Supporting Right Modern Fluted Pillar -->
+    <path d="M 305 190 L 340 190 L 340 340 L 305 340 Z" fill="url(#gold-laurel-3)" opacity="0.9" />
+
+    <!-- Pedestal Base (Plinth) -->
+    <path d="M 130 355 L 370 355 L 390 380 L 110 380 Z" fill="url(#gold-pillar-3)" />
+    <path d="M 145 390 L 355 390 L 365 405 L 135 405 Z" fill="url(#gold-laurel-3)" opacity="0.85" />
+
+    <!-- Modern Geometric Laurel - Left Arc -->
+    <path d="M 115 150 C 95 180 85 220 85 260 C 85 315 110 360 145 390 C 135 375 125 340 125 300 C 125 240 155 185 180 160 C 150 160 130 150 115 150 Z" 
+          fill="url(#gold-laurel-3)" />
+
+    <!-- Modern Geometric Laurel - Right Arc -->
+    <path d="M 385 150 C 405 180 415 220 415 260 C 415 315 390 360 355 390 C 365 375 375 340 375 300 C 375 240 345 185 320 160 C 350 160 370 150 385 150 Z" 
+          fill="url(#gold-pillar-3)" />
+
+    <!-- Crest Star at Zenith -->
+    <circle cx="250" cy="40" r="12" fill="#FFF8E7" />
+  </g>
+</svg>

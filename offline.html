@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offline — GIET University Alumni Network</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body style="min-height: 100vh; display: flex; flex-direction: column;">
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-crest">
+          <img src="giet-logo.webp" alt="GIET University Crest" class="brand-logo-img" />
+        </div>
+        <div class="brand-info">
+          <span class="brand-title">GIET University</span>
+          <span class="brand-subtitle">Alumni Network &bull; Est. 1881</span>
+        </div>
+      </a>
+      <div class="header-actions">
+        <span class="badge badge-warning" style="font-size: 0.72rem; letter-spacing: 0.05em;">Offline Mode</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" style="flex: 1; display: flex; align-items: center; justify-content: center; padding: var(--space-12) var(--space-4); text-align: center;">
+    <div class="container-narrow" style="max-width: 540px;">
+      
+      <!-- Offline Icon Seal -->
+      <div style="width: 80px; height: 80px; margin: 0 auto var(--space-6); border-radius: 50%; background: var(--color-accent-light); border: 2px solid var(--color-accent); display: flex; align-items: center; justify-content: center; color: var(--color-accent-hover);">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="1" y1="1" x2="23" y2="23"></line>
+          <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+          <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+          <path d="M10.71 5.05A16 16 0 0 1 22.56 9"></path>
+          <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+          <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+          <line x1="12" y1="20" x2="12.01" y2="20"></line>
+        </svg>
+      </div>
+
+      <div class="section-tag" style="justify-content: center;">Connection Interrupted</div>
+      <h1 style="font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: var(--space-4); color: var(--color-primary);">You are currently offline</h1>
+      <p style="color: var(--color-text-secondary); font-size: var(--text-base); line-height: 1.6; margin-bottom: var(--space-8);">
+        It looks like you've lost your internet connection. You can still access pages and directory data you've previously viewed in this offline session.
+      </p>
+
+      <div style="display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap;">
+        <button id="retry-btn" class="btn btn-primary" onclick="window.location.reload();">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          Try Reconnecting
+        </button>
+        <a href="index.html" class="btn btn-outline">Go to Cached Home</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <div>&copy; 2026 GIET University Alumni Network</div>
+      <div>Progressive Web Application (PWA)</div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('online', () => {
+      window.location.reload();
+    });
+  </script>
+</body>
+</html>
