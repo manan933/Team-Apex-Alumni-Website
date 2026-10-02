@@ -1,15 +1,13 @@
 /**
  * ==========================================================================
  * PAGE LOGIC: VIDEOS (videos.html)
- * Alumni Video Gallery — category filter, bento grid, theater modal
+ * Alumni Video Gallery — category filter, pagination, theater modal
  * ==========================================================================
  */
 
 // TODO(shared): once Firestore is wired for the whole project, replace
-// this static array with a Firestore query on the 'videos' collection
-// (fields: title, youtubeId, description, category, addedAt). Do not change
-// this yourself without checking with the project owner — this file may be
-// consumed by home.js for the homepage preview.
+// this static array with a Firestore query on the 'videos' collection.
+// Do not change this yourself without checking with the project owner.
 
 const videos = [
   {
@@ -86,23 +84,27 @@ const videos = [
   },
   {
     id: 'v-009',
-    youtubeId: 'PLACEHOLDER_YOUTUBE_ID', // TODO: Replace with the actual Learnathon 5.0 YouTube video ID
+    youtubeId: 'PLACEHOLDER_YOUTUBE_ID',
     title: 'Learnathon 5.0',
     category: 'Events',
     imageOverride: 'eventImages/LEARNATHON 5.0.jpg',
-    description: 'PLACEHOLDER: Add a short description of Learnathon 5.0 here.', // TODO: Replace with real description
-    addedAt: '2026-09-28' // TODO: Update to the actual event/publish date
+    description: 'PLACEHOLDER: Add a short description of Learnathon 5.0 here.',
+    addedAt: '2026-09-28'
   }
 ];
 
 // ─── State ────────────────────────────────────────────────────────────────────
+
 let activeCategory = 'All';
-let lastFocused = null; // for returning focus after modal closes
+let currentPage = 1;
+const VIDEOS_PER_PAGE = 6;
+let lastFocused = null;
 
 // Build a lookup map for O(1) access by id
 const videoMap = new Map(videos.map(v => [v.id, v]));
 
 // ─── Boot ─────────────────────────────────────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', () => {
   buildPills();
   renderGrid();
@@ -111,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ─── Category Filter Pills ────────────────────────────────────────────────────
+
 function buildPills() {
   const container = document.getElementById('video-category-pills');
   if (!container) return;
@@ -129,21 +132,28 @@ function buildPills() {
   container.addEventListener('click', e => {
     const pill = e.target.closest('.category-pill');
     if (!pill) return;
+
     const cat = pill.dataset.cat;
+
     if (cat === activeCategory) return;
 
     activeCategory = cat;
+    currentPage = 1;
+
     container.querySelectorAll('.category-pill').forEach(p => {
       p.classList.remove('active');
       p.setAttribute('aria-pressed', 'false');
     });
+
     pill.classList.add('active');
     pill.setAttribute('aria-pressed', 'true');
+
     renderGrid();
   });
 }
 
 // ─── Video Grid Renderer ──────────────────────────────────────────────────────
+
 function renderGrid() {
   const grid = document.getElementById('videos-grid');
   if (!grid) return;
@@ -157,18 +167,132 @@ function renderGrid() {
       <div class="vg-empty-state" role="status">
         <div class="vg-empty-icon" aria-hidden="true">🎬</div>
         <h3 class="vg-empty-title">No Videos in This Category</h3>
-        <p class="vg-empty-text">There are no recordings in the <strong>${escapeHTML(activeCategory)}</strong> category yet. Check back soon or browse another category above.</p>
+        <p class="vg-empty-text">
+          There are no recordings in the
+          <strong>${escapeHTML(activeCategory)}</strong>
+          category yet. Check back soon or browse another category above.
+        </p>
       </div>
     `;
+
+    renderPagination(0);
     return;
   }
 
-  grid.innerHTML = list.map((v, idx) => buildCardHTML(v, idx)).join('');
+  const totalPages = Math.ceil(list.length / VIDEOS_PER_PAGE);
+
+  if (currentPage > totalPages) {
+    currentPage = totalPages;
+  }
+
+  const startIndex = (currentPage - 1) * VIDEOS_PER_PAGE;
+
+  const pageItems = list.slice(
+    startIndex,
+    startIndex + VIDEOS_PER_PAGE
+  );
+
+  grid.innerHTML = pageItems
+    .map((v, idx) => buildCardHTML(v, idx))
+    .join('');
+
+  renderPagination(totalPages);
   initScrollReveal();
 }
 
+// ─── Pagination ──────────────────────────────────────────────────────────────
+
+function renderPagination(totalPages) {
+  const pagination = document.getElementById('videos-pagination');
+
+  if (!pagination) return;
+
+  if (totalPages <= 1) {
+    pagination.innerHTML = '';
+    return;
+  }
+
+  let html = '';
+
+  // Previous button
+  html += `
+    <button
+      class="pagination-btn"
+      type="button"
+      data-page="${currentPage - 1}"
+      aria-label="Go to previous page"
+      ${currentPage === 1 ? 'disabled' : ''}
+    >
+      Previous
+    </button>
+  `;
+
+  // Page number buttons
+  for (let page = 1; page <= totalPages; page++) {
+    html += `
+      <button
+        class="pagination-btn${page === currentPage ? ' active' : ''}"
+        type="button"
+        data-page="${page}"
+        aria-label="Go to page ${page}"
+        aria-current="${page === currentPage ? 'page' : 'false'}"
+      >
+        ${page}
+      </button>
+    `;
+  }
+
+  // Next button
+  html += `
+    <button
+      class="pagination-btn"
+      type="button"
+      data-page="${currentPage + 1}"
+      aria-label="Go to next page"
+      ${currentPage === totalPages ? 'disabled' : ''}
+    >
+      Next
+    </button>
+  `;
+
+  pagination.innerHTML = html;
+
+  pagination.onclick = e => {
+    const button = e.target.closest('.pagination-btn');
+
+    if (!button || button.disabled) return;
+
+    const page = Number(button.dataset.page);
+
+    if (!page || page === currentPage) return;
+
+    currentPage = page;
+
+    renderGrid();
+
+    scrollToVideoGrid();
+  };
+}
+
+function scrollToVideoGrid() {
+  const grid = document.getElementById('videos-grid');
+
+  if (!grid) return;
+
+  const top = grid.getBoundingClientRect().top + window.scrollY - 120;
+
+  window.scrollTo({
+    top,
+    behavior: 'smooth'
+  });
+}
+
+// ─── Video Card ───────────────────────────────────────────────────────────────
+
 function buildCardHTML(v, idx) {
-  const thumbUrl = v.imageOverride || `https://img.youtube.com/vi/${encodeURIComponent(v.youtubeId)}/hqdefault.jpg`;
+  const thumbUrl = v.imageOverride ||
+    `https://img.youtube.com/vi/${encodeURIComponent(v.youtubeId)}/hqdefault.jpg`;
+
   const featuredClass = '';
   const dateLabel = formatDate(v.addedAt);
 
@@ -189,37 +313,60 @@ function buildCardHTML(v, idx) {
           decoding="async"
           onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'640\' height=\'360\'%3E%3Crect width=\'640\' height=\'360\' fill=\'%230B192C\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23D4AF37\' font-size=\'48\'%3E▶%3C/text%3E%3C/svg%3E'"
         />
+
         <div class="video-play-btn" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
             <polygon points="5 3 19 12 5 21 5 3"/>
           </svg>
         </div>
+
         <div class="video-hover-overlay" aria-hidden="true">
           <span class="vho-cat">${escapeHTML(v.category)}</span>
           <p class="vho-title">${escapeHTML(v.title)}</p>
         </div>
       </div>
+
       <div class="video-card-body">
         <span class="video-card-cat">${escapeHTML(v.category)}</span>
-        <h3 class="video-card-title">${escapeHTML(v.title)}</h3>
-        <p class="video-card-desc">${escapeHTML(v.description)}</p>
-        <time class="video-card-date" datetime="${escapeAttr(v.addedAt)}">${escapeHTML(dateLabel)}</time>
+
+        <h3 class="video-card-title">
+          ${escapeHTML(v.title)}
+        </h3>
+
+        <p class="video-card-desc">
+          ${escapeHTML(v.description)}
+        </p>
+
+        <time
+          class="video-card-date"
+          datetime="${escapeAttr(v.addedAt)}"
+        >
+          ${escapeHTML(dateLabel)}
+        </time>
       </div>
     </article>
   `;
 }
 
 // ─── Theater Modal ────────────────────────────────────────────────────────────
+
 function initModal() {
   const modal = document.getElementById('theater-modal');
   const closeBtn = document.getElementById('close-theater-modal');
   const grid = document.getElementById('videos-grid');
+
   if (!modal) return;
 
   // Click on video card
   grid?.addEventListener('click', handleCardActivate);
 
-  // Keyboard on video card (Enter / Space)
+  // Keyboard on video card
   grid?.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -232,12 +379,19 @@ function initModal() {
 
   // Backdrop click closes
   modal.addEventListener('click', e => {
-    if (e.target === modal) closeModal();
+    if (e.target === modal) {
+      closeModal();
+    }
   });
 
-  // Esc closes
+  // Escape closes
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    if (
+      e.key === 'Escape' &&
+      modal.classList.contains('open')
+    ) {
+      closeModal();
+    }
   });
 
   // Trap focus strictly within modal
@@ -246,9 +400,14 @@ function initModal() {
 
 function handleCardActivate(e) {
   const card = e.target.closest('.video-card');
+
   if (!card) return;
+
   const vid = videoMap.get(card.dataset.vidId);
-  if (vid) openModal(vid, card);
+
+  if (vid) {
+    openModal(vid, card);
+  }
 }
 
 function openModal(vid, triggerEl) {
@@ -257,23 +416,33 @@ function openModal(vid, triggerEl) {
   const titleEl = document.getElementById('theater-video-title');
   const descEl = document.getElementById('theater-video-desc');
   const catEl = document.getElementById('theater-video-cat');
+
   if (!modal || !iframe) return;
 
   // Remember who triggered this for return-focus
   lastFocused = triggerEl || document.activeElement;
 
-  // Set iframe src (lazy load — only happens on click)
-  iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(vid.youtubeId)}?autoplay=1&rel=0&modestbranding=1`;
+  // Set iframe src
+  iframe.src =
+    `https://www.youtube-nocookie.com/embed/${encodeURIComponent(vid.youtubeId)}?autoplay=1&rel=0&modestbranding=1`;
 
   // Update metadata
-  if (titleEl) titleEl.textContent = vid.title;
-  if (descEl) descEl.textContent = vid.description;
-  if (catEl) catEl.textContent = vid.category;
+  if (titleEl) {
+    titleEl.textContent = vid.title;
+  }
+
+  if (descEl) {
+    descEl.textContent = vid.description;
+  }
+
+  if (catEl) {
+    catEl.textContent = vid.category;
+  }
 
   // Open
   modal.classList.add('open');
   modal.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden'; // prevent background scroll
+  document.body.style.overflow = 'hidden';
 
   // Move focus into modal
   requestAnimationFrame(() => {
@@ -284,70 +453,108 @@ function openModal(vid, triggerEl) {
 function closeModal() {
   const modal = document.getElementById('theater-modal');
   const iframe = document.getElementById('theater-iframe');
+
   if (!modal) return;
 
   // Stop playback immediately
-  if (iframe) iframe.src = '';
+  if (iframe) {
+    iframe.src = '';
+  }
 
   modal.classList.remove('open');
   modal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
 
-  // Return focus to the triggering element
-  if (lastFocused && typeof lastFocused.focus === 'function') {
-    requestAnimationFrame(() => lastFocused.focus());
+  // Return focus to triggering element
+  if (
+    lastFocused &&
+    typeof lastFocused.focus === 'function'
+  ) {
+    requestAnimationFrame(() => {
+      lastFocused.focus();
+    });
+
     lastFocused = null;
   }
 }
 
-// Focus trap: keep Tab / Shift+Tab within the modal dialog
+// ─── Focus Trap ───────────────────────────────────────────────────────────────
+
 function handleFocusTrap(e) {
   if (e.key !== 'Tab') return;
+
   const modal = e.currentTarget;
 
-  const focusable = [...modal.querySelectorAll(
-    'a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])'
-  )].filter(el => !el.closest('[aria-hidden="true"]'));
+  const focusable = [
+    ...modal.querySelectorAll(
+      'a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])'
+    )
+  ].filter(
+    el => !el.closest('[aria-hidden="true"]')
+  );
 
-  if (!focusable.length) { e.preventDefault(); return; }
+  if (!focusable.length) {
+    e.preventDefault();
+    return;
+  }
 
   const first = focusable[0];
   const last = focusable[focusable.length - 1];
 
   if (e.shiftKey) {
-    if (document.activeElement === first || document.activeElement === modal) {
-      e.preventDefault(); last.focus();
+    if (
+      document.activeElement === first ||
+      document.activeElement === modal
+    ) {
+      e.preventDefault();
+      last.focus();
     }
   } else {
     if (document.activeElement === last) {
-      e.preventDefault(); first.focus();
+      e.preventDefault();
+      first.focus();
     }
   }
 }
 
 // ─── Scroll Reveal ────────────────────────────────────────────────────────────
+
 function initScrollReveal() {
   const els = document.querySelectorAll('.reveal');
+
   if (!els.length) return;
+
   const io = new IntersectionObserver(
-    entries => entries.forEach(en => {
-      if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); }
-    }),
-    { threshold: 0.12 }
+    entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.classList.add('is-visible');
+          io.unobserve(en.target);
+        }
+      });
+    },
+    {
+      threshold: 0.12
+    }
   );
+
   els.forEach(el => io.observe(el));
 }
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
+
 function escapeHTML(str) {
   if (!str) return '';
+
   const d = document.createElement('div');
   d.textContent = str;
+
   return d.innerHTML;
 }
 
 function escapeAttr(str) {
   if (!str) return '';
+
   return String(str)
     .replace(/&/g, '&amp;')
     .replace(/"/g, '&quot;')
@@ -358,8 +565,16 @@ function escapeAttr(str) {
 
 function formatDate(iso) {
   if (!iso) return '';
+
   try {
-    return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    return new Date(iso).toLocaleDateString(
+      'en-US',
+      {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }
+    );
   } catch {
     return iso;
   }

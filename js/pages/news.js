@@ -42,86 +42,137 @@ if (typeof window !== "undefined" && window.location && window.location.protocol
 
 
 /* =========================================================
-   FALLBACK INITIAL DEMO STORIES (ALWAYS POPULATED)
+   FEATURED STORIES ARCHIVE (FOR HERO & FEATURED BANNER)
+========================================================= */
+
+const featuredEditorialArchive = [
+  {
+    id: "lead-editorial",
+    title: "GIET University Conferred with National Education Excellence Award",
+    category: "Achievement",
+    excerpt: "University leadership formally recognized by Hon'ble Union Minister Shri Ramdas Athawale for pioneering higher education, pedagogy, and academic innovation.",
+    body: "In a landmark recognition of academic distinction, GIET University was honored with the National Education Excellence Award, presented personally by the Hon'ble Union Minister of State, Government of India, Shri Ramdas Athawale. The commendation celebrates the university's continuous leadership in engineering pedagogy, world-class laboratory infrastructure, and its track record of nurturing globally competitive graduates.",
+    authorName: "GIET Editorial Board",
+    authorUid: "usr-editorial",
+    authorRole: "University Media Directorate",
+    image: "images/news/education-excellence-award.png"
+  },
+  {
+    id: "story-101",
+    title: "From Campus Hackathon to Series-A: The Smart IoT & Clean Campus Venture",
+    category: "Achievement",
+    excerpt: "How a team of GIET engineering students engineered an intelligent Smart Bin telemetry system and route optimization engine for sustainable urban campuses.",
+    body: "What began as an intensive sprint during the GIET Campus Innovation Hackathon transformed into an enterprise-grade IoT deployment. The student team engineered a network of smart sensor-enabled waste bins integrated with automated route optimization algorithms to streamline campus waste management in real-time. The project received top commendations from faculty mentors and industry jury members, opening pathways for commercial pilot trials across regional municipal clusters.",
+    authorName: "Student Innovation Team",
+    authorUid: "usr-101",
+    authorRole: "IoT & Smart Systems Cohort (Class of '25)",
+    image: "images/news/smart-bin-hackathon.jpg"
+  },
+  {
+    id: "story-103",
+    title: "GIET University Welcomes 2025 Graduating Batch to 3rd Annual Convocation",
+    category: "Campus",
+    excerpt: "Graduating engineers, researchers, and alumni gather at Gunupur campus for the convocation ceremony on 16 October 2026.",
+    body: "GIET University warmly welcomes the graduating cohort to its 3rd Annual Convocation ceremony scheduled for 16 October 2026 at the Gunupur campus. The ceremony will celebrate the academic triumphs of undergraduate and postgraduate scholars across all engineering disciplines, with degrees conferred by university chancellors and global alumni guest speakers. Registration for graduating students closes on 30 September 2026.",
+    authorName: "Office of Academic Affairs",
+    authorUid: "admin",
+    authorRole: "Convocation Secretariat",
+    image: "images/news/annual-convocation-2026.jpg"
+  },
+  {
+    id: "essay-isro-space",
+    title: "Pioneering the Cosmos: From Gunupur Laboratories to Space Launch Technologies",
+    category: "Research",
+    excerpt: "GIET engineering faculty and student researchers showcase space exploration milestones, scale rocket telemetry, and ISRO Chandrayaan-3 mission modules at the university technological pavilion.",
+    body: "In a remarkable showcase of aerospace enthusiasm and applied physics, GIET University hosted a landmark Space Science & Rocketry Exposition celebrating India's historic achievements with ISRO. Featuring intricately engineered scale replicas of the Polar Satellite Launch Vehicle (PSLV), Small Satellite Launch Vehicle (SSLV), and Chandrayaan-3 lunar trajectory modules, the pavilion served as an interactive masterclass for undergraduate researchers. Faculty members and visiting space scientists led symposium sessions on advanced propulsion dynamics, orbital mechanics, and satellite telemetry, inspiring student engineers to target research frontiers in aerospace and telecommunications.",
+    authorName: "Aerospace & Applied Physics Research Circle",
+    authorUid: "usr-space-research",
+    authorRole: "School of Engineering & Space Sciences",
+    image: "images/news/giet-isro-space-exhibition.png"
+  },
+  {
+    id: "essay-van-mahotsav",
+    title: "Van Mahotsav 2026: Nurturing a Greener Campus for Future Generations",
+    category: "Campus",
+    excerpt: "University leadership, student volunteers, and regional forestry dignitaries unite under 'Plant a Tree, Protect the Future', planting over 500 saplings across Gunupur green corridors.",
+    body: "GIET University Gunupur commemorated Van Mahotsav 2026 with a mass tree plantation drive under the theme 'Plant a Tree, Protect the Future'. Joined by regional forest conservators, police dignitaries, NSS volunteers, and undergraduate cohorts, the initiative saw the plantation of over 500 indigenous fruit-bearing and shade trees across the sprawling green campus. The drive reflects GIET's enduring commitment to environmental sustainability, climate resilience, and eco-conscious campus stewardship.",
+    authorName: "Green Campus Initiative & NSS Directorate",
+    authorUid: "usr-green-campus",
+    authorRole: "Environmental Sustainability Committee",
+    image: "images/news/giet-van-mahotsav-plantation.png"
+  },
+  {
+    id: "essay-yoga-day",
+    title: "Harmony of Mind & Body: International Yoga Day 2026 at Gunupur",
+    category: "Events",
+    excerpt: "Under the global theme 'Yoga for One Earth, One Health', hundreds of students, faculty, and alumni gather on campus to embrace mindfulness, endurance, and balanced living.",
+    body: "As the morning sun crested the scenic Gunupur hills, hundreds of students, faculty deans, and alumni gathered at the GIET University Basketball Arena to celebrate International Yoga Day 2026. Aligned with the global charter 'Yoga for One Earth, One Health', the mass practice was guided by certified yoga masters conducting asanas, pranayama, and guided meditation. The event reaffirmed GIET's holistic philosophy that academic and technical brilliance thrive best when anchored in physical wellness and mental clarity.",
+    authorName: "GIET Wellness & Athletics Council",
+    authorUid: "usr-wellness",
+    authorRole: "Directorate of Student Wellbeing",
+    image: "images/news/giet-international-yoga-day.png"
+  }
+];
+
+/* =========================================================
+   AUTHENTIC EDITORIAL STORIES (LATEST FROM GIET - 100% REAL IMAGES)
 ========================================================= */
 
 const defaultEditorialStories = [
   {
-    id: "lead-editorial",
-    title: "From Campus Innovation Labs to Leading Multi-Million Dollar Global Programs",
-    category: "Achievement",
-    excerpt: "How five GIET engineering graduates built India's next-generation edge computing architecture, scaling from semester capstone projects into an internationally acclaimed venture.",
-    body: "When we initially configured our first prototype in Lab 4 during our fifth semester, we faced dozens of hardware bottlenecks and compiler discrepancies. With constant mentorship from GIET faculty and our alumni mentors in Bengaluru, we iterated until the telemetry was sub-millimeter accurate. Today, our enterprise has scaled across three continents with over 45 full-time engineers, powering mission-critical infrastructure in smart cities, renewable micro-grids, and edge robotics.",
-    authorName: "GIET Editorial Board",
-    authorUid: "usr-editorial",
-    authorRole: "Senior Tech Fellows",
-    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=85"
-  },
-  {
-    id: "story-101",
-    title: "From Campus Hackathon to Series-A: The AgroGrid Robotics Journey",
-    category: "Achievement",
-    excerpt: "How four third-year roommates combined autonomous drones with micro-sensor grids to revolutionize crop yields across 800 rural districts.",
-    body: "What began as a chaotic 36-hour weekend sprint during the 2023 GIET Innovation Hackathon soon turned into our life's calling. Armed with Arduino boards, open-source computer vision libraries, and invaluable guidance from our electronics professors, we created an autonomous low-power drone payload capable of detecting crop diseases with 94% accuracy. Fast forward three years, AgroGrid has deployed across 800 rural clusters, securing ₹8 Crore in institutional seed funding.",
-    authorName: "Subhashree Ray",
-    authorUid: "usr-101",
-    authorRole: "Co-Founder & CEO, AgroGrid Robotics (Class of '22)",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    id: "story-102",
-    title: "Scaling Distributed Cloud Microservices at Microsoft",
-    category: "Career",
-    excerpt: "Reflections on navigating early-career software engineering, distributed systems, and the mental frameworks acquired during college.",
-    body: "Stepping into Microsoft's Azure cloud infrastructure team was an exhilarating shift in scale. Operating across millions of concurrent queries per second demands exceptional technical discipline. The rigorous foundation in data structures, networking protocols, and distributed systems taught at GIET University gave me the exact resilience needed to build fault-tolerant cloud backends for enterprise customers worldwide.",
-    authorName: "Aarav Das",
-    authorUid: "usr-102",
-    authorRole: "Software Development Engineer, Microsoft (Class of '23)",
-    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    id: "story-103",
-    title: "10,000 Sq. Ft. High-Performance AI Compute Center Inaugurated",
-    category: "Campus",
-    excerpt: "University leadership and distinguished alumni formally open state-of-the-art AI cluster equipped with enterprise NVIDIA accelerators.",
-    body: "GIET University has achieved yet another milestone in cutting-edge research infrastructure. Formally inaugurated in partnership with distinguished alumni leaders from Silicon Valley, the new 10,000 sq. ft. AI Compute Center houses dedicated enterprise GPU nodes, quantum computing simulators, and petabyte-scale research data arrays to support doctoral and undergraduate engineering breakthroughs.",
-    authorName: "GIET Editorial Board",
-    authorUid: "admin",
-    authorRole: "University Gazette Staff",
-    image: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    id: "story-104",
-    title: "Alumni Founded Clean-Tech Venture Secures Pre-Series A Funding",
+    id: "story-giet-tejas",
+    title: 'GIET University Hosts DPIIT & Startup Odisha "TEJAS" Entrepreneurial Summit',
     category: "Startups",
-    excerpt: "Empowering rural agricultural micro-grids across Eastern India with modular solar inverters and battery intelligence.",
-    body: "Founded by graduates of the Electrical and Mechanical engineering departments, Solaro Technologies has successfully raised ₹4.5 Crore in Pre-Series A capital. The startup's proprietary solid-state micro-inverter architecture has driven energy independence for more than 120 agricultural co-operatives in southern Odisha and eastern Andhra Pradesh.",
-    authorName: "Priya Patnaik",
-    authorUid: "usr-104",
-    authorRole: "Co-Founder, Solaro Tech (Class of '20)",
-    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=85"
+    excerpt: "Transforming entrepreneurial journeys across Rayagada district in collaboration with AIC-GIETU Foundation, STPI, IIT Bhubaneswar, and PhonePe.",
+    body: "In a landmark entrepreneurial milestone for southern Odisha, GIET University Gunupur hosted the high-impact TEJAS summit (Transforming Entrepreneurial Journeys Across States & Districts) organized under DPIIT (#startupindia) and Startup Odisha. Convening startup founders, angel investors, regional innovators, and ecosystem leaders from STPI, IIT Bhubaneswar, and PhonePe, the summit positioned GIET University's AIC-GIETU Foundation incubator at the forefront of grassroots venture creation and student entrepreneurship across Rayagada district.",
+    authorName: "AIC-GIETU Incubation Center",
+    authorUid: "usr-tejas",
+    authorRole: "Directorate of Innovation & Entrepreneurship",
+    image: "images/news/giet-tejas-startup-odisha.png"
   },
   {
-    id: "story-105",
-    title: "Team GIET Secures 1st Place at National Smart Mobility Hackathon",
-    category: "Awards",
-    excerpt: "Outperforming 240 collegiate teams nationwide with an intelligent telematics algorithm reducing battery degradation in commercial EVs.",
-    body: "In a landmark achievement for student innovation, a team of four GIET undergraduates claimed first prize and a ₹5 Lakh cash commendation at the National Smart Mobility Hackathon in New Delhi. The team's machine learning model optimizes battery thermal management and charging cycles in real time.",
-    authorName: "Ritwik Sahu",
-    authorUid: "usr-105",
-    authorRole: "Student Lead, Robotics Society (Class of '26)",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=85"
+    id: "story-giet-learnathon",
+    title: "GIET University Concludes National Hackathon LEARNATHON 5.0",
+    category: "Achievement",
+    excerpt: "Student innovators sprint across four intensive days under 'Learn · Build · Hack' to develop AI, cloud, and IoT solutions.",
+    body: "The grand finale of LEARNATHON 5.0 was celebrated at GIET University Gunupur following a rigorous four-day innovation hackathon. Organized in collaboration with the Incubatee Innovation Foundation and Quality Thought Future Skill Foundation, student teams pitched industry-vetted prototypes across artificial intelligence, healthcare tech, and smart mobility. Distinguished enterprise architects and alumni tech mentors praised the high standard of technical execution from participating cohorts.",
+    authorName: "Student Innovation Council",
+    authorUid: "usr-learnathon",
+    authorRole: "GIET Learnathon Core Committee",
+    image: "images/news/giet-learnathon-hackathon.png"
   },
   {
-    id: "story-106",
-    title: "Low-Power Edge Neural Network for Diagnostic Soil Analysis",
+    id: "story-giet-pharmacist",
+    title: "School of Pharmacy Observes World Pharmacist Day 2026: Mission Swastha Bharat",
     category: "Research",
-    excerpt: "Engineered by third-year ECE & AIML cohorts in collaboration with agricultural alumni mentors. Successfully tested across 12 farming cooperatives.",
-    body: "Published in IEEE Access, this collaborative research paper presents an ultra-low-power TinyML architecture for instant soil nutrient estimation without cloud connectivity. Tested in high-salinity coastal terrains, the device delivers laboratory-grade soil chemistry telemetry within 90 seconds.",
-    authorName: "Dr. K. R. Mohapatra & Fellows",
-    authorUid: "usr-research",
-    authorRole: "Research Director, Department of ECE",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=85"
+    excerpt: "Faculty and researchers lead symposium on 'Empowering Pharmacists for Healthier Futures' and combating Antimicrobial Resistance (AMR) with FIP.",
+    body: "In association with the International Pharmaceutical Federation (FIP), the School of Pharmacy at GIET University Gunupur commemorated World Pharmacist Day 2026. The symposium centered on the critical mission 'Swastha Bharat: Combating Antimicrobial Resistance (AMR)' and celebrated the indispensable role of pharmaceutical scientists in advancing clinical trials, novel drug formulations, and public health education.",
+    authorName: "School of Pharmacy Faculty Board",
+    authorUid: "usr-pharmacist",
+    authorRole: "Department of Pharmaceutical Sciences",
+    image: "images/news/giet-world-pharmacist-day.png"
+  },
+  {
+    id: "story-giet-nss",
+    title: "GIET NSS Bureau Spearheads Mega Blood Donation Camp on NSS Day",
+    category: "Campus",
+    excerpt: "Over 300 units of blood collected as students, faculty, and alumni unite under 'Share Life, Donate Blood' at the campus MBA Auditorium.",
+    body: "Marking NSS Day on 24 September 2026, the National Service Scheme (NSS) unit of GIET University organized an extensive Mega Blood Donation Camp at the campus MBA Auditorium. Carrying the noble banner 'Share Life, Donate Blood', the camp witnessed enthusiastic participation from undergraduate scholars, university leadership, and alumni donors, demonstrating GIET's steadfast commitment to civic duty and regional humanitarian care.",
+    authorName: "Office of Student Affairs & NSS",
+    authorUid: "usr-nss",
+    authorRole: "GIET NSS Volunteer Brigade",
+    image: "images/news/giet-nss-blood-donation-camp.png"
+  },
+  {
+    id: "story-giet-sports",
+    title: "GIET University Celebrates National Sports Day to Champion Athletic Discipline",
+    category: "Events",
+    excerpt: "Honoring the legacy of Major Dhyan Chand with intra-university sports tournaments and wellness initiatives under 'Sports Build Character'.",
+    body: "GIET University Gunupur commemorated National Sports Day with high energy across its outdoor stadiums and sports complexes, echoing the vision that 'Sports build character, discipline, and a healthier tomorrow.' Faculty deans and athletic directors inaugurated tournaments in basketball, cricket, badminton, and track events, paying tribute to hockey legend Major Dhyan Chand while reaffirming the university's dedication to holistic student wellness.",
+    authorName: "GIET Sports Council",
+    authorUid: "usr-sports",
+    authorRole: "Directorate of Physical Education & Athletics",
+    image: "images/news/giet-national-sports-day.png"
   }
 ];
 
@@ -131,13 +182,13 @@ const defaultEditorialStories = [
 
 const placementData = [
   {
-    name: "Aarav Das",
-    department: "CSE-AIML",
-    branch: "Artificial Intelligence & Machine Learning",
-    year: "2023–2027",
-    company: "Microsoft",
-    package: "₹13 LPA",
-    image: "https://randomuser.me/api/portraits/men/32.jpg"
+    name: "Mr. Pramod Kumar Bag",
+    department: "Alumni Leadership",
+    branch: "Manager (Process Safety Coordinator)",
+    year: "Batch: 2015–2019",
+    company: "ArcelorMittal Nippon Steel India",
+    package: "Executive Role",
+    image: "images/news/pramod-kumar-bag-placement.png"
   },
   {
     name: "Ananya Mohanty",
@@ -341,6 +392,16 @@ function initScrollAnimations() {
 let allStories = [...defaultEditorialStories];
 let activeCategory = "all";
 let searchTerm = "";
+const STORIES_PER_PAGE = 4;
+let currentStoriesPage = 1;
+
+function findStoryById(id) {
+  return (
+    allStories.find(s => String(s.id) === String(id)) ||
+    featuredEditorialArchive.find(s => String(s.id) === String(id)) ||
+    null
+  );
+}
 
 function normalizeCategory(category) {
   const value = String(category || "").toLowerCase();
@@ -406,6 +467,8 @@ function renderStories() {
   const grid = document.getElementById("news-grid");
   if (!grid) return;
 
+  const paginationNav = document.getElementById("news-pagination");
+
   const filtered = allStories.filter(
     story => categoryMatches(story, activeCategory) && matchesSearch(story)
   );
@@ -417,16 +480,32 @@ function renderStories() {
         <p>No published dispatches match "${escapeHtml(searchTerm || activeCategory)}". Try choosing another category or clearing your search.</p>
       </div>
     `;
+    if (paginationNav) {
+      paginationNav.innerHTML = "";
+      paginationNav.style.display = "none";
+    }
     return;
   }
 
-  grid.innerHTML = filtered.map(story => {
+  // Calculate pagination boundaries (4 stories max per page)
+  const totalPages = Math.ceil(filtered.length / STORIES_PER_PAGE) || 1;
+  if (currentStoriesPage > totalPages) {
+    currentStoriesPage = totalPages;
+  }
+  if (currentStoriesPage < 1) {
+    currentStoriesPage = 1;
+  }
+
+  const startIndex = (currentStoriesPage - 1) * STORIES_PER_PAGE;
+  const paginatedStories = filtered.slice(startIndex, startIndex + STORIES_PER_PAGE);
+
+  grid.innerHTML = paginatedStories.map(story => {
     const id = story.id || story.createdAt || Math.random().toString();
     const isSaved = getSavedStories().includes(String(id));
     const image =
       story.image ||
       story.imageUrl ||
-      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80";
+      "images/news/giet-tejas-startup-odisha.png";
 
     return `
       <article
@@ -472,13 +551,15 @@ function renderStories() {
     `;
   }).join("");
 
+  renderNewsPagination(filtered.length, totalPages);
+
   // Attach card click handlers for full reader modal
   grid.querySelectorAll(".news-card").forEach(card => {
     card.addEventListener("click", event => {
       if (event.target.closest(".save-story")) {
         return;
       }
-      const story = allStories.find(item => String(item.id) === String(card.dataset.storyId));
+      const story = findStoryById(card.dataset.storyId);
       if (story) {
         openReader(story);
       }
@@ -518,6 +599,93 @@ function renderStories() {
       }
     });
   }
+}
+
+/* =========================================================
+   PAGINATION CONTROLS RENDERER (MAX 4 STORIES PER PAGE)
+========================================================= */
+
+function renderNewsPagination(totalCount, totalPages) {
+  const paginationNav = document.getElementById("news-pagination");
+  if (!paginationNav) return;
+
+  if (totalPages <= 1) {
+    paginationNav.innerHTML = "";
+    paginationNav.style.display = "none";
+    return;
+  }
+
+  paginationNav.style.display = "flex";
+
+  let pagesHtml = "";
+
+  // Previous Button
+  pagesHtml += `
+    <button 
+      class="pagination-btn pagination-prev" 
+      ${currentStoriesPage === 1 ? "disabled" : ""} 
+      data-page="${currentStoriesPage - 1}"
+      aria-label="Previous page of stories"
+    >
+      ← Prev
+    </button>
+  `;
+
+  // Numbered Page Buttons
+  for (let i = 1; i <= totalPages; i++) {
+    pagesHtml += `
+      <button 
+        class="pagination-btn pagination-num ${i === currentStoriesPage ? "active" : ""}" 
+        data-page="${i}"
+        aria-label="Go to page ${i}"
+        ${i === currentStoriesPage ? 'aria-current="page"' : ""}
+      >
+        ${i}
+      </button>
+    `;
+  }
+
+  // Next Button
+  pagesHtml += `
+    <button 
+      class="pagination-btn pagination-next" 
+      ${currentStoriesPage === totalPages ? "disabled" : ""} 
+      data-page="${currentStoriesPage + 1}"
+      aria-label="Next page of stories"
+    >
+      Next →
+    </button>
+  `;
+
+  // Info Summary
+  pagesHtml += `
+    <span class="pagination-info">
+      Page ${currentStoriesPage} of ${totalPages} (${totalCount} stories)
+    </span>
+  `;
+
+  paginationNav.innerHTML = pagesHtml;
+
+  // Add click listeners to pagination buttons
+  paginationNav.querySelectorAll(".pagination-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const page = parseInt(btn.dataset.page, 10);
+      if (!isNaN(page) && page >= 1 && page <= totalPages && page !== currentStoriesPage) {
+        currentStoriesPage = page;
+        renderStories();
+
+        const section = document.getElementById("latest-giet");
+        if (section) {
+          const navOffset = 90;
+          const elementPosition = section.getBoundingClientRect().top + window.pageYOffset;
+          window.scrollTo({
+            top: elementPosition - navOffset,
+            behavior: "smooth"
+          });
+        }
+      }
+    });
+  });
 }
 
 /* =========================================================
@@ -610,7 +778,7 @@ function openReader(story) {
         <div class="reader-author-header">
           <img
             class="reader-author-avatar"
-            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=180&q=80"
+            src="${escapeHtml(story.authorAvatar || "giet-logo.webp")}"
             alt="${escapeHtml(authorName)}"
           >
           <div>
@@ -675,6 +843,7 @@ function setupFilters() {
       button.classList.add("active");
 
       activeCategory = button.dataset.category || "all";
+      currentStoriesPage = 1;
 
       renderStories();
 
@@ -697,6 +866,7 @@ function setupSearch() {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
       searchTerm = event.target.value.trim();
+      currentStoriesPage = 1;
       renderStories();
     }, 180);
   });
@@ -719,7 +889,7 @@ function setupHero() {
 function setupFeaturedStories() {
   document.querySelectorAll(".featured-main").forEach(card => {
     card.addEventListener("click", () => {
-      const story = allStories.find(s => s.id === "lead-editorial") || allStories[0];
+      const story = findStoryById("lead-editorial") || allStories[0];
       if (story) {
         openReader(story);
       }
@@ -728,6 +898,14 @@ function setupFeaturedStories() {
 
   document.querySelectorAll(".featured-small.story-jump").forEach(card => {
     card.addEventListener("click", () => {
+      const storyId = card.dataset.storyId;
+      if (storyId) {
+        const story = findStoryById(storyId);
+        if (story) {
+          openReader(story);
+          return;
+        }
+      }
       const target = card.dataset.featureTarget;
       if (target) {
         scrollToId(target);
@@ -744,9 +922,30 @@ function setupStoryActions() {
   document.querySelectorAll(".story-action").forEach(button => {
     button.addEventListener("click", event => {
       event.stopPropagation();
+      const storyId = button.dataset.storyId;
+      if (storyId) {
+        const story = findStoryById(storyId);
+        if (story) {
+          openReader(story);
+          return;
+        }
+      }
       const target = button.dataset.scrollTarget;
       if (target) {
         scrollToId(target);
+      }
+    });
+  });
+
+  document.querySelectorAll(".image-story-card").forEach(card => {
+    card.addEventListener("click", event => {
+      if (event.target.closest(".story-action")) return;
+      const storyId = card.dataset.storyId;
+      if (storyId) {
+        const story = findStoryById(storyId);
+        if (story) {
+          openReader(story);
+        }
       }
     });
   });
@@ -764,6 +963,7 @@ function setupTrendingPanel() {
       if (searchInput && topic) {
         searchInput.value = topic;
         searchTerm = topic;
+        currentStoriesPage = 1;
         renderStories();
         scrollToId("latest-giet");
         notify(`Filtered stories matching: "${topic}"`);
@@ -890,9 +1090,9 @@ function setupGazette() {
 
 function setupSpotlight() {
   document.querySelector(".spotlight-button")?.addEventListener("click", () => {
-    notify("Opening Anushka Palo's distinguished fellow profile...");
+    notify("Opening Shakti Prasad Pattnaik's distinguished alumni profile...");
     setTimeout(() => {
-      window.location.href = "profile.html?id=usr-anushka-palo";
+      window.location.href = "profile.html?id=usr-shakti-prasad-pattnaik";
     }, 600);
   });
 }
@@ -1028,7 +1228,7 @@ function setupSubmissionForm() {
       title,
       category,
       excerpt: excerpt || title,
-      image: image || "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80",
+      image: image || "images/news/giet-tejas-startup-odisha.png",
       body,
       status: "pending",
       createdAt: new Date().toISOString(),
@@ -1042,6 +1242,7 @@ function setupSubmissionForm() {
         await createSubmission(storyData);
       } else {
         allStories.unshift({ ...storyData, id: `story-${Date.now()}` });
+        currentStoriesPage = 1;
         renderStories();
       }
 
